@@ -15,5 +15,5 @@ for script in scripts:
     result = subprocess.run(["python", script])
 
     if result.returncode != 0:
-        print(f"❌ Error in {script}")
+        print(f"Error in {script}")
         break
