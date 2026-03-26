@@ -1,0 +1,32 @@
+2026-01-03 19:11:55,600 - INFO - 140614505268800 - Processing https://unit42.paloaltonetworks.com/sugarcrm-cloud-incident-black-hat/
+2026-01-03 19:11:55,600 - INFO - 140614505268800 - 	Preprocessing OSCTI
+2026-01-03 19:11:55,600 - INFO - 140614505268800 - 		Downloading HTML
+2026-01-03 19:11:55,600 - INFO - 140614505268800 - 			Fetching website (requests)
+2026-01-03 19:11:57,459 - INFO - 140614505268800 - 		Parsing HTML
+2026-01-03 19:11:57,487 - INFO - 140614505268800 - 			Cleaning HTML
+2026-01-03 19:11:57,494 - INFO - 140614505268800 - 			Fixing HTML structure
+2026-01-03 19:11:57,529 - INFO - 140614505268800 - 			Filtering HTML elements
+2026-01-03 19:11:57,552 - INFO - 140614505268800 - 			Parsing HTML
+2026-01-03 19:11:57,582 - INFO - 140614505268800 - 			Refining Markdown
+2026-01-03 19:11:57,583 - INFO - 140614505268800 - 		Splitting Markdown to paragraphs
+2026-01-03 19:11:57,583 - INFO - 140614505268800 - 		Splitting Markdown and paragraphs to attack cases
+2026-01-03 19:12:00,241 - INFO - 140614505268800 - 		Enhancing paragraphs with parent headings
+2026-01-03 19:12:00,241 - INFO - 140614505268800 - 		Analyzing images
+2026-01-03 19:12:01,265 - INFO - 140614354253376 - Retrying request to /chat/completions in 0.402573 seconds
+2026-01-03 19:12:01,294 - INFO - 140614251300416 - Retrying request to /chat/completions in 0.448791 seconds
+2026-01-03 19:12:01,353 - INFO - 140614268085824 - Retrying request to /chat/completions in 0.492892 seconds
+2026-01-03 19:12:01,369 - INFO - 140614259693120 - Retrying request to /chat/completions in 0.447791 seconds
+2026-01-03 19:12:01,375 - INFO - 140614362646080 - Retrying request to /chat/completions in 0.489052 seconds
+2026-01-03 19:12:01,397 - INFO - 140614276478528 - Retrying request to /chat/completions in 0.433337 seconds
+2026-01-03 19:12:01,828 - INFO - 140614354253376 - Retrying request to /chat/completions in 0.904047 seconds
+2026-01-03 19:12:01,975 - INFO - 140614259693120 - Retrying request to /chat/completions in 0.966866 seconds
+2026-01-03 19:12:01,995 - INFO - 140614276478528 - Retrying request to /chat/completions in 0.935073 seconds
+2026-01-03 19:12:02,514 - INFO - 140614251300416 - Retrying request to /chat/completions in 0.784554 seconds
+2026-01-03 19:12:02,521 - INFO - 140614362646080 - Retrying request to /chat/completions in 0.988670 seconds
+2026-01-03 19:12:02,549 - INFO - 140614268085824 - Retrying request to /chat/completions in 0.935668 seconds
+2026-01-03 19:12:02,921 - ERROR - 140614354253376 - Error classifying image: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-01-03 19:12:03,107 - ERROR - 140614259693120 - Error classifying image: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-01-03 19:12:03,108 - ERROR - 140614276478528 - Error classifying image: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-01-03 19:12:03,457 - ERROR - 140614251300416 - Error classifying image: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-01-03 19:12:04,010 - ERROR - 140614268085824 - Error classifying image: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-01-03 19:12:04,029 - ERROR - 140614362646080 - Error classifying image: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}

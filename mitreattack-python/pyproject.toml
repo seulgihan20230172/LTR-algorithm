@@ -1,0 +1,108 @@
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project]
+name = "mitreattack-python"
+description = "MITRE ATT&CK python library"
+version = "5.4.0"
+authors = [{ name = "MITRE ATT&CK", email = "attack@mitre.org" }]
+license = { text = "Apache-2.0" }
+readme = "README.md"
+requires-python = ">=3.11,<4.0"
+dynamic = ["classifiers"]
+dependencies = [
+    "colour",
+    "deepdiff",
+    "drawsvg",
+    "loguru",
+    "Markdown",
+    "numpy",
+    "openpyxl",
+    "pandas",
+    "pooch",
+    "python-dateutil",
+    "Pillow",
+    "requests",
+    "rich",
+    "stix2",
+    "tabulate",
+    "tqdm",
+    "typer",
+    "wheel",
+    "xlsxwriter",
+]
+
+[project.urls]
+homepage = "https://github.com/mitre-attack/mitreattack-python/"
+repository = "https://github.com/mitre-attack/mitreattack-python/"
+documentation = "https://mitreattack-python.readthedocs.io/"
+
+[project.scripts]
+attackToExcel_cli = 'mitreattack.attackToExcel.attackToExcel:main'
+layerExporter_cli = 'mitreattack.navlayers.layerExporter_cli:main'
+layerGenerator_cli = 'mitreattack.navlayers.layerGenerator_cli:main'
+indexToMarkdown_cli = 'mitreattack.collections.index_to_markdown:main'
+collectionToIndex_cli = 'mitreattack.collections.collection_to_index:main'
+diff_stix = 'mitreattack.diffStix.changelog_helper:main'
+download_attack_stix = 'mitreattack.download_stix:app'
+
+[tool.commitizen]
+version_provider = "pep621" # source of truth is in pyproject.toml
+bump_message = "bump: version $current_version → $new_version"
+update_changelog_on_bump = true
+changelog_incremental = true
+legacy_tag_formats = ["v$version"]
+version_files = [
+    "docs/conf.py:^version = ['\"](.*)['\"]",
+    "docs/conf.py:^release = ['\"](.*)['\"]",
+    "mitreattack/__init__.py:^__version__ = ['\"](.*)['\"]",
+]
+
+[tool.poetry]
+packages = [{ include = "mitreattack" }]
+include = [
+    { path = "mitreattack/navlayers/exporters/fonts/*.ttf", format = [
+        "sdist",
+        "wheel",
+    ] },
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Security",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+check-wheel-contents = "*"
+commitizen = "*"
+pytest = "*"
+pytest-cov = "*"
+pytest-dotenv = "*"
+ruff = "*"
+responses = "*"
+
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "*"
+sphinx_rtd_theme = "*"
+
+[tool.ruff]
+line-length = 120
+extend-exclude = ["tests/resources/", "examples/", "__init__.py"]
+
+[tool.ruff.lint]
+ignore = [
+    "E501", # line-too-long
+]
+# On top of the defaults (E, F), enable pydocstyle (D), isort (I), and bugbear (B).
+select = ["E", "F", "D", "I", "B"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"

@@ -1,0 +1,8 @@
+PyYAML
+beautifulsoup4
+openai
+pyparsing
+python-dotenv
+selenium
+tiktoken
+webdriver-manager

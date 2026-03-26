@@ -1,0 +1,15 @@
+{
+  "model_path": "device_rule_LTR_score/output/ranknet/20260203_084350_ALL/ranknet.pt",
+  "feature_keys_path": "device_rule_LTR_score/output/ranknet/20260203_084350_ALL/feature_keys.json",
+  "best_select_metric": 0.6724131699222136,
+  "valid_metrics": {
+    "MAP": 0.0,
+    "NDCG@1": 0.8571428571428571,
+    "NDCG@3": 0.7645655777881525,
+    "NDCG@5": 0.7308190628968125,
+    "NDCG@10": 0.6724131699222136
+  },
+  "train_queries": 58,
+  "valid_queries": 14,
+  "num_features": 3
+}

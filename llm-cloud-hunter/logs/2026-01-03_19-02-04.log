@@ -1,0 +1,4 @@
+2026-01-03 19:02:05,616 - INFO - 140478141920832 - Processing https://unit42.paloaltonetworks.com/sugarcrm-cloud-incident-black-hat/
+2026-01-03 19:02:05,616 - INFO - 140478141920832 - 	Preprocessing OSCTI
+2026-01-03 19:02:05,616 - INFO - 140478141920832 - 		Downloading HTML
+2026-01-03 19:02:05,616 - INFO - 140478141920832 - 			Initializing Chrome web driver

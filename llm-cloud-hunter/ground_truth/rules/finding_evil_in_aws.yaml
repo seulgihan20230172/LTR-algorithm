@@ -1,0 +1,82 @@
+-   tags:
+        - attack.credential_access
+        - attack.t1552
+        - attack.t1552.004
+    logsource:
+        product: aws
+        service: cloudtrail
+    detection:
+        selection:
+            eventSource: ec2.amazonaws.com
+            eventName:
+                - CreateKeyPair
+                - ImportKeyPair
+    selection_ioc_ip:
+        sourceIPAddress: 192.168.0.1
+    selection_ioc_ua:
+        userAgent|contains: aws-cli/1.18.33 Python/3.5.1 Linux/3.10.0-1062.el7.x86_64 botocore/1.15.33
+    condition: selection and (selection_ioc_ip or selection_ioc_ua)
+    level: high
+-   tags:
+        - attack.discovery
+        - attack.t1526
+    logsource:
+        product: aws
+        service: cloudtrail
+    detection:
+        selection_s3:
+            eventSource: s3.amazonaws.com
+            eventName: ListBuckets
+        selection_ec2:
+            eventSource: ec2.amazonaws.com
+            eventName: DescribeInstances
+        selection_rds:
+            eventSource: rds.amazonaws.com
+            eventName: DescribeDBInstances
+        selection_ioc_ip:
+            sourceIPAddress: 192.168.0.1
+        selection_ioc_ua:
+            userAgent|contains: aws-cli/1.18.33 Python/3.5.1 Linux/3.10.0-1062.el7.x86_64 botocore/1.15.33
+        condition: (selection_s3 or selection_ec2 or selection_rds) and (selection_ioc_ip or selection_ioc_ua)
+    level: medium
+-   tags:
+        - attack.persistence
+        - attack.t1098
+    logsource:
+        product: aws
+        service: cloudtrail
+    detection:
+        selection_describe:
+            eventSource: ec2.amazonaws.com
+            eventName: DescribeSecurityGroups
+        selection_modify:
+            eventSource: ec2.amazonaws.com
+            eventName: AuthorizeSecurityGroupIngress
+        selection_ioc_ip:
+            sourceIPAddress: 192.168.0.1
+        selection_ioc_ua:
+            userAgent|contains: aws-cli/1.18.33 Python/3.5.1 Linux/3.10.0-1062.el7.x86_64 botocore/1.15.33
+        condition: selection_describe and selection_modify and (selection_ioc_ip or selection_ioc_ua)
+    level: high
+-   tags:
+        - attack.execution
+        - attack.t1204
+    logsource:
+        product: aws
+        service: cloudtrail
+    detection:
+        selection_describe:
+            eventSource: ec2.amazonaws.com
+            eventName: DescribeInstances
+        selection_create_key:
+            eventSource: ec2.amazonaws.com
+            eventName: CreateKeyPair
+        selection_run:
+            eventSource: ec2.amazonaws.com
+            eventName: RunInstances
+        selection_ioc_ip:
+            sourceIPAddress: '192.168.0.1'
+        selection_ioc_ua:
+            userAgent|contains: aws-cli/1.18.33 Python/3.5.1 Linux/3.10.0-1062.el7.x86_64 botocore/1.15.33
+        condition: all of selection_* and (selection_ioc_ip or selection_ioc_ua)
+    level: high

@@ -1,0 +1,64 @@
+2026-01-03 19:18:13,955 - INFO - 139665983137344 - Processing https://unit42.paloaltonetworks.com/sugarcrm-cloud-incident-black-hat/
+2026-01-03 19:18:13,955 - INFO - 139665983137344 - 	Preprocessing OSCTI
+2026-01-03 19:18:13,955 - INFO - 139665983137344 - 		Downloading HTML
+2026-01-03 19:18:13,955 - INFO - 139665983137344 - 			Fetching website (requests)
+2026-01-03 19:18:14,169 - INFO - 139665983137344 - 		Parsing HTML
+2026-01-03 19:18:14,196 - INFO - 139665983137344 - 			Cleaning HTML
+2026-01-03 19:18:14,203 - INFO - 139665983137344 - 			Fixing HTML structure
+2026-01-03 19:18:14,238 - INFO - 139665983137344 - 			Filtering HTML elements
+2026-01-03 19:18:14,261 - INFO - 139665983137344 - 			Parsing HTML
+2026-01-03 19:18:14,291 - INFO - 139665983137344 - 			Refining Markdown
+2026-01-03 19:18:14,292 - INFO - 139665983137344 - 		Splitting Markdown to paragraphs
+2026-01-03 19:18:14,292 - INFO - 139665983137344 - 		Splitting Markdown and paragraphs to attack cases
+2026-01-03 19:18:14,656 - INFO - 139665983137344 - 		Enhancing paragraphs with parent headings
+2026-01-03 19:18:14,656 - INFO - 139665983137344 - 		Analyzing images
+2026-01-03 19:18:15,081 - INFO - 139665751402048 - Retrying request to /chat/completions in 0.389076 seconds
+2026-01-03 19:18:15,086 - INFO - 139665734616640 - Retrying request to /chat/completions in 0.394762 seconds
+2026-01-03 19:18:15,094 - INFO - 139665743009344 - Retrying request to /chat/completions in 0.449030 seconds
+2026-01-03 19:18:15,096 - INFO - 139665847158336 - Retrying request to /chat/completions in 0.433886 seconds
+2026-01-03 19:18:15,096 - INFO - 139665838765632 - Retrying request to /chat/completions in 0.495799 seconds
+2026-01-03 19:18:15,121 - INFO - 139665759794752 - Retrying request to /chat/completions in 0.459334 seconds
+2026-01-03 19:18:15,622 - INFO - 139665751402048 - Retrying request to /chat/completions in 0.934325 seconds
+2026-01-03 19:18:15,646 - INFO - 139665734616640 - Retrying request to /chat/completions in 0.876481 seconds
+2026-01-03 19:18:15,701 - INFO - 139665743009344 - Retrying request to /chat/completions in 0.827537 seconds
+2026-01-03 19:18:15,717 - INFO - 139665847158336 - Retrying request to /chat/completions in 0.926232 seconds
+2026-01-03 19:18:15,740 - INFO - 139665838765632 - Retrying request to /chat/completions in 0.979797 seconds
+2026-01-03 19:18:15,742 - INFO - 139665759794752 - Retrying request to /chat/completions in 0.907236 seconds
+2026-01-03 19:18:16,696 - ERROR - 139665743009344 - Error classifying image: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-01-03 19:18:16,696 - WARNING - 139665743009344 - 		Image classification returned None. Skipping. url=https://unit42.paloaltonetworks.com/wp-content/uploads/2023/08/word-image-129566-5-2.png
+2026-01-03 19:18:16,701 - ERROR - 139665734616640 - Error classifying image: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-01-03 19:18:16,701 - WARNING - 139665734616640 - 		Image classification returned None. Skipping. url=https://unit42.paloaltonetworks.com/wp-content/uploads/2023/08/word-image-129566-6-2.png
+2026-01-03 19:18:16,742 - ERROR - 139665751402048 - Error classifying image: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-01-03 19:18:16,742 - WARNING - 139665751402048 - 		Image classification returned None. Skipping. url=https://unit42.paloaltonetworks.com/wp-content/uploads/2023/08/word-image-129566-4-2.png
+2026-01-03 19:18:16,805 - ERROR - 139665847158336 - Error classifying image: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-01-03 19:18:16,806 - WARNING - 139665847158336 - 		Image classification returned None. Skipping. url=https://unit42.paloaltonetworks.com/wp-content/uploads/2023/08/word-image-129566-1-2.png
+2026-01-03 19:18:16,839 - ERROR - 139665759794752 - Error classifying image: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-01-03 19:18:16,839 - WARNING - 139665759794752 - 		Image classification returned None. Skipping. url=https://unit42.paloaltonetworks.com/wp-content/uploads/2023/08/word-image-129566-3-2.png
+2026-01-03 19:18:16,897 - ERROR - 139665838765632 - Error classifying image: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-01-03 19:18:16,897 - WARNING - 139665838765632 - 		Image classification returned None. Skipping. url=https://unit42.paloaltonetworks.com/wp-content/uploads/2023/08/word-image-129566-2-2.png
+2026-01-03 19:18:16,898 - INFO - 139665983137344 - 		Filtering paragraphs
+2026-01-03 19:18:16,903 - INFO - 139665847158336 - 	Processing paragraphs
+2026-01-03 19:18:17,093 - ERROR - 139665743009344 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,096 - ERROR - 139665709438528 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,103 - ERROR - 139665717831232 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,111 - ERROR - 139665726223936 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,115 - ERROR - 139665751402048 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,115 - ERROR - 139665838765632 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,120 - ERROR - 139665147422272 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,126 - ERROR - 139665759794752 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,129 - ERROR - 139665734616640 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,132 - ERROR - 139665155814976 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,254 - ERROR - 139665743009344 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,258 - ERROR - 139665717831232 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,259 - ERROR - 139665709438528 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,292 - ERROR - 139665147422272 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,295 - ERROR - 139665759794752 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,297 - ERROR - 139665751402048 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,297 - ERROR - 139665838765632 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,298 - ERROR - 139665726223936 - Error extracting explicit API calls: Error code: 404 - {'error': {'message': 'The model `chatgpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-01-03 19:18:17,299 - INFO - 139665847158336 - 	Processing rules
+2026-01-03 19:18:17,299 - WARNING - 139665847158336 - optimize_rules called with None. Returning empty list.
+2026-01-03 19:18:17,519 - INFO - 139665847158336 - Retrying request to /chat/completions in 0.459878 seconds
+2026-01-03 19:18:18,136 - INFO - 139665847158336 - Retrying request to /chat/completions in 0.915068 seconds
+2026-01-03 19:18:19,235 - ERROR - 139665847158336 - Error extracting IOCs: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-01-03 19:18:19,235 - WARNING - 139665847158336 - IOC extraction returned None. Skipping IOC enrichment.

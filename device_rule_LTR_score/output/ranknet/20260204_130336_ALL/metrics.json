@@ -1,0 +1,20 @@
+{
+  "model_path": "device_rule_LTR_score/output/ranknet/20260204_130336_ALL/ranknet.pt",
+  "feature_keys_path": "device_rule_LTR_score/output/ranknet/20260204_130336_ALL/feature_keys.json",
+  "best_select_metric": 0.9981851179673321,
+  "valid_metrics": {
+    "MAP(rel>=2)": 0.9782214156079855,
+    "MAP(rel>=1)": 0.9981851179673321,
+    "NDCG@1": 0.9981851179673321,
+    "NDCG@3": 0.9981851179673321,
+    "NDCG@5": 0.9981851179673321,
+    "NDCG@10": 0.9981851179673321,
+    "num_eval_queries": 551
+  },
+  "train_queries": 2206,
+  "valid_queries": 551,
+  "num_features": 3,
+  "pairs_per_query": 300,
+  "epochs": 10,
+  "lr": 0.001
+}

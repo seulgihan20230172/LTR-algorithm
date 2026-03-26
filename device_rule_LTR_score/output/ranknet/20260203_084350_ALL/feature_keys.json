@@ -1,0 +1,5 @@
+[
+  "is_exact_match",
+  "tactic_overlap",
+  "text_sim"
+]

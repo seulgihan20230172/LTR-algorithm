@@ -1,0 +1,7 @@
+nohup: ignoring input
+Traceback (most recent call last):
+  File "main.py", line 6, in <module>
+    from utils import setup_logging, dump_yaml
+  File "/home/work/lab_project/llm-cloud-hunter/utils.py", line 57, in <module>
+    def dump_yaml(yaml_object: dict | list[dict]) -> str:
+TypeError: 'type' object is not subscriptable

@@ -1,0 +1,29 @@
+nohup: ignoring input
+len of attack_cases: 1
+Attack case Token size:  4922
+Total images analyzed: 0
+Attack case with images Token size:  4378
+Traceback (most recent call last):
+  File "/home/work/lab_project/llm-cloud-hunter/main.py", line 92, in <module>
+    main(urls)
+  File "/home/work/lab_project/llm-cloud-hunter/main.py", line 47, in main
+    attack_cases = future.result()
+  File "/usr/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+    return self.__get_result()
+  File "/usr/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+    raise self._exception
+  File "/usr/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/home/work/lab_project/llm-cloud-hunter/llm_cloud_hunter.py", line 64, in process_url
+    rules = future.result()
+  File "/usr/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+    return self.__get_result()
+  File "/usr/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+    raise self._exception
+  File "/usr/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/home/work/lab_project/llm-cloud-hunter/llm_cloud_hunter.py", line 48, in _process_attack_case
+    rules = self.oscti_level_processor.process_rules(rules, markdown)
+  File "/home/work/lab_project/llm-cloud-hunter/oscti_level_processor.py", line 100, in process_rules
+    if ioc_ip_addresses or ioc.user_agents:
+AttributeError: 'NoneType' object has no attribute 'user_agents'

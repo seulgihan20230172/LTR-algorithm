@@ -1,0 +1,11 @@
+nohup: ignoring input
+Traceback (most recent call last):
+  File "/home/work/lab_project/llm-cloud-hunter/main.py", line 7, in <module>
+    from llm_cloud_hunter import LLMCloudHunter
+  File "/home/work/lab_project/llm-cloud-hunter/llm_cloud_hunter.py", line 5, in <module>
+    from preprocessor import Preprocessor
+  File "/home/work/lab_project/llm-cloud-hunter/preprocessor.py", line 5, in <module>
+    from downloader import Downloader
+  File "/home/work/lab_project/llm-cloud-hunter/downloader.py", line 3, in <module>
+    from selenium.common import WebDriverException
+ImportError: cannot import name 'WebDriverException' from 'selenium.common' (/usr/local/lib/python3.12/dist-packages/selenium/common/__init__.py)
