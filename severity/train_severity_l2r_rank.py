@@ -25,6 +25,23 @@ from sklearn.preprocessing import OrdinalEncoder
 ROOT = Path(__file__).resolve().parents[1]
 SEVERITY_DIR = Path(__file__).resolve().parent
 L2R_DIR = ROOT / "L2R"
+L2R_SAVE_CHECKPOINT = L2R_DIR / "save_checkpoint"
+L2R_SAVE_SUBDIRS = (
+    "listnet",
+    "listmle",
+    "xgboost",
+    "lambdarank",
+    "ranknet",
+    "lambdamart",
+)
+
+
+def ensure_l2r_save_checkpoint_dirs() -> Path:
+    """L2R/save_checkpoint 및 하위 모델 폴더를 만든다 (L2R 코드의 상대 경로 저장과 호환)."""
+    L2R_SAVE_CHECKPOINT.mkdir(parents=True, exist_ok=True)
+    for sub in L2R_SAVE_SUBDIRS:
+        (L2R_SAVE_CHECKPOINT / sub).mkdir(parents=True, exist_ok=True)
+    return L2R_SAVE_CHECKPOINT
 
 
 class _TeeIO:
@@ -301,11 +318,10 @@ def run(
     fr_train = class_fractions(y_train)
     counts_train = np.array([y_train.value_counts().get(lbl, 0) for lbl in LABEL_ORDER_DESC], dtype=int)
 
+    ensure_l2r_save_checkpoint_dirs()
     cwd = os.getcwd()
     try:
         os.chdir(L2R_DIR)
-        for sub in ("listnet", "listmle", "xgboost"):
-            (Path("save_checkpoint") / sub).mkdir(parents=True, exist_ok=True)
         if model_name == "listnet":
             model = train_listnet_local(
                 xt, yr_train, qid_train, xv, yr_val, qid_val, epochs=epochs, lr=0.001, patience=8
