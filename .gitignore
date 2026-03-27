@@ -4,5 +4,7 @@ note.txt
 severity/logging_monitoring_anomalies.csv
 severity/logging_monitoring_anomalies_predictions.csv
 severity/*.csv
+severity/__pycache__
 
 L2R/__pycache__/*.pyc
+
