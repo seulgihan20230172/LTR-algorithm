@@ -217,6 +217,25 @@ def average_precision(y_true, y_pred):
     return score / hits if hits > 0 else 0.0
 
 
+def relevance_vector(y: np.ndarray) -> np.ndarray:
+    """심각도 라벨을 RELEVANCE 스케일(Low=0 … Critical=3)로 변환한다."""
+    return np.array([RELEVANCE[str(v)] for v in y], dtype=np.float64)
+
+
+def ordinal_severity_errors(y_true: np.ndarray, y_pred: np.ndarray) -> tuple[float, float, float]:
+    """순서 반영: Critical에서 High 오류(거리 1)가 Low 오류(거리 3)보다 작은 페널티가 된다.
+
+    반환: (ordinal_mae, ordinal_rmse, within_one_frac) — within_one은 |Δrelevance|≤1 비율.
+    """
+    t = relevance_vector(y_true)
+    p = relevance_vector(y_pred)
+    diff = np.abs(t - p)
+    mae = float(np.mean(diff))
+    rmse = float(np.sqrt(np.mean((t - p) ** 2)))
+    w1 = float(np.mean(diff <= 1.0))
+    return mae, rmse, w1
+
+
 def evaluate_ranking_all(y_rel: np.ndarray, pred_score: np.ndarray, qid: np.ndarray) -> dict:
     groups = group_by_qid(qid)
     res = {"NDCG@1": [], "NDCG@5": [], "NDCG@10": [], "MAP": [], "MRR": []}
@@ -233,8 +252,15 @@ def evaluate_ranking_all(y_rel: np.ndarray, pred_score: np.ndarray, qid: np.ndar
 
 def report_metrics(y_true: np.ndarray, y_pred: np.ndarray, name: str) -> None:
     labels = [l for l in LABEL_ORDER_DESC if l in np.unique(y_true) or l in np.unique(y_pred)]
+    ord_mae, ord_rmse, within_one = ordinal_severity_errors(y_true, y_pred)
     print(f"\n=== {name} ===")
     print(f"Accuracy: {accuracy_score(y_true, y_pred):.4f}")
+    print(
+        f"Ordinal MAE (relevance 0–3): {ord_mae:.4f}  "
+        f"(closer wrong labels score better than farther; ex. Critical→High < Critical→Low penalty)"
+    )
+    print(f"Ordinal RMSE (relevance): {ord_rmse:.4f}")
+    print(f"Within-1 severity (|pred-true|≤1 step): {within_one:.4f}")
     print(f"Macro precision: {precision_score(y_true, y_pred, labels=labels, average='macro', zero_division=0):.4f}")
     print(f"Macro recall: {recall_score(y_true, y_pred, labels=labels, average='macro', zero_division=0):.4f}")
     print(f"Macro F1: {f1_score(y_true, y_pred, labels=labels, average='macro', zero_division=0):.4f}")

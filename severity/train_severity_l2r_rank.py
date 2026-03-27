@@ -16,7 +16,7 @@ import torch
 import torch.optim as optim
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
-from sklearn.metrics import accuracy_score, classification_report, f1_score, precision_score, recall_score
+from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OrdinalEncoder
@@ -27,6 +27,7 @@ SEVERITY_DIR = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 from severity.experiment_config import DEFAULT_CONFIG_PATH, load_experiment_config  # noqa: E402
+from severity.severity_rank_controlgroup import report_metrics  # noqa: E402
 
 L2R_DIR = ROOT / "L2R"
 L2R_SAVE_CHECKPOINT = L2R_DIR / "save_checkpoint"
@@ -263,7 +264,7 @@ def predict_torch(model, X: np.ndarray) -> np.ndarray:
     with torch.no_grad():
         return model(torch.tensor(X, dtype=torch.float32)).numpy().astype(np.float64)
 
-
+'''
 def report_metrics(y_true: np.ndarray, y_pred: np.ndarray, name: str) -> None:
     labels = [l for l in LABEL_ORDER_DESC if l in np.unique(y_true) or l in np.unique(y_pred)]
     print(f"\n=== {name} ===")
@@ -275,6 +276,7 @@ def report_metrics(y_true: np.ndarray, y_pred: np.ndarray, name: str) -> None:
     print(f"Weighted recall: {recall_score(y_true, y_pred, labels=labels, average='weighted', zero_division=0):.4f}")
     print(f"Weighted F1: {f1_score(y_true, y_pred, labels=labels, average='weighted', zero_division=0):.4f}")
     print(classification_report(y_true, y_pred, labels=labels, digits=4))
+'''
 
 
 def run(
