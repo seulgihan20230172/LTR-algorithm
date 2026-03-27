@@ -24,6 +24,10 @@ from sklearn.preprocessing import OrdinalEncoder
 
 ROOT = Path(__file__).resolve().parents[1]
 SEVERITY_DIR = Path(__file__).resolve().parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from severity.experiment_config import DEFAULT_CONFIG_PATH, load_experiment_config  # noqa: E402
+
 L2R_DIR = ROOT / "L2R"
 L2R_SAVE_CHECKPOINT = L2R_DIR / "save_checkpoint"
 L2R_SAVE_SUBDIRS = (
@@ -419,7 +423,12 @@ def _default_log_path(model: str, test_mode: str) -> Path:
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("--csv", type=str, default="severity/logging_monitoring_anomalies.csv")
+    p.add_argument(
+        "--config",
+        type=str,
+        default=None,
+        help=f"실험 YAML 경로 (기본: {DEFAULT_CONFIG_PATH})",
+    )
     p.add_argument("--model", type=str, choices=["listnet", "listmle", "xgboost"], default="listnet")
     p.add_argument(
         "--test-mode",
@@ -429,11 +438,13 @@ if __name__ == "__main__":
         help="train_thresholds: train에서 학습한 score 경계로 test 분할. "
         "test_oracle_ratio: test에서 실제 4class 개수 비율로 상위부터 배정",
     )
+    '''
     p.add_argument("--test-size", type=float, default=0.2)
     p.add_argument("--val-size", type=float, default=0.2, help="train+val+test=원본에서, val은 (1-test-size)*val-size")
     p.add_argument("--random-state", type=int, default=42)
     p.add_argument("--group-size", type=int, default=64)
     p.add_argument("--epochs", type=int, default=35)
+    '''
     p.add_argument(
         "--log",
         type=str,
@@ -444,6 +455,15 @@ if __name__ == "__main__":
     p.add_argument("--no-log", action="store_true", help="파일 로그를 쓰지 않음")
     args = p.parse_args()
 
+    cfg_resolved = Path(args.config).resolve() if args.config else DEFAULT_CONFIG_PATH.resolve()
+    cfg = load_experiment_config(args.config)
+    csv_path = cfg["data"]["csv"]
+    test_size = float(cfg["split"]["test_size"])
+    val_size = float(cfg["split"]["val_size"])
+    random_state = int(cfg["split"]["random_state"])
+    group_size = int(cfg["ranking"]["group_size"])
+    epochs = int(cfg["epochs"]["l2r"])
+
     log_f = None
     old_out, old_err = sys.stdout, sys.stderr
     if not args.no_log:
@@ -451,7 +471,8 @@ if __name__ == "__main__":
         log_path.parent.mkdir(parents=True, exist_ok=True)
         log_f = open(log_path, "w", encoding="utf-8")
         log_f.write(f"# train_severity_l2r_rank {datetime.now().isoformat()}\n")
-        log_f.write(f"# model={args.model} test_mode={args.test_mode} csv={args.csv}\n\n")
+        log_f.write(f"# model={args.model} test_mode={args.test_mode} csv={csv_path}\n")
+        log_f.write(f"# config={cfg_resolved}\n\n")
         log_f.flush()
         sys.stdout = _TeeIO(old_out, log_f)
         sys.stderr = _TeeIO(old_err, log_f)
@@ -459,14 +480,14 @@ if __name__ == "__main__":
 
     try:
         run(
-            args.csv,
+            csv_path,
             args.model,
             args.test_mode,
-            args.test_size,
-            args.val_size,
-            args.random_state,
-            args.group_size,
-            args.epochs,
+            test_size,
+            val_size,
+            random_state,
+            group_size,
+            epochs,
         )
     finally:
         sys.stdout = old_out

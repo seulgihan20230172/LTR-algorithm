@@ -1,0 +1,18 @@
+# severity 실험 공통 설정 (L2R·control group 배치 스크립트와 동일하게 사용)
+# 프로젝트 루트에서 실행하는 것을 기준으로 경로를 둔다.
+
+
+data:
+  csv: severity/logging_monitoring_anomalies.csv
+
+split:
+  test_size: 0.2
+  val_size: 0.2
+  random_state: 42
+
+ranking:
+  group_size: 64
+
+epochs:
+  l2r: 35
+  anomaly: 20

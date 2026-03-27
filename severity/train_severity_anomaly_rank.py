@@ -1,4 +1,4 @@
-﻿import argparse
+import argparse
 import sys
 import time
 from pathlib import Path
@@ -10,7 +10,8 @@ if str(ROOT) not in sys.path:
 import numpy as np
 
 from severity.anomaly.models import build_anomaly_model
-from severity.severity_rank_common import (
+from severity.experiment_config import DEFAULT_CONFIG_PATH, load_experiment_config
+from severity.severity_rank_controlgroup import (
     LABEL_ORDER_DESC,
     TARGET_COL,
     TeeIO,
@@ -100,21 +101,36 @@ def run(csv_path, model_name, test_mode, test_size, val_size, random_state, grou
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--csv", type=str, default="severity/logging_monitoring_anomalies.csv")
+    p.add_argument(
+        "--config",
+        type=str,
+        default=None,
+        help=f"실험 YAML 경로 (기본: {DEFAULT_CONFIG_PATH})",
+    )
     p.add_argument(
         "--model",
         choices=["vanilla_ae", "denoising_ae", "vae", "sequence_ae", "deep_stacked_ae", "isolation_forest"],
         default="isolation_forest",
     )
     p.add_argument("--test-mode", choices=["train_thresholds", "test_oracle_ratio"], default="train_thresholds")
+    '''
     p.add_argument("--test-size", type=float, default=0.2)
     p.add_argument("--val-size", type=float, default=0.2)
     p.add_argument("--random-state", type=int, default=42)
     p.add_argument("--group-size", type=int, default=64)
     p.add_argument("--epochs", type=int, default=20)
+    '''
     p.add_argument("--log", type=str, default=None)
     p.add_argument("--no-log", action="store_true")
     args = p.parse_args()
+
+    cfg = load_experiment_config(args.config)
+    csv_path = cfg["data"]["csv"]
+    test_size = float(cfg["split"]["test_size"])
+    val_size = float(cfg["split"]["val_size"])
+    random_state = int(cfg["split"]["random_state"])
+    group_size = int(cfg["ranking"]["group_size"])
+    epochs = int(cfg["epochs"]["anomaly"])
 
     log_f = None
     old_out, old_err = sys.stdout, sys.stderr
@@ -128,14 +144,14 @@ def main():
 
     try:
         run(
-            args.csv,
+            csv_path,
             args.model,
             args.test_mode,
-            args.test_size,
-            args.val_size,
-            args.random_state,
-            args.group_size,
-            args.epochs,
+            test_size,
+            val_size,
+            random_state,
+            group_size,
+            epochs,
         )
     finally:
         sys.stdout = old_out

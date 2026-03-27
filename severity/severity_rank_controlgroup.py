@@ -1,6 +1,8 @@
-﻿import os
-import sys
-import time
+"""
+심각도 랭킹 실험 공통 유틸(분할, 전처리, 점수→심각도, 랭킹 지표, 로깅).
+이 모듈이 단일 소스이다.
+"""
+
 from datetime import datetime
 from pathlib import Path
 
@@ -249,4 +251,3 @@ def apply_test_mode(test_mode: str, s_test: np.ndarray, y_test: pd.Series, th: n
         counts_te = np.array([y_test.value_counts().get(lbl, 0) for lbl in LABEL_ORDER_DESC], dtype=int)
         return assign_top_scores(s_test, counts_te)
     raise ValueError(test_mode)
-

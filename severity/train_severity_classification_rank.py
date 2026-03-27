@@ -1,4 +1,4 @@
-﻿import argparse
+import argparse
 import sys
 import time
 from pathlib import Path
@@ -10,7 +10,8 @@ if str(ROOT) not in sys.path:
 import numpy as np
 
 from severity.classification.models import build_classification_model
-from severity.severity_rank_common import (
+from severity.experiment_config import DEFAULT_CONFIG_PATH, load_experiment_config
+from severity.severity_rank_controlgroup import (
     LABEL_ORDER_DESC,
     TARGET_COL,
     TeeIO,
@@ -100,17 +101,30 @@ def run(csv_path, model_name, test_mode, test_size, val_size, random_state, grou
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--csv", type=str, default="severity/logging_monitoring_anomalies.csv")
+    p.add_argument(
+        "--config",
+        type=str,
+        default=None,
+        help=f"실험 YAML 경로 (기본: {DEFAULT_CONFIG_PATH})",
+    )
     p.add_argument("--model", choices=["random_forest", "lightgbm"], default="random_forest")
     p.add_argument("--test-mode", choices=["train_thresholds", "test_oracle_ratio"], default="train_thresholds")
+    '''
     p.add_argument("--test-size", type=float, default=0.2)
     p.add_argument("--val-size", type=float, default=0.2)
     p.add_argument("--random-state", type=int, default=42)
     p.add_argument("--group-size", type=int, default=64)
+    '''
     p.add_argument("--log", type=str, default=None)
     p.add_argument("--no-log", action="store_true")
     args = p.parse_args()
 
+    cfg = load_experiment_config(args.config)
+    csv_path = cfg["data"]["csv"]
+    test_size = float(cfg["split"]["test_size"])
+    val_size = float(cfg["split"]["val_size"])
+    random_state = int(cfg["split"]["random_state"])
+    group_size = int(cfg["ranking"]["group_size"])
     log_f = None
     old_out, old_err = sys.stdout, sys.stderr
     if not args.no_log:
@@ -122,7 +136,15 @@ def main():
         print(f"[로그 파일] {log_path.resolve()}", flush=True)
 
     try:
-        run(args.csv, args.model, args.test_mode, args.test_size, args.val_size, args.random_state, args.group_size)
+        run(
+            csv_path,
+            args.model,
+            args.test_mode,
+            test_size,
+            val_size,
+            random_state,
+            group_size,
+        )
     finally:
         sys.stdout = old_out
         sys.stderr = old_err
