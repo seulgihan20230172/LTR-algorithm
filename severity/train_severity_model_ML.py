@@ -1,3 +1,6 @@
+# ML target (detection layer)
+
+
 import argparse
 from itertools import combinations
 
@@ -22,9 +25,7 @@ LEAKAGE_COLS = [
     "Timestamp",
     "Anomaly_ID",
 ]
-LABEL_ORDER = ["Low", "Medium", "High"]
-LABEL_TO_INT = {"Low": 0, "Medium": 1, "High": 2}
-INT_TO_LABEL = {0: "Low", 1: "Medium", 2: "High"}
+CANONICAL_LABEL_ORDER = ["Low", "Medium", "High", "Critical"]
 
 
 def split_features(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
@@ -77,47 +78,53 @@ def build_pipeline(x: pd.DataFrame) -> Pipeline:
     )
 
 
-def severity_score_from_proba(proba: np.ndarray, class_order: list[str]) -> np.ndarray:
+def get_label_order(y: pd.Series) -> list[str]:
+    observed = set(y.unique().tolist())
+    return [lbl for lbl in CANONICAL_LABEL_ORDER if lbl in observed]
+
+
+def severity_score_from_proba(proba: np.ndarray, class_order: list[str], label_order: list[str]) -> np.ndarray:
     idx = {name: i for i, name in enumerate(class_order)}
-    low = proba[:, idx["Low"]]
-    med = proba[:, idx["Medium"]]
-    high = proba[:, idx["High"]]
-    return med + 2.0 * high + 0.0 * low
+    weights = np.array([float(label_order.index(lbl)) for lbl in class_order], dtype=float)
+    return proba @ weights
 
 
-def predict_with_thresholds(score: np.ndarray, t_low_med: float, t_med_high: float) -> np.ndarray:
-    pred_int = np.where(score < t_low_med, 0, np.where(score < t_med_high, 1, 2))
-    return np.array([INT_TO_LABEL[i] for i in pred_int])
+def predict_with_thresholds(score: np.ndarray, thresholds: list[float], label_order: list[str]) -> np.ndarray:
+    pred_idx = np.searchsorted(np.array(thresholds, dtype=float), score, side="right")
+    return np.array([label_order[i] for i in pred_idx])
 
 
-def find_best_thresholds(score: np.ndarray, y_true: np.ndarray) -> tuple[float, float, float]:
+def find_best_thresholds(score: np.ndarray, y_true: np.ndarray, label_order: list[str]) -> tuple[list[float], float]:
+    n_classes = len(label_order)
+    needed = n_classes - 1
     unique_scores = np.unique(np.round(score, 6))
-    if len(unique_scores) < 3:
-        t1 = np.quantile(score, 1 / 3)
-        t2 = np.quantile(score, 2 / 3)
-        pred = predict_with_thresholds(score, t1, t2)
-        return float(t1), float(t2), f1_score(y_true, pred, average="macro")
+    if len(unique_scores) < n_classes:
+        thresholds = [
+            float(np.quantile(score, i / n_classes))
+            for i in range(1, n_classes)
+        ]
+        pred = predict_with_thresholds(score, thresholds, label_order)
+        return thresholds, f1_score(y_true, pred, average="macro")
 
-    candidates = np.quantile(unique_scores, np.linspace(0.05, 0.95, 120))
+    candidates = np.quantile(unique_scores, np.linspace(0.05, 0.95, 24))
     candidates = np.unique(np.round(candidates, 6))
 
     best_f1 = -1.0
-    best_t1, best_t2 = 0.5, 1.5
-    for t1, t2 in combinations(candidates, 2):
-        if t1 >= t2:
-            continue
-        pred = predict_with_thresholds(score, t1, t2)
+    best_thresholds: list[float] = []
+    for comb in combinations(candidates, needed):
+        thresholds = list(comb)
+        pred = predict_with_thresholds(score, thresholds, label_order)
         score_f1 = f1_score(y_true, pred, average="macro")
         if score_f1 > best_f1:
             best_f1 = score_f1
-            best_t1, best_t2 = float(t1), float(t2)
+            best_thresholds = [float(t) for t in thresholds]
 
-    return best_t1, best_t2, best_f1
+    return best_thresholds, best_f1
 
 
-def class_score_ranges(score: np.ndarray, y_true: np.ndarray) -> dict:
+def class_score_ranges(score: np.ndarray, y_true: np.ndarray, label_order: list[str]) -> dict:
     out = {}
-    for label in LABEL_ORDER:
+    for label in label_order:
         mask = y_true == label
         s = score[mask]
         if len(s) == 0:
@@ -136,9 +143,10 @@ def class_score_ranges(score: np.ndarray, y_true: np.ndarray) -> dict:
 def run(csv_path: str, test_size: float, random_state: int) -> None:
     df = pd.read_csv(csv_path)
     x, y = split_features(df)
+    label_order = get_label_order(y)
 
-    if not set(LABEL_ORDER).issubset(set(y.unique())):
-        raise ValueError(f"Severity 라벨은 {LABEL_ORDER}를 포함해야 합니다. 현재: {sorted(y.unique().tolist())}")
+    if len(label_order) < 3:
+        raise ValueError(f"Severity 라벨이 너무 적습니다. 현재: {sorted(y.unique().tolist())}")
 
     x_train, x_test, y_train, y_test = train_test_split(
         x,
@@ -158,33 +166,35 @@ def run(csv_path: str, test_size: float, random_state: int) -> None:
     model = pipe.named_steps["model"]
     class_order = model.classes_.tolist()
     proba_test = pipe.predict_proba(x_test)
-    sev_score = severity_score_from_proba(proba_test, class_order)
+    sev_score = severity_score_from_proba(proba_test, class_order, label_order)
 
-    t1, t2, tuned_f1 = find_best_thresholds(sev_score, y_test.to_numpy())
-    y_pred_by_threshold = predict_with_thresholds(sev_score, t1, t2)
+    thresholds, tuned_f1 = find_best_thresholds(sev_score, y_test.to_numpy(), label_order)
+    y_pred_by_threshold = predict_with_thresholds(sev_score, thresholds, label_order)
 
     print("\n=== 기본 분류 성능(RandomForest direct class prediction) ===")
+    print(f"Labels: {label_order}")
     print(f"Accuracy: {acc:.4f}")
     print(f"Macro F1: {macro_f1:.4f}")
     print("\n[Classification Report]")
-    print(classification_report(y_test, y_pred, labels=LABEL_ORDER, digits=4))
-    print("[Confusion Matrix] (rows=true, cols=pred; order: Low, Medium, High)")
-    print(confusion_matrix(y_test, y_pred, labels=LABEL_ORDER))
+    print(classification_report(y_test, y_pred, labels=label_order, digits=4))
+    print(f"[Confusion Matrix] (rows=true, cols=pred; order: {', '.join(label_order)})")
+    print(confusion_matrix(y_test, y_pred, labels=label_order))
 
     print("\n=== Severity 경계선 식별(연속 severity score 기반) ===")
-    print("severity_score = P(Medium) + 2*P(High)")
-    print(f"Low/Medium 경계선: score < {t1:.6f} -> Low")
-    print(f"Medium/High 경계선: score >= {t2:.6f} -> High")
-    print(f"그 사이: Medium")
+    print("severity_score = Σ[P(class) * ordinal_index(class)]")
+    for i, t in enumerate(thresholds):
+        left = label_order[i]
+        right = label_order[i + 1]
+        print(f"{left}/{right} 경계선: {t:.6f}")
     print(f"Threshold 기반 Macro F1: {tuned_f1:.4f}")
     print("\n[Threshold 방식 Classification Report]")
-    print(classification_report(y_test, y_pred_by_threshold, labels=LABEL_ORDER, digits=4))
-    print("[Threshold 방식 Confusion Matrix] (rows=true, cols=pred; order: Low, Medium, High)")
-    print(confusion_matrix(y_test, y_pred_by_threshold, labels=LABEL_ORDER))
+    print(classification_report(y_test, y_pred_by_threshold, labels=label_order, digits=4))
+    print(f"[Threshold 방식 Confusion Matrix] (rows=true, cols=pred; order: {', '.join(label_order)})")
+    print(confusion_matrix(y_test, y_pred_by_threshold, labels=label_order))
 
-    ranges = class_score_ranges(sev_score, y_test.to_numpy())
+    ranges = class_score_ranges(sev_score, y_test.to_numpy(), label_order)
     print("\n=== 실제 라벨별 severity_score 분포 요약(테스트셋) ===")
-    for label in LABEL_ORDER:
+    for label in label_order:
         r = ranges[label]
         print(
             f"{label}: min={r['min']:.6f}, q25={r['q25']:.6f}, "
