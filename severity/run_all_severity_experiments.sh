@@ -47,7 +47,7 @@ run_one() {
 : > "${OUT}/FAILED.txt"
 
 # --- L2R ---
-for m in listnet listmle xgboost; do
+for m in listnet listmle xgboost ranknet lambdarank lambdamart bm25; do
   run_one "l2r_${m}" severity/train_severity_l2r_rank.py \
     --config "$CONFIG" --model "$m" "${TM_ARGS[@]}" \
     --log "${LOGDIR}/l2r_${m}_${LOG_SUFFIX}.log"

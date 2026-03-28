@@ -84,6 +84,24 @@ try:
 except Exception:
     train_xgb = None
 
+try:
+    from RankNet import RankNet  # noqa: E402
+except Exception:
+    RankNet = None  # type: ignore[misc, assignment]
+
+try:
+    import importlib
+
+    _lambda_rank_mod = importlib.import_module("lambdaRank")
+    LambdaRank = _lambda_rank_mod.LambdaRank  # noqa: E402
+except Exception:
+    LambdaRank = None  # type: ignore[misc, assignment]
+
+try:
+    from LambdaMART import LambdaMART  # noqa: E402
+except Exception:
+    LambdaMART = None  # type: ignore[misc, assignment]
+
 TARGET_COL = "Severity"
 LEAKAGE_COLS = [
     "Anomaly_Type",
@@ -142,6 +160,58 @@ def fit_transform_xy(x_train, x_val, x_test):
 
 def make_qid(n: int, group_size: int) -> np.ndarray:
     return (np.arange(n, dtype=np.int64) // group_size).astype(np.int64)
+
+
+def l2r_train_matrix(y_rel: np.ndarray, qid: np.ndarray, X: np.ndarray) -> np.ndarray:
+    """L2R/RankNet·LambdaRank·LambdaMART가 기대하는 행렬: [relevance, qid, features…]."""
+    return np.column_stack(
+        [
+            np.asarray(y_rel, dtype=np.float32),
+            np.asarray(qid, dtype=np.float32),
+            np.asarray(X, dtype=np.float32),
+        ]
+    )
+
+
+def l2r_infer_matrix(X: np.ndarray) -> np.ndarray:
+    """학습 없이 점수만 낼 때 relevance·qid 자리에 더미."""
+    X = np.asarray(X, dtype=np.float32)
+    z = np.zeros((len(X), 2), dtype=np.float32)
+    return np.hstack([z, X])
+
+
+def train_ranknet_local(training_data: np.ndarray, epochs: int, lr: float = 0.01):
+    if RankNet is None:
+        raise RuntimeError("RankNet 모듈을 불러오지 못했습니다.")
+    n_feature = int(training_data.shape[1] - 2)
+    trainer = RankNet(n_feature, 512, 256, epochs, lr, plot=False)
+    trainer.fit(training_data)
+    return trainer
+
+
+def train_lambdarank_local(training_data: np.ndarray, epochs: int, lr: float = 0.001):
+    if LambdaRank is None:
+        raise RuntimeError("lambdaRank 모듈을 불러오지 못했습니다.")
+    n_feature = int(training_data.shape[1] - 2)
+    trainer = LambdaRank(training_data, n_feature, 512, 256, epochs, lr)
+    trainer.fit()
+    return trainer
+
+
+def train_lambdamart_local(training_data: np.ndarray, n_trees: int, lr: float = 0.1):
+    if LambdaMART is None:
+        raise RuntimeError("LambdaMART 모듈을 불러오지 못했습니다.")
+    trainer = LambdaMART(training_data, number_of_trees=n_trees, lr=lr)
+    trainer.fit()
+    return trainer
+
+
+def predict_ranknet_scores(trainer: object, X: np.ndarray) -> np.ndarray:
+    inner = trainer.model
+    inner.eval()
+    with torch.no_grad():
+        out = inner.model(torch.tensor(X, dtype=torch.float32))
+        return out.numpy().astype(np.float64).ravel()
 
 
 def class_fractions(y: pd.Series) -> np.ndarray:
@@ -330,9 +400,13 @@ def run(
 
     ensure_l2r_save_checkpoint_dirs()
     cwd = os.getcwd()
+    model = None
+    train_mat = l2r_train_matrix(yr_train, qid_train, xt)
     try:
         os.chdir(L2R_DIR)
-        if model_name == "listnet":
+        if model_name == "bm25":
+            pass
+        elif model_name == "listnet":
             model = train_listnet_local(
                 xt, yr_train, qid_train, xv, yr_val, qid_val, epochs=epochs, lr=0.001, patience=8
             )
@@ -343,10 +417,13 @@ def run(
         elif model_name == "xgboost":
             if train_xgb is None:
                 raise RuntimeError("XGBoost_Rank import 실패. xgboost 설치 여부를 확인하세요.")
-            _, group = np.unique(qid_train, return_counts=True)
-            _, group_val = np.unique(qid_val, return_counts=True)
-            xgb_model = train_xgb(xt, yr_train, qid_train, xv, yr_val, qid_val)
-            model = xgb_model
+            model = train_xgb(xt, yr_train, qid_train, xv, yr_val, qid_val)
+        elif model_name == "ranknet":
+            model = train_ranknet_local(train_mat, epochs=epochs, lr=0.01)
+        elif model_name == "lambdarank":
+            model = train_lambdarank_local(train_mat, epochs=epochs, lr=0.001)
+        elif model_name == "lambdamart":
+            model = train_lambdamart_local(train_mat, n_trees=max(1, int(epochs)), lr=0.1)
         else:
             raise ValueError(f"지원하지 않는 model: {model_name}")
     finally:
@@ -354,14 +431,28 @@ def run(
     t_train_val_end = time.perf_counter()
 
     t_eval_start = time.perf_counter()
-    if model_name in ("listnet", "listmle"):
+    if model_name == "bm25":
+        s_train = xt[:, 0].astype(np.float64)
+        s_val = xv[:, 0].astype(np.float64)
+        s_test = xs[:, 0].astype(np.float64)
+    elif model_name in ("listnet", "listmle"):
         s_train = predict_torch(model, xt)
         s_val = predict_torch(model, xv)
         s_test = predict_torch(model, xs)
-    else:
+    elif model_name == "ranknet":
+        s_train = predict_ranknet_scores(model, xt)
+        s_val = predict_ranknet_scores(model, xv)
+        s_test = predict_ranknet_scores(model, xs)
+    elif model_name in ("lambdarank", "lambdamart"):
+        s_train = np.asarray(model.predict(l2r_infer_matrix(xt)), dtype=np.float64)
+        s_val = np.asarray(model.predict(l2r_infer_matrix(xv)), dtype=np.float64)
+        s_test = np.asarray(model.predict(l2r_infer_matrix(xs)), dtype=np.float64)
+    elif model_name == "xgboost":
         s_train = model.predict(xt).astype(np.float64)
         s_val = model.predict(xv).astype(np.float64)
         s_test = model.predict(xs).astype(np.float64)
+    else:
+        raise ValueError(f"지원하지 않는 model: {model_name}")
 
     counts_val = allocate_counts(n_va, fr_train)
     pred_val = assign_top_scores(s_val, counts_val)
@@ -435,7 +526,21 @@ if __name__ == "__main__":
         default=None,
         help=f"실험 YAML 경로 (기본: {DEFAULT_CONFIG_PATH})",
     )
-    p.add_argument("--model", type=str, choices=["listnet", "listmle", "xgboost"], default="listnet")
+    p.add_argument(
+        "--model",
+        type=str,
+        choices=[
+            "listnet",
+            "listmle",
+            "xgboost",
+            "ranknet",
+            "lambdarank",
+            "lambdamart",
+            "bm25",
+        ],
+        default="listnet",
+        help="L2R/ 폴더 모델. bm25는 학습 없이 스케일된 피처의 첫 열을 점수로 사용(L2R/BM25.py와 동일 취지).",
+    )
     p.add_argument(
         "--test-mode",
         type=str,
