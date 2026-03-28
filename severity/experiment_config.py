@@ -5,6 +5,22 @@ from typing import Any
 
 DEFAULT_CONFIG_PATH = Path(__file__).resolve().parent / "experiment_config.yaml"
 
+ALLOWED_TEST_MODES = frozenset({"train_thresholds", "test_oracle_ratio"})
+
+
+def resolve_test_mode(cfg: dict[str, Any], cli_override: str | None) -> str:
+    """CLI --test-mode가 있으면 그것을 쓰고, 없으면 cfg['evaluation']['test_mode']."""
+    if cli_override is not None:
+        if cli_override not in ALLOWED_TEST_MODES:
+            raise ValueError(f"test_mode는 {sorted(ALLOWED_TEST_MODES)} 중 하나여야 합니다: {cli_override!r}")
+        return cli_override
+    tm = cfg["evaluation"]["test_mode"]
+    if tm not in ALLOWED_TEST_MODES:
+        raise ValueError(
+            f"experiment_config.yaml evaluation.test_mode는 {sorted(ALLOWED_TEST_MODES)} 중 하나여야 합니다: {tm!r}"
+        )
+    return tm
+
 
 def load_experiment_config(path: str | Path | None = None) -> dict[str, Any]:
     try:
@@ -28,7 +44,7 @@ def load_experiment_config(path: str | Path | None = None) -> dict[str, Any]:
 
 
 def _validate(cfg: dict[str, Any]) -> None:
-    for key in ("data", "split", "ranking", "epochs"):
+    for key in ("data", "split", "ranking", "epochs", "evaluation"):
         if key not in cfg:
             raise KeyError(f"experiment_config.yaml에 '{key}' 섹션이 필요합니다.")
     for k in ("test_size", "val_size", "random_state"):
@@ -41,3 +57,5 @@ def _validate(cfg: dict[str, Any]) -> None:
             raise KeyError(f"epochs.{k}")
     if "csv" not in cfg["data"]:
         raise KeyError("data.csv")
+    if "test_mode" not in cfg["evaluation"]:
+        raise KeyError("evaluation.test_mode")

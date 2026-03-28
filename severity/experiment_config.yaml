@@ -1,6 +1,10 @@
 # severity 실험 공통 설정 (L2R·control group 배치 스크립트와 동일하게 사용)
 # 프로젝트 루트에서 실행하는 것을 기준으로 경로를 둔다.
 
+evaluation:
+  # train_thresholds: train에서 추정한 score 경계로 test 분할
+  # test_oracle_ratio: test 집합의 실제 4클래스 개수로 상위 점수부터 배정
+  test_mode: train_thresholds
 
 data:
   csv: severity/logging_monitoring_anomalies.csv

@@ -10,7 +10,7 @@ if str(ROOT) not in sys.path:
 import numpy as np
 
 from severity.regression.models import build_regression_model
-from severity.experiment_config import DEFAULT_CONFIG_PATH, load_experiment_config
+from severity.experiment_config import DEFAULT_CONFIG_PATH, load_experiment_config, resolve_test_mode
 from severity.severity_rank_controlgroup import (
     LABEL_ORDER_DESC,
     TARGET_COL,
@@ -108,18 +108,25 @@ def main():
         help=f"실험 YAML 경로 (기본: {DEFAULT_CONFIG_PATH})",
     )
     p.add_argument("--model", choices=["xgboost_regressor"], default="xgboost_regressor")
-    p.add_argument("--test-mode", choices=["train_thresholds", "test_oracle_ratio"], default="train_thresholds")
+    #p.add_argument("--test-mode", choices=["train_thresholds", "test_oracle_ratio"], default="train_thresholds")
     '''
     p.add_argument("--test-size", type=float, default=0.2)
     p.add_argument("--val-size", type=float, default=0.2)
     p.add_argument("--random-state", type=int, default=42)
     p.add_argument("--group-size", type=int, default=64)
     '''
+    p.add_argument(
+        "--test-mode",
+        choices=["train_thresholds", "test_oracle_ratio"],
+        default=None,
+        help="미지정 시 experiment_config.yaml의 evaluation.test_mode 사용.",
+    )
     p.add_argument("--log", type=str, default=None)
     p.add_argument("--no-log", action="store_true")
     args = p.parse_args()
 
     cfg = load_experiment_config(args.config)
+    test_mode = resolve_test_mode(cfg, args.test_mode)
     csv_path = cfg["data"]["csv"]
     test_size = float(cfg["split"]["test_size"])
     val_size = float(cfg["split"]["val_size"])
@@ -129,7 +136,7 @@ def main():
     log_f = None
     old_out, old_err = sys.stdout, sys.stderr
     if not args.no_log:
-        log_path = Path(args.log) if args.log else default_log_path("train_severity_reg", args.model, args.test_mode)
+        log_path = Path(args.log) if args.log else default_log_path("train_severity_reg", args.model, test_mode)
         log_path.parent.mkdir(parents=True, exist_ok=True)
         log_f = open(log_path, "w", encoding="utf-8")
         sys.stdout = TeeIO(old_out, log_f)
@@ -137,7 +144,7 @@ def main():
         print(f"[로그 파일] {log_path.resolve()}", flush=True)
 
     try:
-        run(csv_path, args.model, args.test_mode, test_size, val_size, random_state, group_size)
+        run(csv_path, args.model, test_mode, test_size, val_size, random_state, group_size)
     finally:
         sys.stdout = old_out
         sys.stderr = old_err

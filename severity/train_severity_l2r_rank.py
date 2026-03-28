@@ -26,7 +26,11 @@ ROOT = Path(__file__).resolve().parents[1]
 SEVERITY_DIR = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
-from severity.experiment_config import DEFAULT_CONFIG_PATH, load_experiment_config  # noqa: E402
+from severity.experiment_config import (  # noqa: E402
+    DEFAULT_CONFIG_PATH,
+    load_experiment_config,
+    resolve_test_mode,
+)
 from severity.severity_rank_controlgroup import report_metrics  # noqa: E402
 
 L2R_DIR = ROOT / "L2R"
@@ -436,9 +440,8 @@ if __name__ == "__main__":
         "--test-mode",
         type=str,
         choices=["train_thresholds", "test_oracle_ratio"],
-        default="train_thresholds",
-        help="train_thresholds: train에서 학습한 score 경계로 test 분할. "
-        "test_oracle_ratio: test에서 실제 4class 개수 비율로 상위부터 배정",
+        default=None,
+        help="미지정 시 experiment_config.yaml의 evaluation.test_mode 사용.",
     )
     '''
     p.add_argument("--test-size", type=float, default=0.2)
@@ -459,6 +462,7 @@ if __name__ == "__main__":
 
     cfg_resolved = Path(args.config).resolve() if args.config else DEFAULT_CONFIG_PATH.resolve()
     cfg = load_experiment_config(args.config)
+    test_mode = resolve_test_mode(cfg, args.test_mode)
     csv_path = cfg["data"]["csv"]
     test_size = float(cfg["split"]["test_size"])
     val_size = float(cfg["split"]["val_size"])
@@ -469,11 +473,11 @@ if __name__ == "__main__":
     log_f = None
     old_out, old_err = sys.stdout, sys.stderr
     if not args.no_log:
-        log_path = Path(args.log) if args.log else _default_log_path(args.model, args.test_mode)
+        log_path = Path(args.log) if args.log else _default_log_path(args.model, test_mode)
         log_path.parent.mkdir(parents=True, exist_ok=True)
         log_f = open(log_path, "w", encoding="utf-8")
         log_f.write(f"# train_severity_l2r_rank {datetime.now().isoformat()}\n")
-        log_f.write(f"# model={args.model} test_mode={args.test_mode} csv={csv_path}\n")
+        log_f.write(f"# model={args.model} test_mode={test_mode} csv={csv_path}\n")
         log_f.write(f"# config={cfg_resolved}\n\n")
         log_f.flush()
         sys.stdout = _TeeIO(old_out, log_f)
@@ -484,7 +488,7 @@ if __name__ == "__main__":
         run(
             csv_path,
             args.model,
-            args.test_mode,
+            test_mode,
             test_size,
             val_size,
             random_state,
