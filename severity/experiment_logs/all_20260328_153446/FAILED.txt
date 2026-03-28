@@ -1,0 +1,4 @@
+[FAIL] l2r_listnet
+[FAIL] l2r_listmle
+[FAIL] l2r_xgboost
+[FAIL] l2r_ranknet

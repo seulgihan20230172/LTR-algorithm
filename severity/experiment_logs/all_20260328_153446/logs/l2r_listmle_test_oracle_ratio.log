@@ -1,0 +1,14 @@
+# train_severity_l2r_rank 2026-03-28T15:40:45.095830
+# model=listmle test_mode=test_oracle_ratio csv=severity/logging_monitoring_anomalies.csv
+# config=/home/work/lab_project/severity/experiment_config.yaml
+
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_153446/logs/l2r_listmle_test_oracle_ratio.log
+ListMLE Epoch 0 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
+ListMLE Epoch 1 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
+ListMLE Epoch 2 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
+ListMLE Epoch 3 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
+ListMLE Epoch 4 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
+ListMLE Epoch 5 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
+ListMLE Epoch 6 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
+ListMLE Epoch 7 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
+ListMLE Epoch 8 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
