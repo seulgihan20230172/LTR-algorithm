@@ -22,15 +22,28 @@ def listnet_loss(pred, y):
     P_z = torch.softmax(pred, dim=0)
     return -torch.sum(P_y * torch.log(P_z + 1e-10))
 
-def train_listnet(X, y, qid, X_val, y_val, qid_val):
+def train_listnet(
+    X,
+    y,
+    qid,
+    X_val,
+    y_val,
+    qid_val,
+    *,
+    epochs: int = 50,
+    lr: float = 0.001,
+    patience: int = 5,
+    verbose: bool = True,
+):
     model = ListNet(X.shape[1])
-    opt = optim.Adam(model.parameters(), lr=0.001)
+    opt = optim.Adam(model.parameters(), lr=lr)
 
     groups = group_by_qid(qid)
-    best = -1
-    patience, wait = 5, 0
+    best_score = -1.0
+    wait = 0
+    best_state = None
 
-    for epoch in range(50):
+    for epoch in range(epochs):
         model.train()
         for g in groups.values():
             xg = torch.tensor(X[g], dtype=torch.float32)
@@ -47,22 +60,23 @@ def train_listnet(X, y, qid, X_val, y_val, qid_val):
         with torch.no_grad():
             pred_val = model(torch.tensor(X_val, dtype=torch.float32)).numpy()
 
-        
         metrics = evaluate_all(y_val, pred_val, qid_val)
         score = metrics["NDCG@10"]
-        print(f"ListNet Epoch {epoch} | Metrics: {metrics}")
+        if verbose:
+            print(f"ListNet Epoch {epoch} | Metrics: {metrics}")
 
-
-
-        if score > best:
-            best = score
+        if score > best_score:
+            best_score = score
             wait = 0
+            best_state = {k: v.cpu().clone() for k, v in model.state_dict().items()}
             torch.save(model.state_dict(), "./save_checkpoint/listnet/listnet.pt")
         else:
             wait += 1
             if wait >= patience:
                 break
 
+    if best_state is not None:
+        model.load_state_dict(best_state)
     return model
 
 if __name__ == '__main__':

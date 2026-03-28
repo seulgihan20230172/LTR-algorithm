@@ -23,7 +23,6 @@ from severity.severity_rank_controlgroup import (
     default_log_path,
     evaluate_ranking_all,
     fit_transform_xy,
-    make_qid,
     prepare_splits,
     report_metrics,
 )
@@ -31,9 +30,20 @@ from severity.severity_rank_controlgroup import (
 
 def run(csv_path, model_name, test_mode, test_size, val_size, random_state, group_size, epochs):
     t_total_start = time.perf_counter()
-    x_train, x_val, x_test, y_train, y_val, y_test, yr_train, yr_val, yr_test = prepare_splits(
-        csv_path, test_size, val_size, random_state
-    )
+    (
+        x_train,
+        x_val,
+        x_test,
+        y_train,
+        y_val,
+        y_test,
+        yr_train,
+        yr_val,
+        yr_test,
+        _qid_train,
+        qid_val,
+        qid_test,
+    ) = prepare_splits(csv_path, test_size, val_size, random_state)
 
     t_train_val_start = time.perf_counter()
     xt, xv, xs, _, _ = fit_transform_xy(x_train, x_val, x_test)
@@ -47,9 +57,7 @@ def run(csv_path, model_name, test_mode, test_size, val_size, random_state, grou
     s_val = model.score(xv)
     s_test = model.score(xs)
 
-    n_tr, n_va, n_te = len(y_train), len(y_val), len(y_test)
-    qid_val = make_qid(n_va, group_size)
-    qid_test = make_qid(n_te, group_size)
+    n_va, n_te = len(y_val), len(y_test)
 
     fr_train = class_fractions(y_train)
     counts_train = np.array([y_train.value_counts().get(lbl, 0) for lbl in LABEL_ORDER_DESC], dtype=int)

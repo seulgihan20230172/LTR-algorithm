@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SEVERITY_DIR = Path(__file__).resolve().parent
 
 TARGET_COL = "Severity"
+QID_COL = "Anomaly_ID"  # 랭킹 쿼리 ID (행 단위 이상 건 식별자; 동일 ID가 여러 행이면 같은 쿼리)
 LEAKAGE_COLS = [
     "Anomaly_Type",
     "Severity",
@@ -105,29 +106,60 @@ def fit_transform_xy(x_train, x_val, x_test):
 
 def prepare_splits(csv_path: str, test_size: float, val_size: float, random_state: int):
     df = pd.read_csv(csv_path)
+    if QID_COL not in df.columns:
+        raise ValueError(
+            f"CSV에 '{QID_COL}' 열이 없습니다. 랭킹 qid로 사용하므로 해당 열이 필요합니다."
+        )
+    qid_series = pd.to_numeric(df[QID_COL], errors="coerce")
+    if qid_series.isna().any():
+        raise ValueError(f"'{QID_COL}'에 숫자로 변환되지 않는 값이 있습니다.")
+    qid_all = qid_series.astype(np.int64).to_numpy()
     x, y = split_features(df)
     y_rel = y.map(RELEVANCE).astype(np.float32).values
-    x_temp, x_test, y_temp, y_test, yr_temp, yr_test = train_test_split(
+    x_temp, x_test, y_temp, y_test, yr_temp, yr_test, q_temp, q_test = train_test_split(
         x,
         y,
         y_rel,
+        qid_all,
         test_size=test_size,
         random_state=random_state,
         stratify=y,
     )
     val_ratio = val_size / (1.0 - test_size)
-    x_train, x_val, y_train, y_val, yr_train, yr_val = train_test_split(
+    x_train, x_val, y_train, y_val, yr_train, yr_val, qid_train, qid_val = train_test_split(
         x_temp,
         y_temp,
         yr_temp,
+        q_temp,
         test_size=val_ratio,
         random_state=random_state,
         stratify=y_temp,
     )
-    return x_train, x_val, x_test, y_train, y_val, y_test, yr_train, yr_val, yr_test
+    return (
+        x_train,
+        x_val,
+        x_test,
+        y_train,
+        y_val,
+        y_test,
+        yr_train,
+        yr_val,
+        yr_test,
+        qid_train,
+        qid_val,
+        q_test,
+    )
+
+
+def sort_ltr_rows_by_qid(X: np.ndarray, y: np.ndarray, qid: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """XGBoost rank:ndcg 등은 동일 qid 문서가 연속된 행에 있어야 group 크기와 일치한다."""
+    qid = np.asarray(qid)
+    order = np.lexsort((np.arange(len(qid), dtype=np.int64), qid))
+    return X[order], y[order], qid[order]
 
 
 def make_qid(n: int, group_size: int) -> np.ndarray:
+    """(레거시) 인위적 쿼리 그룹. 현재 파이프라인은 prepare_splits 의 Anomaly_ID qid를 쓴다."""
     return (np.arange(n, dtype=np.int64) // group_size).astype(np.int64)
 
 

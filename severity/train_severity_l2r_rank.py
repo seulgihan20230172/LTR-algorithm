@@ -13,11 +13,9 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import torch
-import torch.optim as optim
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OrdinalEncoder
 
@@ -31,7 +29,11 @@ from severity.experiment_config import (  # noqa: E402
     load_experiment_config,
     resolve_test_mode,
 )
-from severity.severity_rank_controlgroup import report_metrics  # noqa: E402
+from severity.severity_rank_controlgroup import (  # noqa: E402
+    prepare_splits,
+    report_metrics,
+    sort_ltr_rows_by_qid,
+)
 
 L2R_DIR = ROOT / "L2R"
 L2R_SAVE_CHECKPOINT = L2R_DIR / "save_checkpoint"
@@ -74,10 +76,10 @@ class _TeeIO:
 if str(L2R_DIR) not in sys.path:
     sys.path.insert(0, str(L2R_DIR))
 
-from ListNet import ListNet, listnet_loss  # noqa: E402
-from ListMLE import listmle_loss  # noqa: E402
+from ListNet import train_listnet  # noqa: E402
+from ListMLE import train_listmle  # noqa: E402
 from metrics import evaluate_all  # noqa: E402
-from data_utils import group_by_qid, scale_data  # noqa: E402
+from data_utils import scale_data  # noqa: E402
 
 try:
     from XGBoost_Rank import train_xgb  # noqa: E402
@@ -158,26 +160,37 @@ def fit_transform_xy(x_train, x_val, x_test):
     return np.asarray(xt, dtype=np.float32), np.asarray(xv, dtype=np.float32), np.asarray(xs, dtype=np.float32), pre
 
 
-def make_qid(n: int, group_size: int) -> np.ndarray:
-    return (np.arange(n, dtype=np.int64) // group_size).astype(np.int64)
+# L2R/ 네이티브 .npy 규약과 동일해야 함: L2R/data_utils.load_data (y=[:,0], qid=[:,1], X=[:,2:])
+# RankNet·lambdaRank·LambdaMART 등이 암묵적으로 이 순서로 슬라이스함.
+L2R_COL_RELEVANCE = 0
+L2R_COL_QID = 1
+L2R_COL_FEATURE_START = 2
 
 
 def l2r_train_matrix(y_rel: np.ndarray, qid: np.ndarray, X: np.ndarray) -> np.ndarray:
-    """L2R/RankNet·LambdaRank·LambdaMART가 기대하는 행렬: [relevance, qid, features…]."""
-    return np.column_stack(
-        [
-            np.asarray(y_rel, dtype=np.float32),
-            np.asarray(qid, dtype=np.float32),
-            np.asarray(X, dtype=np.float32),
-        ]
-    )
+    """RankNet / LambdaRank / LambdaMART / (내부 지표용) stacked 행렬. 컬럼 순서 바꾸지 말 것."""
+    y_rel = np.asarray(y_rel, dtype=np.float32).ravel()
+    qid = np.asarray(qid, dtype=np.float32).ravel()
+    X = np.asarray(X, dtype=np.float32)
+    if X.ndim != 2 or len(y_rel) != len(X) or len(qid) != len(X):
+        raise ValueError("l2r_train_matrix: y_rel, qid 길이와 X 행 수가 같아야 합니다.")
+    n, d = X.shape
+    out = np.empty((n, L2R_COL_FEATURE_START + d), dtype=np.float32)
+    out[:, L2R_COL_RELEVANCE] = y_rel
+    out[:, L2R_COL_QID] = qid
+    out[:, L2R_COL_FEATURE_START:] = X
+    return out
 
 
 def l2r_infer_matrix(X: np.ndarray) -> np.ndarray:
-    """학습 없이 점수만 낼 때 relevance·qid 자리에 더미."""
+    """LambdaRank/LambdaMART predict가 기대하는 전폭 행렬(relevance·qid는 더미, 피처는 [:,2:])."""
     X = np.asarray(X, dtype=np.float32)
-    z = np.zeros((len(X), 2), dtype=np.float32)
-    return np.hstack([z, X])
+    if X.ndim != 2:
+        raise ValueError("l2r_infer_matrix: X는 2차원이어야 합니다.")
+    n, d = X.shape
+    out = np.zeros((n, L2R_COL_FEATURE_START + d), dtype=np.float32)
+    out[:, L2R_COL_FEATURE_START:] = X
+    return out
 
 
 def train_ranknet_local(training_data: np.ndarray, epochs: int, lr: float = 0.01):
@@ -263,74 +276,32 @@ def assign_by_thresholds(scores: np.ndarray, thresholds_desc: np.ndarray) -> np.
     return out
 
 
-def train_listmle_local(X, y_rel, qid, X_val, y_val_rel, qid_val, epochs: int, lr: float, patience: int):
-    model = ListNet(X.shape[1])
-    opt = optim.Adam(model.parameters(), lr=lr)
-    groups = group_by_qid(qid)
-    best_state = None
-    best_score = -1.0
-    wait = 0
-    for epoch in range(epochs):
-        model.train()
-        for g in groups.values():
-            xg = torch.tensor(X[g], dtype=torch.float32)
-            yg = torch.tensor(y_rel[g], dtype=torch.float32)
-            pred = model(xg)
-            loss = listmle_loss(pred, yg)
-            opt.zero_grad()
-            loss.backward()
-            opt.step()
-        model.eval()
-        with torch.no_grad():
-            pred_val = model(torch.tensor(X_val, dtype=torch.float32)).numpy()
-        metrics = evaluate_all(y_val_rel, pred_val, qid_val)
-        score = metrics["NDCG@10"]
-        if score > best_score:
-            best_score = score
-            best_state = {k: v.cpu().clone() for k, v in model.state_dict().items()}
-            wait = 0
-        else:
-            wait += 1
-            if wait >= patience:
-                break
-    if best_state is not None:
-        model.load_state_dict(best_state)
-    return model
-
-
 def train_listnet_local(X, y_rel, qid, X_val, y_val_rel, qid_val, epochs: int, lr: float, patience: int):
-    model = ListNet(X.shape[1])
-    opt = optim.Adam(model.parameters(), lr=lr)
-    groups = group_by_qid(qid)
-    best_state = None
-    best_score = -1.0
-    wait = 0
-    for epoch in range(epochs):
-        model.train()
-        for g in groups.values():
-            xg = torch.tensor(X[g], dtype=torch.float32)
-            yg = torch.tensor(y_rel[g], dtype=torch.float32)
-            pred = model(xg)
-            loss = listnet_loss(pred, yg)
-            opt.zero_grad()
-            loss.backward()
-            opt.step()
-        model.eval()
-        with torch.no_grad():
-            pred_val = model(torch.tensor(X_val, dtype=torch.float32)).numpy()
-        metrics = evaluate_all(y_val_rel, pred_val, qid_val)
-        score = metrics["NDCG@10"]
-        if score > best_score:
-            best_score = score
-            best_state = {k: v.cpu().clone() for k, v in model.state_dict().items()}
-            wait = 0
-        else:
-            wait += 1
-            if wait >= patience:
-                break
-    if best_state is not None:
-        model.load_state_dict(best_state)
-    return model
+    return train_listnet(
+        X,
+        y_rel,
+        qid,
+        X_val,
+        y_val_rel,
+        qid_val,
+        epochs=epochs,
+        lr=lr,
+        patience=patience,
+    )
+
+
+def train_listmle_local(X, y_rel, qid, X_val, y_val_rel, qid_val, epochs: int, lr: float, patience: int):
+    return train_listmle(
+        X,
+        y_rel,
+        qid,
+        X_val,
+        y_val_rel,
+        qid_val,
+        epochs=min(epochs, 50),
+        lr=lr,
+        patience=patience,
+    )
 
 
 def predict_torch(model, X: np.ndarray) -> np.ndarray:
@@ -364,36 +335,24 @@ def run(
     epochs: int,
 ) -> None:
     t_total_start = time.perf_counter()
-    df = pd.read_csv(csv_path)
-    x, y = split_features(df)
-    y_rel = y.map(RELEVANCE).astype(np.float32).values
-
-    x_temp, x_test, y_temp, y_test, yr_temp, yr_test = train_test_split(
-        x,
-        y,
-        y_rel,
-        test_size=test_size,
-        random_state=random_state,
-        stratify=y,
-    )
-    val_ratio = val_size / (1.0 - test_size)
-    x_train, x_val, y_train, y_val, yr_train, yr_val = train_test_split(
-        x_temp,
-        y_temp,
-        yr_temp,
-        test_size=val_ratio,
-        random_state=random_state,
-        stratify=y_temp,
-    )
+    (
+        x_train,
+        x_val,
+        x_test,
+        y_train,
+        y_val,
+        y_test,
+        yr_train,
+        yr_val,
+        yr_test,
+        qid_train,
+        qid_val,
+        qid_test,
+    ) = prepare_splits(csv_path, test_size, val_size, random_state)
 
     t_train_val_start = time.perf_counter()
     xt, xv, xs, _ = fit_transform_xy(x_train, x_val, x_test)
     xt, xv, xs = scale_data(xt, xv, xs)
-
-    n_tr, n_va, n_te = len(y_train), len(y_val), len(y_test)
-    qid_train = make_qid(n_tr, group_size)
-    qid_val = make_qid(n_va, group_size)
-    qid_test = make_qid(n_te, group_size)
 
     fr_train = class_fractions(y_train)
     counts_train = np.array([y_train.value_counts().get(lbl, 0) for lbl in LABEL_ORDER_DESC], dtype=int)
@@ -417,7 +376,9 @@ def run(
         elif model_name == "xgboost":
             if train_xgb is None:
                 raise RuntimeError("XGBoost_Rank import 실패. xgboost 설치 여부를 확인하세요.")
-            model = train_xgb(xt, yr_train, qid_train, xv, yr_val, qid_val)
+            xt_r, yr_tr, q_tr = sort_ltr_rows_by_qid(xt, yr_train, qid_train)
+            xv_r, yr_vr, q_vr = sort_ltr_rows_by_qid(xv, yr_val, qid_val)
+            model = train_xgb(xt_r, yr_tr, q_tr, xv_r, yr_vr, q_vr)
         elif model_name == "ranknet":
             model = train_ranknet_local(train_mat, epochs=epochs, lr=0.01)
         elif model_name == "lambdarank":

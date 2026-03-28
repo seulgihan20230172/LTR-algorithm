@@ -15,6 +15,7 @@ split:
   random_state: 42
 
 ranking:
+  # 랭킹 qid는 CSV의 Anomaly_ID 사용 (인위적 group_size 분할은 더 이상 쓰지 않음; 호환용으로만 남김)
   group_size: 64
 
 epochs:
