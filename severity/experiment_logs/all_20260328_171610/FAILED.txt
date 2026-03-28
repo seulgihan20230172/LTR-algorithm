@@ -1,0 +1,3 @@
+[FAIL] l2r_ranknet
+[FAIL] l2r_lambdarank
+[FAIL] l2r_lambdamart

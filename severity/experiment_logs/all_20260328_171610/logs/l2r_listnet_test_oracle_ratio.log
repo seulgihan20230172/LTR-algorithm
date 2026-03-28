@@ -1,0 +1,79 @@
+# train_severity_l2r_rank 2026-03-28T17:16:13.887654
+# model=listnet test_mode=test_oracle_ratio csv=severity/logging_monitoring_anomalies.csv
+# config=/home/work/lab_project/severity/experiment_config.yaml
+
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_171610/logs/l2r_listnet_test_oracle_ratio.log
+ListNet Epoch 0 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.30089899143089816, 'NDCG@10': 0.3538240710981144, 'MAP': 0.7531522093850308, 'MRR': 1.0}
+ListNet Epoch 1 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.30089899143089816, 'NDCG@10': 0.35231925095215016, 'MAP': 0.753111405484281, 'MRR': 1.0}
+ListNet Epoch 2 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.3383861564344244, 'NDCG@10': 0.38550740868900346, 'MAP': 0.7531135232225552, 'MRR': 1.0}
+ListNet Epoch 3 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.3383861564344244, 'NDCG@10': 0.41484636869678854, 'MAP': 0.7530936763013355, 'MRR': 1.0}
+ListNet Epoch 4 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.367432495790135, 'NDCG@10': 0.39568059541373357, 'MAP': 0.7530658689721412, 'MRR': 1.0}
+ListNet Epoch 5 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.32994533078660876, 'NDCG@10': 0.40936885041205007, 'MAP': 0.752994709397501, 'MRR': 1.0}
+ListNet Epoch 6 | Metrics: {'NDCG@1': 0.14285714285714285, 'NDCG@5': 0.28993469853819354, 'NDCG@10': 0.3368326525454813, 'MAP': 0.7529432086780811, 'MRR': 1.0}
+ListNet Epoch 7 | Metrics: {'NDCG@1': 0.14285714285714285, 'NDCG@5': 0.28321705488273596, 'NDCG@10': 0.32439200088132436, 'MAP': 0.7529499257941635, 'MRR': 1.0}
+ListNet Epoch 8 | Metrics: {'NDCG@1': 0.14285714285714285, 'NDCG@5': 0.27052957999767324, 'NDCG@10': 0.311127688038442, 'MAP': 0.7529620434554164, 'MRR': 1.0}
+ListNet Epoch 9 | Metrics: {'NDCG@1': 0.14285714285714285, 'NDCG@5': 0.19150865571079556, 'NDCG@10': 0.3676620656638354, 'MAP': 0.7529170140339952, 'MRR': 1.0}
+ListNet Epoch 10 | Metrics: {'NDCG@1': 0.0, 'NDCG@5': 0.17362666420521147, 'NDCG@10': 0.2845990623526772, 'MAP': 0.7528650410874821, 'MRR': 0.5}
+ListNet Epoch 11 | Metrics: {'NDCG@1': 0.0, 'NDCG@5': 0.10766712101632277, 'NDCG@10': 0.2572741844999353, 'MAP': 0.752842936106061, 'MRR': 0.5}
+
+[검증] train 비율로 배정한 분류 정확도(early stopping용 참고): 0.2569
+
+[Train] 실제 Severity와 비교 (train 비율 배정)
+
+=== Train (비율 배정) ===
+Accuracy: 0.2488
+Macro precision: 0.2488
+Macro recall: 0.2488
+Macro F1: 0.2488
+Weighted precision: 0.2488
+Weighted recall: 0.2488
+Weighted F1: 0.2488
+              precision    recall  f1-score   support
+
+    Critical     0.2529    0.2529    0.2529     15089
+        High     0.2443    0.2443    0.2443     14954
+      Medium     0.2464    0.2464    0.2464     15010
+         Low     0.2517    0.2517    0.2517     14947
+
+    accuracy                         0.2488     60000
+   macro avg     0.2488    0.2488    0.2488     60000
+weighted avg     0.2488    0.2488    0.2488     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [-0.041611 -0.120289 -0.201429]
+(참고) train score min/max: -0.630068 / 0.338868
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=test_oracle_ratio) ===
+Accuracy: 0.2460
+Macro precision: 0.2460
+Macro recall: 0.2460
+Macro F1: 0.2460
+Weighted precision: 0.2460
+Weighted recall: 0.2460
+Weighted F1: 0.2460
+              precision    recall  f1-score   support
+
+    Critical     0.2500    0.2500    0.2500      5029
+        High     0.2420    0.2420    0.2420      4984
+      Medium     0.2448    0.2448    0.2448      5004
+         Low     0.2472    0.2472    0.2472      4983
+
+    accuracy                         0.2460     20000
+   macro avg     0.2460    0.2460    0.2460     20000
+weighted avg     0.2460    0.2460    0.2460     20000
+
+
+저장: severity/logging_monitoring_anomalies_l2r_listnet_test_oracle_ratio.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.511 s
+전처리(인코딩·스케일) + 학습(train∪val L2R): 3.743 s
+추론·경계·Train·Val·Test 평가·저장(전수): 2.302 s
+  └ Test severity 정답 비교(report_metrics)만: 0.468 s
+전체: 6.556 s
+
+=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
+Validation MRR: 1.000000
+Test MRR:       1.000000

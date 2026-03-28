@@ -1,0 +1,5 @@
+# train_severity_l2r_rank 2026-03-28T17:32:37.621279
+# model=lambdamart test_mode=test_oracle_ratio csv=severity/logging_monitoring_anomalies.csv
+# config=/home/work/lab_project/severity/experiment_config.yaml
+
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_171610/logs/l2r_lambdamart_test_oracle_ratio.log

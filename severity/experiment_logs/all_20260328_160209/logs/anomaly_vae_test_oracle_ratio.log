@@ -1,0 +1,63 @@
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_160209/logs/anomaly_vae_test_oracle_ratio.log
+
+[검증] train 비율로 배정한 분류 정확도(참고): 0.2482
+
+[Train] 실제 Severity와 비교 (train 비율 배정)
+
+=== Train (비율 배정) ===
+Accuracy: 0.2498
+Macro precision: 0.2498
+Macro recall: 0.2498
+Macro F1: 0.2498
+Weighted precision: 0.2498
+Weighted recall: 0.2498
+Weighted F1: 0.2498
+              precision    recall  f1-score   support
+
+    Critical     0.2543    0.2543    0.2543     15089
+        High     0.2502    0.2502    0.2502     14954
+      Medium     0.2480    0.2480    0.2480     15010
+         Low     0.2465    0.2465    0.2465     14947
+
+    accuracy                         0.2498     60000
+   macro avg     0.2498    0.2498    0.2498     60000
+weighted avg     0.2498    0.2498    0.2498     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [0.035824 0.034251 0.032787]
+(참고) train score min/max: 0.025579 / 0.107898
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=test_oracle_ratio) ===
+Accuracy: 0.2523
+Macro precision: 0.2523
+Macro recall: 0.2523
+Macro F1: 0.2523
+Weighted precision: 0.2523
+Weighted recall: 0.2523
+Weighted F1: 0.2523
+              precision    recall  f1-score   support
+
+    Critical     0.2591    0.2591    0.2591      5029
+        High     0.2384    0.2384    0.2384      4984
+      Medium     0.2556    0.2556    0.2556      5004
+         Low     0.2561    0.2561    0.2561      4983
+
+    accuracy                         0.2523     20000
+   macro avg     0.2523    0.2523    0.2523     20000
+weighted avg     0.2523    0.2523    0.2523     20000
+
+
+저장: severity/logging_monitoring_anomalies_anomaly_vae_test_oracle_ratio.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.645 s
+전처리(인코딩·스케일) + 학습(train∪val): 13.195 s
+추론·경계·평가·저장(전수): 6.703 s
+  └ Test severity 정답 비교(report_metrics)만: 0.407 s
+전체: 20.543 s
+
+=== 랭킹 지표 MRR (relevance=0..3) ===
+Validation MRR: 0.750850
+Test MRR:       0.750850
