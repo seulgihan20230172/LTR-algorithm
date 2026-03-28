@@ -39,6 +39,8 @@ def run(
     *,
     include_categorical_columns: bool,
     ordinal_severity_metrics: bool,
+    qid_mode: str,
+    global_qid: int,
 ):
     t_total_start = time.perf_counter()
     (
@@ -196,6 +198,8 @@ def main():
             epochs,
             include_categorical_columns=bool(cfg["features"]["include_categorical_columns"]),
             ordinal_severity_metrics=bool(cfg["evaluation"]["ordinal_severity_metrics"]),
+            qid_mode=str(cfg["ranking"]["qid_mode"]),
+            global_qid=int(cfg["ranking"]["global_qid"]),
         )
     finally:
         sys.stdout = old_out

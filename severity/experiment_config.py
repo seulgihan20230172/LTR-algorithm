@@ -6,6 +6,7 @@ from typing import Any
 DEFAULT_CONFIG_PATH = Path(__file__).resolve().parent / "experiment_config.yaml"
 
 ALLOWED_TEST_MODES = frozenset({"train_thresholds", "test_oracle_ratio"})
+ALLOWED_QID_MODES = frozenset({"global", "anomaly_id"})
 
 
 def resolve_test_mode(cfg: dict[str, Any], cli_override: str | None) -> str:
@@ -51,6 +52,10 @@ def _apply_config_defaults(cfg: dict[str, Any]) -> None:
     ev = cfg.get("evaluation")
     if isinstance(ev, dict):
         ev.setdefault("ordinal_severity_metrics", False)
+    rk = cfg.get("ranking")
+    if isinstance(rk, dict):
+        rk.setdefault("qid_mode", "global")
+        rk.setdefault("global_qid", 0)
 
 
 def _validate(cfg: dict[str, Any]) -> None:
@@ -62,6 +67,12 @@ def _validate(cfg: dict[str, Any]) -> None:
             raise KeyError(f"split.{k}")
     if "group_size" not in cfg["ranking"]:
         raise KeyError("ranking.group_size")
+    qm = cfg["ranking"].get("qid_mode", "global")
+    if qm not in ALLOWED_QID_MODES:
+        raise ValueError(f"ranking.qid_mode는 {sorted(ALLOWED_QID_MODES)} 중 하나여야 합니다: {qm!r}")
+    gq = cfg["ranking"].get("global_qid", 0)
+    if not isinstance(gq, int):
+        raise TypeError(f"ranking.global_qid는 정수여야 합니다: {type(gq).__name__}")
     for k in ("l2r", "anomaly"):
         if k not in cfg["epochs"]:
             raise KeyError(f"epochs.{k}")

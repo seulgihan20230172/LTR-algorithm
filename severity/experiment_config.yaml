@@ -21,7 +21,11 @@ split:
   random_state: 42
 
 ranking:
-  # 랭킹 qid는 CSV의 Anomaly_ID 사용 (인위적 group_size 분할은 더 이상 쓰지 않음; 호환용으로만 남김)
+  # global: LTR에서 query 하나(아래 global_qid), 각 CSV 행 = document — 심각도로 이상 건(행) 전체를 한 목록에서 정렬
+  # anomaly_id: (레거시) Anomaly_ID를 qid로 사용 — 보통 문서 1개/쿼리라 랭킹 지표·학습이 거의 의미 없음
+  qid_mode: global
+  global_qid: 0
+  # 인위적 group_size 분할은 사용하지 않음; 호환용으로만 남김
   group_size: 64
 
 epochs:

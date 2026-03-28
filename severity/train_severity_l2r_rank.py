@@ -288,6 +288,8 @@ def run(
     *,
     include_categorical_columns: bool,
     ordinal_severity_metrics: bool,
+    qid_mode: str,
+    global_qid: int,
 ) -> None:
     t_total_start = time.perf_counter()
     (
@@ -309,6 +311,8 @@ def run(
         val_size,
         random_state,
         include_categorical_columns=include_categorical_columns,
+        qid_mode=qid_mode,
+        global_qid=global_qid,
     )
 
     t_train_val_start = time.perf_counter()
@@ -533,6 +537,8 @@ if __name__ == "__main__":
             epochs,
             include_categorical_columns=bool(cfg["features"]["include_categorical_columns"]),
             ordinal_severity_metrics=bool(cfg["evaluation"]["ordinal_severity_metrics"]),
+            qid_mode=str(cfg["ranking"]["qid_mode"]),
+            global_qid=int(cfg["ranking"]["global_qid"]),
         )
     finally:
         sys.stdout = old_out
