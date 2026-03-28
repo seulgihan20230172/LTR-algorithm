@@ -1,0 +1,373 @@
+# train_severity_l2r_rank 2026-03-28T10:51:05.330079
+# model=xgboost test_mode=test_oracle_ratio csv=severity/logging_monitoring_anomalies.csv
+# config=/home/work/lab_project/severity/experiment_config.yaml
+
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_104929/logs/l2r_xgboost_test_oracle_ratio.log
+[0]	validation_0-ndcg@32:0.50659
+[1]	validation_0-ndcg@32:0.50297
+[2]	validation_0-ndcg@32:0.50397
+[3]	validation_0-ndcg@32:0.50736
+[4]	validation_0-ndcg@32:0.50563
+[5]	validation_0-ndcg@32:0.50481
+[6]	validation_0-ndcg@32:0.50824
+[7]	validation_0-ndcg@32:0.50507
+[8]	validation_0-ndcg@32:0.50789
+[9]	validation_0-ndcg@32:0.50831
+[10]	validation_0-ndcg@32:0.50830
+[11]	validation_0-ndcg@32:0.50767
+[12]	validation_0-ndcg@32:0.50770
+[13]	validation_0-ndcg@32:0.50744
+[14]	validation_0-ndcg@32:0.50719
+[15]	validation_0-ndcg@32:0.50834
+[16]	validation_0-ndcg@32:0.50763
+[17]	validation_0-ndcg@32:0.50761
+[18]	validation_0-ndcg@32:0.50564
+[19]	validation_0-ndcg@32:0.50588
+[20]	validation_0-ndcg@32:0.50614
+[21]	validation_0-ndcg@32:0.50704
+[22]	validation_0-ndcg@32:0.50576
+[23]	validation_0-ndcg@32:0.50494
+[24]	validation_0-ndcg@32:0.50536
+[25]	validation_0-ndcg@32:0.50598
+[26]	validation_0-ndcg@32:0.50320
+[27]	validation_0-ndcg@32:0.50480
+[28]	validation_0-ndcg@32:0.50410
+[29]	validation_0-ndcg@32:0.50465
+[30]	validation_0-ndcg@32:0.50507
+[31]	validation_0-ndcg@32:0.50377
+[32]	validation_0-ndcg@32:0.50418
+[33]	validation_0-ndcg@32:0.50383
+[34]	validation_0-ndcg@32:0.50350
+[35]	validation_0-ndcg@32:0.50373
+[36]	validation_0-ndcg@32:0.50395
+[37]	validation_0-ndcg@32:0.50395
+[38]	validation_0-ndcg@32:0.50398
+[39]	validation_0-ndcg@32:0.50344
+[40]	validation_0-ndcg@32:0.50446
+[41]	validation_0-ndcg@32:0.50372
+[42]	validation_0-ndcg@32:0.50339
+[43]	validation_0-ndcg@32:0.50397
+[44]	validation_0-ndcg@32:0.50373
+[45]	validation_0-ndcg@32:0.50440
+[46]	validation_0-ndcg@32:0.50408
+[47]	validation_0-ndcg@32:0.50335
+[48]	validation_0-ndcg@32:0.50339
+[49]	validation_0-ndcg@32:0.50392
+[50]	validation_0-ndcg@32:0.50244
+[51]	validation_0-ndcg@32:0.50199
+[52]	validation_0-ndcg@32:0.50239
+[53]	validation_0-ndcg@32:0.50206
+[54]	validation_0-ndcg@32:0.50159
+[55]	validation_0-ndcg@32:0.50094
+[56]	validation_0-ndcg@32:0.49973
+[57]	validation_0-ndcg@32:0.49966
+[58]	validation_0-ndcg@32:0.49970
+[59]	validation_0-ndcg@32:0.49945
+[60]	validation_0-ndcg@32:0.49972
+[61]	validation_0-ndcg@32:0.49928
+[62]	validation_0-ndcg@32:0.49945
+[63]	validation_0-ndcg@32:0.49952
+[64]	validation_0-ndcg@32:0.49998
+[65]	validation_0-ndcg@32:0.49995
+[66]	validation_0-ndcg@32:0.49996
+[67]	validation_0-ndcg@32:0.50014
+[68]	validation_0-ndcg@32:0.50042
+[69]	validation_0-ndcg@32:0.50002
+[70]	validation_0-ndcg@32:0.50020
+[71]	validation_0-ndcg@32:0.50083
+[72]	validation_0-ndcg@32:0.50080
+[73]	validation_0-ndcg@32:0.50021
+[74]	validation_0-ndcg@32:0.50090
+[75]	validation_0-ndcg@32:0.50003
+[76]	validation_0-ndcg@32:0.50055
+[77]	validation_0-ndcg@32:0.50083
+[78]	validation_0-ndcg@32:0.50108
+[79]	validation_0-ndcg@32:0.50141
+[80]	validation_0-ndcg@32:0.50084
+[81]	validation_0-ndcg@32:0.50097
+[82]	validation_0-ndcg@32:0.50127
+[83]	validation_0-ndcg@32:0.50147
+[84]	validation_0-ndcg@32:0.50053
+[85]	validation_0-ndcg@32:0.50079
+[86]	validation_0-ndcg@32:0.50033
+[87]	validation_0-ndcg@32:0.50000
+[88]	validation_0-ndcg@32:0.50005
+[89]	validation_0-ndcg@32:0.50047
+[90]	validation_0-ndcg@32:0.50142
+[91]	validation_0-ndcg@32:0.50145
+[92]	validation_0-ndcg@32:0.50137
+[93]	validation_0-ndcg@32:0.50171
+[94]	validation_0-ndcg@32:0.50224
+[95]	validation_0-ndcg@32:0.50148
+[96]	validation_0-ndcg@32:0.50155
+[97]	validation_0-ndcg@32:0.50174
+[98]	validation_0-ndcg@32:0.50134
+[99]	validation_0-ndcg@32:0.50153
+[100]	validation_0-ndcg@32:0.50133
+[101]	validation_0-ndcg@32:0.50132
+[102]	validation_0-ndcg@32:0.50157
+[103]	validation_0-ndcg@32:0.50135
+[104]	validation_0-ndcg@32:0.50147
+[105]	validation_0-ndcg@32:0.50100
+[106]	validation_0-ndcg@32:0.50056
+[107]	validation_0-ndcg@32:0.50055
+[108]	validation_0-ndcg@32:0.50116
+[109]	validation_0-ndcg@32:0.50174
+[110]	validation_0-ndcg@32:0.50208
+[111]	validation_0-ndcg@32:0.50214
+[112]	validation_0-ndcg@32:0.50194
+[113]	validation_0-ndcg@32:0.50190
+[114]	validation_0-ndcg@32:0.50161
+[115]	validation_0-ndcg@32:0.50189
+[116]	validation_0-ndcg@32:0.50134
+[117]	validation_0-ndcg@32:0.50171
+[118]	validation_0-ndcg@32:0.50241
+[119]	validation_0-ndcg@32:0.50261
+[120]	validation_0-ndcg@32:0.50290
+[121]	validation_0-ndcg@32:0.50264
+[122]	validation_0-ndcg@32:0.50213
+[123]	validation_0-ndcg@32:0.50220
+[124]	validation_0-ndcg@32:0.50200
+[125]	validation_0-ndcg@32:0.50199
+[126]	validation_0-ndcg@32:0.50224
+[127]	validation_0-ndcg@32:0.50211
+[128]	validation_0-ndcg@32:0.50145
+[129]	validation_0-ndcg@32:0.50179
+[130]	validation_0-ndcg@32:0.50146
+[131]	validation_0-ndcg@32:0.50116
+[132]	validation_0-ndcg@32:0.50196
+[133]	validation_0-ndcg@32:0.50196
+[134]	validation_0-ndcg@32:0.50194
+[135]	validation_0-ndcg@32:0.50272
+[136]	validation_0-ndcg@32:0.50185
+[137]	validation_0-ndcg@32:0.50276
+[138]	validation_0-ndcg@32:0.50326
+[139]	validation_0-ndcg@32:0.50324
+[140]	validation_0-ndcg@32:0.50385
+[141]	validation_0-ndcg@32:0.50439
+[142]	validation_0-ndcg@32:0.50279
+[143]	validation_0-ndcg@32:0.50202
+[144]	validation_0-ndcg@32:0.50149
+[145]	validation_0-ndcg@32:0.50039
+[146]	validation_0-ndcg@32:0.50191
+[147]	validation_0-ndcg@32:0.50184
+[148]	validation_0-ndcg@32:0.50243
+[149]	validation_0-ndcg@32:0.50235
+[150]	validation_0-ndcg@32:0.50133
+[151]	validation_0-ndcg@32:0.50121
+[152]	validation_0-ndcg@32:0.50187
+[153]	validation_0-ndcg@32:0.50114
+[154]	validation_0-ndcg@32:0.50211
+[155]	validation_0-ndcg@32:0.50185
+[156]	validation_0-ndcg@32:0.50194
+[157]	validation_0-ndcg@32:0.50060
+[158]	validation_0-ndcg@32:0.50039
+[159]	validation_0-ndcg@32:0.50009
+[160]	validation_0-ndcg@32:0.50042
+[161]	validation_0-ndcg@32:0.50069
+[162]	validation_0-ndcg@32:0.50012
+[163]	validation_0-ndcg@32:0.49994
+[164]	validation_0-ndcg@32:0.50031
+[165]	validation_0-ndcg@32:0.49967
+[166]	validation_0-ndcg@32:0.49986
+[167]	validation_0-ndcg@32:0.50040
+[168]	validation_0-ndcg@32:0.50033
+[169]	validation_0-ndcg@32:0.49997
+[170]	validation_0-ndcg@32:0.49960
+[171]	validation_0-ndcg@32:0.49953
+[172]	validation_0-ndcg@32:0.50017
+[173]	validation_0-ndcg@32:0.50104
+[174]	validation_0-ndcg@32:0.50031
+[175]	validation_0-ndcg@32:0.50005
+[176]	validation_0-ndcg@32:0.50124
+[177]	validation_0-ndcg@32:0.49944
+[178]	validation_0-ndcg@32:0.49998
+[179]	validation_0-ndcg@32:0.49994
+[180]	validation_0-ndcg@32:0.49972
+[181]	validation_0-ndcg@32:0.50061
+[182]	validation_0-ndcg@32:0.49994
+[183]	validation_0-ndcg@32:0.50094
+[184]	validation_0-ndcg@32:0.50090
+[185]	validation_0-ndcg@32:0.50079
+[186]	validation_0-ndcg@32:0.50114
+[187]	validation_0-ndcg@32:0.50125
+[188]	validation_0-ndcg@32:0.50118
+[189]	validation_0-ndcg@32:0.50107
+[190]	validation_0-ndcg@32:0.50099
+[191]	validation_0-ndcg@32:0.50115
+[192]	validation_0-ndcg@32:0.50069
+[193]	validation_0-ndcg@32:0.50168
+[194]	validation_0-ndcg@32:0.50151
+[195]	validation_0-ndcg@32:0.50134
+[196]	validation_0-ndcg@32:0.50066
+[197]	validation_0-ndcg@32:0.50081
+[198]	validation_0-ndcg@32:0.50096
+[199]	validation_0-ndcg@32:0.50015
+[200]	validation_0-ndcg@32:0.50006
+[201]	validation_0-ndcg@32:0.50060
+[202]	validation_0-ndcg@32:0.50078
+[203]	validation_0-ndcg@32:0.50004
+[204]	validation_0-ndcg@32:0.50025
+[205]	validation_0-ndcg@32:0.50052
+[206]	validation_0-ndcg@32:0.50000
+[207]	validation_0-ndcg@32:0.50020
+[208]	validation_0-ndcg@32:0.50001
+[209]	validation_0-ndcg@32:0.49982
+[210]	validation_0-ndcg@32:0.49951
+[211]	validation_0-ndcg@32:0.49950
+[212]	validation_0-ndcg@32:0.49994
+[213]	validation_0-ndcg@32:0.49977
+[214]	validation_0-ndcg@32:0.50058
+[215]	validation_0-ndcg@32:0.50016
+[216]	validation_0-ndcg@32:0.50013
+[217]	validation_0-ndcg@32:0.50032
+[218]	validation_0-ndcg@32:0.50026
+[219]	validation_0-ndcg@32:0.50009
+[220]	validation_0-ndcg@32:0.49980
+[221]	validation_0-ndcg@32:0.49923
+[222]	validation_0-ndcg@32:0.49888
+[223]	validation_0-ndcg@32:0.49879
+[224]	validation_0-ndcg@32:0.49883
+[225]	validation_0-ndcg@32:0.49895
+[226]	validation_0-ndcg@32:0.49904
+[227]	validation_0-ndcg@32:0.49948
+[228]	validation_0-ndcg@32:0.49983
+[229]	validation_0-ndcg@32:0.49915
+[230]	validation_0-ndcg@32:0.49883
+[231]	validation_0-ndcg@32:0.49880
+[232]	validation_0-ndcg@32:0.49875
+[233]	validation_0-ndcg@32:0.49839
+[234]	validation_0-ndcg@32:0.49832
+[235]	validation_0-ndcg@32:0.49831
+[236]	validation_0-ndcg@32:0.49823
+[237]	validation_0-ndcg@32:0.49771
+[238]	validation_0-ndcg@32:0.49778
+[239]	validation_0-ndcg@32:0.49808
+[240]	validation_0-ndcg@32:0.49826
+[241]	validation_0-ndcg@32:0.49808
+[242]	validation_0-ndcg@32:0.49826
+[243]	validation_0-ndcg@32:0.49819
+[244]	validation_0-ndcg@32:0.49809
+[245]	validation_0-ndcg@32:0.49775
+[246]	validation_0-ndcg@32:0.49815
+[247]	validation_0-ndcg@32:0.49784
+[248]	validation_0-ndcg@32:0.49806
+[249]	validation_0-ndcg@32:0.49750
+[250]	validation_0-ndcg@32:0.49776
+[251]	validation_0-ndcg@32:0.49786
+[252]	validation_0-ndcg@32:0.49727
+[253]	validation_0-ndcg@32:0.49885
+[254]	validation_0-ndcg@32:0.49885
+[255]	validation_0-ndcg@32:0.49877
+[256]	validation_0-ndcg@32:0.49921
+[257]	validation_0-ndcg@32:0.49940
+[258]	validation_0-ndcg@32:0.49938
+[259]	validation_0-ndcg@32:0.49964
+[260]	validation_0-ndcg@32:0.49964
+[261]	validation_0-ndcg@32:0.49925
+[262]	validation_0-ndcg@32:0.49891
+[263]	validation_0-ndcg@32:0.49897
+[264]	validation_0-ndcg@32:0.49891
+[265]	validation_0-ndcg@32:0.49897
+[266]	validation_0-ndcg@32:0.49885
+[267]	validation_0-ndcg@32:0.49915
+[268]	validation_0-ndcg@32:0.49900
+[269]	validation_0-ndcg@32:0.49887
+[270]	validation_0-ndcg@32:0.49896
+[271]	validation_0-ndcg@32:0.49882
+[272]	validation_0-ndcg@32:0.49890
+[273]	validation_0-ndcg@32:0.49920
+[274]	validation_0-ndcg@32:0.49936
+[275]	validation_0-ndcg@32:0.49919
+[276]	validation_0-ndcg@32:0.49905
+[277]	validation_0-ndcg@32:0.49933
+[278]	validation_0-ndcg@32:0.49871
+[279]	validation_0-ndcg@32:0.49891
+[280]	validation_0-ndcg@32:0.49865
+[281]	validation_0-ndcg@32:0.49902
+[282]	validation_0-ndcg@32:0.49916
+[283]	validation_0-ndcg@32:0.49947
+[284]	validation_0-ndcg@32:0.49930
+[285]	validation_0-ndcg@32:0.49984
+[286]	validation_0-ndcg@32:0.49962
+[287]	validation_0-ndcg@32:0.49947
+[288]	validation_0-ndcg@32:0.49902
+[289]	validation_0-ndcg@32:0.49919
+[290]	validation_0-ndcg@32:0.49929
+[291]	validation_0-ndcg@32:0.49882
+[292]	validation_0-ndcg@32:0.49871
+[293]	validation_0-ndcg@32:0.49876
+[294]	validation_0-ndcg@32:0.49913
+[295]	validation_0-ndcg@32:0.49929
+[296]	validation_0-ndcg@32:0.49896
+[297]	validation_0-ndcg@32:0.49873
+[298]	validation_0-ndcg@32:0.49881
+[299]	validation_0-ndcg@32:0.49879
+
+[검증] train 비율로 배정한 분류 정확도(early stopping용 참고): 0.2509
+
+[Train] 실제 Severity와 비교 (train 비율 배정)
+
+=== Train (비율 배정) ===
+Accuracy: 0.2943
+Ordinal MAE (relevance 0–3): 1.1189  (closer wrong labels score better than farther; ex. Critical→High < Critical→Low penalty)
+Ordinal RMSE (relevance): 1.4576
+Within-1 severity (|pred-true|≤1 step): 0.6766
+Macro precision: 0.2941
+Macro recall: 0.2941
+Macro F1: 0.2941
+Weighted precision: 0.2943
+Weighted recall: 0.2943
+Weighted F1: 0.2943
+              precision    recall  f1-score   support
+
+    Critical     0.3754    0.3754    0.3754     15089
+        High     0.2418    0.2418    0.2418     14954
+      Medium     0.2694    0.2694    0.2694     15010
+         Low     0.2898    0.2898    0.2898     14947
+
+    accuracy                         0.2943     60000
+   macro avg     0.2941    0.2941    0.2941     60000
+weighted avg     0.2943    0.2943    0.2943     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [-0.047959 -0.159739 -0.234107]
+(참고) train score min/max: -0.609971 / 1.983406
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=test_oracle_ratio) ===
+Accuracy: 0.2519
+Ordinal MAE (relevance 0–3): 1.2475  (closer wrong labels score better than farther; ex. Critical→High < Critical→Low penalty)
+Ordinal RMSE (relevance): 1.5805
+Within-1 severity (|pred-true|≤1 step): 0.6266
+Macro precision: 0.2518
+Macro recall: 0.2518
+Macro F1: 0.2518
+Weighted precision: 0.2519
+Weighted recall: 0.2519
+Weighted F1: 0.2519
+              precision    recall  f1-score   support
+
+    Critical     0.2519    0.2519    0.2519      5029
+        High     0.2436    0.2436    0.2436      4984
+      Medium     0.2590    0.2590    0.2590      5004
+         Low     0.2529    0.2529    0.2529      4983
+
+    accuracy                         0.2519     20000
+   macro avg     0.2518    0.2518    0.2518     20000
+weighted avg     0.2519    0.2519    0.2519     20000
+
+
+저장: severity/logging_monitoring_anomalies_l2r_xgboost_test_oracle_ratio.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.494 s
+전처리(인코딩·스케일) + 학습(train∪val L2R): 17.339 s
+추론·경계·Train·Val·Test 평가·저장(전수): 3.038 s
+  └ Test severity 정답 비교(report_metrics)만: 0.450 s
+전체: 20.871 s
+
+=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
+Validation MRR: 0.854100
+Test MRR:       0.840628

@@ -1,0 +1,677 @@
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_054638/logs/cls_lightgbm_train_thresholds.log
+/usr/local/lib/python3.12/dist-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+[1]	valid_0's multi_logloss: 1.38628
+[2]	valid_0's multi_logloss: 1.38653
+[3]	valid_0's multi_logloss: 1.3866
+[4]	valid_0's multi_logloss: 1.3867
+[5]	valid_0's multi_logloss: 1.3867
+[6]	valid_0's multi_logloss: 1.38669
+[7]	valid_0's multi_logloss: 1.38673
+[8]	valid_0's multi_logloss: 1.38718
+[9]	valid_0's multi_logloss: 1.38746
+[10]	valid_0's multi_logloss: 1.38802
+[11]	valid_0's multi_logloss: 1.38855
+[12]	valid_0's multi_logloss: 1.38864
+[13]	valid_0's multi_logloss: 1.38867
+[14]	valid_0's multi_logloss: 1.38867
+[15]	valid_0's multi_logloss: 1.38937
+[16]	valid_0's multi_logloss: 1.39018
+[17]	valid_0's multi_logloss: 1.3902
+[18]	valid_0's multi_logloss: 1.39018
+[19]	valid_0's multi_logloss: 1.39036
+[20]	valid_0's multi_logloss: 1.39039
+[21]	valid_0's multi_logloss: 1.39039
+[22]	valid_0's multi_logloss: 1.39083
+[23]	valid_0's multi_logloss: 1.3909
+[24]	valid_0's multi_logloss: 1.39096
+[25]	valid_0's multi_logloss: 1.39093
+[26]	valid_0's multi_logloss: 1.39184
+[27]	valid_0's multi_logloss: 1.39191
+[28]	valid_0's multi_logloss: 1.39193
+[29]	valid_0's multi_logloss: 1.39198
+[30]	valid_0's multi_logloss: 1.39218
+[31]	valid_0's multi_logloss: 1.39235
+[32]	valid_0's multi_logloss: 1.39244
+[33]	valid_0's multi_logloss: 1.39246
+[34]	valid_0's multi_logloss: 1.39248
+[35]	valid_0's multi_logloss: 1.39252
+[36]	valid_0's multi_logloss: 1.39248
+[37]	valid_0's multi_logloss: 1.39247
+[38]	valid_0's multi_logloss: 1.39252
+[39]	valid_0's multi_logloss: 1.39265
+[40]	valid_0's multi_logloss: 1.39343
+[41]	valid_0's multi_logloss: 1.39344
+[42]	valid_0's multi_logloss: 1.39345
+[43]	valid_0's multi_logloss: 1.39348
+[44]	valid_0's multi_logloss: 1.39454
+[45]	valid_0's multi_logloss: 1.39452
+[46]	valid_0's multi_logloss: 1.39451
+[47]	valid_0's multi_logloss: 1.3945
+[48]	valid_0's multi_logloss: 1.39452
+[49]	valid_0's multi_logloss: 1.39456
+[50]	valid_0's multi_logloss: 1.39459
+[51]	valid_0's multi_logloss: 1.39463
+[52]	valid_0's multi_logloss: 1.39573
+[53]	valid_0's multi_logloss: 1.39574
+[54]	valid_0's multi_logloss: 1.39579
+[55]	valid_0's multi_logloss: 1.39629
+[56]	valid_0's multi_logloss: 1.39631
+[57]	valid_0's multi_logloss: 1.39635
+[58]	valid_0's multi_logloss: 1.39636
+[59]	valid_0's multi_logloss: 1.39653
+[60]	valid_0's multi_logloss: 1.39663
+[61]	valid_0's multi_logloss: 1.39667
+[62]	valid_0's multi_logloss: 1.39671
+[63]	valid_0's multi_logloss: 1.39676
+[64]	valid_0's multi_logloss: 1.39694
+[65]	valid_0's multi_logloss: 1.39702
+[66]	valid_0's multi_logloss: 1.39703
+[67]	valid_0's multi_logloss: 1.39704
+[68]	valid_0's multi_logloss: 1.39711
+[69]	valid_0's multi_logloss: 1.39727
+[70]	valid_0's multi_logloss: 1.39735
+[71]	valid_0's multi_logloss: 1.39739
+[72]	valid_0's multi_logloss: 1.3976
+[73]	valid_0's multi_logloss: 1.39774
+[74]	valid_0's multi_logloss: 1.39777
+[75]	valid_0's multi_logloss: 1.39789
+[76]	valid_0's multi_logloss: 1.39791
+[77]	valid_0's multi_logloss: 1.39801
+[78]	valid_0's multi_logloss: 1.39803
+[79]	valid_0's multi_logloss: 1.39814
+[80]	valid_0's multi_logloss: 1.39813
+[81]	valid_0's multi_logloss: 1.3982
+[82]	valid_0's multi_logloss: 1.39827
+[83]	valid_0's multi_logloss: 1.39831
+[84]	valid_0's multi_logloss: 1.39853
+[85]	valid_0's multi_logloss: 1.39858
+[86]	valid_0's multi_logloss: 1.39858
+[87]	valid_0's multi_logloss: 1.3986
+[88]	valid_0's multi_logloss: 1.39864
+[89]	valid_0's multi_logloss: 1.39871
+[90]	valid_0's multi_logloss: 1.39876
+[91]	valid_0's multi_logloss: 1.39907
+[92]	valid_0's multi_logloss: 1.39914
+[93]	valid_0's multi_logloss: 1.3993
+[94]	valid_0's multi_logloss: 1.39926
+[95]	valid_0's multi_logloss: 1.39938
+[96]	valid_0's multi_logloss: 1.39953
+[97]	valid_0's multi_logloss: 1.39955
+[98]	valid_0's multi_logloss: 1.39958
+[99]	valid_0's multi_logloss: 1.3996
+[100]	valid_0's multi_logloss: 1.39967
+[101]	valid_0's multi_logloss: 1.39977
+[102]	valid_0's multi_logloss: 1.39991
+[103]	valid_0's multi_logloss: 1.39992
+[104]	valid_0's multi_logloss: 1.3999
+[105]	valid_0's multi_logloss: 1.39995
+[106]	valid_0's multi_logloss: 1.39996
+[107]	valid_0's multi_logloss: 1.39995
+[108]	valid_0's multi_logloss: 1.39993
+[109]	valid_0's multi_logloss: 1.39999
+[110]	valid_0's multi_logloss: 1.4
+[111]	valid_0's multi_logloss: 1.40005
+[112]	valid_0's multi_logloss: 1.4001
+[113]	valid_0's multi_logloss: 1.4001
+[114]	valid_0's multi_logloss: 1.40012
+[115]	valid_0's multi_logloss: 1.40053
+[116]	valid_0's multi_logloss: 1.40052
+[117]	valid_0's multi_logloss: 1.40056
+[118]	valid_0's multi_logloss: 1.40063
+[119]	valid_0's multi_logloss: 1.40069
+[120]	valid_0's multi_logloss: 1.40095
+[121]	valid_0's multi_logloss: 1.40092
+[122]	valid_0's multi_logloss: 1.40088
+[123]	valid_0's multi_logloss: 1.40096
+[124]	valid_0's multi_logloss: 1.401
+[125]	valid_0's multi_logloss: 1.40104
+[126]	valid_0's multi_logloss: 1.40104
+[127]	valid_0's multi_logloss: 1.40138
+[128]	valid_0's multi_logloss: 1.40141
+[129]	valid_0's multi_logloss: 1.40146
+[130]	valid_0's multi_logloss: 1.40151
+[131]	valid_0's multi_logloss: 1.40155
+[132]	valid_0's multi_logloss: 1.40211
+[133]	valid_0's multi_logloss: 1.40209
+[134]	valid_0's multi_logloss: 1.40209
+[135]	valid_0's multi_logloss: 1.40213
+[136]	valid_0's multi_logloss: 1.40218
+[137]	valid_0's multi_logloss: 1.40224
+[138]	valid_0's multi_logloss: 1.40222
+[139]	valid_0's multi_logloss: 1.40231
+[140]	valid_0's multi_logloss: 1.40233
+[141]	valid_0's multi_logloss: 1.40251
+[142]	valid_0's multi_logloss: 1.40254
+[143]	valid_0's multi_logloss: 1.40263
+[144]	valid_0's multi_logloss: 1.40262
+[145]	valid_0's multi_logloss: 1.40266
+[146]	valid_0's multi_logloss: 1.40288
+[147]	valid_0's multi_logloss: 1.40299
+[148]	valid_0's multi_logloss: 1.40309
+[149]	valid_0's multi_logloss: 1.40316
+[150]	valid_0's multi_logloss: 1.40325
+[151]	valid_0's multi_logloss: 1.40329
+[152]	valid_0's multi_logloss: 1.40325
+[153]	valid_0's multi_logloss: 1.40326
+[154]	valid_0's multi_logloss: 1.40328
+[155]	valid_0's multi_logloss: 1.40331
+[156]	valid_0's multi_logloss: 1.40336
+[157]	valid_0's multi_logloss: 1.40345
+[158]	valid_0's multi_logloss: 1.40349
+[159]	valid_0's multi_logloss: 1.4035
+[160]	valid_0's multi_logloss: 1.40354
+[161]	valid_0's multi_logloss: 1.40355
+[162]	valid_0's multi_logloss: 1.40359
+[163]	valid_0's multi_logloss: 1.40361
+[164]	valid_0's multi_logloss: 1.40366
+[165]	valid_0's multi_logloss: 1.4037
+[166]	valid_0's multi_logloss: 1.40371
+[167]	valid_0's multi_logloss: 1.4037
+[168]	valid_0's multi_logloss: 1.40373
+[169]	valid_0's multi_logloss: 1.40376
+[170]	valid_0's multi_logloss: 1.4039
+[171]	valid_0's multi_logloss: 1.40392
+[172]	valid_0's multi_logloss: 1.40396
+[173]	valid_0's multi_logloss: 1.40401
+[174]	valid_0's multi_logloss: 1.40467
+[175]	valid_0's multi_logloss: 1.40471
+[176]	valid_0's multi_logloss: 1.40473
+[177]	valid_0's multi_logloss: 1.40482
+[178]	valid_0's multi_logloss: 1.40489
+[179]	valid_0's multi_logloss: 1.40497
+[180]	valid_0's multi_logloss: 1.40509
+[181]	valid_0's multi_logloss: 1.40508
+[182]	valid_0's multi_logloss: 1.40514
+[183]	valid_0's multi_logloss: 1.40518
+[184]	valid_0's multi_logloss: 1.40594
+[185]	valid_0's multi_logloss: 1.40596
+[186]	valid_0's multi_logloss: 1.40598
+[187]	valid_0's multi_logloss: 1.40625
+[188]	valid_0's multi_logloss: 1.40625
+[189]	valid_0's multi_logloss: 1.40624
+[190]	valid_0's multi_logloss: 1.40627
+[191]	valid_0's multi_logloss: 1.40628
+[192]	valid_0's multi_logloss: 1.40629
+[193]	valid_0's multi_logloss: 1.40627
+[194]	valid_0's multi_logloss: 1.4063
+[195]	valid_0's multi_logloss: 1.40632
+[196]	valid_0's multi_logloss: 1.40642
+[197]	valid_0's multi_logloss: 1.4064
+[198]	valid_0's multi_logloss: 1.4064
+[199]	valid_0's multi_logloss: 1.40647
+[200]	valid_0's multi_logloss: 1.40648
+[201]	valid_0's multi_logloss: 1.40724
+[202]	valid_0's multi_logloss: 1.40736
+[203]	valid_0's multi_logloss: 1.40739
+[204]	valid_0's multi_logloss: 1.40744
+[205]	valid_0's multi_logloss: 1.40747
+[206]	valid_0's multi_logloss: 1.4075
+[207]	valid_0's multi_logloss: 1.40756
+[208]	valid_0's multi_logloss: 1.40766
+[209]	valid_0's multi_logloss: 1.40769
+[210]	valid_0's multi_logloss: 1.40767
+[211]	valid_0's multi_logloss: 1.4077
+[212]	valid_0's multi_logloss: 1.40868
+[213]	valid_0's multi_logloss: 1.40869
+[214]	valid_0's multi_logloss: 1.40875
+[215]	valid_0's multi_logloss: 1.40872
+[216]	valid_0's multi_logloss: 1.40874
+[217]	valid_0's multi_logloss: 1.40882
+[218]	valid_0's multi_logloss: 1.40889
+[219]	valid_0's multi_logloss: 1.4089
+[220]	valid_0's multi_logloss: 1.40889
+[221]	valid_0's multi_logloss: 1.40881
+[222]	valid_0's multi_logloss: 1.40892
+[223]	valid_0's multi_logloss: 1.40898
+[224]	valid_0's multi_logloss: 1.40901
+[225]	valid_0's multi_logloss: 1.40903
+[226]	valid_0's multi_logloss: 1.40908
+[227]	valid_0's multi_logloss: 1.40912
+[228]	valid_0's multi_logloss: 1.40914
+[229]	valid_0's multi_logloss: 1.4092
+[230]	valid_0's multi_logloss: 1.40914
+[231]	valid_0's multi_logloss: 1.40925
+[232]	valid_0's multi_logloss: 1.40929
+[233]	valid_0's multi_logloss: 1.4093
+[234]	valid_0's multi_logloss: 1.40934
+[235]	valid_0's multi_logloss: 1.40937
+[236]	valid_0's multi_logloss: 1.40942
+[237]	valid_0's multi_logloss: 1.40949
+[238]	valid_0's multi_logloss: 1.40958
+[239]	valid_0's multi_logloss: 1.40961
+[240]	valid_0's multi_logloss: 1.40965
+[241]	valid_0's multi_logloss: 1.4097
+[242]	valid_0's multi_logloss: 1.40974
+[243]	valid_0's multi_logloss: 1.40979
+[244]	valid_0's multi_logloss: 1.40983
+[245]	valid_0's multi_logloss: 1.40985
+[246]	valid_0's multi_logloss: 1.40985
+[247]	valid_0's multi_logloss: 1.40992
+[248]	valid_0's multi_logloss: 1.40991
+[249]	valid_0's multi_logloss: 1.41049
+[250]	valid_0's multi_logloss: 1.41054
+[251]	valid_0's multi_logloss: 1.41052
+[252]	valid_0's multi_logloss: 1.41057
+[253]	valid_0's multi_logloss: 1.41062
+[254]	valid_0's multi_logloss: 1.41071
+[255]	valid_0's multi_logloss: 1.41091
+[256]	valid_0's multi_logloss: 1.411
+[257]	valid_0's multi_logloss: 1.41104
+[258]	valid_0's multi_logloss: 1.41114
+[259]	valid_0's multi_logloss: 1.4112
+[260]	valid_0's multi_logloss: 1.41113
+[261]	valid_0's multi_logloss: 1.41123
+[262]	valid_0's multi_logloss: 1.41131
+[263]	valid_0's multi_logloss: 1.41133
+[264]	valid_0's multi_logloss: 1.41135
+[265]	valid_0's multi_logloss: 1.41141
+[266]	valid_0's multi_logloss: 1.41139
+[267]	valid_0's multi_logloss: 1.41143
+[268]	valid_0's multi_logloss: 1.41143
+[269]	valid_0's multi_logloss: 1.41145
+[270]	valid_0's multi_logloss: 1.41152
+[271]	valid_0's multi_logloss: 1.41239
+[272]	valid_0's multi_logloss: 1.41245
+[273]	valid_0's multi_logloss: 1.41255
+[274]	valid_0's multi_logloss: 1.41259
+[275]	valid_0's multi_logloss: 1.41263
+[276]	valid_0's multi_logloss: 1.41261
+[277]	valid_0's multi_logloss: 1.41267
+[278]	valid_0's multi_logloss: 1.41273
+[279]	valid_0's multi_logloss: 1.4128
+[280]	valid_0's multi_logloss: 1.41281
+[281]	valid_0's multi_logloss: 1.41288
+[282]	valid_0's multi_logloss: 1.41339
+[283]	valid_0's multi_logloss: 1.41338
+[284]	valid_0's multi_logloss: 1.41348
+[285]	valid_0's multi_logloss: 1.41357
+[286]	valid_0's multi_logloss: 1.41368
+[287]	valid_0's multi_logloss: 1.4137
+[288]	valid_0's multi_logloss: 1.4137
+[289]	valid_0's multi_logloss: 1.41364
+[290]	valid_0's multi_logloss: 1.41372
+[291]	valid_0's multi_logloss: 1.41378
+[292]	valid_0's multi_logloss: 1.41439
+[293]	valid_0's multi_logloss: 1.41438
+[294]	valid_0's multi_logloss: 1.41441
+[295]	valid_0's multi_logloss: 1.41444
+[296]	valid_0's multi_logloss: 1.41441
+[297]	valid_0's multi_logloss: 1.41442
+[298]	valid_0's multi_logloss: 1.41443
+[299]	valid_0's multi_logloss: 1.41457
+[300]	valid_0's multi_logloss: 1.41466
+[301]	valid_0's multi_logloss: 1.41472
+[302]	valid_0's multi_logloss: 1.41474
+[303]	valid_0's multi_logloss: 1.41478
+[304]	valid_0's multi_logloss: 1.41481
+[305]	valid_0's multi_logloss: 1.41483
+[306]	valid_0's multi_logloss: 1.41487
+[307]	valid_0's multi_logloss: 1.41483
+[308]	valid_0's multi_logloss: 1.41495
+[309]	valid_0's multi_logloss: 1.41495
+[310]	valid_0's multi_logloss: 1.41506
+[311]	valid_0's multi_logloss: 1.4151
+[312]	valid_0's multi_logloss: 1.41513
+[313]	valid_0's multi_logloss: 1.41564
+[314]	valid_0's multi_logloss: 1.41564
+[315]	valid_0's multi_logloss: 1.41566
+[316]	valid_0's multi_logloss: 1.41573
+[317]	valid_0's multi_logloss: 1.41579
+[318]	valid_0's multi_logloss: 1.41601
+[319]	valid_0's multi_logloss: 1.41607
+[320]	valid_0's multi_logloss: 1.41617
+[321]	valid_0's multi_logloss: 1.41627
+[322]	valid_0's multi_logloss: 1.4163
+[323]	valid_0's multi_logloss: 1.41629
+[324]	valid_0's multi_logloss: 1.41632
+[325]	valid_0's multi_logloss: 1.41637
+[326]	valid_0's multi_logloss: 1.41642
+[327]	valid_0's multi_logloss: 1.41645
+[328]	valid_0's multi_logloss: 1.4165
+[329]	valid_0's multi_logloss: 1.41654
+[330]	valid_0's multi_logloss: 1.41656
+[331]	valid_0's multi_logloss: 1.4168
+[332]	valid_0's multi_logloss: 1.41683
+[333]	valid_0's multi_logloss: 1.41694
+[334]	valid_0's multi_logloss: 1.41698
+[335]	valid_0's multi_logloss: 1.41696
+[336]	valid_0's multi_logloss: 1.41696
+[337]	valid_0's multi_logloss: 1.41705
+[338]	valid_0's multi_logloss: 1.41707
+[339]	valid_0's multi_logloss: 1.41709
+[340]	valid_0's multi_logloss: 1.41715
+[341]	valid_0's multi_logloss: 1.41725
+[342]	valid_0's multi_logloss: 1.41727
+[343]	valid_0's multi_logloss: 1.41734
+[344]	valid_0's multi_logloss: 1.41738
+[345]	valid_0's multi_logloss: 1.41739
+[346]	valid_0's multi_logloss: 1.41741
+[347]	valid_0's multi_logloss: 1.41748
+[348]	valid_0's multi_logloss: 1.41752
+[349]	valid_0's multi_logloss: 1.41762
+[350]	valid_0's multi_logloss: 1.41764
+[351]	valid_0's multi_logloss: 1.41766
+[352]	valid_0's multi_logloss: 1.41769
+[353]	valid_0's multi_logloss: 1.41772
+[354]	valid_0's multi_logloss: 1.41777
+[355]	valid_0's multi_logloss: 1.41775
+[356]	valid_0's multi_logloss: 1.41782
+[357]	valid_0's multi_logloss: 1.41791
+[358]	valid_0's multi_logloss: 1.41791
+[359]	valid_0's multi_logloss: 1.41792
+[360]	valid_0's multi_logloss: 1.41793
+[361]	valid_0's multi_logloss: 1.41797
+[362]	valid_0's multi_logloss: 1.41795
+[363]	valid_0's multi_logloss: 1.41801
+[364]	valid_0's multi_logloss: 1.41805
+[365]	valid_0's multi_logloss: 1.41854
+[366]	valid_0's multi_logloss: 1.41859
+[367]	valid_0's multi_logloss: 1.41861
+[368]	valid_0's multi_logloss: 1.41862
+[369]	valid_0's multi_logloss: 1.41862
+[370]	valid_0's multi_logloss: 1.41867
+[371]	valid_0's multi_logloss: 1.41869
+[372]	valid_0's multi_logloss: 1.41865
+[373]	valid_0's multi_logloss: 1.41866
+[374]	valid_0's multi_logloss: 1.41867
+[375]	valid_0's multi_logloss: 1.41872
+[376]	valid_0's multi_logloss: 1.41872
+[377]	valid_0's multi_logloss: 1.41879
+[378]	valid_0's multi_logloss: 1.4189
+[379]	valid_0's multi_logloss: 1.41893
+[380]	valid_0's multi_logloss: 1.41895
+[381]	valid_0's multi_logloss: 1.41902
+[382]	valid_0's multi_logloss: 1.41908
+[383]	valid_0's multi_logloss: 1.41915
+[384]	valid_0's multi_logloss: 1.41919
+[385]	valid_0's multi_logloss: 1.41924
+[386]	valid_0's multi_logloss: 1.41929
+[387]	valid_0's multi_logloss: 1.41941
+[388]	valid_0's multi_logloss: 1.41942
+[389]	valid_0's multi_logloss: 1.41945
+[390]	valid_0's multi_logloss: 1.41957
+[391]	valid_0's multi_logloss: 1.41958
+[392]	valid_0's multi_logloss: 1.42009
+[393]	valid_0's multi_logloss: 1.42009
+[394]	valid_0's multi_logloss: 1.42013
+[395]	valid_0's multi_logloss: 1.42014
+[396]	valid_0's multi_logloss: 1.42011
+[397]	valid_0's multi_logloss: 1.42012
+[398]	valid_0's multi_logloss: 1.42018
+[399]	valid_0's multi_logloss: 1.42022
+[400]	valid_0's multi_logloss: 1.42028
+[401]	valid_0's multi_logloss: 1.42027
+[402]	valid_0's multi_logloss: 1.4203
+[403]	valid_0's multi_logloss: 1.42031
+[404]	valid_0's multi_logloss: 1.42032
+[405]	valid_0's multi_logloss: 1.42036
+[406]	valid_0's multi_logloss: 1.4204
+[407]	valid_0's multi_logloss: 1.4205
+[408]	valid_0's multi_logloss: 1.42083
+[409]	valid_0's multi_logloss: 1.42089
+[410]	valid_0's multi_logloss: 1.42087
+[411]	valid_0's multi_logloss: 1.4209
+[412]	valid_0's multi_logloss: 1.42092
+[413]	valid_0's multi_logloss: 1.42097
+[414]	valid_0's multi_logloss: 1.42098
+[415]	valid_0's multi_logloss: 1.421
+[416]	valid_0's multi_logloss: 1.42092
+[417]	valid_0's multi_logloss: 1.42093
+[418]	valid_0's multi_logloss: 1.42104
+[419]	valid_0's multi_logloss: 1.42111
+[420]	valid_0's multi_logloss: 1.4211
+[421]	valid_0's multi_logloss: 1.42115
+[422]	valid_0's multi_logloss: 1.42111
+[423]	valid_0's multi_logloss: 1.4216
+[424]	valid_0's multi_logloss: 1.42165
+[425]	valid_0's multi_logloss: 1.42166
+[426]	valid_0's multi_logloss: 1.42169
+[427]	valid_0's multi_logloss: 1.42172
+[428]	valid_0's multi_logloss: 1.42174
+[429]	valid_0's multi_logloss: 1.42176
+[430]	valid_0's multi_logloss: 1.42179
+[431]	valid_0's multi_logloss: 1.4219
+[432]	valid_0's multi_logloss: 1.42196
+[433]	valid_0's multi_logloss: 1.42201
+[434]	valid_0's multi_logloss: 1.42204
+[435]	valid_0's multi_logloss: 1.4221
+[436]	valid_0's multi_logloss: 1.42207
+[437]	valid_0's multi_logloss: 1.42209
+[438]	valid_0's multi_logloss: 1.42217
+[439]	valid_0's multi_logloss: 1.42216
+[440]	valid_0's multi_logloss: 1.42221
+[441]	valid_0's multi_logloss: 1.42222
+[442]	valid_0's multi_logloss: 1.4227
+[443]	valid_0's multi_logloss: 1.42269
+[444]	valid_0's multi_logloss: 1.42282
+[445]	valid_0's multi_logloss: 1.42291
+[446]	valid_0's multi_logloss: 1.42291
+[447]	valid_0's multi_logloss: 1.42293
+[448]	valid_0's multi_logloss: 1.42294
+[449]	valid_0's multi_logloss: 1.423
+[450]	valid_0's multi_logloss: 1.42301
+[451]	valid_0's multi_logloss: 1.423
+[452]	valid_0's multi_logloss: 1.42297
+[453]	valid_0's multi_logloss: 1.42299
+[454]	valid_0's multi_logloss: 1.42307
+[455]	valid_0's multi_logloss: 1.42308
+[456]	valid_0's multi_logloss: 1.42307
+[457]	valid_0's multi_logloss: 1.42408
+[458]	valid_0's multi_logloss: 1.4241
+[459]	valid_0's multi_logloss: 1.42416
+[460]	valid_0's multi_logloss: 1.42417
+[461]	valid_0's multi_logloss: 1.42419
+[462]	valid_0's multi_logloss: 1.42419
+[463]	valid_0's multi_logloss: 1.42421
+[464]	valid_0's multi_logloss: 1.42421
+[465]	valid_0's multi_logloss: 1.42424
+[466]	valid_0's multi_logloss: 1.42427
+[467]	valid_0's multi_logloss: 1.42426
+[468]	valid_0's multi_logloss: 1.42432
+[469]	valid_0's multi_logloss: 1.42436
+[470]	valid_0's multi_logloss: 1.42441
+[471]	valid_0's multi_logloss: 1.42446
+[472]	valid_0's multi_logloss: 1.42455
+[473]	valid_0's multi_logloss: 1.42455
+[474]	valid_0's multi_logloss: 1.42483
+[475]	valid_0's multi_logloss: 1.42485
+[476]	valid_0's multi_logloss: 1.42491
+[477]	valid_0's multi_logloss: 1.42494
+[478]	valid_0's multi_logloss: 1.42491
+[479]	valid_0's multi_logloss: 1.42491
+[480]	valid_0's multi_logloss: 1.42492
+[481]	valid_0's multi_logloss: 1.4249
+[482]	valid_0's multi_logloss: 1.42492
+[483]	valid_0's multi_logloss: 1.4249
+[484]	valid_0's multi_logloss: 1.42499
+[485]	valid_0's multi_logloss: 1.425
+[486]	valid_0's multi_logloss: 1.42506
+[487]	valid_0's multi_logloss: 1.42506
+[488]	valid_0's multi_logloss: 1.42504
+[489]	valid_0's multi_logloss: 1.42504
+[490]	valid_0's multi_logloss: 1.42511
+[491]	valid_0's multi_logloss: 1.42508
+[492]	valid_0's multi_logloss: 1.42509
+[493]	valid_0's multi_logloss: 1.42511
+[494]	valid_0's multi_logloss: 1.42515
+[495]	valid_0's multi_logloss: 1.42543
+[496]	valid_0's multi_logloss: 1.42546
+[497]	valid_0's multi_logloss: 1.42546
+[498]	valid_0's multi_logloss: 1.42546
+[499]	valid_0's multi_logloss: 1.42556
+[500]	valid_0's multi_logloss: 1.42554
+[501]	valid_0's multi_logloss: 1.42552
+[502]	valid_0's multi_logloss: 1.42589
+[503]	valid_0's multi_logloss: 1.42591
+[504]	valid_0's multi_logloss: 1.42594
+[505]	valid_0's multi_logloss: 1.42594
+[506]	valid_0's multi_logloss: 1.42596
+[507]	valid_0's multi_logloss: 1.42595
+[508]	valid_0's multi_logloss: 1.42598
+[509]	valid_0's multi_logloss: 1.426
+[510]	valid_0's multi_logloss: 1.42606
+[511]	valid_0's multi_logloss: 1.42602
+[512]	valid_0's multi_logloss: 1.42602
+[513]	valid_0's multi_logloss: 1.42602
+[514]	valid_0's multi_logloss: 1.42603
+[515]	valid_0's multi_logloss: 1.42609
+[516]	valid_0's multi_logloss: 1.42609
+[517]	valid_0's multi_logloss: 1.42611
+[518]	valid_0's multi_logloss: 1.42614
+[519]	valid_0's multi_logloss: 1.42659
+[520]	valid_0's multi_logloss: 1.42665
+[521]	valid_0's multi_logloss: 1.42667
+[522]	valid_0's multi_logloss: 1.42669
+[523]	valid_0's multi_logloss: 1.42668
+[524]	valid_0's multi_logloss: 1.42674
+[525]	valid_0's multi_logloss: 1.42668
+[526]	valid_0's multi_logloss: 1.42669
+[527]	valid_0's multi_logloss: 1.42672
+[528]	valid_0's multi_logloss: 1.42673
+[529]	valid_0's multi_logloss: 1.42675
+[530]	valid_0's multi_logloss: 1.42677
+[531]	valid_0's multi_logloss: 1.4268
+[532]	valid_0's multi_logloss: 1.42683
+[533]	valid_0's multi_logloss: 1.42685
+[534]	valid_0's multi_logloss: 1.42689
+[535]	valid_0's multi_logloss: 1.4269
+[536]	valid_0's multi_logloss: 1.42697
+[537]	valid_0's multi_logloss: 1.4275
+[538]	valid_0's multi_logloss: 1.42747
+[539]	valid_0's multi_logloss: 1.42748
+[540]	valid_0's multi_logloss: 1.42807
+[541]	valid_0's multi_logloss: 1.42809
+[542]	valid_0's multi_logloss: 1.4281
+[543]	valid_0's multi_logloss: 1.42814
+[544]	valid_0's multi_logloss: 1.42815
+[545]	valid_0's multi_logloss: 1.42818
+[546]	valid_0's multi_logloss: 1.42824
+[547]	valid_0's multi_logloss: 1.42827
+[548]	valid_0's multi_logloss: 1.42829
+[549]	valid_0's multi_logloss: 1.4283
+[550]	valid_0's multi_logloss: 1.42833
+[551]	valid_0's multi_logloss: 1.42827
+[552]	valid_0's multi_logloss: 1.4283
+[553]	valid_0's multi_logloss: 1.42832
+[554]	valid_0's multi_logloss: 1.42834
+[555]	valid_0's multi_logloss: 1.42837
+[556]	valid_0's multi_logloss: 1.4284
+[557]	valid_0's multi_logloss: 1.42843
+[558]	valid_0's multi_logloss: 1.42846
+[559]	valid_0's multi_logloss: 1.42853
+[560]	valid_0's multi_logloss: 1.42901
+[561]	valid_0's multi_logloss: 1.42903
+[562]	valid_0's multi_logloss: 1.42904
+[563]	valid_0's multi_logloss: 1.42908
+[564]	valid_0's multi_logloss: 1.42915
+[565]	valid_0's multi_logloss: 1.42921
+[566]	valid_0's multi_logloss: 1.42924
+[567]	valid_0's multi_logloss: 1.42925
+[568]	valid_0's multi_logloss: 1.42927
+[569]	valid_0's multi_logloss: 1.4292
+[570]	valid_0's multi_logloss: 1.42921
+[571]	valid_0's multi_logloss: 1.42924
+[572]	valid_0's multi_logloss: 1.42923
+[573]	valid_0's multi_logloss: 1.42926
+[574]	valid_0's multi_logloss: 1.42932
+[575]	valid_0's multi_logloss: 1.42935
+[576]	valid_0's multi_logloss: 1.4295
+[577]	valid_0's multi_logloss: 1.42949
+[578]	valid_0's multi_logloss: 1.42951
+[579]	valid_0's multi_logloss: 1.4295
+[580]	valid_0's multi_logloss: 1.42951
+[581]	valid_0's multi_logloss: 1.42956
+[582]	valid_0's multi_logloss: 1.42955
+[583]	valid_0's multi_logloss: 1.42963
+[584]	valid_0's multi_logloss: 1.4297
+[585]	valid_0's multi_logloss: 1.42973
+[586]	valid_0's multi_logloss: 1.4297
+[587]	valid_0's multi_logloss: 1.42977
+[588]	valid_0's multi_logloss: 1.42981
+[589]	valid_0's multi_logloss: 1.42981
+[590]	valid_0's multi_logloss: 1.42981
+[591]	valid_0's multi_logloss: 1.42984
+[592]	valid_0's multi_logloss: 1.42988
+[593]	valid_0's multi_logloss: 1.42996
+[594]	valid_0's multi_logloss: 1.43011
+[595]	valid_0's multi_logloss: 1.43011
+[596]	valid_0's multi_logloss: 1.4302
+[597]	valid_0's multi_logloss: 1.43022
+[598]	valid_0's multi_logloss: 1.43025
+[599]	valid_0's multi_logloss: 1.43024
+[600]	valid_0's multi_logloss: 1.43029
+/usr/local/lib/python3.12/dist-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+/usr/local/lib/python3.12/dist-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+/usr/local/lib/python3.12/dist-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+
+[검증] train 비율로 배정한 분류 정확도(참고): 0.2502
+
+[Train] 실제 Severity와 비교 (train 비율 배정)
+
+=== Train (비율 배정) ===
+Accuracy: 0.6352
+Ordinal MAE (relevance 0–3): 0.3820  (closer wrong labels score better than farther; ex. Critical→High < Critical→Low penalty)
+Ordinal RMSE (relevance): 0.6453
+Within-1 severity (|pred-true|≤1 step): 0.9829
+Macro precision: 0.6351
+Macro recall: 0.6351
+Macro F1: 0.6351
+Weighted precision: 0.6352
+Weighted recall: 0.6352
+Weighted F1: 0.6352
+              precision    recall  f1-score   support
+
+    Critical     0.7194    0.7194    0.7194     15089
+        High     0.5541    0.5541    0.5541     14954
+      Medium     0.5483    0.5483    0.5483     15010
+         Low     0.7185    0.7185    0.7185     14947
+
+    accuracy                         0.6352     60000
+   macro avg     0.6351    0.6351    0.6351     60000
+weighted avg     0.6352    0.6352    0.6352     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [1.636271 1.505156 1.367978]
+(참고) train score min/max: 0.411982 / 2.697561
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=train_thresholds) ===
+Accuracy: 0.2535
+Ordinal MAE (relevance 0–3): 1.2536  (closer wrong labels score better than farther; ex. Critical→High < Critical→Low penalty)
+Ordinal RMSE (relevance): 1.5884
+Within-1 severity (|pred-true|≤1 step): 0.6203
+Macro precision: 0.2539
+Macro recall: 0.2533
+Macro F1: 0.2456
+Weighted precision: 0.2539
+Weighted recall: 0.2535
+Weighted F1: 0.2457
+              precision    recall  f1-score   support
+
+    Critical     0.2534    0.3850    0.3056      5029
+        High     0.2529    0.2552    0.2540      4984
+      Medium     0.2532    0.2358    0.2442      5004
+         Low     0.2560    0.1371    0.1785      4983
+
+    accuracy                         0.2535     20000
+   macro avg     0.2539    0.2533    0.2456     20000
+weighted avg     0.2539    0.2535    0.2457     20000
+
+
+저장: severity/logging_monitoring_anomalies_cls_lightgbm_train_thresholds.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.482 s
+전처리(인코딩·스케일) + 학습(train∪val): 21.710 s
+추론·경계·평가·저장(전수): 14.602 s
+  └ Test severity 정답 비교(report_metrics)만: 0.412 s
+전체: 36.794 s
+
+=== 랭킹 지표 MRR (relevance=0..3) ===
+Validation MRR: 0.862993
+Test MRR:       0.865282

@@ -1,0 +1,69 @@
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_054638/logs/reg_xgboost_regressor_train_thresholds.log
+
+[검증] train 비율로 배정한 분류 정확도(참고): 0.2497
+
+[Train] 실제 Severity와 비교 (train 비율 배정)
+
+=== Train (비율 배정) ===
+Accuracy: 0.7682
+Ordinal MAE (relevance 0–3): 0.2328  (closer wrong labels score better than farther; ex. Critical→High < Critical→Low penalty)
+Ordinal RMSE (relevance): 0.4846
+Within-1 severity (|pred-true|≤1 step): 0.9990
+Macro precision: 0.7681
+Macro recall: 0.7681
+Macro F1: 0.7681
+Weighted precision: 0.7682
+Weighted recall: 0.7682
+Weighted F1: 0.7682
+              precision    recall  f1-score   support
+
+    Critical     0.8136    0.8136    0.8136     15089
+        High     0.7256    0.7256    0.7256     14954
+      Medium     0.7239    0.7239    0.7239     15010
+         Low     0.8095    0.8095    0.8095     14947
+
+    accuracy                         0.7682     60000
+   macro avg     0.7681    0.7681    0.7681     60000
+weighted avg     0.7682    0.7682    0.7682     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [1.811093 1.503491 1.194786]
+(참고) train score min/max: 0.048531 / 3.010934
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=train_thresholds) ===
+Accuracy: 0.2524
+Ordinal MAE (relevance 0–3): 1.1009  (closer wrong labels score better than farther; ex. Critical→High < Critical→Low penalty)
+Ordinal RMSE (relevance): 1.3829
+Within-1 severity (|pred-true|≤1 step): 0.6993
+Macro precision: 0.2542
+Macro recall: 0.2525
+Macro F1: 0.2268
+Weighted precision: 0.2542
+Weighted recall: 0.2524
+Weighted F1: 0.2268
+              precision    recall  f1-score   support
+
+    Critical     0.2567    0.1487    0.1883      5029
+        High     0.2502    0.4484    0.3212      4984
+      Medium     0.2525    0.3467    0.2922      5004
+         Low     0.2574    0.0662    0.1053      4983
+
+    accuracy                         0.2524     20000
+   macro avg     0.2542    0.2525    0.2268     20000
+weighted avg     0.2542    0.2524    0.2268     20000
+
+
+저장: severity/logging_monitoring_anomalies_reg_xgboost_regressor_train_thresholds.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.478 s
+전처리(인코딩·스케일) + 학습(train∪val): 23.590 s
+추론·경계·평가·저장(전수): 4.811 s
+  └ Test severity 정답 비교(report_metrics)만: 0.410 s
+전체: 28.879 s
+
+=== 랭킹 지표 MRR (relevance=0..3) ===
+Validation MRR: 0.876305
+Test MRR:       0.865921
