@@ -1,0 +1,14 @@
+# train_severity_l2r_rank 2026-03-28T15:48:06.977252
+# model=ranknet test_mode=test_oracle_ratio csv=severity/logging_monitoring_anomalies.csv
+# config=/home/work/lab_project/severity/experiment_config.yaml
+
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_153446/logs/l2r_ranknet_test_oracle_ratio.log
+Traning………………
+
+/home/work/lab_project/L2R/RankNet.py:214: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  score = -loss.item()
+Epoch:0, loss : nan, Metrics: {'NDCG@1': 0.7508833333333333, 'NDCG@5': 0.7508833333333333, 'NDCG@10': 0.7508833333333333, 'MAP': 0.7508833333333333, 'MRR': 0.7508833333333333}
+Epoch:10, loss : nan, Metrics: {'NDCG@1': 0.7508833333333333, 'NDCG@5': 0.7508833333333333, 'NDCG@10': 0.7508833333333333, 'MAP': 0.7508833333333333, 'MRR': 0.7508833333333333}
+Epoch:20, loss : nan, Metrics: {'NDCG@1': 0.7508833333333333, 'NDCG@5': 0.7508833333333333, 'NDCG@10': 0.7508833333333333, 'MAP': 0.7508833333333333, 'MRR': 0.7508833333333333}
+Epoch:30, loss : nan, Metrics: {'NDCG@1': 0.7508833333333333, 'NDCG@5': 0.7508833333333333, 'NDCG@10': 0.7508833333333333, 'MAP': 0.7508833333333333, 'MRR': 0.7508833333333333}
