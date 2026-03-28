@@ -267,7 +267,7 @@ class LambdaMART:
 
 if __name__ == '__main__':
     training_data = np.load('./dataset/train.npy')
-    model = LambdaMART(training_data, 200, 0.1)
+    model = LambdaMART(training_data, 100, 0.1)
     model.fit()
 
     test_data = np.load('./dataset/test.npy')
