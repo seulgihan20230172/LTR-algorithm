@@ -1,6 +1,6 @@
 """
 심각도 랭킹 실험 공통 유틸(분할, 전처리, 점수→심각도, 랭킹 지표, 로깅).
-이 모듈이 단일 소스이다.
+TARGET_COL·라벨 순서 등 규약은 severity_schema 를 단일 소스로 한다.
 """
 
 from datetime import datetime
@@ -8,6 +8,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from pandas.api.types import is_categorical_dtype, is_object_dtype
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.metrics import accuracy_score, classification_report, f1_score, precision_score, recall_score
@@ -15,22 +16,16 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OrdinalEncoder, StandardScaler
 
+from severity.severity_schema import (
+    LABEL_ORDER_DESC,
+    LEAKAGE_COLS,
+    QID_COL,
+    RELEVANCE,
+    TARGET_COL,
+)
+
 ROOT = Path(__file__).resolve().parents[1]
 SEVERITY_DIR = Path(__file__).resolve().parent
-
-TARGET_COL = "Severity"
-QID_COL = "Anomaly_ID"  # 랭킹 쿼리 ID (행 단위 이상 건 식별자; 동일 ID가 여러 행이면 같은 쿼리)
-LEAKAGE_COLS = [
-    "Anomaly_Type",
-    "Severity",
-    "Status",
-    "Source",
-    "Alert_Method",
-    "Timestamp",
-    "Anomaly_ID",
-]
-LABEL_ORDER_DESC = ["Critical", "High", "Medium", "Low"]
-RELEVANCE = {"Low": 0.0, "Medium": 1.0, "High": 2.0, "Critical": 3.0}
 
 
 class TeeIO:
@@ -58,18 +53,36 @@ def default_log_path(prefix: str, model: str, test_mode: str) -> Path:
     return SEVERITY_DIR / f"{prefix}_{model}_{test_mode}_{ts}.log"
 
 
-def split_features(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
+def _categorical_feature_columns(x: pd.DataFrame) -> list[str]:
+    """object·pandas category dtype 열만 범주형 피처로 본다."""
+    return [c for c in x.columns if is_object_dtype(x[c]) or is_categorical_dtype(x[c])]
+
+
+def split_features(
+    df: pd.DataFrame, *, include_categorical_columns: bool = True
+) -> tuple[pd.DataFrame, pd.Series]:
     y = df[TARGET_COL].copy()
     x = df.drop(columns=[c for c in LEAKAGE_COLS if c in df.columns])
+    if not include_categorical_columns:
+        drop_cols = _categorical_feature_columns(x)
+        x = x.drop(columns=drop_cols)
+    if x.shape[1] == 0:
+        raise ValueError(
+            "피처 열이 없습니다. leakage 제외 후 범주형까지 제외하면 숫자형 피처가 남지 않을 수 있습니다."
+        )
     return x, y
 
 
 def build_preprocessor(x: pd.DataFrame) -> ColumnTransformer:
-    cat_cols = x.select_dtypes(include=["object"]).columns.tolist()
-    num_cols = x.select_dtypes(exclude=["object"]).columns.tolist()
-    return ColumnTransformer(
-        transformers=[
-            ("num", Pipeline([("imputer", SimpleImputer(strategy="median"))]), num_cols),
+    cat_cols = _categorical_feature_columns(x)
+    num_cols = [c for c in x.columns if c not in cat_cols]
+    transformers: list[tuple[str, Pipeline, list[str]]] = []
+    if num_cols:
+        transformers.append(
+            ("num", Pipeline([("imputer", SimpleImputer(strategy="median"))]), num_cols)
+        )
+    if cat_cols:
+        transformers.append(
             (
                 "cat",
                 Pipeline(
@@ -79,9 +92,11 @@ def build_preprocessor(x: pd.DataFrame) -> ColumnTransformer:
                     ]
                 ),
                 cat_cols,
-            ),
-        ]
-    )
+            )
+        )
+    if not transformers:
+        raise ValueError("전처리할 피처 열이 없습니다.")
+    return ColumnTransformer(transformers=transformers)
 
 
 def fit_transform_xy(x_train, x_val, x_test):
@@ -104,7 +119,14 @@ def fit_transform_xy(x_train, x_val, x_test):
     )
 
 
-def prepare_splits(csv_path: str, test_size: float, val_size: float, random_state: int):
+def prepare_splits(
+    csv_path: str,
+    test_size: float,
+    val_size: float,
+    random_state: int,
+    *,
+    include_categorical_columns: bool = True,
+):
     df = pd.read_csv(csv_path)
     if QID_COL not in df.columns:
         raise ValueError(
@@ -114,7 +136,7 @@ def prepare_splits(csv_path: str, test_size: float, val_size: float, random_stat
     if qid_series.isna().any():
         raise ValueError(f"'{QID_COL}'에 숫자로 변환되지 않는 값이 있습니다.")
     qid_all = qid_series.astype(np.int64).to_numpy()
-    x, y = split_features(df)
+    x, y = split_features(df, include_categorical_columns=include_categorical_columns)
     y_rel = y.map(RELEVANCE).astype(np.float32).values
     x_temp, x_test, y_temp, y_test, yr_temp, yr_test, q_temp, q_test = train_test_split(
         x,
@@ -282,17 +304,24 @@ def evaluate_ranking_all(y_rel: np.ndarray, pred_score: np.ndarray, qid: np.ndar
     return {k: float(np.mean(v)) for k, v in res.items()}
 
 
-def report_metrics(y_true: np.ndarray, y_pred: np.ndarray, name: str) -> None:
+def report_metrics(
+    y_true: np.ndarray,
+    y_pred: np.ndarray,
+    name: str,
+    *,
+    ordinal_severity_metrics: bool = False,
+) -> None:
     labels = [l for l in LABEL_ORDER_DESC if l in np.unique(y_true) or l in np.unique(y_pred)]
-    ord_mae, ord_rmse, within_one = ordinal_severity_errors(y_true, y_pred)
     print(f"\n=== {name} ===")
     print(f"Accuracy: {accuracy_score(y_true, y_pred):.4f}")
-    print(
-        f"Ordinal MAE (relevance 0–3): {ord_mae:.4f}  "
-        f"(closer wrong labels score better than farther; ex. Critical→High < Critical→Low penalty)"
-    )
-    print(f"Ordinal RMSE (relevance): {ord_rmse:.4f}")
-    print(f"Within-1 severity (|pred-true|≤1 step): {within_one:.4f}")
+    if ordinal_severity_metrics:
+        ord_mae, ord_rmse, within_one = ordinal_severity_errors(y_true, y_pred)
+        print(
+            f"Ordinal MAE (relevance 0–3): {ord_mae:.4f}  "
+            f"(등간격 스케일 가정의 보조 지표; Critical→High가 Critical→Low보다 페널티 작음)"
+        )
+        print(f"Ordinal RMSE (relevance): {ord_rmse:.4f}")
+        print(f"Within-1 severity (|pred-true|≤1 step): {within_one:.4f}")
     print(f"Macro precision: {precision_score(y_true, y_pred, labels=labels, average='macro', zero_division=0):.4f}")
     print(f"Macro recall: {recall_score(y_true, y_pred, labels=labels, average='macro', zero_division=0):.4f}")
     print(f"Macro F1: {f1_score(y_true, y_pred, labels=labels, average='macro', zero_division=0):.4f}")

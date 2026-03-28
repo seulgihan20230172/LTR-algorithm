@@ -5,6 +5,12 @@ evaluation:
   # train_thresholds: train에서 추정한 score 경계로 test 분할
   # test_oracle_ratio: test 집합의 실제 4클래스 개수로 상위 점수부터 배정
   test_mode: test_oracle_ratio
+  # true: report_metrics에 Ordinal MAE·RMSE·Within-1 출력 (0~3 등간격 relevance 가정의 보조 지표)
+  ordinal_severity_metrics: false
+
+features:
+  # false: object / pandas category 열을 피처에서 제외 (숫자형만 사용)
+  include_categorical_columns: true
 
 data:
   csv: severity/logging_monitoring_anomalies.csv

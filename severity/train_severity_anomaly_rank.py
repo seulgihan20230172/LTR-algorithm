@@ -12,8 +12,6 @@ import numpy as np
 from severity.anomaly.models import build_anomaly_model
 from severity.experiment_config import DEFAULT_CONFIG_PATH, load_experiment_config, resolve_test_mode
 from severity.severity_rank_controlgroup import (
-    LABEL_ORDER_DESC,
-    TARGET_COL,
     TeeIO,
     allocate_counts,
     apply_test_mode,
@@ -26,9 +24,22 @@ from severity.severity_rank_controlgroup import (
     prepare_splits,
     report_metrics,
 )
+from severity.severity_schema import LABEL_ORDER_DESC, TARGET_COL
 
 
-def run(csv_path, model_name, test_mode, test_size, val_size, random_state, group_size, epochs):
+def run(
+    csv_path,
+    model_name,
+    test_mode,
+    test_size,
+    val_size,
+    random_state,
+    group_size,
+    epochs,
+    *,
+    include_categorical_columns: bool,
+    ordinal_severity_metrics: bool,
+):
     t_total_start = time.perf_counter()
     (
         x_train,
@@ -43,7 +54,13 @@ def run(csv_path, model_name, test_mode, test_size, val_size, random_state, grou
         _qid_train,
         qid_val,
         qid_test,
-    ) = prepare_splits(csv_path, test_size, val_size, random_state)
+    ) = prepare_splits(
+        csv_path,
+        test_size,
+        val_size,
+        random_state,
+        include_categorical_columns=include_categorical_columns,
+    )
 
     t_train_val_start = time.perf_counter()
     xt, xv, xs, _, _ = fit_transform_xy(x_train, x_val, x_test)
@@ -70,7 +87,12 @@ def run(csv_path, model_name, test_mode, test_size, val_size, random_state, grou
 
     pred_train = assign_top_scores(s_train, counts_train)
     print("\n[Train] 실제 Severity와 비교 (train 비율 배정)")
-    report_metrics(y_train.values, pred_train, "Train (비율 배정)")
+    report_metrics(
+        y_train.values,
+        pred_train,
+        "Train (비율 배정)",
+        ordinal_severity_metrics=ordinal_severity_metrics,
+    )
 
     pred_test = apply_test_mode(test_mode, s_test, y_test, th)
 
@@ -79,7 +101,12 @@ def run(csv_path, model_name, test_mode, test_size, val_size, random_state, grou
 
     print("\n[Test] 실제 Severity와 비교")
     t_test_sev_start = time.perf_counter()
-    report_metrics(y_test.values, pred_test, f"Test (mode={test_mode})")
+    report_metrics(
+        y_test.values,
+        pred_test,
+        f"Test (mode={test_mode})",
+        ordinal_severity_metrics=ordinal_severity_metrics,
+    )
     t_test_sev_end = time.perf_counter()
 
     m_val = evaluate_ranking_all(yr_val, s_val, qid_val)
@@ -167,6 +194,8 @@ def main():
             random_state,
             group_size,
             epochs,
+            include_categorical_columns=bool(cfg["features"]["include_categorical_columns"]),
+            ordinal_severity_metrics=bool(cfg["evaluation"]["ordinal_severity_metrics"]),
         )
     finally:
         sys.stdout = old_out

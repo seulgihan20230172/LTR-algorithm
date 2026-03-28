@@ -39,8 +39,18 @@ def load_experiment_config(path: str | Path | None = None) -> dict[str, Any]:
     if not isinstance(cfg, dict):
         raise ValueError("experiment_config.yaml 최상위는 mapping 이어야 합니다.")
 
+    _apply_config_defaults(cfg)
     _validate(cfg)
     return cfg
+
+
+def _apply_config_defaults(cfg: dict[str, Any]) -> None:
+    if not isinstance(cfg.get("features"), dict):
+        cfg["features"] = {}
+    cfg["features"].setdefault("include_categorical_columns", True)
+    ev = cfg.get("evaluation")
+    if isinstance(ev, dict):
+        ev.setdefault("ordinal_severity_metrics", False)
 
 
 def _validate(cfg: dict[str, Any]) -> None:
@@ -59,3 +69,13 @@ def _validate(cfg: dict[str, Any]) -> None:
         raise KeyError("data.csv")
     if "test_mode" not in cfg["evaluation"]:
         raise KeyError("evaluation.test_mode")
+    if not isinstance(cfg["features"], dict):
+        raise TypeError("features 섹션은 mapping 이어야 합니다.")
+    if not isinstance(cfg["features"]["include_categorical_columns"], bool):
+        raise TypeError(
+            f"features.include_categorical_columns는 bool 이어야 합니다: {type(cfg['features']['include_categorical_columns']).__name__}"
+        )
+    if not isinstance(cfg["evaluation"]["ordinal_severity_metrics"], bool):
+        raise TypeError(
+            f"evaluation.ordinal_severity_metrics는 bool 이어야 합니다: {type(cfg['evaluation']['ordinal_severity_metrics']).__name__}"
+        )

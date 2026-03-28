@@ -13,11 +13,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import torch
-from sklearn.compose import ColumnTransformer
-from sklearn.impute import SimpleImputer
 from sklearn.metrics import accuracy_score
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OrdinalEncoder
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -30,10 +26,12 @@ from severity.experiment_config import (  # noqa: E402
     resolve_test_mode,
 )
 from severity.severity_rank_controlgroup import (  # noqa: E402
+    build_preprocessor,
     prepare_splits,
     report_metrics,
     sort_ltr_rows_by_qid,
 )
+from severity.severity_schema import LABEL_ORDER_DESC, TARGET_COL  # noqa: E402
 
 L2R_DIR = ROOT / "L2R"
 L2R_SAVE_CHECKPOINT = L2R_DIR / "save_checkpoint"
@@ -103,52 +101,6 @@ try:
     from LambdaMART import LambdaMART  # noqa: E402
 except Exception:
     LambdaMART = None  # type: ignore[misc, assignment]
-
-TARGET_COL = "Severity"
-LEAKAGE_COLS = [
-    "Anomaly_Type",
-    "Severity",
-    "Status",
-    "Source",
-    "Alert_Method",
-    "Timestamp",
-    "Anomaly_ID",
-]
-LABEL_ORDER_DESC = ["Critical", "High", "Medium", "Low"]
-RELEVANCE = {"Low": 0.0, "Medium": 1.0, "High": 2.0, "Critical": 3.0}
-
-
-def split_features(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
-    y = df[TARGET_COL].copy()
-    x = df.drop(columns=[c for c in LEAKAGE_COLS if c in df.columns])
-    return x, y
-
-
-def build_preprocessor(x: pd.DataFrame) -> ColumnTransformer:
-    cat_cols = x.select_dtypes(include=["object"]).columns.tolist()
-    num_cols = x.select_dtypes(exclude=["object"]).columns.tolist()
-    return ColumnTransformer(
-        transformers=[
-            ("num", Pipeline([("imputer", SimpleImputer(strategy="median"))]), num_cols),
-            (
-                "cat",
-                Pipeline(
-                    [
-                        ("imputer", SimpleImputer(strategy="most_frequent")),
-                        (
-                            "ordinal",
-                            OrdinalEncoder(
-                                handle_unknown="use_encoded_value",
-                                unknown_value=-1,
-                            ),
-                        ),
-                    ]
-                ),
-                cat_cols,
-            ),
-        ]
-    )
-
 
 def fit_transform_xy(x_train, x_val, x_test):
     pre = build_preprocessor(x_train)
@@ -333,6 +285,9 @@ def run(
     random_state: int,
     group_size: int,
     epochs: int,
+    *,
+    include_categorical_columns: bool,
+    ordinal_severity_metrics: bool,
 ) -> None:
     t_total_start = time.perf_counter()
     (
@@ -348,7 +303,13 @@ def run(
         qid_train,
         qid_val,
         qid_test,
-    ) = prepare_splits(csv_path, test_size, val_size, random_state)
+    ) = prepare_splits(
+        csv_path,
+        test_size,
+        val_size,
+        random_state,
+        include_categorical_columns=include_categorical_columns,
+    )
 
     t_train_val_start = time.perf_counter()
     xt, xv, xs, _ = fit_transform_xy(x_train, x_val, x_test)
@@ -415,7 +376,7 @@ def run(
     else:
         raise ValueError(f"지원하지 않는 model: {model_name}")
 
-    counts_val = allocate_counts(n_va, fr_train)
+    counts_val = allocate_counts(len(y_val), fr_train)
     pred_val = assign_top_scores(s_val, counts_val)
     acc_val = accuracy_score(y_val.values, pred_val)
     print(f"\n[검증] train 비율로 배정한 분류 정확도(early stopping용 참고): {acc_val:.4f}")
@@ -425,7 +386,12 @@ def run(
 
     pred_train_assign = assign_top_scores(s_train, counts_train)
     print("\n[Train] 실제 Severity와 비교 (train 비율 배정)")
-    report_metrics(y_train.values, pred_train_assign, "Train (비율 배정)")
+    report_metrics(
+        y_train.values,
+        pred_train_assign,
+        "Train (비율 배정)",
+        ordinal_severity_metrics=ordinal_severity_metrics,
+    )
 
     if test_mode == "train_thresholds":
         pred_test = assign_by_thresholds(s_test, th)
@@ -441,7 +407,12 @@ def run(
 
     print("\n[Test] 실제 Severity와 비교")
     t_test_severity_start = time.perf_counter()
-    report_metrics(y_test.values, pred_test, f"Test (mode={test_mode})")
+    report_metrics(
+        y_test.values,
+        pred_test,
+        f"Test (mode={test_mode})",
+        ordinal_severity_metrics=ordinal_severity_metrics,
+    )
     t_test_severity_end = time.perf_counter()
 
     m_val = evaluate_all(yr_val, s_val, qid_val)
@@ -560,6 +531,8 @@ if __name__ == "__main__":
             random_state,
             group_size,
             epochs,
+            include_categorical_columns=bool(cfg["features"]["include_categorical_columns"]),
+            ordinal_severity_metrics=bool(cfg["evaluation"]["ordinal_severity_metrics"]),
         )
     finally:
         sys.stdout = old_out
