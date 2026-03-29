@@ -30,6 +30,7 @@ from severity.severity_rank_controlgroup import (  # noqa: E402
     apply_test_mode,
     build_preprocessor,
     prepare_splits,
+    print_per_class_accuracy_by_true_label,
     report_metrics,
     severity_from_train_minmax_relevance,
     sort_ltr_rows_by_qid,
@@ -426,12 +427,20 @@ def run(
         pred_train_assign = assign_top_scores(s_train, counts_train)
         train_metrics_name = "Train (비율 배정)"
 
+    if test_mode == "train_score_relevance_0_3":
+        print_per_class_accuracy_by_true_label(
+            y_val.values,
+            pred_val,
+            title="[검증] 클래스별 정확도 (정답이 해당 클래스인 행 중 예측이 동일한 비율)",
+        )
+
     print("\n[Train] 실제 Severity와 비교")
     report_metrics(
         y_train.values,
         pred_train_assign,
         train_metrics_name,
         ordinal_severity_metrics=ordinal_severity_metrics,
+        per_class_accuracy=(test_mode == "train_score_relevance_0_3"),
     )
 
     pred_test = apply_test_mode(test_mode, s_test, y_test, th, s_train=s_train)
@@ -453,6 +462,7 @@ def run(
         pred_test,
         f"Test (mode={test_mode})",
         ordinal_severity_metrics=ordinal_severity_metrics,
+        per_class_accuracy=(test_mode == "train_score_relevance_0_3"),
     )
     t_test_severity_end = time.perf_counter()
 

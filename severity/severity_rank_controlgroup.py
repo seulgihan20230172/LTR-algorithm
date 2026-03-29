@@ -394,16 +394,39 @@ def evaluate_ranking_all(y_rel: np.ndarray, pred_score: np.ndarray, qid: np.ndar
     return {k: float(np.mean(v)) for k, v in res.items()}
 
 
+def print_per_class_accuracy_by_true_label(
+    y_true: np.ndarray,
+    y_pred: np.ndarray,
+    *,
+    title: str = "클래스별 정확도 (정답이 해당 클래스인 행 중 예측이 동일한 비율)",
+) -> None:
+    """진짜 라벨이 k인 샘플만 모아 그중 예측이 k인 비율(조건부 정확도; 다중 클래스에서 클래스 k에 대한 recall과 동일)."""
+    y_true = np.asarray(y_true)
+    y_pred = np.asarray(y_pred)
+    print(title)
+    for lbl in LABEL_ORDER_DESC:
+        mask = y_true == lbl
+        n = int(mask.sum())
+        if n == 0:
+            print(f"  {lbl}: —  (정답 행 n=0)")
+            continue
+        hit = float(np.mean(y_pred[mask] == lbl))
+        print(f"  {lbl}: {hit:.4f}  (정답 행 n={n})")
+
+
 def report_metrics(
     y_true: np.ndarray,
     y_pred: np.ndarray,
     name: str,
     *,
     ordinal_severity_metrics: bool = False,
+    per_class_accuracy: bool = False,
 ) -> None:
     labels = [l for l in LABEL_ORDER_DESC if l in np.unique(y_true) or l in np.unique(y_pred)]
     print(f"\n=== {name} ===")
     print(f"Accuracy: {accuracy_score(y_true, y_pred):.4f}")
+    if per_class_accuracy:
+        print_per_class_accuracy_by_true_label(y_true, y_pred, title="  클래스별 정확도 (정답이 해당 클래스인 행 중 예측이 동일한 비율):")
     if ordinal_severity_metrics:
         ord_mae, ord_rmse, within_one = ordinal_severity_errors(y_true, y_pred)
         print(

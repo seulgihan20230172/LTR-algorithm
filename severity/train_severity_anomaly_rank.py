@@ -24,6 +24,7 @@ from severity.severity_rank_controlgroup import (
     evaluate_ranking_all,
     fit_transform_xy,
     prepare_splits,
+    print_per_class_accuracy_by_true_label,
     report_metrics,
     severity_from_train_minmax_relevance,
 )
@@ -139,6 +140,7 @@ def run(
         pred_test,
         f"Test (mode={test_mode})",
         ordinal_severity_metrics=ordinal_severity_metrics,
+        per_class_accuracy=(test_mode == "train_score_relevance_0_3"),
     )
     t_test_sev_end = time.perf_counter()
 
