@@ -74,7 +74,13 @@ def run(
     model = build_classification_model(model_name, random_state=random_state)
     model.fit(xt, y_train.values, xv, y_val.values)
     fi_path = write_feature_importance_log(
-        pre, model, prefix="train_severity_cls", model_name=model_name, test_mode=test_mode
+        pre,
+        model,
+        prefix="train_severity_cls",
+        model_name=model_name,
+        test_mode=test_mode,
+        X_reference=xt,
+        random_state=random_state,
     )
     print(f"\n[피처 중요도 로그] {fi_path.resolve()}", flush=True)
     t_train_val_end = time.perf_counter()
