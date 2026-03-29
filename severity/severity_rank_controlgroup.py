@@ -308,6 +308,27 @@ def assign_by_thresholds(scores: np.ndarray, thresholds_desc: np.ndarray) -> np.
     return out
 
 
+# train_score_relevance_0_3: relevance 정수 0..3 ↔ Low, Medium, High, Critical (severity_schema.RELEVANCE 와 동일)
+_RELEVANCE_INT_TO_LABEL = np.array(["Low", "Medium", "High", "Critical"], dtype=object)
+
+
+def severity_from_train_minmax_relevance(scores: np.ndarray, s_train: np.ndarray) -> np.ndarray:
+    """Train 점수 min~max를 선형으로 [0,3]에 매핑한 뒤, 가장 가까운 정수 relevance에 해당하는 Severity.
+
+    높은 점수가 더 심각한 클래스에 가도록 한다(기존 assign_top_scores / assign_by_thresholds 와 동일 방향).
+    s_train은 train 분할에서만 추정한 min/max에 사용한다.
+    """
+    lo = float(np.min(s_train))
+    hi = float(np.max(s_train))
+    s = np.asarray(scores, dtype=np.float64)
+    if hi <= lo:
+        rel = np.zeros(len(s), dtype=np.float64)
+    else:
+        rel = (s - lo) / (hi - lo) * 3.0
+    idx = np.rint(rel).clip(0, 3).astype(np.int32)
+    return _RELEVANCE_INT_TO_LABEL[idx]
+
+
 def dcg_k(y, k):
     y = np.asarray(y)[:k]
     return np.sum((2**y - 1) / np.log2(np.arange(2, len(y) + 2)))
@@ -401,10 +422,21 @@ def report_metrics(
     print(classification_report(y_true, y_pred, labels=labels, digits=4))
 
 
-def apply_test_mode(test_mode: str, s_test: np.ndarray, y_test: pd.Series, th: np.ndarray) -> np.ndarray:
+def apply_test_mode(
+    test_mode: str,
+    s_test: np.ndarray,
+    y_test: pd.Series,
+    th: np.ndarray,
+    *,
+    s_train: np.ndarray | None = None,
+) -> np.ndarray:
     if test_mode == "train_thresholds":
         return assign_by_thresholds(s_test, th)
     if test_mode == "test_oracle_ratio":
         counts_te = np.array([y_test.value_counts().get(lbl, 0) for lbl in LABEL_ORDER_DESC], dtype=int)
         return assign_top_scores(s_test, counts_te)
+    if test_mode == "train_score_relevance_0_3":
+        if s_train is None:
+            raise ValueError("train_score_relevance_0_3 모드에서는 apply_test_mode(..., s_train=...)가 필요합니다.")
+        return severity_from_train_minmax_relevance(s_test, s_train)
     raise ValueError(test_mode)

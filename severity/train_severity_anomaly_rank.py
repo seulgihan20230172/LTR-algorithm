@@ -25,6 +25,7 @@ from severity.severity_rank_controlgroup import (
     fit_transform_xy,
     prepare_splits,
     report_metrics,
+    severity_from_train_minmax_relevance,
 )
 from severity.severity_schema import LABEL_ORDER_DESC, TARGET_COL
 
@@ -119,10 +120,17 @@ def run(
         ordinal_severity_metrics=ordinal_severity_metrics,
     )
 
-    pred_test = apply_test_mode(test_mode, s_test, y_test, th)
+    pred_test = apply_test_mode(test_mode, s_test, y_test, th, s_train=s_train)
 
-    print(f"\nTrain에서 추정한 score 경계(내림차순 상위부터 Critical→…): {np.array2string(th, precision=6)}")
-    print(f"(참고) train score min/max: {train_sorted_asc.min():.6f} / {train_sorted_asc.max():.6f}")
+    if test_mode == "train_score_relevance_0_3":
+        lo, hi = float(np.min(s_train)), float(np.max(s_train))
+        print(
+            f"\n[train_score_relevance_0_3] train 점수 min~max를 [0,3] relevance로 선형 매핑 후 반올림 "
+            f"(train min={lo:.6f}, train max={hi:.6f})"
+        )
+    else:
+        print(f"\nTrain에서 추정한 score 경계(내림차순 상위부터 Critical→…): {np.array2string(th, precision=6)}")
+        print(f"(참고) train score min/max: {train_sorted_asc.min():.6f} / {train_sorted_asc.max():.6f}")
 
     print("\n[Test] 실제 Severity와 비교")
     t_test_sev_start = time.perf_counter()
@@ -182,7 +190,7 @@ def main():
     '''
     p.add_argument(
         "--test-mode",
-        choices=["train_thresholds", "test_oracle_ratio"],
+        choices=["train_thresholds", "test_oracle_ratio", "train_score_relevance_0_3"],
         default=None,
         help="미지정 시 experiment_config.yaml의 evaluation.test_mode 사용.",
     )

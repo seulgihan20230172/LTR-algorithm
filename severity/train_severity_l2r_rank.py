@@ -294,6 +294,10 @@ def run(
     global_qid: int,
     split_mode: str,
 ) -> None:
+    if test_mode == "train_score_relevance_0_3":
+        raise ValueError(
+            "evaluation.test_mode=train_score_relevance_0_3 는 train_severity_anomaly_rank.py 전용입니다."
+        )
     t_total_start = time.perf_counter()
     (
         x_train,
@@ -507,7 +511,7 @@ if __name__ == "__main__":
     p.add_argument(
         "--test-mode",
         type=str,
-        choices=["train_thresholds", "test_oracle_ratio"],
+        choices=["train_thresholds", "test_oracle_ratio", "train_score_relevance_0_3"],
         default=None,
         help="미지정 시 experiment_config.yaml의 evaluation.test_mode 사용.",
     )

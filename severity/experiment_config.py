@@ -5,7 +5,7 @@ from typing import Any
 
 DEFAULT_CONFIG_PATH = Path(__file__).resolve().parent / "experiment_config.yaml"
 
-ALLOWED_TEST_MODES = frozenset({"train_thresholds", "test_oracle_ratio"})
+ALLOWED_TEST_MODES = frozenset({"train_thresholds", "test_oracle_ratio", "train_score_relevance_0_3"})
 ALLOWED_QID_MODES = frozenset({"global", "anomaly_id", "timestamp_hour_1h"})
 ALLOWED_SPLIT_MODES = frozenset({"stratified_shuffle", "time_ordered"})
 
