@@ -9,3 +9,8 @@ severity/__pycache__
 
 L2R/__pycache__/*.pyc
 
+# Dataset - CVE
+cve.csv.zip
+cve-datasets
+
+
