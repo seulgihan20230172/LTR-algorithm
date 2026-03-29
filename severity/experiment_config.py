@@ -6,7 +6,7 @@ from typing import Any
 DEFAULT_CONFIG_PATH = Path(__file__).resolve().parent / "experiment_config.yaml"
 
 ALLOWED_TEST_MODES = frozenset({"train_thresholds", "test_oracle_ratio"})
-ALLOWED_QID_MODES = frozenset({"global", "anomaly_id"})
+ALLOWED_QID_MODES = frozenset({"global", "anomaly_id", "timestamp_hour_1h"})
 
 
 def resolve_test_mode(cfg: dict[str, Any], cli_override: str | None) -> str:

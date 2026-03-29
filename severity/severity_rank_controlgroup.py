@@ -22,6 +22,7 @@ from severity.severity_schema import (
     LEAKAGE_COLS,
     RELEVANCE,
     TARGET_COL,
+    TIMESTAMP_COL,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -99,6 +100,19 @@ def build_preprocessor(x: pd.DataFrame) -> ColumnTransformer:
     return ColumnTransformer(transformers=transformers)
 
 
+def qids_from_timestamp_hour_1h(df: pd.DataFrame) -> np.ndarray:
+    """Timestamp를 1시간 단위로 내린 뒤, 시간대를 시각 순으로 0,1,2,… qid를 부여한다."""
+    if TIMESTAMP_COL not in df.columns:
+        raise ValueError(f"qid_mode=timestamp_hour_1h 일 때 CSV에 '{TIMESTAMP_COL}' 열이 필요합니다.")
+    ts = pd.to_datetime(df[TIMESTAMP_COL], errors="coerce")
+    if ts.isna().any():
+        raise ValueError(f"'{TIMESTAMP_COL}'에 파싱되지 않는 시각이 있습니다.")
+    hour = ts.dt.floor("h")
+    unique_hours = sorted(hour.unique())
+    hour_to_qid = {h: i for i, h in enumerate(unique_hours)}
+    return hour.map(hour_to_qid).astype(np.int64).to_numpy()
+
+
 def fit_transform_xy(x_train, x_val, x_test):
     pre = build_preprocessor(x_train)
     xt = pre.fit_transform(x_train)
@@ -129,7 +143,7 @@ def prepare_splits(
     qid_mode: str = "global",
     global_qid: int = 0,
 ):
-    """qid_mode=global 이면 모든 행이 같은 query 아래 document (심각도 순 랭킹). anomaly_id 이면 행별 Anomaly_ID가 qid."""
+    """qid: global | anomaly_id | timestamp_hour_1h (1시간 버킷, 시각 순 연속 qid)."""
     df = pd.read_csv(csv_path)
     if qid_mode == "global":
         qid_all = np.full(len(df), int(global_qid), dtype=np.int64)
@@ -142,8 +156,12 @@ def prepare_splits(
         if qid_series.isna().any():
             raise ValueError(f"'{ANOMALY_ID_COL}'에 숫자로 변환되지 않는 값이 있습니다.")
         qid_all = qid_series.astype(np.int64).to_numpy()
+    elif qid_mode == "timestamp_hour_1h":
+        qid_all = qids_from_timestamp_hour_1h(df)
     else:
-        raise ValueError(f"qid_mode는 'global' 또는 'anomaly_id' 여야 합니다: {qid_mode!r}")
+        raise ValueError(
+            f"qid_mode는 'global', 'anomaly_id', 'timestamp_hour_1h' 중 하나여야 합니다: {qid_mode!r}"
+        )
     x, y = split_features(df, include_categorical_columns=include_categorical_columns)
     y_rel = y.map(RELEVANCE).astype(np.float32).values
     x_temp, x_test, y_temp, y_test, yr_temp, yr_test, q_temp, q_test = train_test_split(
@@ -189,7 +207,7 @@ def sort_ltr_rows_by_qid(X: np.ndarray, y: np.ndarray, qid: np.ndarray) -> tuple
 
 
 def make_qid(n: int, group_size: int) -> np.ndarray:
-    """(레거시) 인위적 쿼리 그룹. 현재는 prepare_splits 의 qid_mode(global / anomaly_id)를 쓴다."""
+    """(레거시) 인위적 쿼리 그룹. 현재는 prepare_splits 의 qid_mode를 쓴다."""
     return (np.arange(n, dtype=np.int64) // group_size).astype(np.int64)
 
 

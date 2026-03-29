@@ -380,20 +380,28 @@ def run(
     else:
         raise ValueError(f"지원하지 않는 model: {model_name}")
 
-    counts_val = allocate_counts(len(y_val), fr_train)
-    pred_val = assign_top_scores(s_val, counts_val)
-    acc_val = accuracy_score(y_val.values, pred_val)
-    print(f"\n[검증] train 비율로 배정한 분류 정확도(early stopping용 참고): {acc_val:.4f}")
-
     train_desc = np.sort(s_train)[::-1]
     th, train_sorted_asc = boundaries_from_train_sorted(train_desc, counts_train)
 
-    pred_train_assign = assign_top_scores(s_train, counts_train)
-    print("\n[Train] 실제 Severity와 비교 (train 비율 배정)")
+    if test_mode == "train_thresholds":
+        pred_val = assign_by_thresholds(s_val, th)
+        pred_train_assign = assign_by_thresholds(s_train, th)
+        acc_val = accuracy_score(y_val.values, pred_val)
+        print(f"\n[검증] train score 경계(threshold) 기준 분류 정확도(참고): {acc_val:.4f}")
+        train_metrics_name = "Train (train_thresholds)"
+    else:
+        counts_val = allocate_counts(len(y_val), fr_train)
+        pred_val = assign_top_scores(s_val, counts_val)
+        acc_val = accuracy_score(y_val.values, pred_val)
+        print(f"\n[검증] train 비율로 배정한 분류 정확도(early stopping용 참고): {acc_val:.4f}")
+        pred_train_assign = assign_top_scores(s_train, counts_train)
+        train_metrics_name = "Train (비율 배정)"
+
+    print("\n[Train] 실제 Severity와 비교")
     report_metrics(
         y_train.values,
         pred_train_assign,
-        "Train (비율 배정)",
+        train_metrics_name,
         ordinal_severity_metrics=ordinal_severity_metrics,
     )
 

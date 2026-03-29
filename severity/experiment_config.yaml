@@ -2,9 +2,9 @@
 # 프로젝트 루트에서 실행하는 것을 기준으로 경로를 둔다.
 
 evaluation:
-  # train_thresholds: train에서 추정한 score 경계로 test 분할
-  # test_oracle_ratio: test 집합의 실제 4클래스 개수로 상위 점수부터 배정
-  test_mode: test_oracle_ratio
+  # train_thresholds: train score 분포·클래스 개수로 경계(th) 추정 후 val/test에 동일 적용
+  # test_oracle_ratio: test 집합의 실제 4클래스 개수로 상위 점수부터 배정(벤치용)
+  test_mode: train_thresholds
   # true: report_metrics에 Ordinal MAE·RMSE·Within-1 출력 (0~3 등간격 relevance 가정의 보조 지표)
   ordinal_severity_metrics: false
 
@@ -21,9 +21,10 @@ split:
   random_state: 42
 
 ranking:
-  # global: LTR에서 query 하나(아래 global_qid), 각 CSV 행 = document — 심각도로 이상 건(행) 전체를 한 목록에서 정렬
-  # anomaly_id: (레거시) Anomaly_ID를 qid로 사용 — 보통 문서 1개/쿼리라 랭킹 지표·학습이 거의 의미 없음
-  qid_mode: global
+  # timestamp_hour_1h: Timestamp 1시간 단위 버킷, 시각 순으로 qid=0,1,2,… (같은 시간대 행이 한 query)
+  # global: query 하나(global_qid), 전체 행을 한 목록에서 정렬
+  # anomaly_id: (레거시) Anomaly_ID를 qid로 사용
+  qid_mode: timestamp_hour_1h
   global_qid: 0
   # 인위적 group_size 분할은 사용하지 않음; 호환용으로만 남김
   group_size: 64
