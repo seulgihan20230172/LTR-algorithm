@@ -25,6 +25,7 @@ from severity.severity_rank_controlgroup import (
     fit_transform_xy,
     prepare_splits,
     report_metrics,
+    severity_from_train_minmax_relevance,
 )
 from severity.severity_schema import LABEL_ORDER_DESC, TARGET_COL
 
@@ -44,10 +45,6 @@ def run(
     global_qid: int,
     split_mode: str,
 ):
-    if test_mode == "train_score_relevance_0_3":
-        raise ValueError(
-            "evaluation.test_mode=train_score_relevance_0_3 는 train_severity_anomaly_rank.py 전용입니다."
-        )
     t_total_start = time.perf_counter()
     (
         x_train,
@@ -107,6 +104,14 @@ def run(
         print(f"\n[검증] train score 경계(threshold) 기준 분류 정확도(참고): {(pred_val == y_val.values).mean():.4f}")
         pred_train = assign_by_thresholds(s_train, th)
         train_metrics_name = "Train (train_thresholds)"
+    elif test_mode == "train_score_relevance_0_3":
+        pred_val = severity_from_train_minmax_relevance(s_val, s_train)
+        print(
+            f"\n[검증] train min~max→[0,3] relevance 반올림 기준 분류 정확도(참고): "
+            f"{(pred_val == y_val.values).mean():.4f}"
+        )
+        pred_train = severity_from_train_minmax_relevance(s_train, s_train)
+        train_metrics_name = "Train (train_score_relevance_0_3)"
     else:
         counts_val = allocate_counts(n_va, fr_train)
         pred_val = assign_top_scores(s_val, counts_val)
@@ -122,10 +127,17 @@ def run(
         ordinal_severity_metrics=ordinal_severity_metrics,
     )
 
-    pred_test = apply_test_mode(test_mode, s_test, y_test, th)
+    pred_test = apply_test_mode(test_mode, s_test, y_test, th, s_train=s_train)
 
-    print(f"\nTrain에서 추정한 score 경계(내림차순 상위부터 Critical→…): {np.array2string(th, precision=6)}")
-    print(f"(참고) train score min/max: {train_sorted_asc.min():.6f} / {train_sorted_asc.max():.6f}")
+    if test_mode == "train_score_relevance_0_3":
+        lo, hi = float(np.min(s_train)), float(np.max(s_train))
+        print(
+            f"\n[train_score_relevance_0_3] train 점수 min~max를 [0,3] relevance로 선형 매핑 후 반올림 "
+            f"(train min={lo:.6f}, train max={hi:.6f})"
+        )
+    else:
+        print(f"\nTrain에서 추정한 score 경계(내림차순 상위부터 Critical→…): {np.array2string(th, precision=6)}")
+        print(f"(참고) train score min/max: {train_sorted_asc.min():.6f} / {train_sorted_asc.max():.6f}")
 
     print("\n[Test] 실제 Severity와 비교")
     t_test_sev_start = time.perf_counter()

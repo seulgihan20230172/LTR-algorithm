@@ -314,7 +314,6 @@ _RELEVANCE_INT_TO_LABEL = np.array(["Low", "Medium", "High", "Critical"], dtype=
 
 def severity_from_train_minmax_relevance(scores: np.ndarray, s_train: np.ndarray) -> np.ndarray:
     """Train 점수 min~max를 선형으로 [0,3]에 매핑한 뒤, 가장 가까운 정수 relevance에 해당하는 Severity.
-
     높은 점수가 더 심각한 클래스에 가도록 한다(기존 assign_top_scores / assign_by_thresholds 와 동일 방향).
     s_train은 train 분할에서만 추정한 min/max에 사용한다.
     """

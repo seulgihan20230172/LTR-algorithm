@@ -27,9 +27,11 @@ from severity.experiment_config import (  # noqa: E402
     resolve_test_mode,
 )
 from severity.severity_rank_controlgroup import (  # noqa: E402
+    apply_test_mode,
     build_preprocessor,
     prepare_splits,
     report_metrics,
+    severity_from_train_minmax_relevance,
     sort_ltr_rows_by_qid,
 )
 from severity.feature_importance_log import write_feature_importance_log  # noqa: E402
@@ -294,10 +296,6 @@ def run(
     global_qid: int,
     split_mode: str,
 ) -> None:
-    if test_mode == "train_score_relevance_0_3":
-        raise ValueError(
-            "evaluation.test_mode=train_score_relevance_0_3 는 train_severity_anomaly_rank.py 전용입니다."
-        )
     t_total_start = time.perf_counter()
     (
         x_train,
@@ -412,6 +410,14 @@ def run(
         acc_val = accuracy_score(y_val.values, pred_val)
         print(f"\n[검증] train score 경계(threshold) 기준 분류 정확도(참고): {acc_val:.4f}")
         train_metrics_name = "Train (train_thresholds)"
+    elif test_mode == "train_score_relevance_0_3":
+        pred_val = severity_from_train_minmax_relevance(s_val, s_train)
+        pred_train_assign = severity_from_train_minmax_relevance(s_train, s_train)
+        acc_val = accuracy_score(y_val.values, pred_val)
+        print(
+            f"\n[검증] train min~max→[0,3] relevance 반올림 기준 분류 정확도(참고): {acc_val:.4f}"
+        )
+        train_metrics_name = "Train (train_score_relevance_0_3)"
     else:
         counts_val = allocate_counts(len(y_val), fr_train)
         pred_val = assign_top_scores(s_val, counts_val)
@@ -428,17 +434,17 @@ def run(
         ordinal_severity_metrics=ordinal_severity_metrics,
     )
 
-    if test_mode == "train_thresholds":
-        pred_test = assign_by_thresholds(s_test, th)
-    else:
-        if test_mode == "test_oracle_ratio":
-            counts_te = np.array([y_test.value_counts().get(lbl, 0) for lbl in LABEL_ORDER_DESC], dtype=int)
-        else:
-            raise ValueError(test_mode)
-        pred_test = assign_top_scores(s_test, counts_te)
+    pred_test = apply_test_mode(test_mode, s_test, y_test, th, s_train=s_train)
 
-    print(f"\nTrain에서 추정한 score 경계(내림차순 상위부터 Critical→…): {np.array2string(th, precision=6)}")
-    print(f"(참고) train score min/max: {train_sorted_asc.min():.6f} / {train_sorted_asc.max():.6f}")
+    if test_mode == "train_score_relevance_0_3":
+        lo, hi = float(np.min(s_train)), float(np.max(s_train))
+        print(
+            f"\n[train_score_relevance_0_3] train 점수 min~max를 [0,3] relevance로 선형 매핑 후 반올림 "
+            f"(train min={lo:.6f}, train max={hi:.6f})"
+        )
+    else:
+        print(f"\nTrain에서 추정한 score 경계(내림차순 상위부터 Critical→…): {np.array2string(th, precision=6)}")
+        print(f"(참고) train score min/max: {train_sorted_asc.min():.6f} / {train_sorted_asc.max():.6f}")
 
     print("\n[Test] 실제 Severity와 비교")
     t_test_severity_start = time.perf_counter()

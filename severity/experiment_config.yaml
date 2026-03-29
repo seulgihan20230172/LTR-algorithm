@@ -4,8 +4,7 @@
 evaluation:
   # train_thresholds: train score 분포·클래스 개수로 경계(th) 추정 후 val/test에 동일 적용
   # test_oracle_ratio: test 집합의 실제 4클래스 개수로 상위 점수부터 배정(벤치용)
-  # train_score_relevance_0_3: (train_severity_anomaly_rank 전용) train 점수 min~max를 [0,3]으로 선형 매핑 후
-  #   반올림해 Low/Medium/High/Critical에 대응시켜 정답과 비교
+  # train_score_relevance_0_3: train 점수 min~max를 [0,3] relevance로 선형 매핑 후 반올림 → Severity (점수 기반 파이프라인 공통)
   test_mode: train_thresholds
   # true: report_metrics에 Ordinal MAE·RMSE·Within-1 출력 (0~3 등간격 relevance 가정의 보조 지표)
   ordinal_severity_metrics: false
