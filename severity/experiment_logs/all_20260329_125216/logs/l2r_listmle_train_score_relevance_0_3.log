@@ -1,0 +1,5 @@
+# train_severity_l2r_rank 2026-03-29T12:52:22.561431
+# model=listmle test_mode=train_score_relevance_0_3 csv=severity/logging_monitoring_anomalies.csv
+# config=/home/work/lab_project/severity/experiment_config.yaml
+
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_125216/logs/l2r_listmle_train_score_relevance_0_3.log
