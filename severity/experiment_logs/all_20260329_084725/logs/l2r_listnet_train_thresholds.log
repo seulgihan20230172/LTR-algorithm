@@ -1,0 +1,86 @@
+# train_severity_l2r_rank 2026-03-29T08:47:28.386739
+# model=listnet test_mode=train_thresholds csv=severity/logging_monitoring_anomalies.csv
+# config=/home/work/lab_project/severity/experiment_config.yaml
+
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_084725/logs/l2r_listnet_train_thresholds.log
+[[ 0.      0.     -0.8351 -1.7189  1.4577  0.122   1.0859  0.5791 -1.2547  1.2696 -1.309   1.1615  1.3574  0.7751 -1.7115 -0.1346 -0.9621 -1.3686  1.0604  0.8664  0.7023  0.882   1.3367 -0.8785
+   0.4453  0.4473  0.635   0.7097 -1.3365 -0.7106]
+ [ 1.      0.      0.1243 -0.3186 -1.2696 -1.2888  0.3412  0.4589  1.4455 -0.1913  0.2913 -1.2219  1.3574  0.6019  1.7109 -1.085  -1.6556  1.5471 -0.5     0.8664 -1.4193 -0.881  -0.4545  1.4664
+  -0.45    0.4473 -0.2115  0.0033  1.3381 -1.4171]
+ [ 2.      0.      0.9625  0.3535 -1.2696  0.12    0.1687  1.4359 -1.1057 -0.4565  1.3232 -0.0269 -0.5194  0.6019 -0.9671 -0.9529  0.4249 -0.0661  0.493   0.518  -0.7121 -0.2933 -1.3501 -1.4647
+   1.3406 -1.3473  0.1516  0.7097 -0.445   1.409 ]
+ [ 1.      0.     -1.6167 -1.2117 -0.1787 -0.6923 -1.2574 -0.5276 -0.8082  0.3122  0.5782  1.5341 -0.6584  1.1216 -1.1053  0.515  -0.442  -0.3785  0.7767 -1.5721  0.7023 -1.4687  1.3367 -0.8785
+   0.4453 -1.3473  1.5224  0.7097 -1.3365  1.409 ]]
+ListNet Epoch 0 | Metrics: {'NDCG@1': 0.3956372968349016, 'NDCG@5': 0.3981827242662786, 'NDCG@10': 0.39697566280663027, 'MAP': 0.7623017387839197, 'MRR': 0.8707085828343313}
+ListNet Epoch 1 | Metrics: {'NDCG@1': 0.3896492728828058, 'NDCG@5': 0.3940693420115683, 'NDCG@10': 0.3933691975313734, 'MAP': 0.7621685630749243, 'MRR': 0.8650484744796122}
+ListNet Epoch 2 | Metrics: {'NDCG@1': 0.3964927288280582, 'NDCG@5': 0.39416981567603193, 'NDCG@10': 0.39042246588317703, 'MAP': 0.7623406966267866, 'MRR': 0.8681137724550896}
+ListNet Epoch 3 | Metrics: {'NDCG@1': 0.3939264328485886, 'NDCG@5': 0.3826067195552777, 'NDCG@10': 0.38836524327220445, 'MAP': 0.7625992287974679, 'MRR': 0.8634017678927858}
+ListNet Epoch 4 | Metrics: {'NDCG@1': 0.40461933276304535, 'NDCG@5': 0.3806836752852344, 'NDCG@10': 0.3855680424389356, 'MAP': 0.76295343545964, 'MRR': 0.8596842030225263}
+ListNet Epoch 5 | Metrics: {'NDCG@1': 0.41060735671514115, 'NDCG@5': 0.3840287390406637, 'NDCG@10': 0.3860068258594832, 'MAP': 0.7632978894906777, 'MRR': 0.8612025948103792}
+ListNet Epoch 6 | Metrics: {'NDCG@1': 0.39435414884516684, 'NDCG@5': 0.3860912479510577, 'NDCG@10': 0.3890787171832065, 'MAP': 0.7633212493332394, 'MRR': 0.8604790419161676}
+ListNet Epoch 7 | Metrics: {'NDCG@1': 0.3875106928999144, 'NDCG@5': 0.38499059954317133, 'NDCG@10': 0.38930757192858256, 'MAP': 0.7628890141800022, 'MRR': 0.8538922155688622}
+ListNet Epoch 8 | Metrics: {'NDCG@1': 0.386655260906758, 'NDCG@5': 0.3826496041471597, 'NDCG@10': 0.38944354604141274, 'MAP': 0.7629315371324341, 'MRR': 0.8572355289421157}
+
+[피처 중요도 로그] /home/work/lab_project/severity/feature_importance_train_severity_l2r_listnet_train_thresholds_20260329_084737.log
+
+[검증] train score 경계(threshold) 기준 분류 정확도(참고): 0.2490
+
+[Train] 실제 Severity와 비교
+
+=== Train (train_thresholds) ===
+Accuracy: 0.2614
+Macro precision: 0.2614
+Macro recall: 0.2614
+Macro F1: 0.2614
+Weighted precision: 0.2614
+Weighted recall: 0.2614
+Weighted F1: 0.2614
+              precision    recall  f1-score   support
+
+    Critical     0.2735    0.2735    0.2735     15114
+        High     0.2517    0.2517    0.2517     15048
+      Medium     0.2534    0.2534    0.2534     14906
+         Low     0.2669    0.2669    0.2669     14932
+
+    accuracy                         0.2614     60000
+   macro avg     0.2614    0.2614    0.2614     60000
+weighted avg     0.2614    0.2614    0.2614     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [0.076297 0.039349 0.001138]
+(참고) train score min/max: -0.214472 / 0.274419
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=train_thresholds) ===
+Accuracy: 0.2477
+Macro precision: 0.2482
+Macro recall: 0.2479
+Macro F1: 0.2475
+Weighted precision: 0.2483
+Weighted recall: 0.2477
+Weighted F1: 0.2474
+              precision    recall  f1-score   support
+
+    Critical     0.2588    0.2193    0.2374      5108
+        High     0.2383    0.2465    0.2424      4920
+      Medium     0.2460    0.2580    0.2518      5027
+         Low     0.2495    0.2679    0.2584      4945
+
+    accuracy                         0.2477     20000
+   macro avg     0.2482    0.2479    0.2475     20000
+weighted avg     0.2483    0.2477    0.2474     20000
+
+
+저장: severity/logging_monitoring_anomalies_l2r_listnet_train_thresholds.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.359 s
+전처리(인코딩·스케일) + 학습(train∪val L2R): 9.037 s
+추론·경계·Train·Val·Test 평가·저장(전수): 2.029 s
+  └ Test severity 정답 비교(report_metrics)만: 0.368 s
+전체: 11.429 s
+
+=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
+Validation MRR: 0.870709
+Test MRR:       0.879242

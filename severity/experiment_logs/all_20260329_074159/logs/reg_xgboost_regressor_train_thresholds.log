@@ -1,0 +1,65 @@
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_074159/logs/reg_xgboost_regressor_train_thresholds.log
+
+[피처 중요도 로그] /home/work/lab_project/severity/feature_importance_train_severity_reg_xgboost_regressor_train_thresholds_20260329_084205.log
+
+[검증] train 비율로 배정한 분류 정확도(참고): 0.2533
+
+[Train] 실제 Severity와 비교 (train 비율 배정)
+
+=== Train (비율 배정) ===
+Accuracy: 0.7771
+Macro precision: 0.7770
+Macro recall: 0.7770
+Macro F1: 0.7770
+Weighted precision: 0.7771
+Weighted recall: 0.7771
+Weighted F1: 0.7771
+              precision    recall  f1-score   support
+
+    Critical     0.8235    0.8235    0.8235     15114
+        High     0.7426    0.7426    0.7426     15048
+      Medium     0.7302    0.7302    0.7302     14906
+         Low     0.8117    0.8117    0.8117     14932
+
+    accuracy                         0.7771     60000
+   macro avg     0.7770    0.7770    0.7770     60000
+weighted avg     0.7771    0.7771    0.7771     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [1.818379 1.507892 1.189571]
+(참고) train score min/max: -0.001251 / 3.063455
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=train_thresholds) ===
+Accuracy: 0.2512
+Macro precision: 0.2570
+Macro recall: 0.2520
+Macro F1: 0.2228
+Weighted precision: 0.2572
+Weighted recall: 0.2512
+Weighted F1: 0.2224
+              precision    recall  f1-score   support
+
+    Critical     0.2708    0.0922    0.1376      5108
+        High     0.2421    0.3980    0.3011      4920
+      Medium     0.2538    0.4277    0.3185      5027
+         Low     0.2615    0.0900    0.1339      4945
+
+    accuracy                         0.2512     20000
+   macro avg     0.2570    0.2520    0.2228     20000
+weighted avg     0.2572    0.2512    0.2224     20000
+
+
+저장: severity/logging_monitoring_anomalies_reg_xgboost_regressor_train_thresholds.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.433 s
+전처리(인코딩·스케일) + 학습(train∪val): 26.850 s
+추론·경계·평가·저장(전수): 4.869 s
+  └ Test severity 정답 비교(report_metrics)만: 0.380 s
+전체: 32.152 s
+
+=== 랭킹 지표 MRR (relevance=0..3) ===
+Validation MRR: 0.876597
+Test MRR:       0.870359
