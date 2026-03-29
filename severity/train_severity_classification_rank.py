@@ -123,9 +123,9 @@ def run(
     print_per_class_recall_by_true_label(
         y_val.values,
         pred_val,
-        title="[검증] 클래스별 리콜 (정답이 해당 클래스인 행 중 예측이 동일한 비율)",
+        title="[검증] 클래스별 리콜·오답·FP 요약",
     )
-    print("  ※ 아래 Train/Test의 classification_report recall 열과 동일합니다. precision·F1은 같은 표에서 확인.")
+    print("  ※ Train/Test의 classification_report recall 열은 위 ‘맞춤’과 대응합니다. precision·F1은 같은 표에서 확인.")
 
     print("\n[Train] 실제 Severity와 비교")
     report_metrics(

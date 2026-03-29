@@ -398,20 +398,57 @@ def print_per_class_recall_by_true_label(
     y_true: np.ndarray,
     y_pred: np.ndarray,
     *,
-    title: str = "클래스별 리콜 (정답이 해당 클래스인 행 중 예측이 동일한 비율)",
+    title: str = "클래스별 리콜·오답 분포·예측별 FP",
 ) -> None:
-    """진짜 라벨이 k인 샘플만 모아 그중 예측이 k인 비율 — sklearn 분류에서 클래스 k의 recall과 동일."""
+    """실제 클래스 k 기준: 정답 개수, 맞춘 개수, 리콜, 오답 시 예측 분포.
+
+    예측 클래스 j 기준: FP(예측=j인데 정답≠j) 개수와 실제 정답 분포.
+    """
     y_true = np.asarray(y_true)
     y_pred = np.asarray(y_pred)
     print(title)
+    print("  [실제 정답 클래스 기준]")
     for lbl in LABEL_ORDER_DESC:
         mask = y_true == lbl
         n = int(mask.sum())
         if n == 0:
-            print(f"  {lbl}: —  (정답 행 n=0)")
+            print(f"    {lbl}: 정답 0건 (데이터 없음)")
             continue
-        hit = float(np.mean(y_pred[mask] == lbl))
-        print(f"  {lbl}: {hit:.4f}  (정답 행 n={n})")
+        tp = int(np.sum(y_pred[mask] == lbl))
+        rec = tp / n if n else 0.0
+        print(f"    {lbl}: 정답 {n}건, 맞춤 {tp}건, 리콜 {rec:.4f}")
+        wrong = mask & (y_pred != lbl)
+        nw = int(wrong.sum())
+        if nw == 0:
+            continue
+        parts: list[str] = []
+        for pl in LABEL_ORDER_DESC:
+            if pl == lbl:
+                continue
+            c = int(np.sum(y_pred[wrong] == pl))
+            if c > 0:
+                parts.append(f"예측 {pl}: {c}건")
+        if parts:
+            print(f"      오답 {nw}건 — " + ", ".join(parts))
+        else:
+            print(f"      오답 {nw}건")
+
+    print("  [예측 클래스 기준 FP] (예측이 해당 클래스인데 정답이 다른 경우)")
+    for j in LABEL_ORDER_DESC:
+        fp_mask = (y_pred == j) & (y_true != j)
+        fp = int(fp_mask.sum())
+        if fp == 0:
+            print(f"    예측 {j}: FP 0건")
+            continue
+        parts = []
+        for tl in LABEL_ORDER_DESC:
+            if tl == j:
+                continue
+            c = int(np.sum(y_true[fp_mask] == tl))
+            if c > 0:
+                parts.append(f"실제 {tl}: {c}건")
+        extra = ", ".join(parts) if parts else ""
+        print(f"    예측 {j}: FP {fp}건" + (f" ({extra})" if extra else ""))
 
 
 def report_metrics(
@@ -424,8 +461,8 @@ def report_metrics(
     labels = [l for l in LABEL_ORDER_DESC if l in np.unique(y_true) or l in np.unique(y_pred)]
     print(f"\n=== {name} ===")
     print(f"Accuracy: {accuracy_score(y_true, y_pred):.4f}")
-    print_per_class_recall_by_true_label(y_true, y_pred, title="  클래스별 리콜 (정답이 해당 클래스인 행 중 예측이 동일한 비율):")
-    print("  ※ 아래 classification_report의 recall 열과 동일합니다. precision·f1은 같은 표에서 확인하세요.")
+    print_per_class_recall_by_true_label(y_true, y_pred, title="  클래스별 리콜·오답·FP 요약:")
+    print("  ※ 위 ‘맞춤 n건’ 기준 리콜은 아래 classification_report의 recall 열과 같습니다. precision·f1은 같은 표에서 확인하세요.")
     if ordinal_severity_metrics:
         ord_mae, ord_rmse, within_one = ordinal_severity_errors(y_true, y_pred)
         print(
