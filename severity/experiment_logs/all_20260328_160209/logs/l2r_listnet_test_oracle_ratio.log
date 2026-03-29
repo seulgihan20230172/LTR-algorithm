@@ -1,0 +1,76 @@
+# train_severity_l2r_rank 2026-03-28T16:02:12.876050
+# model=listnet test_mode=test_oracle_ratio csv=severity/logging_monitoring_anomalies.csv
+# config=/home/work/lab_project/severity/experiment_config.yaml
+
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_160209/logs/l2r_listnet_test_oracle_ratio.log
+ListNet Epoch 0 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
+ListNet Epoch 1 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
+ListNet Epoch 2 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
+ListNet Epoch 3 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
+ListNet Epoch 4 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
+ListNet Epoch 5 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
+ListNet Epoch 6 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
+ListNet Epoch 7 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
+ListNet Epoch 8 | Metrics: {'NDCG@1': 0.75085, 'NDCG@5': 0.75085, 'NDCG@10': 0.75085, 'MAP': 0.75085, 'MRR': 0.75085}
+
+[검증] train 비율로 배정한 분류 정확도(early stopping용 참고): 0.2521
+
+[Train] 실제 Severity와 비교 (train 비율 배정)
+
+=== Train (비율 배정) ===
+Accuracy: 0.2491
+Macro precision: 0.2491
+Macro recall: 0.2491
+Macro F1: 0.2491
+Weighted precision: 0.2491
+Weighted recall: 0.2491
+Weighted F1: 0.2491
+              precision    recall  f1-score   support
+
+    Critical     0.2548    0.2548    0.2548     15089
+        High     0.2480    0.2480    0.2480     14954
+      Medium     0.2468    0.2468    0.2468     15010
+         Low     0.2466    0.2466    0.2466     14947
+
+    accuracy                         0.2491     60000
+   macro avg     0.2491    0.2491    0.2491     60000
+weighted avg     0.2491    0.2491    0.2491     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [ 0.188275  0.060755 -0.060886]
+(참고) train score min/max: -0.599152 / 0.855377
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=test_oracle_ratio) ===
+Accuracy: 0.2502
+Macro precision: 0.2502
+Macro recall: 0.2502
+Macro F1: 0.2502
+Weighted precision: 0.2502
+Weighted recall: 0.2502
+Weighted F1: 0.2502
+              precision    recall  f1-score   support
+
+    Critical     0.2484    0.2484    0.2484      5029
+        High     0.2470    0.2470    0.2470      4984
+      Medium     0.2468    0.2468    0.2468      5004
+         Low     0.2587    0.2587    0.2587      4983
+
+    accuracy                         0.2502     20000
+   macro avg     0.2502    0.2502    0.2502     20000
+weighted avg     0.2502    0.2502    0.2502     20000
+
+
+저장: severity/logging_monitoring_anomalies_l2r_listnet_test_oracle_ratio.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.468 s
+전처리(인코딩·스케일) + 학습(train∪val L2R): 343.114 s
+추론·경계·Train·Val·Test 평가·저장(전수): 6.771 s
+  └ Test severity 정답 비교(report_metrics)만: 0.428 s
+전체: 350.353 s
+
+=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
+Validation MRR: 0.750850
+Test MRR:       0.750850
