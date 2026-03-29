@@ -9,3 +9,68 @@ Traning………………
 Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
   score = -loss.item()
 Epoch:0, loss : 0.7013549208641052, Metrics: {'NDCG@1': 0.3764675636301311, 'NDCG@5': 0.3889229906773358, 'NDCG@10': 0.4127817059164935, 'MAP': 0.7723574770524079, 'MRR': 0.8555588882223556}
+Epoch:10, loss : 0.6926479935646057, Metrics: {'NDCG@1': 0.391036078498586, 'NDCG@5': 0.3917996985186332, 'NDCG@10': 0.41829563408243586, 'MAP': 0.7749004943399822, 'MRR': 0.8668466306738652}
+Epoch:20, loss : 0.6916953325271606, Metrics: {'NDCG@1': 0.3871797069157597, 'NDCG@5': 0.3936175110599054, 'NDCG@10': 0.4195591582244314, 'MAP': 0.7747584339180175, 'MRR': 0.8651569686062788}
+Epoch:30, loss : 0.6901140809059143, Metrics: {'NDCG@1': 0.39669209015339785, 'NDCG@5': 0.3891011304556808, 'NDCG@10': 0.4135640258012046, 'MAP': 0.7724125913818204, 'MRR': 0.8678464307138573}
+
+[검증] train score 경계(threshold) 기준 분류 정확도(참고): 0.2474
+
+[Train] 실제 Severity와 비교
+
+=== Train (train_thresholds) ===
+Accuracy: 0.2495
+Macro precision: 0.2495
+Macro recall: 0.2495
+Macro F1: 0.2495
+Weighted precision: 0.2495
+Weighted recall: 0.2495
+Weighted F1: 0.2495
+              precision    recall  f1-score   support
+
+    Critical     0.2463    0.2463    0.2463     15089
+        High     0.2472    0.2472    0.2472     14954
+      Medium     0.2538    0.2538    0.2538     15010
+         Low     0.2506    0.2506    0.2506     14947
+
+    accuracy                         0.2495     60000
+   macro avg     0.2495    0.2495    0.2495     60000
+weighted avg     0.2495    0.2495    0.2495     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [-0.034961 -0.053375 -0.094973]
+(참고) train score min/max: -0.534836 / 0.548987
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=train_thresholds) ===
+Accuracy: 0.2486
+Macro precision: 0.2488
+Macro recall: 0.2486
+Macro F1: 0.2479
+Weighted precision: 0.2488
+Weighted recall: 0.2486
+Weighted F1: 0.2479
+              precision    recall  f1-score   support
+
+    Critical     0.2505    0.2438    0.2471      5029
+        High     0.2443    0.2909    0.2656      4984
+      Medium     0.2530    0.2408    0.2467      5004
+         Low     0.2475    0.2189    0.2324      4983
+
+    accuracy                         0.2486     20000
+   macro avg     0.2488    0.2486    0.2479     20000
+weighted avg     0.2488    0.2486    0.2479     20000
+
+
+저장: severity/logging_monitoring_anomalies_l2r_ranknet_train_thresholds.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.486 s
+전처리(인코딩·스케일) + 학습(train∪val L2R): 1908.693 s
+추론·경계·Train·Val·Test 평가·저장(전수): 2.966 s
+  └ Test severity 정답 비교(report_metrics)만: 0.414 s
+전체: 1912.145 s
+
+=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
+Validation MRR: 0.864267
+Test MRR:       0.856924
