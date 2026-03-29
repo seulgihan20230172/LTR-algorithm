@@ -16,6 +16,7 @@ from severity.severity_rank_controlgroup import (
     TeeIO,
     allocate_counts,
     apply_test_mode,
+    assign_by_thresholds,
     assign_top_scores,
     boundaries_from_train_sorted,
     class_fractions,
@@ -90,23 +91,30 @@ def run(
     s_val = model.score(xv)
     s_test = model.score(xs)
 
-    n_va, n_te = len(y_val), len(y_test)
+    n_va = len(y_val)
 
     fr_train = class_fractions(y_train)
     counts_train = np.array([y_train.value_counts().get(lbl, 0) for lbl in LABEL_ORDER_DESC], dtype=int)
-    counts_val = allocate_counts(n_va, fr_train)
-    pred_val = assign_top_scores(s_val, counts_val)
-    print(f"\n[검증] train 비율로 배정한 분류 정확도(참고): {(pred_val == y_val.values).mean():.4f}")
-
     train_desc = np.sort(s_train)[::-1]
     th, train_sorted_asc = boundaries_from_train_sorted(train_desc, counts_train)
 
-    pred_train = assign_top_scores(s_train, counts_train)
-    print("\n[Train] 실제 Severity와 비교 (train 비율 배정)")
+    if test_mode == "train_thresholds":
+        pred_val = assign_by_thresholds(s_val, th)
+        print(f"\n[검증] train score 경계(threshold) 기준 분류 정확도(참고): {(pred_val == y_val.values).mean():.4f}")
+        pred_train = assign_by_thresholds(s_train, th)
+        train_metrics_name = "Train (train_thresholds)"
+    else:
+        counts_val = allocate_counts(n_va, fr_train)
+        pred_val = assign_top_scores(s_val, counts_val)
+        print(f"\n[검증] train 비율로 배정한 분류 정확도(참고): {(pred_val == y_val.values).mean():.4f}")
+        pred_train = assign_top_scores(s_train, counts_train)
+        train_metrics_name = "Train (비율 배정)"
+
+    print("\n[Train] 실제 Severity와 비교")
     report_metrics(
         y_train.values,
         pred_train,
-        "Train (비율 배정)",
+        train_metrics_name,
         ordinal_severity_metrics=ordinal_severity_metrics,
     )
 

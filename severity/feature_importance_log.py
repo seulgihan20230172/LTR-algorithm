@@ -68,9 +68,11 @@ def write_feature_importance_log(
     shap_max_rows: int = 2000,
     random_state: int = 42,
 ) -> Path:
-    """전처리 후 피처 이름, feature_importances_, (가능 시) SHAP 평균 |값| 상위 top_k를 .log로 남긴다."""
-    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    path = SEVERITY_DIR / f"feature_importance_{prefix}_{model_name}_{test_mode}_{ts}.log"
+    """전처리 후 피처 이름, feature_importances_, (가능 시) SHAP 평균 |값| 상위 top_k를 .log로 남긴다.
+
+    파일명에 타임스탬프를 붙이지 않으며, 같은 prefix/model_name/test_mode로 다시 실행하면 동일 파일을 덮어쓴다.
+    """
+    path = SEVERITY_DIR / f"feature_importance_{prefix}_{model_name}_{test_mode}.log"
     names = list(pre.get_feature_names_out())
     imp, note = _importances_from_model(model_obj)
 
@@ -84,7 +86,14 @@ def write_feature_importance_log(
         "#     다중 클래스면 클래스별 SHAP 절댓값 평균을 다시 평균.",
         "#",
     ]
+    lines.append("# --- 전처리 후 피처 목록 (모델 입력 차원 순서) ---")
+    lines.append("idx\tfeature")
+    for j, nm in enumerate(names):
+        lines.append(f"{j}\t{nm}")
+    lines.append("#")
+
     if imp is None or len(imp) != len(names):
+        lines.append("# --- 내장 feature_importances_: 없음 또는 차원 불일치 ---")
         lines.append(note or "피처 수와 중요도 벡터 길이가 맞지 않습니다.")
     else:
         imp = np.maximum(imp, 0.0)
