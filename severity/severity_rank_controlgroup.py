@@ -394,13 +394,13 @@ def evaluate_ranking_all(y_rel: np.ndarray, pred_score: np.ndarray, qid: np.ndar
     return {k: float(np.mean(v)) for k, v in res.items()}
 
 
-def print_per_class_accuracy_by_true_label(
+def print_per_class_recall_by_true_label(
     y_true: np.ndarray,
     y_pred: np.ndarray,
     *,
-    title: str = "클래스별 정확도 (정답이 해당 클래스인 행 중 예측이 동일한 비율)",
+    title: str = "클래스별 리콜 (정답이 해당 클래스인 행 중 예측이 동일한 비율)",
 ) -> None:
-    """진짜 라벨이 k인 샘플만 모아 그중 예측이 k인 비율(조건부 정확도; 다중 클래스에서 클래스 k에 대한 recall과 동일)."""
+    """진짜 라벨이 k인 샘플만 모아 그중 예측이 k인 비율 — sklearn 분류에서 클래스 k의 recall과 동일."""
     y_true = np.asarray(y_true)
     y_pred = np.asarray(y_pred)
     print(title)
@@ -420,13 +420,12 @@ def report_metrics(
     name: str,
     *,
     ordinal_severity_metrics: bool = False,
-    per_class_accuracy: bool = False,
 ) -> None:
     labels = [l for l in LABEL_ORDER_DESC if l in np.unique(y_true) or l in np.unique(y_pred)]
     print(f"\n=== {name} ===")
     print(f"Accuracy: {accuracy_score(y_true, y_pred):.4f}")
-    if per_class_accuracy:
-        print_per_class_accuracy_by_true_label(y_true, y_pred, title="  클래스별 정확도 (정답이 해당 클래스인 행 중 예측이 동일한 비율):")
+    print_per_class_recall_by_true_label(y_true, y_pred, title="  클래스별 리콜 (정답이 해당 클래스인 행 중 예측이 동일한 비율):")
+    print("  ※ 아래 classification_report의 recall 열과 동일합니다. precision·f1은 같은 표에서 확인하세요.")
     if ordinal_severity_metrics:
         ord_mae, ord_rmse, within_one = ordinal_severity_errors(y_true, y_pred)
         print(

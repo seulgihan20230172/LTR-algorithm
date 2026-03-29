@@ -24,7 +24,7 @@ from severity.severity_rank_controlgroup import (
     evaluate_ranking_all,
     fit_transform_xy,
     prepare_splits,
-    print_per_class_accuracy_by_true_label,
+    print_per_class_recall_by_true_label,
     report_metrics,
     severity_from_train_minmax_relevance,
 )
@@ -106,12 +106,27 @@ def run(
         print(f"\n[검증] train score 경계(threshold) 기준 분류 정확도(참고): {(pred_val == y_val.values).mean():.4f}")
         pred_train = assign_by_thresholds(s_train, th)
         train_metrics_name = "Train (train_thresholds)"
+    elif test_mode == "train_score_relevance_0_3":
+        pred_val = severity_from_train_minmax_relevance(s_val, s_train)
+        print(
+            f"\n[검증] train min~max→[0,3] relevance 반올림 기준 분류 정확도(참고): "
+            f"{(pred_val == y_val.values).mean():.4f}"
+        )
+        pred_train = severity_from_train_minmax_relevance(s_train, s_train)
+        train_metrics_name = "Train (train_score_relevance_0_3)"
     else:
         counts_val = allocate_counts(n_va, fr_train)
         pred_val = assign_top_scores(s_val, counts_val)
         print(f"\n[검증] train 비율로 배정한 분류 정확도(참고): {(pred_val == y_val.values).mean():.4f}")
         pred_train = assign_top_scores(s_train, counts_train)
         train_metrics_name = "Train (비율 배정)"
+
+    print_per_class_recall_by_true_label(
+        y_val.values,
+        pred_val,
+        title="[검증] 클래스별 리콜 (정답이 해당 클래스인 행 중 예측이 동일한 비율)",
+    )
+    print("  ※ 아래 Train/Test의 classification_report recall 열과 동일합니다. precision·F1은 같은 표에서 확인.")
 
     print("\n[Train] 실제 Severity와 비교")
     report_metrics(
@@ -140,7 +155,6 @@ def run(
         pred_test,
         f"Test (mode={test_mode})",
         ordinal_severity_metrics=ordinal_severity_metrics,
-        per_class_accuracy=(test_mode == "train_score_relevance_0_3"),
     )
     t_test_sev_end = time.perf_counter()
 
