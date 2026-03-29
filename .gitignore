@@ -11,6 +11,6 @@ L2R/__pycache__/*.pyc
 
 # Dataset - CVE
 cve.csv.zip
-cve-datasets
-
+cve-datasets/
+severity/CVE_summary_separate/cve-datasets/
 
