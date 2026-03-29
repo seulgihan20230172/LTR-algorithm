@@ -1,1546 +1,651 @@
 nohup: ignoring input
-[실험 배치] all_20260328_171610
+[실험 배치] all_20260329_074159
 [설정 파일] severity/experiment_config.yaml
-[test_mode] test_oracle_ratio (YAML의 evaluation.test_mode; TEST_MODE 환경변수로 덮어쓰기 가능)
-[로그 디렉터리] /home/work/lab_project/severity/experiment_logs/all_20260328_171610/logs
+[test_mode] train_thresholds (YAML의 evaluation.test_mode; TEST_MODE 환경변수로 덮어쓰기 가능)
+[로그 디렉터리] /home/work/lab_project/severity/experiment_logs/all_20260329_074159/logs
 
 ========== l2r_listnet ==========
-[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_171610/logs/l2r_listnet_test_oracle_ratio.log
-ListNet Epoch 0 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.30089899143089816, 'NDCG@10': 0.3538240710981144, 'MAP': 0.7531522093850308, 'MRR': 1.0}
-ListNet Epoch 1 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.30089899143089816, 'NDCG@10': 0.35231925095215016, 'MAP': 0.753111405484281, 'MRR': 1.0}
-ListNet Epoch 2 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.3383861564344244, 'NDCG@10': 0.38550740868900346, 'MAP': 0.7531135232225552, 'MRR': 1.0}
-ListNet Epoch 3 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.3383861564344244, 'NDCG@10': 0.41484636869678854, 'MAP': 0.7530936763013355, 'MRR': 1.0}
-ListNet Epoch 4 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.367432495790135, 'NDCG@10': 0.39568059541373357, 'MAP': 0.7530658689721412, 'MRR': 1.0}
-ListNet Epoch 5 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.32994533078660876, 'NDCG@10': 0.40936885041205007, 'MAP': 0.752994709397501, 'MRR': 1.0}
-ListNet Epoch 6 | Metrics: {'NDCG@1': 0.14285714285714285, 'NDCG@5': 0.28993469853819354, 'NDCG@10': 0.3368326525454813, 'MAP': 0.7529432086780811, 'MRR': 1.0}
-ListNet Epoch 7 | Metrics: {'NDCG@1': 0.14285714285714285, 'NDCG@5': 0.28321705488273596, 'NDCG@10': 0.32439200088132436, 'MAP': 0.7529499257941635, 'MRR': 1.0}
-ListNet Epoch 8 | Metrics: {'NDCG@1': 0.14285714285714285, 'NDCG@5': 0.27052957999767324, 'NDCG@10': 0.311127688038442, 'MAP': 0.7529620434554164, 'MRR': 1.0}
-ListNet Epoch 9 | Metrics: {'NDCG@1': 0.14285714285714285, 'NDCG@5': 0.19150865571079556, 'NDCG@10': 0.3676620656638354, 'MAP': 0.7529170140339952, 'MRR': 1.0}
-ListNet Epoch 10 | Metrics: {'NDCG@1': 0.0, 'NDCG@5': 0.17362666420521147, 'NDCG@10': 0.2845990623526772, 'MAP': 0.7528650410874821, 'MRR': 0.5}
-ListNet Epoch 11 | Metrics: {'NDCG@1': 0.0, 'NDCG@5': 0.10766712101632277, 'NDCG@10': 0.2572741844999353, 'MAP': 0.752842936106061, 'MRR': 0.5}
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_074159/logs/l2r_listnet_train_thresholds.log
+[[ 1.0000000e+00  6.2400000e+02 -7.9714662e-01  1.4461842e+00
+  -9.1263491e-01 -6.3371211e-01  1.1220639e+00  1.4362249e+00
+  -1.6413568e+00  2.8379825e-01  3.3405206e-01 -2.8533733e-01
+   1.2176069e+00 -1.6500374e+00  9.2686421e-01  3.5791239e-01
+   1.1277900e+00  1.1402289e+00  1.0612936e+00  1.7196946e-01
+   1.4067472e+00  4.4749588e-01  1.1444526e+00  7.1355832e-01
+  -4.4530973e-01  6.9973540e-01]
+ [ 2.0000000e+00  2.7200000e+02 -3.1354776e-01  2.8048629e-01
+   3.6175752e-01  9.9879801e-01  2.4641813e-01 -1.0538175e+00
+   9.8297578e-01 -1.4095831e+00  4.5690680e-01 -1.3659213e+00
+   1.2871525e+00 -7.8210521e-01 -1.3283786e+00 -2.0731904e-01
+  -9.5566750e-01  1.4779135e+00  9.9055254e-01  1.7196946e-01
+  -7.1289438e-01 -4.4904989e-01 -1.1460692e+00  1.4220157e+00
+   4.4885662e-01 -7.0799338e-03]
+ [ 2.0000000e+00  1.5100000e+02  1.6987244e+00 -4.3319213e-01
+   1.6361499e+00  1.1690339e+00  8.4991318e-01  1.0142897e+00
+   3.4633008e-01 -1.0522418e+00 -6.8742031e-01 -5.4372919e-01
+   1.5653350e+00 -8.7759510e-02  1.7125927e+00  5.0585508e-01
+  -9.5566750e-01  4.5263487e-01  4.9536473e-01 -1.7515139e-01
+  -6.3471491e-03 -4.4904989e-01 -1.2410433e+00  1.4220157e+00
+   1.3430229e+00  6.9973540e-01]
+ [ 2.0000000e+00  1.2870000e+03  6.3418090e-01 -5.5086946e-01
+   3.6175752e-01  1.5959862e+00 -1.7136273e+00 -1.2249472e+00
+  -9.4177347e-01 -1.7089865e+00  4.2866740e-01 -2.2298345e-02
+  -1.2860352e+00 -1.6500374e+00  3.2242069e-01 -1.6804639e+00
+   4.3330419e-01 -9.8565221e-01  1.7685280e-04  1.2133319e+00
+   7.0020008e-01  1.3440417e+00 -1.2607309e+00 -7.0335650e-01
+   1.3430229e+00 -1.4207106e+00]]
+ListNet Epoch 0 | Metrics: {'NDCG@1': 0.4052332390664724, 'NDCG@5': 0.4991361348949424, 'NDCG@10': 0.6572094102256165, 'MAP': 0.7983365026785754, 'MRR': 0.8600294226868913}
+ListNet Epoch 1 | Metrics: {'NDCG@1': 0.40906104493387035, 'NDCG@5': 0.4961548058765235, 'NDCG@10': 0.6557616610764835, 'MAP': 0.7989424864837142, 'MRR': 0.8680363927214557}
+ListNet Epoch 2 | Metrics: {'NDCG@1': 0.4054046333590425, 'NDCG@5': 0.49753707947950665, 'NDCG@10': 0.654768984219898, 'MAP': 0.7977514577567526, 'MRR': 0.8671865626874624}
+ListNet Epoch 3 | Metrics: {'NDCG@1': 0.3918644842460079, 'NDCG@5': 0.49336686460531876, 'NDCG@10': 0.6514282972964416, 'MAP': 0.7967316951083895, 'MRR': 0.8618876224755049}
+ListNet Epoch 4 | Metrics: {'NDCG@1': 0.3889507812723169, 'NDCG@5': 0.49025981617274006, 'NDCG@10': 0.6511889789153964, 'MAP': 0.7967708044345367, 'MRR': 0.8629074185162967}
+ListNet Epoch 5 | Metrics: {'NDCG@1': 0.3969206158768246, 'NDCG@5': 0.49506505467586537, 'NDCG@10': 0.65278356432913, 'MAP': 0.7982063138437372, 'MRR': 0.8623375324935013}
+ListNet Epoch 6 | Metrics: {'NDCG@1': 0.3969206158768247, 'NDCG@5': 0.49263356596589997, 'NDCG@10': 0.6523251816874186, 'MAP': 0.798343339402871, 'MRR': 0.860117976404719}
+ListNet Epoch 7 | Metrics: {'NDCG@1': 0.40543319907447084, 'NDCG@5': 0.4946779087091002, 'NDCG@10': 0.653564905734291, 'MAP': 0.7988056441631335, 'MRR': 0.8626674665066987}
+ListNet Epoch 8 | Metrics: {'NDCG@1': 0.41254606221612816, 'NDCG@5': 0.49717093204051993, 'NDCG@10': 0.6553911754458445, 'MAP': 0.7992727448478174, 'MRR': 0.863117376524695}
 
-[검증] train 비율로 배정한 분류 정확도(early stopping용 참고): 0.2569
+[검증] train score 경계(threshold) 기준 분류 정확도(참고): 0.2507
 
-[Train] 실제 Severity와 비교 (train 비율 배정)
+[Train] 실제 Severity와 비교
 
-=== Train (비율 배정) ===
-Accuracy: 0.2488
-Macro precision: 0.2488
-Macro recall: 0.2488
-Macro F1: 0.2488
-Weighted precision: 0.2488
-Weighted recall: 0.2488
-Weighted F1: 0.2488
+=== Train (train_thresholds) ===
+Accuracy: 0.2589
+Macro precision: 0.2589
+Macro recall: 0.2589
+Macro F1: 0.2589
+Weighted precision: 0.2589
+Weighted recall: 0.2589
+Weighted F1: 0.2589
               precision    recall  f1-score   support
 
-    Critical     0.2529    0.2529    0.2529     15089
-        High     0.2443    0.2443    0.2443     14954
-      Medium     0.2464    0.2464    0.2464     15010
-         Low     0.2517    0.2517    0.2517     14947
+    Critical     0.2701    0.2701    0.2701     15089
+        High     0.2497    0.2497    0.2497     14954
+      Medium     0.2557    0.2557    0.2557     15010
+         Low     0.2599    0.2599    0.2599     14947
 
-    accuracy                         0.2488     60000
-   macro avg     0.2488    0.2488    0.2488     60000
-weighted avg     0.2488    0.2488    0.2488     60000
+    accuracy                         0.2589     60000
+   macro avg     0.2589    0.2589    0.2589     60000
+weighted avg     0.2589    0.2589    0.2589     60000
 
 
-Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [-0.041611 -0.120289 -0.201429]
-(참고) train score min/max: -0.630068 / 0.338868
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [0.332944 0.295012 0.255898]
+(참고) train score min/max: 0.060048 / 0.526530
 
 [Test] 실제 Severity와 비교
 
-=== Test (mode=test_oracle_ratio) ===
-Accuracy: 0.2460
-Macro precision: 0.2460
-Macro recall: 0.2460
-Macro F1: 0.2460
-Weighted precision: 0.2460
-Weighted recall: 0.2460
-Weighted F1: 0.2460
-              precision    recall  f1-score   support
-
-    Critical     0.2500    0.2500    0.2500      5029
-        High     0.2420    0.2420    0.2420      4984
-      Medium     0.2448    0.2448    0.2448      5004
-         Low     0.2472    0.2472    0.2472      4983
-
-    accuracy                         0.2460     20000
-   macro avg     0.2460    0.2460    0.2460     20000
-weighted avg     0.2460    0.2460    0.2460     20000
-
-
-저장: severity/logging_monitoring_anomalies_l2r_listnet_test_oracle_ratio.csv
-
-=== 소요 시간 ===
-CSV 로드·train/val/test 분할: 0.511 s
-전처리(인코딩·스케일) + 학습(train∪val L2R): 3.743 s
-추론·경계·Train·Val·Test 평가·저장(전수): 2.302 s
-  └ Test severity 정답 비교(report_metrics)만: 0.468 s
-전체: 6.556 s
-
-=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
-Validation MRR: 1.000000
-Test MRR:       1.000000
-
-========== l2r_listmle ==========
-[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_171610/logs/l2r_listmle_test_oracle_ratio.log
-ListMLE Epoch 0 | Metrics: {'NDCG@1': 0.0, 'NDCG@5': 0.13680103524044243, 'NDCG@10': 0.17236902343238591, 'MAP': 0.7510680621680812, 'MRR': 0.5}
-ListMLE Epoch 1 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.2509244064997311, 'NDCG@10': 0.2352769505341234, 'MAP': 0.7508533437108552, 'MRR': 1.0}
-ListMLE Epoch 2 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.2884115715032573, 'NDCG@10': 0.2819253657145546, 'MAP': 0.7505032080379153, 'MRR': 1.0}
-ListMLE Epoch 3 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.2884115715032573, 'NDCG@10': 0.38557125365872363, 'MAP': 0.7501615848455595, 'MRR': 1.0}
-ListMLE Epoch 4 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.299375864395962, 'NDCG@10': 0.47197895386759825, 'MAP': 0.7497537500610092, 'MRR': 1.0}
-ListMLE Epoch 5 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.3284835422067424, 'NDCG@10': 0.4402684410756526, 'MAP': 0.7493985051506549, 'MRR': 1.0}
-ListMLE Epoch 6 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.45580830954768575, 'NDCG@10': 0.45092145709709863, 'MAP': 0.7489703570715267, 'MRR': 1.0}
-ListMLE Epoch 7 | Metrics: {'NDCG@1': 0.42857142857142855, 'NDCG@5': 0.6004486743709427, 'NDCG@10': 0.47265452742028746, 'MAP': 0.748604336668491, 'MRR': 1.0}
-ListMLE Epoch 8 | Metrics: {'NDCG@1': 1.0, 'NDCG@5': 0.7058448886378986, 'NDCG@10': 0.534779819278021, 'MAP': 0.748256184465654, 'MRR': 1.0}
-ListMLE Epoch 9 | Metrics: {'NDCG@1': 1.0, 'NDCG@5': 0.6347508688022446, 'NDCG@10': 0.5890417098044545, 'MAP': 0.7479451199811901, 'MRR': 1.0}
-ListMLE Epoch 10 | Metrics: {'NDCG@1': 1.0, 'NDCG@5': 0.6246744033190582, 'NDCG@10': 0.5469569094840868, 'MAP': 0.747667040928314, 'MRR': 1.0}
-ListMLE Epoch 11 | Metrics: {'NDCG@1': 1.0, 'NDCG@5': 0.576649324462432, 'NDCG@10': 0.539320039938172, 'MAP': 0.7474270211688039, 'MRR': 1.0}
-ListMLE Epoch 12 | Metrics: {'NDCG@1': 1.0, 'NDCG@5': 0.6891108194730107, 'NDCG@10': 0.5479781084374484, 'MAP': 0.7472193823790977, 'MRR': 1.0}
-ListMLE Epoch 13 | Metrics: {'NDCG@1': 0.0, 'NDCG@5': 0.5639368789339221, 'NDCG@10': 0.44781900788309725, 'MAP': 0.7470057679067826, 'MRR': 0.5}
-ListMLE Epoch 14 | Metrics: {'NDCG@1': 0.0, 'NDCG@5': 0.48896254892686963, 'NDCG@10': 0.44449547961767893, 'MAP': 0.7468540013936307, 'MRR': 0.5}
-ListMLE Epoch 15 | Metrics: {'NDCG@1': 0.0, 'NDCG@5': 0.46358759915674425, 'NDCG@10': 0.4280288734893849, 'MAP': 0.7467630147549869, 'MRR': 0.5}
-ListMLE Epoch 16 | Metrics: {'NDCG@1': 0.0, 'NDCG@5': 0.46358759915674425, 'NDCG@10': 0.4237137190214004, 'MAP': 0.7467006515649751, 'MRR': 0.5}
-ListMLE Epoch 17 | Metrics: {'NDCG@1': 0.0, 'NDCG@5': 0.46358759915674425, 'NDCG@10': 0.47653007477178866, 'MAP': 0.7466942897245876, 'MRR': 0.5}
-
-[검증] train 비율로 배정한 분류 정확도(early stopping용 참고): 0.2442
-
-[Train] 실제 Severity와 비교 (train 비율 배정)
-
-=== Train (비율 배정) ===
-Accuracy: 0.2509
-Macro precision: 0.2509
-Macro recall: 0.2509
-Macro F1: 0.2509
-Weighted precision: 0.2509
-Weighted recall: 0.2509
-Weighted F1: 0.2509
-              precision    recall  f1-score   support
-
-    Critical     0.2517    0.2517    0.2517     15089
-        High     0.2491    0.2491    0.2491     14954
-      Medium     0.2510    0.2510    0.2510     15010
-         Low     0.2517    0.2517    0.2517     14947
-
-    accuracy                         0.2509     60000
-   macro avg     0.2509    0.2509    0.2509     60000
-weighted avg     0.2509    0.2509    0.2509     60000
-
-
-Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [0.323373 0.262657 0.203259]
-(참고) train score min/max: -0.096984 / 0.702545
-
-[Test] 실제 Severity와 비교
-
-=== Test (mode=test_oracle_ratio) ===
-Accuracy: 0.2512
-Macro precision: 0.2513
-Macro recall: 0.2513
-Macro F1: 0.2513
-Weighted precision: 0.2512
-Weighted recall: 0.2512
-Weighted F1: 0.2512
-              precision    recall  f1-score   support
-
-    Critical     0.2474    0.2474    0.2474      5029
-        High     0.2510    0.2510    0.2510      4984
-      Medium     0.2520    0.2520    0.2520      5004
-         Low     0.2547    0.2547    0.2547      4983
-
-    accuracy                         0.2512     20000
-   macro avg     0.2513    0.2513    0.2513     20000
-weighted avg     0.2512    0.2512    0.2512     20000
-
-
-저장: severity/logging_monitoring_anomalies_l2r_listmle_test_oracle_ratio.csv
-
-=== 소요 시간 ===
-CSV 로드·train/val/test 분할: 0.511 s
-전처리(인코딩·스케일) + 학습(train∪val L2R): 235.678 s
-추론·경계·Train·Val·Test 평가·저장(전수): 2.076 s
-  └ Test severity 정답 비교(report_metrics)만: 0.411 s
-전체: 238.264 s
-
-=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
-Validation MRR: 1.000000
-Test MRR:       1.000000
-
-========== l2r_xgboost ==========
-[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_171610/logs/l2r_xgboost_test_oracle_ratio.log
-[0]	validation_0-ndcg@32:0.49939
-[1]	validation_0-ndcg@32:0.28724
-[2]	validation_0-ndcg@32:0.23244
-[3]	validation_0-ndcg@32:0.26885
-[4]	validation_0-ndcg@32:0.32881
-[5]	validation_0-ndcg@32:0.31256
-[6]	validation_0-ndcg@32:0.26761
-[7]	validation_0-ndcg@32:0.30060
-[8]	validation_0-ndcg@32:0.30718
-[9]	validation_0-ndcg@32:0.30824
-[10]	validation_0-ndcg@32:0.35185
-[11]	validation_0-ndcg@32:0.31854
-[12]	validation_0-ndcg@32:0.32433
-[13]	validation_0-ndcg@32:0.32487
-[14]	validation_0-ndcg@32:0.34110
-[15]	validation_0-ndcg@32:0.32122
-[16]	validation_0-ndcg@32:0.32002
-[17]	validation_0-ndcg@32:0.32344
-[18]	validation_0-ndcg@32:0.33886
-[19]	validation_0-ndcg@32:0.31409
-[20]	validation_0-ndcg@32:0.35059
-[21]	validation_0-ndcg@32:0.36382
-[22]	validation_0-ndcg@32:0.37112
-[23]	validation_0-ndcg@32:0.35084
-[24]	validation_0-ndcg@32:0.35255
-[25]	validation_0-ndcg@32:0.34780
-[26]	validation_0-ndcg@32:0.34188
-[27]	validation_0-ndcg@32:0.33938
-[28]	validation_0-ndcg@32:0.32908
-[29]	validation_0-ndcg@32:0.32800
-[30]	validation_0-ndcg@32:0.31651
-[31]	validation_0-ndcg@32:0.31019
-[32]	validation_0-ndcg@32:0.33090
-[33]	validation_0-ndcg@32:0.32763
-[34]	validation_0-ndcg@32:0.33051
-[35]	validation_0-ndcg@32:0.34902
-[36]	validation_0-ndcg@32:0.35768
-[37]	validation_0-ndcg@32:0.35194
-[38]	validation_0-ndcg@32:0.33649
-[39]	validation_0-ndcg@32:0.35862
-[40]	validation_0-ndcg@32:0.33797
-[41]	validation_0-ndcg@32:0.35383
-[42]	validation_0-ndcg@32:0.36610
-[43]	validation_0-ndcg@32:0.34408
-[44]	validation_0-ndcg@32:0.35818
-[45]	validation_0-ndcg@32:0.34994
-[46]	validation_0-ndcg@32:0.33410
-[47]	validation_0-ndcg@32:0.34596
-[48]	validation_0-ndcg@32:0.32181
-[49]	validation_0-ndcg@32:0.30498
-[50]	validation_0-ndcg@32:0.32481
-[51]	validation_0-ndcg@32:0.32388
-[52]	validation_0-ndcg@32:0.30639
-[53]	validation_0-ndcg@32:0.32073
-[54]	validation_0-ndcg@32:0.30707
-[55]	validation_0-ndcg@32:0.30646
-[56]	validation_0-ndcg@32:0.29695
-[57]	validation_0-ndcg@32:0.28681
-[58]	validation_0-ndcg@32:0.30349
-[59]	validation_0-ndcg@32:0.27970
-[60]	validation_0-ndcg@32:0.28821
-[61]	validation_0-ndcg@32:0.28582
-[62]	validation_0-ndcg@32:0.27764
-[63]	validation_0-ndcg@32:0.28213
-[64]	validation_0-ndcg@32:0.28508
-[65]	validation_0-ndcg@32:0.28438
-[66]	validation_0-ndcg@32:0.28285
-[67]	validation_0-ndcg@32:0.28269
-[68]	validation_0-ndcg@32:0.28527
-[69]	validation_0-ndcg@32:0.29088
-[70]	validation_0-ndcg@32:0.29126
-[71]	validation_0-ndcg@32:0.29557
-[72]	validation_0-ndcg@32:0.28627
-[73]	validation_0-ndcg@32:0.28326
-[74]	validation_0-ndcg@32:0.27748
-[75]	validation_0-ndcg@32:0.28067
-[76]	validation_0-ndcg@32:0.27959
-[77]	validation_0-ndcg@32:0.27941
-[78]	validation_0-ndcg@32:0.28674
-[79]	validation_0-ndcg@32:0.30026
-[80]	validation_0-ndcg@32:0.28890
-[81]	validation_0-ndcg@32:0.32106
-[82]	validation_0-ndcg@32:0.32081
-[83]	validation_0-ndcg@32:0.31836
-[84]	validation_0-ndcg@32:0.30574
-[85]	validation_0-ndcg@32:0.31801
-[86]	validation_0-ndcg@32:0.29714
-[87]	validation_0-ndcg@32:0.31793
-[88]	validation_0-ndcg@32:0.33842
-[89]	validation_0-ndcg@32:0.31717
-[90]	validation_0-ndcg@32:0.31744
-[91]	validation_0-ndcg@32:0.30751
-[92]	validation_0-ndcg@32:0.31741
-[93]	validation_0-ndcg@32:0.30689
-[94]	validation_0-ndcg@32:0.30686
-[95]	validation_0-ndcg@32:0.30903
-[96]	validation_0-ndcg@32:0.31802
-[97]	validation_0-ndcg@32:0.32002
-[98]	validation_0-ndcg@32:0.32156
-[99]	validation_0-ndcg@32:0.32117
-[100]	validation_0-ndcg@32:0.32362
-[101]	validation_0-ndcg@32:0.32733
-[102]	validation_0-ndcg@32:0.33292
-[103]	validation_0-ndcg@32:0.33604
-[104]	validation_0-ndcg@32:0.33203
-[105]	validation_0-ndcg@32:0.33251
-[106]	validation_0-ndcg@32:0.32536
-[107]	validation_0-ndcg@32:0.32627
-[108]	validation_0-ndcg@32:0.32642
-[109]	validation_0-ndcg@32:0.32884
-[110]	validation_0-ndcg@32:0.32776
-[111]	validation_0-ndcg@32:0.32615
-[112]	validation_0-ndcg@32:0.32960
-[113]	validation_0-ndcg@32:0.33647
-[114]	validation_0-ndcg@32:0.33624
-[115]	validation_0-ndcg@32:0.35094
-[116]	validation_0-ndcg@32:0.34824
-[117]	validation_0-ndcg@32:0.35804
-[118]	validation_0-ndcg@32:0.35845
-[119]	validation_0-ndcg@32:0.35616
-[120]	validation_0-ndcg@32:0.35651
-[121]	validation_0-ndcg@32:0.37839
-[122]	validation_0-ndcg@32:0.37589
-[123]	validation_0-ndcg@32:0.37678
-[124]	validation_0-ndcg@32:0.35131
-[125]	validation_0-ndcg@32:0.35839
-[126]	validation_0-ndcg@32:0.35751
-[127]	validation_0-ndcg@32:0.37024
-[128]	validation_0-ndcg@32:0.36038
-[129]	validation_0-ndcg@32:0.36100
-[130]	validation_0-ndcg@32:0.36638
-[131]	validation_0-ndcg@32:0.36103
-[132]	validation_0-ndcg@32:0.37063
-[133]	validation_0-ndcg@32:0.37118
-[134]	validation_0-ndcg@32:0.38017
-[135]	validation_0-ndcg@32:0.37528
-[136]	validation_0-ndcg@32:0.36952
-[137]	validation_0-ndcg@32:0.37568
-[138]	validation_0-ndcg@32:0.37661
-[139]	validation_0-ndcg@32:0.37602
-[140]	validation_0-ndcg@32:0.37903
-[141]	validation_0-ndcg@32:0.37984
-[142]	validation_0-ndcg@32:0.36820
-[143]	validation_0-ndcg@32:0.35876
-[144]	validation_0-ndcg@32:0.35820
-[145]	validation_0-ndcg@32:0.34968
-[146]	validation_0-ndcg@32:0.35167
-[147]	validation_0-ndcg@32:0.35185
-[148]	validation_0-ndcg@32:0.35332
-[149]	validation_0-ndcg@32:0.36005
-[150]	validation_0-ndcg@32:0.36132
-[151]	validation_0-ndcg@32:0.36152
-[152]	validation_0-ndcg@32:0.36181
-[153]	validation_0-ndcg@32:0.37120
-[154]	validation_0-ndcg@32:0.38174
-[155]	validation_0-ndcg@32:0.36688
-[156]	validation_0-ndcg@32:0.36715
-[157]	validation_0-ndcg@32:0.35623
-[158]	validation_0-ndcg@32:0.33504
-[159]	validation_0-ndcg@32:0.35668
-[160]	validation_0-ndcg@32:0.36619
-[161]	validation_0-ndcg@32:0.36619
-[162]	validation_0-ndcg@32:0.36796
-[163]	validation_0-ndcg@32:0.36810
-[164]	validation_0-ndcg@32:0.36385
-[165]	validation_0-ndcg@32:0.36682
-[166]	validation_0-ndcg@32:0.36993
-[167]	validation_0-ndcg@32:0.36997
-[168]	validation_0-ndcg@32:0.37855
-[169]	validation_0-ndcg@32:0.37752
-[170]	validation_0-ndcg@32:0.36863
-[171]	validation_0-ndcg@32:0.37562
-[172]	validation_0-ndcg@32:0.37851
-[173]	validation_0-ndcg@32:0.38391
-[174]	validation_0-ndcg@32:0.38403
-[175]	validation_0-ndcg@32:0.38375
-[176]	validation_0-ndcg@32:0.38350
-[177]	validation_0-ndcg@32:0.38164
-[178]	validation_0-ndcg@32:0.38258
-[179]	validation_0-ndcg@32:0.39711
-[180]	validation_0-ndcg@32:0.39771
-[181]	validation_0-ndcg@32:0.37983
-[182]	validation_0-ndcg@32:0.37603
-[183]	validation_0-ndcg@32:0.37583
-[184]	validation_0-ndcg@32:0.37580
-[185]	validation_0-ndcg@32:0.37577
-[186]	validation_0-ndcg@32:0.37456
-[187]	validation_0-ndcg@32:0.37449
-[188]	validation_0-ndcg@32:0.37843
-[189]	validation_0-ndcg@32:0.38037
-[190]	validation_0-ndcg@32:0.37523
-[191]	validation_0-ndcg@32:0.35913
-[192]	validation_0-ndcg@32:0.37751
-[193]	validation_0-ndcg@32:0.37698
-[194]	validation_0-ndcg@32:0.35874
-[195]	validation_0-ndcg@32:0.38499
-[196]	validation_0-ndcg@32:0.38565
-[197]	validation_0-ndcg@32:0.36748
-[198]	validation_0-ndcg@32:0.38034
-[199]	validation_0-ndcg@32:0.39235
-[200]	validation_0-ndcg@32:0.39258
-[201]	validation_0-ndcg@32:0.39335
-[202]	validation_0-ndcg@32:0.39509
-[203]	validation_0-ndcg@32:0.43391
-[204]	validation_0-ndcg@32:0.43360
-[205]	validation_0-ndcg@32:0.43415
-[206]	validation_0-ndcg@32:0.43412
-[207]	validation_0-ndcg@32:0.42506
-[208]	validation_0-ndcg@32:0.42540
-[209]	validation_0-ndcg@32:0.42489
-[210]	validation_0-ndcg@32:0.42452
-[211]	validation_0-ndcg@32:0.36507
-[212]	validation_0-ndcg@32:0.36595
-[213]	validation_0-ndcg@32:0.36870
-[214]	validation_0-ndcg@32:0.36870
-[215]	validation_0-ndcg@32:0.36870
-[216]	validation_0-ndcg@32:0.36887
-[217]	validation_0-ndcg@32:0.36944
-[218]	validation_0-ndcg@32:0.36857
-[219]	validation_0-ndcg@32:0.36934
-[220]	validation_0-ndcg@32:0.38112
-[221]	validation_0-ndcg@32:0.36978
-[222]	validation_0-ndcg@32:0.37017
-[223]	validation_0-ndcg@32:0.37131
-[224]	validation_0-ndcg@32:0.35659
-[225]	validation_0-ndcg@32:0.36939
-[226]	validation_0-ndcg@32:0.36939
-[227]	validation_0-ndcg@32:0.36797
-[228]	validation_0-ndcg@32:0.35395
-[229]	validation_0-ndcg@32:0.35395
-[230]	validation_0-ndcg@32:0.36727
-[231]	validation_0-ndcg@32:0.36721
-[232]	validation_0-ndcg@32:0.36675
-[233]	validation_0-ndcg@32:0.34632
-[234]	validation_0-ndcg@32:0.34632
-[235]	validation_0-ndcg@32:0.35830
-[236]	validation_0-ndcg@32:0.34941
-[237]	validation_0-ndcg@32:0.35057
-[238]	validation_0-ndcg@32:0.35064
-[239]	validation_0-ndcg@32:0.35139
-[240]	validation_0-ndcg@32:0.35205
-[241]	validation_0-ndcg@32:0.35298
-[242]	validation_0-ndcg@32:0.35298
-[243]	validation_0-ndcg@32:0.35300
-[244]	validation_0-ndcg@32:0.36262
-[245]	validation_0-ndcg@32:0.36113
-[246]	validation_0-ndcg@32:0.36142
-[247]	validation_0-ndcg@32:0.37777
-[248]	validation_0-ndcg@32:0.37785
-[249]	validation_0-ndcg@32:0.37772
-[250]	validation_0-ndcg@32:0.37287
-[251]	validation_0-ndcg@32:0.37305
-[252]	validation_0-ndcg@32:0.37282
-[253]	validation_0-ndcg@32:0.37306
-[254]	validation_0-ndcg@32:0.38059
-[255]	validation_0-ndcg@32:0.38095
-[256]	validation_0-ndcg@32:0.38081
-[257]	validation_0-ndcg@32:0.38284
-[258]	validation_0-ndcg@32:0.37267
-[259]	validation_0-ndcg@32:0.38213
-[260]	validation_0-ndcg@32:0.38450
-[261]	validation_0-ndcg@32:0.37721
-[262]	validation_0-ndcg@32:0.38469
-[263]	validation_0-ndcg@32:0.38940
-[264]	validation_0-ndcg@32:0.39826
-[265]	validation_0-ndcg@32:0.39844
-[266]	validation_0-ndcg@32:0.39852
-[267]	validation_0-ndcg@32:0.39853
-[268]	validation_0-ndcg@32:0.39938
-[269]	validation_0-ndcg@32:0.39014
-[270]	validation_0-ndcg@32:0.39042
-[271]	validation_0-ndcg@32:0.39336
-[272]	validation_0-ndcg@32:0.39242
-[273]	validation_0-ndcg@32:0.39255
-[274]	validation_0-ndcg@32:0.38072
-[275]	validation_0-ndcg@32:0.40128
-[276]	validation_0-ndcg@32:0.40153
-[277]	validation_0-ndcg@32:0.40081
-[278]	validation_0-ndcg@32:0.39972
-[279]	validation_0-ndcg@32:0.38153
-[280]	validation_0-ndcg@32:0.37950
-[281]	validation_0-ndcg@32:0.38143
-[282]	validation_0-ndcg@32:0.38143
-[283]	validation_0-ndcg@32:0.37933
-[284]	validation_0-ndcg@32:0.37939
-[285]	validation_0-ndcg@32:0.37947
-[286]	validation_0-ndcg@32:0.37973
-[287]	validation_0-ndcg@32:0.35909
-[288]	validation_0-ndcg@32:0.38010
-[289]	validation_0-ndcg@32:0.38010
-[290]	validation_0-ndcg@32:0.37896
-[291]	validation_0-ndcg@32:0.37910
-[292]	validation_0-ndcg@32:0.37903
-[293]	validation_0-ndcg@32:0.37903
-[294]	validation_0-ndcg@32:0.37649
-[295]	validation_0-ndcg@32:0.37740
-[296]	validation_0-ndcg@32:0.37704
-[297]	validation_0-ndcg@32:0.37603
-[298]	validation_0-ndcg@32:0.37634
-[299]	validation_0-ndcg@32:0.37716
-
-[검증] train 비율로 배정한 분류 정확도(early stopping용 참고): 0.2544
-
-[Train] 실제 Severity와 비교 (train 비율 배정)
-
-=== Train (비율 배정) ===
-Accuracy: 0.2492
-Macro precision: 0.2492
-Macro recall: 0.2492
-Macro F1: 0.2492
-Weighted precision: 0.2492
-Weighted recall: 0.2492
-Weighted F1: 0.2492
-              precision    recall  f1-score   support
-
-    Critical     0.2499    0.2499    0.2499     15089
-        High     0.2436    0.2436    0.2436     14954
-      Medium     0.2505    0.2505    0.2505     15010
-         Low     0.2530    0.2530    0.2530     14947
-
-    accuracy                         0.2492     60000
-   macro avg     0.2492    0.2492    0.2492     60000
-weighted avg     0.2492    0.2492    0.2492     60000
-
-
-Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [-1.358942 -1.70942  -2.049039]
-(참고) train score min/max: -3.852098 / 5.146328
-
-[Test] 실제 Severity와 비교
-
-=== Test (mode=test_oracle_ratio) ===
-Accuracy: 0.2497
-Macro precision: 0.2497
-Macro recall: 0.2497
-Macro F1: 0.2497
-Weighted precision: 0.2497
-Weighted recall: 0.2497
-Weighted F1: 0.2497
-              precision    recall  f1-score   support
-
-    Critical     0.2488    0.2488    0.2488      5029
-        High     0.2536    0.2536    0.2536      4984
-      Medium     0.2524    0.2524    0.2524      5004
-         Low     0.2440    0.2440    0.2440      4983
-
-    accuracy                         0.2497     20000
-   macro avg     0.2497    0.2497    0.2497     20000
-weighted avg     0.2497    0.2497    0.2497     20000
-
-
-저장: severity/logging_monitoring_anomalies_l2r_xgboost_test_oracle_ratio.csv
-
-=== 소요 시간 ===
-CSV 로드·train/val/test 분할: 0.527 s
-전처리(인코딩·스케일) + 학습(train∪val L2R): 26.914 s
-추론·경계·Train·Val·Test 평가·저장(전수): 2.600 s
-  └ Test severity 정답 비교(report_metrics)만: 0.475 s
-전체: 30.041 s
-
-=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
-Validation MRR: 0.500000
-Test MRR:       1.000000
-
-========== l2r_ranknet ==========
-[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_171610/logs/l2r_ranknet_test_oracle_ratio.log
-run_all_severity_experiments.sh: line 36: 210704 Killed                  "$PY" "$@"
-[FAIL] l2r_ranknet
-
-========== l2r_lambdarank ==========
-[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_171610/logs/l2r_lambdarank_test_oracle_ratio.log
-run_all_severity_experiments.sh: line 36: 211278 Killed                  "$PY" "$@"
-[FAIL] l2r_lambdarank
-
-========== l2r_lambdamart ==========
-[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_171610/logs/l2r_lambdamart_test_oracle_ratio.log
-run_all_severity_experiments.sh: line 36: 211837 Killed                  "$PY" "$@"
-[FAIL] l2r_lambdamart
-
-========== l2r_bm25 ==========
-[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_171610/logs/l2r_bm25_test_oracle_ratio.log
-
-[검증] train 비율로 배정한 분류 정확도(early stopping용 참고): 0.2480
-
-[Train] 실제 Severity와 비교 (train 비율 배정)
-
-=== Train (비율 배정) ===
-Accuracy: 0.2523
-Macro precision: 0.2523
-Macro recall: 0.2523
-Macro F1: 0.2523
-Weighted precision: 0.2523
-Weighted recall: 0.2523
-Weighted F1: 0.2523
-              precision    recall  f1-score   support
-
-    Critical     0.2518    0.2518    0.2518     15089
-        High     0.2523    0.2523    0.2523     14954
-      Medium     0.2510    0.2510    0.2510     15010
-         Low     0.2542    0.2542    0.2542     14947
-
-    accuracy                         0.2523     60000
-   macro avg     0.2523    0.2523    0.2523     60000
-weighted avg     0.2523    0.2523    0.2523     60000
-
-
-Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [ 0.859293  0.007345 -0.867722]
-(참고) train score min/max: -1.742442 / 1.730362
-
-[Test] 실제 Severity와 비교
-
-=== Test (mode=test_oracle_ratio) ===
-Accuracy: 0.2484
-Macro precision: 0.2484
-Macro recall: 0.2484
-Macro F1: 0.2484
-Weighted precision: 0.2484
-Weighted recall: 0.2484
-Weighted F1: 0.2484
-              precision    recall  f1-score   support
-
-    Critical     0.2454    0.2454    0.2454      5029
-        High     0.2498    0.2498    0.2498      4984
-      Medium     0.2516    0.2516    0.2516      5004
-         Low     0.2468    0.2468    0.2468      4983
-
-    accuracy                         0.2484     20000
-   macro avg     0.2484    0.2484    0.2484     20000
-weighted avg     0.2484    0.2484    0.2484     20000
-
-
-저장: severity/logging_monitoring_anomalies_l2r_bm25_test_oracle_ratio.csv
-
-=== 소요 시간 ===
-CSV 로드·train/val/test 분할: 0.546 s
-전처리(인코딩·스케일) + 학습(train∪val L2R): 0.826 s
-추론·경계·Train·Val·Test 평가·저장(전수): 2.226 s
-  └ Test severity 정답 비교(report_metrics)만: 0.439 s
-전체: 3.597 s
-
-=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
-Validation MRR: 1.000000
-Test MRR:       1.000000
-
-========== cls_random_forest ==========
-[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_171610/logs/cls_random_forest_test_oracle_ratio.log
-
-[검증] train 비율로 배정한 분류 정확도(참고): 0.2464
-
-[Train] 실제 Severity와 비교 (train 비율 배정)
-
-=== Train (비율 배정) ===
-Accuracy: 0.7315
-Macro precision: 0.7314
-Macro recall: 0.7314
-Macro F1: 0.7314
-Weighted precision: 0.7315
-Weighted recall: 0.7315
-Weighted F1: 0.7315
-              precision    recall  f1-score   support
-
-    Critical     0.7722    0.7722    0.7722     15089
-        High     0.6990    0.6990    0.6990     14954
-      Medium     0.6920    0.6920    0.6920     15010
-         Low     0.7626    0.7626    0.7626     14947
-
-    accuracy                         0.7315     60000
-   macro avg     0.7314    0.7314    0.7314     60000
-weighted avg     0.7315    0.7315    0.7315     60000
-
-
-Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [1.556595 1.501337 1.443466]
-(참고) train score min/max: 0.956323 / 2.022767
-
-[Test] 실제 Severity와 비교
-
-=== Test (mode=test_oracle_ratio) ===
-Accuracy: 0.2479
-Macro precision: 0.2479
-Macro recall: 0.2479
-Macro F1: 0.2479
-Weighted precision: 0.2479
-Weighted recall: 0.2479
-Weighted F1: 0.2479
-              precision    recall  f1-score   support
-
-    Critical     0.2486    0.2486    0.2486      5029
-        High     0.2532    0.2532    0.2532      4984
-      Medium     0.2450    0.2450    0.2450      5004
-         Low     0.2448    0.2448    0.2448      4983
-
-    accuracy                         0.2479     20000
-   macro avg     0.2479    0.2479    0.2479     20000
-weighted avg     0.2479    0.2479    0.2479     20000
-
-
-저장: severity/logging_monitoring_anomalies_cls_random_forest_test_oracle_ratio.csv
-
-=== 소요 시간 ===
-CSV 로드·train/val/test 분할: 0.757 s
-전처리(인코딩·스케일) + 학습(train∪val): 25.806 s
-추론·경계·평가·저장(전수): 3.083 s
-  └ Test severity 정답 비교(report_metrics)만: 0.474 s
-전체: 29.646 s
-
-=== 랭킹 지표 MRR (relevance=0..3) ===
-Validation MRR: 1.000000
-Test MRR:       1.000000
-
-========== cls_lightgbm ==========
-[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_171610/logs/cls_lightgbm_test_oracle_ratio.log
-/usr/local/lib/python3.12/dist-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
-  warnings.warn(
-[1]	valid_0's multi_logloss: 1.38628
-[2]	valid_0's multi_logloss: 1.38653
-[3]	valid_0's multi_logloss: 1.3866
-[4]	valid_0's multi_logloss: 1.3867
-[5]	valid_0's multi_logloss: 1.3867
-[6]	valid_0's multi_logloss: 1.38669
-[7]	valid_0's multi_logloss: 1.38673
-[8]	valid_0's multi_logloss: 1.38718
-[9]	valid_0's multi_logloss: 1.38746
-[10]	valid_0's multi_logloss: 1.38802
-[11]	valid_0's multi_logloss: 1.38855
-[12]	valid_0's multi_logloss: 1.38864
-[13]	valid_0's multi_logloss: 1.38867
-[14]	valid_0's multi_logloss: 1.38867
-[15]	valid_0's multi_logloss: 1.38937
-[16]	valid_0's multi_logloss: 1.39018
-[17]	valid_0's multi_logloss: 1.3902
-[18]	valid_0's multi_logloss: 1.39018
-[19]	valid_0's multi_logloss: 1.39036
-[20]	valid_0's multi_logloss: 1.39039
-[21]	valid_0's multi_logloss: 1.39039
-[22]	valid_0's multi_logloss: 1.39083
-[23]	valid_0's multi_logloss: 1.3909
-[24]	valid_0's multi_logloss: 1.39096
-[25]	valid_0's multi_logloss: 1.39093
-[26]	valid_0's multi_logloss: 1.39184
-[27]	valid_0's multi_logloss: 1.39191
-[28]	valid_0's multi_logloss: 1.39193
-[29]	valid_0's multi_logloss: 1.39198
-[30]	valid_0's multi_logloss: 1.39218
-[31]	valid_0's multi_logloss: 1.39235
-[32]	valid_0's multi_logloss: 1.39244
-[33]	valid_0's multi_logloss: 1.39246
-[34]	valid_0's multi_logloss: 1.39248
-[35]	valid_0's multi_logloss: 1.39252
-[36]	valid_0's multi_logloss: 1.39248
-[37]	valid_0's multi_logloss: 1.39247
-[38]	valid_0's multi_logloss: 1.39252
-[39]	valid_0's multi_logloss: 1.39265
-[40]	valid_0's multi_logloss: 1.39343
-[41]	valid_0's multi_logloss: 1.39344
-[42]	valid_0's multi_logloss: 1.39345
-[43]	valid_0's multi_logloss: 1.39348
-[44]	valid_0's multi_logloss: 1.39454
-[45]	valid_0's multi_logloss: 1.39452
-[46]	valid_0's multi_logloss: 1.39451
-[47]	valid_0's multi_logloss: 1.3945
-[48]	valid_0's multi_logloss: 1.39452
-[49]	valid_0's multi_logloss: 1.39456
-[50]	valid_0's multi_logloss: 1.39459
-[51]	valid_0's multi_logloss: 1.39463
-[52]	valid_0's multi_logloss: 1.39573
-[53]	valid_0's multi_logloss: 1.39574
-[54]	valid_0's multi_logloss: 1.39579
-[55]	valid_0's multi_logloss: 1.39629
-[56]	valid_0's multi_logloss: 1.39631
-[57]	valid_0's multi_logloss: 1.39635
-[58]	valid_0's multi_logloss: 1.39636
-[59]	valid_0's multi_logloss: 1.39653
-[60]	valid_0's multi_logloss: 1.39663
-[61]	valid_0's multi_logloss: 1.39667
-[62]	valid_0's multi_logloss: 1.39671
-[63]	valid_0's multi_logloss: 1.39676
-[64]	valid_0's multi_logloss: 1.39694
-[65]	valid_0's multi_logloss: 1.39702
-[66]	valid_0's multi_logloss: 1.39703
-[67]	valid_0's multi_logloss: 1.39704
-[68]	valid_0's multi_logloss: 1.39711
-[69]	valid_0's multi_logloss: 1.39727
-[70]	valid_0's multi_logloss: 1.39735
-[71]	valid_0's multi_logloss: 1.39739
-[72]	valid_0's multi_logloss: 1.3976
-[73]	valid_0's multi_logloss: 1.39774
-[74]	valid_0's multi_logloss: 1.39777
-[75]	valid_0's multi_logloss: 1.39789
-[76]	valid_0's multi_logloss: 1.39791
-[77]	valid_0's multi_logloss: 1.39801
-[78]	valid_0's multi_logloss: 1.39803
-[79]	valid_0's multi_logloss: 1.39814
-[80]	valid_0's multi_logloss: 1.39813
-[81]	valid_0's multi_logloss: 1.3982
-[82]	valid_0's multi_logloss: 1.39827
-[83]	valid_0's multi_logloss: 1.39831
-[84]	valid_0's multi_logloss: 1.39853
-[85]	valid_0's multi_logloss: 1.39858
-[86]	valid_0's multi_logloss: 1.39858
-[87]	valid_0's multi_logloss: 1.3986
-[88]	valid_0's multi_logloss: 1.39864
-[89]	valid_0's multi_logloss: 1.39871
-[90]	valid_0's multi_logloss: 1.39876
-[91]	valid_0's multi_logloss: 1.39907
-[92]	valid_0's multi_logloss: 1.39914
-[93]	valid_0's multi_logloss: 1.3993
-[94]	valid_0's multi_logloss: 1.39926
-[95]	valid_0's multi_logloss: 1.39938
-[96]	valid_0's multi_logloss: 1.39953
-[97]	valid_0's multi_logloss: 1.39955
-[98]	valid_0's multi_logloss: 1.39958
-[99]	valid_0's multi_logloss: 1.3996
-[100]	valid_0's multi_logloss: 1.39967
-[101]	valid_0's multi_logloss: 1.39977
-[102]	valid_0's multi_logloss: 1.39991
-[103]	valid_0's multi_logloss: 1.39992
-[104]	valid_0's multi_logloss: 1.3999
-[105]	valid_0's multi_logloss: 1.39995
-[106]	valid_0's multi_logloss: 1.39996
-[107]	valid_0's multi_logloss: 1.39995
-[108]	valid_0's multi_logloss: 1.39993
-[109]	valid_0's multi_logloss: 1.39999
-[110]	valid_0's multi_logloss: 1.4
-[111]	valid_0's multi_logloss: 1.40005
-[112]	valid_0's multi_logloss: 1.4001
-[113]	valid_0's multi_logloss: 1.4001
-[114]	valid_0's multi_logloss: 1.40012
-[115]	valid_0's multi_logloss: 1.40053
-[116]	valid_0's multi_logloss: 1.40052
-[117]	valid_0's multi_logloss: 1.40056
-[118]	valid_0's multi_logloss: 1.40063
-[119]	valid_0's multi_logloss: 1.40069
-[120]	valid_0's multi_logloss: 1.40095
-[121]	valid_0's multi_logloss: 1.40092
-[122]	valid_0's multi_logloss: 1.40088
-[123]	valid_0's multi_logloss: 1.40096
-[124]	valid_0's multi_logloss: 1.401
-[125]	valid_0's multi_logloss: 1.40104
-[126]	valid_0's multi_logloss: 1.40104
-[127]	valid_0's multi_logloss: 1.40138
-[128]	valid_0's multi_logloss: 1.40141
-[129]	valid_0's multi_logloss: 1.40146
-[130]	valid_0's multi_logloss: 1.40151
-[131]	valid_0's multi_logloss: 1.40155
-[132]	valid_0's multi_logloss: 1.40211
-[133]	valid_0's multi_logloss: 1.40209
-[134]	valid_0's multi_logloss: 1.40209
-[135]	valid_0's multi_logloss: 1.40213
-[136]	valid_0's multi_logloss: 1.40218
-[137]	valid_0's multi_logloss: 1.40224
-[138]	valid_0's multi_logloss: 1.40222
-[139]	valid_0's multi_logloss: 1.40231
-[140]	valid_0's multi_logloss: 1.40233
-[141]	valid_0's multi_logloss: 1.40251
-[142]	valid_0's multi_logloss: 1.40254
-[143]	valid_0's multi_logloss: 1.40263
-[144]	valid_0's multi_logloss: 1.40262
-[145]	valid_0's multi_logloss: 1.40266
-[146]	valid_0's multi_logloss: 1.40288
-[147]	valid_0's multi_logloss: 1.40299
-[148]	valid_0's multi_logloss: 1.40309
-[149]	valid_0's multi_logloss: 1.40316
-[150]	valid_0's multi_logloss: 1.40325
-[151]	valid_0's multi_logloss: 1.40329
-[152]	valid_0's multi_logloss: 1.40325
-[153]	valid_0's multi_logloss: 1.40326
-[154]	valid_0's multi_logloss: 1.40328
-[155]	valid_0's multi_logloss: 1.40331
-[156]	valid_0's multi_logloss: 1.40336
-[157]	valid_0's multi_logloss: 1.40345
-[158]	valid_0's multi_logloss: 1.40349
-[159]	valid_0's multi_logloss: 1.4035
-[160]	valid_0's multi_logloss: 1.40354
-[161]	valid_0's multi_logloss: 1.40355
-[162]	valid_0's multi_logloss: 1.40359
-[163]	valid_0's multi_logloss: 1.40361
-[164]	valid_0's multi_logloss: 1.40366
-[165]	valid_0's multi_logloss: 1.4037
-[166]	valid_0's multi_logloss: 1.40371
-[167]	valid_0's multi_logloss: 1.4037
-[168]	valid_0's multi_logloss: 1.40373
-[169]	valid_0's multi_logloss: 1.40376
-[170]	valid_0's multi_logloss: 1.4039
-[171]	valid_0's multi_logloss: 1.40392
-[172]	valid_0's multi_logloss: 1.40396
-[173]	valid_0's multi_logloss: 1.40401
-[174]	valid_0's multi_logloss: 1.40467
-[175]	valid_0's multi_logloss: 1.40471
-[176]	valid_0's multi_logloss: 1.40473
-[177]	valid_0's multi_logloss: 1.40482
-[178]	valid_0's multi_logloss: 1.40489
-[179]	valid_0's multi_logloss: 1.40497
-[180]	valid_0's multi_logloss: 1.40509
-[181]	valid_0's multi_logloss: 1.40508
-[182]	valid_0's multi_logloss: 1.40514
-[183]	valid_0's multi_logloss: 1.40518
-[184]	valid_0's multi_logloss: 1.40594
-[185]	valid_0's multi_logloss: 1.40596
-[186]	valid_0's multi_logloss: 1.40598
-[187]	valid_0's multi_logloss: 1.40625
-[188]	valid_0's multi_logloss: 1.40625
-[189]	valid_0's multi_logloss: 1.40624
-[190]	valid_0's multi_logloss: 1.40627
-[191]	valid_0's multi_logloss: 1.40628
-[192]	valid_0's multi_logloss: 1.40629
-[193]	valid_0's multi_logloss: 1.40627
-[194]	valid_0's multi_logloss: 1.4063
-[195]	valid_0's multi_logloss: 1.40632
-[196]	valid_0's multi_logloss: 1.40642
-[197]	valid_0's multi_logloss: 1.4064
-[198]	valid_0's multi_logloss: 1.4064
-[199]	valid_0's multi_logloss: 1.40647
-[200]	valid_0's multi_logloss: 1.40648
-[201]	valid_0's multi_logloss: 1.40724
-[202]	valid_0's multi_logloss: 1.40736
-[203]	valid_0's multi_logloss: 1.40739
-[204]	valid_0's multi_logloss: 1.40744
-[205]	valid_0's multi_logloss: 1.40747
-[206]	valid_0's multi_logloss: 1.4075
-[207]	valid_0's multi_logloss: 1.40756
-[208]	valid_0's multi_logloss: 1.40766
-[209]	valid_0's multi_logloss: 1.40769
-[210]	valid_0's multi_logloss: 1.40767
-[211]	valid_0's multi_logloss: 1.4077
-[212]	valid_0's multi_logloss: 1.40868
-[213]	valid_0's multi_logloss: 1.40869
-[214]	valid_0's multi_logloss: 1.40875
-[215]	valid_0's multi_logloss: 1.40872
-[216]	valid_0's multi_logloss: 1.40874
-[217]	valid_0's multi_logloss: 1.40882
-[218]	valid_0's multi_logloss: 1.40889
-[219]	valid_0's multi_logloss: 1.4089
-[220]	valid_0's multi_logloss: 1.40889
-[221]	valid_0's multi_logloss: 1.40881
-[222]	valid_0's multi_logloss: 1.40892
-[223]	valid_0's multi_logloss: 1.40898
-[224]	valid_0's multi_logloss: 1.40901
-[225]	valid_0's multi_logloss: 1.40903
-[226]	valid_0's multi_logloss: 1.40908
-[227]	valid_0's multi_logloss: 1.40912
-[228]	valid_0's multi_logloss: 1.40914
-[229]	valid_0's multi_logloss: 1.4092
-[230]	valid_0's multi_logloss: 1.40914
-[231]	valid_0's multi_logloss: 1.40925
-[232]	valid_0's multi_logloss: 1.40929
-[233]	valid_0's multi_logloss: 1.4093
-[234]	valid_0's multi_logloss: 1.40934
-[235]	valid_0's multi_logloss: 1.40937
-[236]	valid_0's multi_logloss: 1.40942
-[237]	valid_0's multi_logloss: 1.40949
-[238]	valid_0's multi_logloss: 1.40958
-[239]	valid_0's multi_logloss: 1.40961
-[240]	valid_0's multi_logloss: 1.40965
-[241]	valid_0's multi_logloss: 1.4097
-[242]	valid_0's multi_logloss: 1.40974
-[243]	valid_0's multi_logloss: 1.40979
-[244]	valid_0's multi_logloss: 1.40983
-[245]	valid_0's multi_logloss: 1.40985
-[246]	valid_0's multi_logloss: 1.40985
-[247]	valid_0's multi_logloss: 1.40992
-[248]	valid_0's multi_logloss: 1.40991
-[249]	valid_0's multi_logloss: 1.41049
-[250]	valid_0's multi_logloss: 1.41054
-[251]	valid_0's multi_logloss: 1.41052
-[252]	valid_0's multi_logloss: 1.41057
-[253]	valid_0's multi_logloss: 1.41062
-[254]	valid_0's multi_logloss: 1.41071
-[255]	valid_0's multi_logloss: 1.41091
-[256]	valid_0's multi_logloss: 1.411
-[257]	valid_0's multi_logloss: 1.41104
-[258]	valid_0's multi_logloss: 1.41114
-[259]	valid_0's multi_logloss: 1.4112
-[260]	valid_0's multi_logloss: 1.41113
-[261]	valid_0's multi_logloss: 1.41123
-[262]	valid_0's multi_logloss: 1.41131
-[263]	valid_0's multi_logloss: 1.41133
-[264]	valid_0's multi_logloss: 1.41135
-[265]	valid_0's multi_logloss: 1.41141
-[266]	valid_0's multi_logloss: 1.41139
-[267]	valid_0's multi_logloss: 1.41143
-[268]	valid_0's multi_logloss: 1.41143
-[269]	valid_0's multi_logloss: 1.41145
-[270]	valid_0's multi_logloss: 1.41152
-[271]	valid_0's multi_logloss: 1.41239
-[272]	valid_0's multi_logloss: 1.41245
-[273]	valid_0's multi_logloss: 1.41255
-[274]	valid_0's multi_logloss: 1.41259
-[275]	valid_0's multi_logloss: 1.41263
-[276]	valid_0's multi_logloss: 1.41261
-[277]	valid_0's multi_logloss: 1.41267
-[278]	valid_0's multi_logloss: 1.41273
-[279]	valid_0's multi_logloss: 1.4128
-[280]	valid_0's multi_logloss: 1.41281
-[281]	valid_0's multi_logloss: 1.41288
-[282]	valid_0's multi_logloss: 1.41339
-[283]	valid_0's multi_logloss: 1.41338
-[284]	valid_0's multi_logloss: 1.41348
-[285]	valid_0's multi_logloss: 1.41357
-[286]	valid_0's multi_logloss: 1.41368
-[287]	valid_0's multi_logloss: 1.4137
-[288]	valid_0's multi_logloss: 1.4137
-[289]	valid_0's multi_logloss: 1.41364
-[290]	valid_0's multi_logloss: 1.41372
-[291]	valid_0's multi_logloss: 1.41378
-[292]	valid_0's multi_logloss: 1.41439
-[293]	valid_0's multi_logloss: 1.41438
-[294]	valid_0's multi_logloss: 1.41441
-[295]	valid_0's multi_logloss: 1.41444
-[296]	valid_0's multi_logloss: 1.41441
-[297]	valid_0's multi_logloss: 1.41442
-[298]	valid_0's multi_logloss: 1.41443
-[299]	valid_0's multi_logloss: 1.41457
-[300]	valid_0's multi_logloss: 1.41466
-[301]	valid_0's multi_logloss: 1.41472
-[302]	valid_0's multi_logloss: 1.41474
-[303]	valid_0's multi_logloss: 1.41478
-[304]	valid_0's multi_logloss: 1.41481
-[305]	valid_0's multi_logloss: 1.41483
-[306]	valid_0's multi_logloss: 1.41487
-[307]	valid_0's multi_logloss: 1.41483
-[308]	valid_0's multi_logloss: 1.41495
-[309]	valid_0's multi_logloss: 1.41495
-[310]	valid_0's multi_logloss: 1.41506
-[311]	valid_0's multi_logloss: 1.4151
-[312]	valid_0's multi_logloss: 1.41513
-[313]	valid_0's multi_logloss: 1.41564
-[314]	valid_0's multi_logloss: 1.41564
-[315]	valid_0's multi_logloss: 1.41566
-[316]	valid_0's multi_logloss: 1.41573
-[317]	valid_0's multi_logloss: 1.41579
-[318]	valid_0's multi_logloss: 1.41601
-[319]	valid_0's multi_logloss: 1.41607
-[320]	valid_0's multi_logloss: 1.41617
-[321]	valid_0's multi_logloss: 1.41627
-[322]	valid_0's multi_logloss: 1.4163
-[323]	valid_0's multi_logloss: 1.41629
-[324]	valid_0's multi_logloss: 1.41632
-[325]	valid_0's multi_logloss: 1.41637
-[326]	valid_0's multi_logloss: 1.41642
-[327]	valid_0's multi_logloss: 1.41645
-[328]	valid_0's multi_logloss: 1.4165
-[329]	valid_0's multi_logloss: 1.41654
-[330]	valid_0's multi_logloss: 1.41656
-[331]	valid_0's multi_logloss: 1.4168
-[332]	valid_0's multi_logloss: 1.41683
-[333]	valid_0's multi_logloss: 1.41694
-[334]	valid_0's multi_logloss: 1.41698
-[335]	valid_0's multi_logloss: 1.41696
-[336]	valid_0's multi_logloss: 1.41696
-[337]	valid_0's multi_logloss: 1.41705
-[338]	valid_0's multi_logloss: 1.41707
-[339]	valid_0's multi_logloss: 1.41709
-[340]	valid_0's multi_logloss: 1.41715
-[341]	valid_0's multi_logloss: 1.41725
-[342]	valid_0's multi_logloss: 1.41727
-[343]	valid_0's multi_logloss: 1.41734
-[344]	valid_0's multi_logloss: 1.41738
-[345]	valid_0's multi_logloss: 1.41739
-[346]	valid_0's multi_logloss: 1.41741
-[347]	valid_0's multi_logloss: 1.41748
-[348]	valid_0's multi_logloss: 1.41752
-[349]	valid_0's multi_logloss: 1.41762
-[350]	valid_0's multi_logloss: 1.41764
-[351]	valid_0's multi_logloss: 1.41766
-[352]	valid_0's multi_logloss: 1.41769
-[353]	valid_0's multi_logloss: 1.41772
-[354]	valid_0's multi_logloss: 1.41777
-[355]	valid_0's multi_logloss: 1.41775
-[356]	valid_0's multi_logloss: 1.41782
-[357]	valid_0's multi_logloss: 1.41791
-[358]	valid_0's multi_logloss: 1.41791
-[359]	valid_0's multi_logloss: 1.41792
-[360]	valid_0's multi_logloss: 1.41793
-[361]	valid_0's multi_logloss: 1.41797
-[362]	valid_0's multi_logloss: 1.41795
-[363]	valid_0's multi_logloss: 1.41801
-[364]	valid_0's multi_logloss: 1.41805
-[365]	valid_0's multi_logloss: 1.41854
-[366]	valid_0's multi_logloss: 1.41859
-[367]	valid_0's multi_logloss: 1.41861
-[368]	valid_0's multi_logloss: 1.41862
-[369]	valid_0's multi_logloss: 1.41862
-[370]	valid_0's multi_logloss: 1.41867
-[371]	valid_0's multi_logloss: 1.41869
-[372]	valid_0's multi_logloss: 1.41865
-[373]	valid_0's multi_logloss: 1.41866
-[374]	valid_0's multi_logloss: 1.41867
-[375]	valid_0's multi_logloss: 1.41872
-[376]	valid_0's multi_logloss: 1.41872
-[377]	valid_0's multi_logloss: 1.41879
-[378]	valid_0's multi_logloss: 1.4189
-[379]	valid_0's multi_logloss: 1.41893
-[380]	valid_0's multi_logloss: 1.41895
-[381]	valid_0's multi_logloss: 1.41902
-[382]	valid_0's multi_logloss: 1.41908
-[383]	valid_0's multi_logloss: 1.41915
-[384]	valid_0's multi_logloss: 1.41919
-[385]	valid_0's multi_logloss: 1.41924
-[386]	valid_0's multi_logloss: 1.41929
-[387]	valid_0's multi_logloss: 1.41941
-[388]	valid_0's multi_logloss: 1.41942
-[389]	valid_0's multi_logloss: 1.41945
-[390]	valid_0's multi_logloss: 1.41957
-[391]	valid_0's multi_logloss: 1.41958
-[392]	valid_0's multi_logloss: 1.42009
-[393]	valid_0's multi_logloss: 1.42009
-[394]	valid_0's multi_logloss: 1.42013
-[395]	valid_0's multi_logloss: 1.42014
-[396]	valid_0's multi_logloss: 1.42011
-[397]	valid_0's multi_logloss: 1.42012
-[398]	valid_0's multi_logloss: 1.42018
-[399]	valid_0's multi_logloss: 1.42022
-[400]	valid_0's multi_logloss: 1.42028
-[401]	valid_0's multi_logloss: 1.42027
-[402]	valid_0's multi_logloss: 1.4203
-[403]	valid_0's multi_logloss: 1.42031
-[404]	valid_0's multi_logloss: 1.42032
-[405]	valid_0's multi_logloss: 1.42036
-[406]	valid_0's multi_logloss: 1.4204
-[407]	valid_0's multi_logloss: 1.4205
-[408]	valid_0's multi_logloss: 1.42083
-[409]	valid_0's multi_logloss: 1.42089
-[410]	valid_0's multi_logloss: 1.42087
-[411]	valid_0's multi_logloss: 1.4209
-[412]	valid_0's multi_logloss: 1.42092
-[413]	valid_0's multi_logloss: 1.42097
-[414]	valid_0's multi_logloss: 1.42098
-[415]	valid_0's multi_logloss: 1.421
-[416]	valid_0's multi_logloss: 1.42092
-[417]	valid_0's multi_logloss: 1.42093
-[418]	valid_0's multi_logloss: 1.42104
-[419]	valid_0's multi_logloss: 1.42111
-[420]	valid_0's multi_logloss: 1.4211
-[421]	valid_0's multi_logloss: 1.42115
-[422]	valid_0's multi_logloss: 1.42111
-[423]	valid_0's multi_logloss: 1.4216
-[424]	valid_0's multi_logloss: 1.42165
-[425]	valid_0's multi_logloss: 1.42166
-[426]	valid_0's multi_logloss: 1.42169
-[427]	valid_0's multi_logloss: 1.42172
-[428]	valid_0's multi_logloss: 1.42174
-[429]	valid_0's multi_logloss: 1.42176
-[430]	valid_0's multi_logloss: 1.42179
-[431]	valid_0's multi_logloss: 1.4219
-[432]	valid_0's multi_logloss: 1.42196
-[433]	valid_0's multi_logloss: 1.42201
-[434]	valid_0's multi_logloss: 1.42204
-[435]	valid_0's multi_logloss: 1.4221
-[436]	valid_0's multi_logloss: 1.42207
-[437]	valid_0's multi_logloss: 1.42209
-[438]	valid_0's multi_logloss: 1.42217
-[439]	valid_0's multi_logloss: 1.42216
-[440]	valid_0's multi_logloss: 1.42221
-[441]	valid_0's multi_logloss: 1.42222
-[442]	valid_0's multi_logloss: 1.4227
-[443]	valid_0's multi_logloss: 1.42269
-[444]	valid_0's multi_logloss: 1.42282
-[445]	valid_0's multi_logloss: 1.42291
-[446]	valid_0's multi_logloss: 1.42291
-[447]	valid_0's multi_logloss: 1.42293
-[448]	valid_0's multi_logloss: 1.42294
-[449]	valid_0's multi_logloss: 1.423
-[450]	valid_0's multi_logloss: 1.42301
-[451]	valid_0's multi_logloss: 1.423
-[452]	valid_0's multi_logloss: 1.42297
-[453]	valid_0's multi_logloss: 1.42299
-[454]	valid_0's multi_logloss: 1.42307
-[455]	valid_0's multi_logloss: 1.42308
-[456]	valid_0's multi_logloss: 1.42307
-[457]	valid_0's multi_logloss: 1.42408
-[458]	valid_0's multi_logloss: 1.4241
-[459]	valid_0's multi_logloss: 1.42416
-[460]	valid_0's multi_logloss: 1.42417
-[461]	valid_0's multi_logloss: 1.42419
-[462]	valid_0's multi_logloss: 1.42419
-[463]	valid_0's multi_logloss: 1.42421
-[464]	valid_0's multi_logloss: 1.42421
-[465]	valid_0's multi_logloss: 1.42424
-[466]	valid_0's multi_logloss: 1.42427
-[467]	valid_0's multi_logloss: 1.42426
-[468]	valid_0's multi_logloss: 1.42432
-[469]	valid_0's multi_logloss: 1.42436
-[470]	valid_0's multi_logloss: 1.42441
-[471]	valid_0's multi_logloss: 1.42446
-[472]	valid_0's multi_logloss: 1.42455
-[473]	valid_0's multi_logloss: 1.42455
-[474]	valid_0's multi_logloss: 1.42483
-[475]	valid_0's multi_logloss: 1.42485
-[476]	valid_0's multi_logloss: 1.42491
-[477]	valid_0's multi_logloss: 1.42494
-[478]	valid_0's multi_logloss: 1.42491
-[479]	valid_0's multi_logloss: 1.42491
-[480]	valid_0's multi_logloss: 1.42492
-[481]	valid_0's multi_logloss: 1.4249
-[482]	valid_0's multi_logloss: 1.42492
-[483]	valid_0's multi_logloss: 1.4249
-[484]	valid_0's multi_logloss: 1.42499
-[485]	valid_0's multi_logloss: 1.425
-[486]	valid_0's multi_logloss: 1.42506
-[487]	valid_0's multi_logloss: 1.42506
-[488]	valid_0's multi_logloss: 1.42504
-[489]	valid_0's multi_logloss: 1.42504
-[490]	valid_0's multi_logloss: 1.42511
-[491]	valid_0's multi_logloss: 1.42508
-[492]	valid_0's multi_logloss: 1.42509
-[493]	valid_0's multi_logloss: 1.42511
-[494]	valid_0's multi_logloss: 1.42515
-[495]	valid_0's multi_logloss: 1.42543
-[496]	valid_0's multi_logloss: 1.42546
-[497]	valid_0's multi_logloss: 1.42546
-[498]	valid_0's multi_logloss: 1.42546
-[499]	valid_0's multi_logloss: 1.42556
-[500]	valid_0's multi_logloss: 1.42554
-[501]	valid_0's multi_logloss: 1.42552
-[502]	valid_0's multi_logloss: 1.42589
-[503]	valid_0's multi_logloss: 1.42591
-[504]	valid_0's multi_logloss: 1.42594
-[505]	valid_0's multi_logloss: 1.42594
-[506]	valid_0's multi_logloss: 1.42596
-[507]	valid_0's multi_logloss: 1.42595
-[508]	valid_0's multi_logloss: 1.42598
-[509]	valid_0's multi_logloss: 1.426
-[510]	valid_0's multi_logloss: 1.42606
-[511]	valid_0's multi_logloss: 1.42602
-[512]	valid_0's multi_logloss: 1.42602
-[513]	valid_0's multi_logloss: 1.42602
-[514]	valid_0's multi_logloss: 1.42603
-[515]	valid_0's multi_logloss: 1.42609
-[516]	valid_0's multi_logloss: 1.42609
-[517]	valid_0's multi_logloss: 1.42611
-[518]	valid_0's multi_logloss: 1.42614
-[519]	valid_0's multi_logloss: 1.42659
-[520]	valid_0's multi_logloss: 1.42665
-[521]	valid_0's multi_logloss: 1.42667
-[522]	valid_0's multi_logloss: 1.42669
-[523]	valid_0's multi_logloss: 1.42668
-[524]	valid_0's multi_logloss: 1.42674
-[525]	valid_0's multi_logloss: 1.42668
-[526]	valid_0's multi_logloss: 1.42669
-[527]	valid_0's multi_logloss: 1.42672
-[528]	valid_0's multi_logloss: 1.42673
-[529]	valid_0's multi_logloss: 1.42675
-[530]	valid_0's multi_logloss: 1.42677
-[531]	valid_0's multi_logloss: 1.4268
-[532]	valid_0's multi_logloss: 1.42683
-[533]	valid_0's multi_logloss: 1.42685
-[534]	valid_0's multi_logloss: 1.42689
-[535]	valid_0's multi_logloss: 1.4269
-[536]	valid_0's multi_logloss: 1.42697
-[537]	valid_0's multi_logloss: 1.4275
-[538]	valid_0's multi_logloss: 1.42747
-[539]	valid_0's multi_logloss: 1.42748
-[540]	valid_0's multi_logloss: 1.42807
-[541]	valid_0's multi_logloss: 1.42809
-[542]	valid_0's multi_logloss: 1.4281
-[543]	valid_0's multi_logloss: 1.42814
-[544]	valid_0's multi_logloss: 1.42815
-[545]	valid_0's multi_logloss: 1.42818
-[546]	valid_0's multi_logloss: 1.42824
-[547]	valid_0's multi_logloss: 1.42827
-[548]	valid_0's multi_logloss: 1.42829
-[549]	valid_0's multi_logloss: 1.4283
-[550]	valid_0's multi_logloss: 1.42833
-[551]	valid_0's multi_logloss: 1.42827
-[552]	valid_0's multi_logloss: 1.4283
-[553]	valid_0's multi_logloss: 1.42832
-[554]	valid_0's multi_logloss: 1.42834
-[555]	valid_0's multi_logloss: 1.42837
-[556]	valid_0's multi_logloss: 1.4284
-[557]	valid_0's multi_logloss: 1.42843
-[558]	valid_0's multi_logloss: 1.42846
-[559]	valid_0's multi_logloss: 1.42853
-[560]	valid_0's multi_logloss: 1.42901
-[561]	valid_0's multi_logloss: 1.42903
-[562]	valid_0's multi_logloss: 1.42904
-[563]	valid_0's multi_logloss: 1.42908
-[564]	valid_0's multi_logloss: 1.42915
-[565]	valid_0's multi_logloss: 1.42921
-[566]	valid_0's multi_logloss: 1.42924
-[567]	valid_0's multi_logloss: 1.42925
-[568]	valid_0's multi_logloss: 1.42927
-[569]	valid_0's multi_logloss: 1.4292
-[570]	valid_0's multi_logloss: 1.42921
-[571]	valid_0's multi_logloss: 1.42924
-[572]	valid_0's multi_logloss: 1.42923
-[573]	valid_0's multi_logloss: 1.42926
-[574]	valid_0's multi_logloss: 1.42932
-[575]	valid_0's multi_logloss: 1.42935
-[576]	valid_0's multi_logloss: 1.4295
-[577]	valid_0's multi_logloss: 1.42949
-[578]	valid_0's multi_logloss: 1.42951
-[579]	valid_0's multi_logloss: 1.4295
-[580]	valid_0's multi_logloss: 1.42951
-[581]	valid_0's multi_logloss: 1.42956
-[582]	valid_0's multi_logloss: 1.42955
-[583]	valid_0's multi_logloss: 1.42963
-[584]	valid_0's multi_logloss: 1.4297
-[585]	valid_0's multi_logloss: 1.42973
-[586]	valid_0's multi_logloss: 1.4297
-[587]	valid_0's multi_logloss: 1.42977
-[588]	valid_0's multi_logloss: 1.42981
-[589]	valid_0's multi_logloss: 1.42981
-[590]	valid_0's multi_logloss: 1.42981
-[591]	valid_0's multi_logloss: 1.42984
-[592]	valid_0's multi_logloss: 1.42988
-[593]	valid_0's multi_logloss: 1.42996
-[594]	valid_0's multi_logloss: 1.43011
-[595]	valid_0's multi_logloss: 1.43011
-[596]	valid_0's multi_logloss: 1.4302
-[597]	valid_0's multi_logloss: 1.43022
-[598]	valid_0's multi_logloss: 1.43025
-[599]	valid_0's multi_logloss: 1.43024
-[600]	valid_0's multi_logloss: 1.43029
-/usr/local/lib/python3.12/dist-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
-  warnings.warn(
-/usr/local/lib/python3.12/dist-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
-  warnings.warn(
-/usr/local/lib/python3.12/dist-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
-  warnings.warn(
-
-[검증] train 비율로 배정한 분류 정확도(참고): 0.2502
-
-[Train] 실제 Severity와 비교 (train 비율 배정)
-
-=== Train (비율 배정) ===
-Accuracy: 0.6352
-Macro precision: 0.6351
-Macro recall: 0.6351
-Macro F1: 0.6351
-Weighted precision: 0.6352
-Weighted recall: 0.6352
-Weighted F1: 0.6352
-              precision    recall  f1-score   support
-
-    Critical     0.7194    0.7194    0.7194     15089
-        High     0.5541    0.5541    0.5541     14954
-      Medium     0.5483    0.5483    0.5483     15010
-         Low     0.7185    0.7185    0.7185     14947
-
-    accuracy                         0.6352     60000
-   macro avg     0.6351    0.6351    0.6351     60000
-weighted avg     0.6352    0.6352    0.6352     60000
-
-
-Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [1.636271 1.505156 1.367978]
-(참고) train score min/max: 0.411982 / 2.697561
-
-[Test] 실제 Severity와 비교
-
-=== Test (mode=test_oracle_ratio) ===
-Accuracy: 0.2561
-Macro precision: 0.2561
-Macro recall: 0.2561
-Macro F1: 0.2561
-Weighted precision: 0.2561
-Weighted recall: 0.2561
-Weighted F1: 0.2561
-              precision    recall  f1-score   support
-
-    Critical     0.2617    0.2617    0.2617      5029
-        High     0.2542    0.2542    0.2542      4984
-      Medium     0.2544    0.2544    0.2544      5004
-         Low     0.2543    0.2543    0.2543      4983
-
-    accuracy                         0.2561     20000
-   macro avg     0.2561    0.2561    0.2561     20000
-weighted avg     0.2561    0.2561    0.2561     20000
-
-
-저장: severity/logging_monitoring_anomalies_cls_lightgbm_test_oracle_ratio.csv
-
-=== 소요 시간 ===
-CSV 로드·train/val/test 분할: 0.540 s
-전처리(인코딩·스케일) + 학습(train∪val): 22.297 s
-추론·경계·평가·저장(전수): 14.437 s
-  └ Test severity 정답 비교(report_metrics)만: 0.414 s
-전체: 37.275 s
-
-=== 랭킹 지표 MRR (relevance=0..3) ===
-Validation MRR: 1.000000
-Test MRR:       1.000000
-
-========== anomaly_vanilla_ae ==========
-[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_171610/logs/anomaly_vanilla_ae_test_oracle_ratio.log
-
-[검증] train 비율로 배정한 분류 정확도(참고): 0.2465
-
-[Train] 실제 Severity와 비교 (train 비율 배정)
-
-=== Train (비율 배정) ===
-Accuracy: 0.2525
-Macro precision: 0.2525
-Macro recall: 0.2525
-Macro F1: 0.2525
-Weighted precision: 0.2525
-Weighted recall: 0.2525
-Weighted F1: 0.2525
-              precision    recall  f1-score   support
-
-    Critical     0.2556    0.2556    0.2556     15089
-        High     0.2445    0.2445    0.2445     14954
-      Medium     0.2547    0.2547    0.2547     15010
-         Low     0.2553    0.2553    0.2553     14947
-
-    accuracy                         0.2525     60000
-   macro avg     0.2525    0.2525    0.2525     60000
-weighted avg     0.2525    0.2525    0.2525     60000
-
-
-Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [0.000582 0.000458 0.00037 ]
-(참고) train score min/max: 0.000114 / 0.007221
-
-[Test] 실제 Severity와 비교
-
-=== Test (mode=test_oracle_ratio) ===
-Accuracy: 0.2510
-Macro precision: 0.2509
-Macro recall: 0.2509
-Macro F1: 0.2509
-Weighted precision: 0.2510
-Weighted recall: 0.2510
-Weighted F1: 0.2510
-              precision    recall  f1-score   support
-
-    Critical     0.2609    0.2609    0.2609      5029
-        High     0.2412    0.2412    0.2412      4984
-      Medium     0.2512    0.2512    0.2512      5004
-         Low     0.2505    0.2505    0.2505      4983
-
-    accuracy                         0.2510     20000
-   macro avg     0.2509    0.2509    0.2509     20000
-weighted avg     0.2510    0.2510    0.2510     20000
-
-
-저장: severity/logging_monitoring_anomalies_anomaly_vanilla_ae_test_oracle_ratio.csv
-
-=== 소요 시간 ===
-CSV 로드·train/val/test 분할: 0.504 s
-전처리(인코딩·스케일) + 학습(train∪val): 17.876 s
-추론·경계·평가·저장(전수): 2.538 s
-  └ Test severity 정답 비교(report_metrics)만: 0.416 s
-전체: 20.918 s
-
-=== 랭킹 지표 MRR (relevance=0..3) ===
-Validation MRR: 1.000000
-Test MRR:       1.000000
-
-========== anomaly_denoising_ae ==========
-[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_171610/logs/anomaly_denoising_ae_test_oracle_ratio.log
-
-[검증] train 비율로 배정한 분류 정확도(참고): 0.2507
-
-[Train] 실제 Severity와 비교 (train 비율 배정)
-
-=== Train (비율 배정) ===
-Accuracy: 0.2499
-Macro precision: 0.2499
-Macro recall: 0.2499
-Macro F1: 0.2499
-Weighted precision: 0.2499
-Weighted recall: 0.2499
-Weighted F1: 0.2499
-              precision    recall  f1-score   support
-
-    Critical     0.2595    0.2595    0.2595     15089
-        High     0.2413    0.2413    0.2413     14954
-      Medium     0.2508    0.2508    0.2508     15010
-         Low     0.2481    0.2481    0.2481     14947
-
-    accuracy                         0.2499     60000
-   macro avg     0.2499    0.2499    0.2499     60000
-weighted avg     0.2499    0.2499    0.2499     60000
-
-
-Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [0.00218  0.001802 0.001491]
-(참고) train score min/max: 0.000542 / 0.009563
-
-[Test] 실제 Severity와 비교
-
-=== Test (mode=test_oracle_ratio) ===
+=== Test (mode=train_thresholds) ===
 Accuracy: 0.2507
-Macro precision: 0.2507
-Macro recall: 0.2507
-Macro F1: 0.2507
-Weighted precision: 0.2507
+Macro precision: 0.2499
+Macro recall: 0.2505
+Macro F1: 0.2475
+Weighted precision: 0.2499
 Weighted recall: 0.2507
-Weighted F1: 0.2507
+Weighted F1: 0.2476
               precision    recall  f1-score   support
 
-    Critical     0.2549    0.2549    0.2549      5029
-        High     0.2474    0.2474    0.2474      4984
-      Medium     0.2534    0.2534    0.2534      5004
-         Low     0.2472    0.2472    0.2472      4983
+    Critical     0.2575    0.3446    0.2948      5029
+        High     0.2458    0.2466    0.2462      4984
+      Medium     0.2482    0.2188    0.2326      5004
+         Low     0.2481    0.1921    0.2165      4983
 
     accuracy                         0.2507     20000
-   macro avg     0.2507    0.2507    0.2507     20000
-weighted avg     0.2507    0.2507    0.2507     20000
+   macro avg     0.2499    0.2505    0.2475     20000
+weighted avg     0.2499    0.2507    0.2476     20000
 
 
-저장: severity/logging_monitoring_anomalies_anomaly_denoising_ae_test_oracle_ratio.csv
+저장: severity/logging_monitoring_anomalies_l2r_listnet_train_thresholds.csv
 
 === 소요 시간 ===
-CSV 로드·train/val/test 분할: 0.481 s
-전처리(인코딩·스케일) + 학습(train∪val): 18.140 s
-추론·경계·평가·저장(전수): 2.523 s
-  └ Test severity 정답 비교(report_metrics)만: 0.411 s
-전체: 21.145 s
+CSV 로드·train/val/test 분할: 0.494 s
+전처리(인코딩·스케일) + 학습(train∪val L2R): 14.014 s
+추론·경계·Train·Val·Test 평가·저장(전수): 2.433 s
+  └ Test severity 정답 비교(report_metrics)만: 0.426 s
+전체: 16.941 s
 
-=== 랭킹 지표 MRR (relevance=0..3) ===
-Validation MRR: 1.000000
-Test MRR:       1.000000
+=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
+Validation MRR: 0.860029
+Test MRR:       0.862647
 
-========== anomaly_vae ==========
-[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_171610/logs/anomaly_vae_test_oracle_ratio.log
+========== l2r_listmle ==========
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_074159/logs/l2r_listmle_train_thresholds.log
+[[ 1.0000000e+00  6.2400000e+02 -7.9714662e-01  1.4461842e+00
+  -9.1263491e-01 -6.3371211e-01  1.1220639e+00  1.4362249e+00
+  -1.6413568e+00  2.8379825e-01  3.3405206e-01 -2.8533733e-01
+   1.2176069e+00 -1.6500374e+00  9.2686421e-01  3.5791239e-01
+   1.1277900e+00  1.1402289e+00  1.0612936e+00  1.7196946e-01
+   1.4067472e+00  4.4749588e-01  1.1444526e+00  7.1355832e-01
+  -4.4530973e-01  6.9973540e-01]
+ [ 2.0000000e+00  2.7200000e+02 -3.1354776e-01  2.8048629e-01
+   3.6175752e-01  9.9879801e-01  2.4641813e-01 -1.0538175e+00
+   9.8297578e-01 -1.4095831e+00  4.5690680e-01 -1.3659213e+00
+   1.2871525e+00 -7.8210521e-01 -1.3283786e+00 -2.0731904e-01
+  -9.5566750e-01  1.4779135e+00  9.9055254e-01  1.7196946e-01
+  -7.1289438e-01 -4.4904989e-01 -1.1460692e+00  1.4220157e+00
+   4.4885662e-01 -7.0799338e-03]
+ [ 2.0000000e+00  1.5100000e+02  1.6987244e+00 -4.3319213e-01
+   1.6361499e+00  1.1690339e+00  8.4991318e-01  1.0142897e+00
+   3.4633008e-01 -1.0522418e+00 -6.8742031e-01 -5.4372919e-01
+   1.5653350e+00 -8.7759510e-02  1.7125927e+00  5.0585508e-01
+  -9.5566750e-01  4.5263487e-01  4.9536473e-01 -1.7515139e-01
+  -6.3471491e-03 -4.4904989e-01 -1.2410433e+00  1.4220157e+00
+   1.3430229e+00  6.9973540e-01]
+ [ 2.0000000e+00  1.2870000e+03  6.3418090e-01 -5.5086946e-01
+   3.6175752e-01  1.5959862e+00 -1.7136273e+00 -1.2249472e+00
+  -9.4177347e-01 -1.7089865e+00  4.2866740e-01 -2.2298345e-02
+  -1.2860352e+00 -1.6500374e+00  3.2242069e-01 -1.6804639e+00
+   4.3330419e-01 -9.8565221e-01  1.7685280e-04  1.2133319e+00
+   7.0020008e-01  1.3440417e+00 -1.2607309e+00 -7.0335650e-01
+   1.3430229e+00 -1.4207106e+00]]
+ListMLE Epoch 0 | Metrics: {'NDCG@1': 0.3865512611763362, 'NDCG@5': 0.4935288091711038, 'NDCG@10': 0.6544635263850035, 'MAP': 0.7963853177222949, 'MRR': 0.8524395120975805}
+ListMLE Epoch 1 | Metrics: {'NDCG@1': 0.388865084126032, 'NDCG@5': 0.49435551599583855, 'NDCG@10': 0.6550721968662443, 'MAP': 0.7961355566269701, 'MRR': 0.853345045276659}
+ListMLE Epoch 2 | Metrics: {'NDCG@1': 0.3848373182506356, 'NDCG@5': 0.49323333172638323, 'NDCG@10': 0.6542194550387892, 'MAP': 0.7964920666846227, 'MRR': 0.8500199960007998}
+ListMLE Epoch 3 | Metrics: {'NDCG@1': 0.3936069928871369, 'NDCG@5': 0.49354693951744566, 'NDCG@10': 0.6542134899639547, 'MAP': 0.7972603282636536, 'MRR': 0.8544991001799639}
+ListMLE Epoch 4 | Metrics: {'NDCG@1': 0.3968349187305396, 'NDCG@5': 0.4944436321446602, 'NDCG@10': 0.6559936936896733, 'MAP': 0.7975480612973501, 'MRR': 0.8559988002399519}
+ListMLE Epoch 5 | Metrics: {'NDCG@1': 0.39577798725969093, 'NDCG@5': 0.49373863267944396, 'NDCG@10': 0.6556225731612099, 'MAP': 0.7974179893202967, 'MRR': 0.855868826234753}
+ListMLE Epoch 6 | Metrics: {'NDCG@1': 0.3981203759248151, 'NDCG@5': 0.49409899805106583, 'NDCG@10': 0.6558458944120525, 'MAP': 0.7978074204149822, 'MRR': 0.85623875224955}
+ListMLE Epoch 7 | Metrics: {'NDCG@1': 0.3990630445339503, 'NDCG@5': 0.49338074591888353, 'NDCG@10': 0.6561527828299838, 'MAP': 0.7974289753709648, 'MRR': 0.8569843174222298}
+ListMLE Epoch 8 | Metrics: {'NDCG@1': 0.39757762733167656, 'NDCG@5': 0.49552402933316364, 'NDCG@10': 0.6555332425432775, 'MAP': 0.7966126352735757, 'MRR': 0.8556845773702402}
+ListMLE Epoch 9 | Metrics: {'NDCG@1': 0.3937212557488502, 'NDCG@5': 0.49334050739573676, 'NDCG@10': 0.6556218445439969, 'MAP': 0.796902193259672, 'MRR': 0.8548247493358472}
+ListMLE Epoch 10 | Metrics: {'NDCG@1': 0.39652069586082783, 'NDCG@5': 0.49319841389325625, 'NDCG@10': 0.6554618463176688, 'MAP': 0.7963960551447715, 'MRR': 0.8525652012454651}
+ListMLE Epoch 11 | Metrics: {'NDCG@1': 0.3980918102093867, 'NDCG@5': 0.4956629786653453, 'NDCG@10': 0.6553261841645985, 'MAP': 0.7970099877305903, 'MRR': 0.8558588282343531}
+ListMLE Epoch 12 | Metrics: {'NDCG@1': 0.3982632045019568, 'NDCG@5': 0.4954677309181205, 'NDCG@10': 0.6552027527512928, 'MAP': 0.7972573174727257, 'MRR': 0.8559288142371525}
+ListMLE Epoch 13 | Metrics: {'NDCG@1': 0.39860599308709693, 'NDCG@5': 0.4951080612733463, 'NDCG@10': 0.6559833699194528, 'MAP': 0.7978045329208487, 'MRR': 0.8587682463507298}
+ListMLE Epoch 14 | Metrics: {'NDCG@1': 0.4014625646299312, 'NDCG@5': 0.4958054717196393, 'NDCG@10': 0.6566660121786008, 'MAP': 0.7985788346865857, 'MRR': 0.8609278144371125}
+ListMLE Epoch 15 | Metrics: {'NDCG@1': 0.40151969606078786, 'NDCG@5': 0.49776813483346904, 'NDCG@10': 0.6569716869498458, 'MAP': 0.7988788681094662, 'MRR': 0.8629174165166966}
+ListMLE Epoch 16 | Metrics: {'NDCG@1': 0.405861684805896, 'NDCG@5': 0.4970451681589756, 'NDCG@10': 0.6575307799544361, 'MAP': 0.7985426020779158, 'MRR': 0.864257148570286}
+ListMLE Epoch 17 | Metrics: {'NDCG@1': 0.4007484217442226, 'NDCG@5': 0.4952662022615654, 'NDCG@10': 0.6562878987414597, 'MAP': 0.7978642523509785, 'MRR': 0.86125774845031}
+ListMLE Epoch 18 | Metrics: {'NDCG@1': 0.39594938155226095, 'NDCG@5': 0.49410369115152414, 'NDCG@10': 0.6558837130165149, 'MAP': 0.7978008565745041, 'MRR': 0.8593581283743251}
+ListMLE Epoch 19 | Metrics: {'NDCG@1': 0.40166252463792956, 'NDCG@5': 0.4966293425666333, 'NDCG@10': 0.6561260216892179, 'MAP': 0.7981867520728745, 'MRR': 0.8608078384323136}
+ListMLE Epoch 20 | Metrics: {'NDCG@1': 0.40177678749964296, 'NDCG@5': 0.49658828532274474, 'NDCG@10': 0.6566768169803409, 'MAP': 0.7988807188792966, 'MRR': 0.8617676464707058}
+ListMLE Epoch 21 | Metrics: {'NDCG@1': 0.39980575313508726, 'NDCG@5': 0.4962970944350659, 'NDCG@10': 0.6565864523428447, 'MAP': 0.7989762896958679, 'MRR': 0.8626774645070987}
+ListMLE Epoch 22 | Metrics: {'NDCG@1': 0.40260519324706484, 'NDCG@5': 0.4970572446616889, 'NDCG@10': 0.656864033984482, 'MAP': 0.7989278484436995, 'MRR': 0.8642171565686864}
+ListMLE Epoch 23 | Metrics: {'NDCG@1': 0.39757762733167656, 'NDCG@5': 0.4956418622711659, 'NDCG@10': 0.6553699837146251, 'MAP': 0.7988948448080274, 'MRR': 0.8609078184363127}
+ListMLE Epoch 24 | Metrics: {'NDCG@1': 0.4010626446139344, 'NDCG@5': 0.4958867049658768, 'NDCG@10': 0.6574260695037938, 'MAP': 0.7994870604512238, 'MRR': 0.8644028337189704}
 
-[검증] train 비율로 배정한 분류 정확도(참고): 0.2482
+[검증] train score 경계(threshold) 기준 분류 정확도(참고): 0.2525
 
-[Train] 실제 Severity와 비교 (train 비율 배정)
+[Train] 실제 Severity와 비교
 
-=== Train (비율 배정) ===
-Accuracy: 0.2533
-Macro precision: 0.2533
-Macro recall: 0.2533
-Macro F1: 0.2533
-Weighted precision: 0.2533
-Weighted recall: 0.2533
-Weighted F1: 0.2533
+=== Train (train_thresholds) ===
+Accuracy: 0.2748
+Macro precision: 0.2748
+Macro recall: 0.2748
+Macro F1: 0.2748
+Weighted precision: 0.2748
+Weighted recall: 0.2748
+Weighted F1: 0.2748
               precision    recall  f1-score   support
 
-    Critical     0.2554    0.2554    0.2554     15089
-        High     0.2512    0.2512    0.2512     14954
-      Medium     0.2534    0.2534    0.2534     15010
-         Low     0.2531    0.2531    0.2531     14947
+    Critical     0.2895    0.2895    0.2895     15089
+        High     0.2518    0.2518    0.2518     14954
+      Medium     0.2545    0.2545    0.2545     15010
+         Low     0.3034    0.3034    0.3034     14947
 
-    accuracy                         0.2533     60000
-   macro avg     0.2533    0.2533    0.2533     60000
-weighted avg     0.2533    0.2533    0.2533     60000
+    accuracy                         0.2748     60000
+   macro avg     0.2748    0.2748    0.2748     60000
+weighted avg     0.2748    0.2748    0.2748     60000
 
 
-Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [0.035703 0.034131 0.032695]
-(참고) train score min/max: 0.026077 / 0.097481
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [1.038615 0.960024 0.883537]
+(참고) train score min/max: 0.399294 / 1.502666
 
 [Test] 실제 Severity와 비교
 
-=== Test (mode=test_oracle_ratio) ===
-Accuracy: 0.2506
+=== Test (mode=train_thresholds) ===
+Accuracy: 0.2507
 Macro precision: 0.2506
-Macro recall: 0.2506
+Macro recall: 0.2507
 Macro F1: 0.2506
 Weighted precision: 0.2506
-Weighted recall: 0.2506
+Weighted recall: 0.2507
 Weighted F1: 0.2506
               precision    recall  f1-score   support
 
-    Critical     0.2553    0.2553    0.2553      5029
-        High     0.2468    0.2468    0.2468      4984
-      Medium     0.2510    0.2510    0.2510      5004
-         Low     0.2492    0.2492    0.2492      4983
+    Critical     0.2557    0.2651    0.2603      5029
+        High     0.2497    0.2582    0.2539      4984
+      Medium     0.2489    0.2416    0.2452      5004
+         Low     0.2482    0.2378    0.2429      4983
 
-    accuracy                         0.2506     20000
-   macro avg     0.2506    0.2506    0.2506     20000
-weighted avg     0.2506    0.2506    0.2506     20000
+    accuracy                         0.2507     20000
+   macro avg     0.2506    0.2507    0.2506     20000
+weighted avg     0.2506    0.2507    0.2506     20000
 
 
-저장: severity/logging_monitoring_anomalies_anomaly_vae_test_oracle_ratio.csv
+저장: severity/logging_monitoring_anomalies_l2r_listmle_train_thresholds.csv
 
 === 소요 시간 ===
-CSV 로드·train/val/test 분할: 0.471 s
-전처리(인코딩·스케일) + 학습(train∪val): 13.417 s
-추론·경계·평가·저장(전수): 2.445 s
-  └ Test severity 정답 비교(report_metrics)만: 0.462 s
-전체: 16.334 s
+CSV 로드·train/val/test 분할: 0.500 s
+전처리(인코딩·스케일) + 학습(train∪val L2R): 164.443 s
+추론·경계·Train·Val·Test 평가·저장(전수): 2.668 s
+  └ Test severity 정답 비교(report_metrics)만: 0.418 s
+전체: 167.612 s
 
-=== 랭킹 지표 MRR (relevance=0..3) ===
-Validation MRR: 1.000000
-Test MRR:       0.500000
+=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
+Validation MRR: 0.864257
+Test MRR:       0.863897
 
-========== anomaly_sequence_ae ==========
-[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_171610/logs/anomaly_sequence_ae_test_oracle_ratio.log
+========== l2r_xgboost ==========
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_074159/logs/l2r_xgboost_train_thresholds.log
+[[ 1.0000000e+00  6.2400000e+02 -7.9714662e-01  1.4461842e+00
+  -9.1263491e-01 -6.3371211e-01  1.1220639e+00  1.4362249e+00
+  -1.6413568e+00  2.8379825e-01  3.3405206e-01 -2.8533733e-01
+   1.2176069e+00 -1.6500374e+00  9.2686421e-01  3.5791239e-01
+   1.1277900e+00  1.1402289e+00  1.0612936e+00  1.7196946e-01
+   1.4067472e+00  4.4749588e-01  1.1444526e+00  7.1355832e-01
+  -4.4530973e-01  6.9973540e-01]
+ [ 2.0000000e+00  2.7200000e+02 -3.1354776e-01  2.8048629e-01
+   3.6175752e-01  9.9879801e-01  2.4641813e-01 -1.0538175e+00
+   9.8297578e-01 -1.4095831e+00  4.5690680e-01 -1.3659213e+00
+   1.2871525e+00 -7.8210521e-01 -1.3283786e+00 -2.0731904e-01
+  -9.5566750e-01  1.4779135e+00  9.9055254e-01  1.7196946e-01
+  -7.1289438e-01 -4.4904989e-01 -1.1460692e+00  1.4220157e+00
+   4.4885662e-01 -7.0799338e-03]
+ [ 2.0000000e+00  1.5100000e+02  1.6987244e+00 -4.3319213e-01
+   1.6361499e+00  1.1690339e+00  8.4991318e-01  1.0142897e+00
+   3.4633008e-01 -1.0522418e+00 -6.8742031e-01 -5.4372919e-01
+   1.5653350e+00 -8.7759510e-02  1.7125927e+00  5.0585508e-01
+  -9.5566750e-01  4.5263487e-01  4.9536473e-01 -1.7515139e-01
+  -6.3471491e-03 -4.4904989e-01 -1.2410433e+00  1.4220157e+00
+   1.3430229e+00  6.9973540e-01]
+ [ 2.0000000e+00  1.2870000e+03  6.3418090e-01 -5.5086946e-01
+   3.6175752e-01  1.5959862e+00 -1.7136273e+00 -1.2249472e+00
+  -9.4177347e-01 -1.7089865e+00  4.2866740e-01 -2.2298345e-02
+  -1.2860352e+00 -1.6500374e+00  3.2242069e-01 -1.6804639e+00
+   4.3330419e-01 -9.8565221e-01  1.7685280e-04  1.2133319e+00
+   7.0020008e-01  1.3440417e+00 -1.2607309e+00 -7.0335650e-01
+   1.3430229e+00 -1.4207106e+00]]
+[0]	validation_0-ndcg@32:0.73673
+[1]	validation_0-ndcg@32:0.73554
+[2]	validation_0-ndcg@32:0.73373
+[3]	validation_0-ndcg@32:0.73298
+[4]	validation_0-ndcg@32:0.73454
+[5]	validation_0-ndcg@32:0.73727
+[6]	validation_0-ndcg@32:0.73455
+[7]	validation_0-ndcg@32:0.73455
+[8]	validation_0-ndcg@32:0.73397
+[9]	validation_0-ndcg@32:0.73558
+[10]	validation_0-ndcg@32:0.73500
+[11]	validation_0-ndcg@32:0.73426
+[12]	validation_0-ndcg@32:0.73575
+[13]	validation_0-ndcg@32:0.73540
+[14]	validation_0-ndcg@32:0.73479
+[15]	validation_0-ndcg@32:0.73460
+[16]	validation_0-ndcg@32:0.73451
+[17]	validation_0-ndcg@32:0.73482
+[18]	validation_0-ndcg@32:0.73484
+[19]	validation_0-ndcg@32:0.73437
+[20]	validation_0-ndcg@32:0.73421
+[21]	validation_0-ndcg@32:0.73381
+[22]	validation_0-ndcg@32:0.73409
+[23]	validation_0-ndcg@32:0.73452
+[24]	validation_0-ndcg@32:0.73438
+[25]	validation_0-ndcg@32:0.73451
+[26]	validation_0-ndcg@32:0.73401
+[27]	validation_0-ndcg@32:0.73443
+[28]	validation_0-ndcg@32:0.73466
+[29]	validation_0-ndcg@32:0.73469
+[30]	validation_0-ndcg@32:0.73465
+[31]	validation_0-ndcg@32:0.73581
+[32]	validation_0-ndcg@32:0.73677
+[33]	validation_0-ndcg@32:0.73706
+[34]	validation_0-ndcg@32:0.73661
+[35]	validation_0-ndcg@32:0.73661
+[36]	validation_0-ndcg@32:0.73486
+[37]	validation_0-ndcg@32:0.73558
+[38]	validation_0-ndcg@32:0.73543
+[39]	validation_0-ndcg@32:0.73556
+[40]	validation_0-ndcg@32:0.73498
+[41]	validation_0-ndcg@32:0.73468
+[42]	validation_0-ndcg@32:0.73447
+[43]	validation_0-ndcg@32:0.73452
+[44]	validation_0-ndcg@32:0.73407
+[45]	validation_0-ndcg@32:0.73420
+[46]	validation_0-ndcg@32:0.73495
+[47]	validation_0-ndcg@32:0.73506
+[48]	validation_0-ndcg@32:0.73435
+[49]	validation_0-ndcg@32:0.73361
+[50]	validation_0-ndcg@32:0.73373
+[51]	validation_0-ndcg@32:0.73417
+[52]	validation_0-ndcg@32:0.73409
+[53]	validation_0-ndcg@32:0.73366
+[54]	validation_0-ndcg@32:0.73350
+[55]	validation_0-ndcg@32:0.73269
+[56]	validation_0-ndcg@32:0.73293
+[57]	validation_0-ndcg@32:0.73276
+[58]	validation_0-ndcg@32:0.73262
+[59]	validation_0-ndcg@32:0.73299
+[60]	validation_0-ndcg@32:0.73252
+[61]	validation_0-ndcg@32:0.73311
+[62]	validation_0-ndcg@32:0.73360
+[63]	validation_0-ndcg@32:0.73331
+[64]	validation_0-ndcg@32:0.73293
+[65]	validation_0-ndcg@32:0.73273
+[66]	validation_0-ndcg@32:0.73264
+[67]	validation_0-ndcg@32:0.73296
+[68]	validation_0-ndcg@32:0.73334
+[69]	validation_0-ndcg@32:0.73327
+[70]	validation_0-ndcg@32:0.73340
+[71]	validation_0-ndcg@32:0.73304
+[72]	validation_0-ndcg@32:0.73302
+[73]	validation_0-ndcg@32:0.73294
+[74]	validation_0-ndcg@32:0.73304
+[75]	validation_0-ndcg@32:0.73277
+[76]	validation_0-ndcg@32:0.73240
+[77]	validation_0-ndcg@32:0.73263
+[78]	validation_0-ndcg@32:0.73249
+[79]	validation_0-ndcg@32:0.73247
+[80]	validation_0-ndcg@32:0.73258
+[81]	validation_0-ndcg@32:0.73239
+[82]	validation_0-ndcg@32:0.73209
+[83]	validation_0-ndcg@32:0.73209
+[84]	validation_0-ndcg@32:0.73187
+[85]	validation_0-ndcg@32:0.73170
+[86]	validation_0-ndcg@32:0.73179
+[87]	validation_0-ndcg@32:0.73175
+[88]	validation_0-ndcg@32:0.73156
+[89]	validation_0-ndcg@32:0.73172
+[90]	validation_0-ndcg@32:0.73176
+[91]	validation_0-ndcg@32:0.73166
+[92]	validation_0-ndcg@32:0.73161
+[93]	validation_0-ndcg@32:0.73228
+[94]	validation_0-ndcg@32:0.73194
+[95]	validation_0-ndcg@32:0.73187
+[96]	validation_0-ndcg@32:0.73210
+[97]	validation_0-ndcg@32:0.73232
+[98]	validation_0-ndcg@32:0.73217
+[99]	validation_0-ndcg@32:0.73175
+[100]	validation_0-ndcg@32:0.73175
+[101]	validation_0-ndcg@32:0.73175
+[102]	validation_0-ndcg@32:0.73170
+[103]	validation_0-ndcg@32:0.73192
+[104]	validation_0-ndcg@32:0.73216
+[105]	validation_0-ndcg@32:0.73195
+[106]	validation_0-ndcg@32:0.73168
+[107]	validation_0-ndcg@32:0.73165
+[108]	validation_0-ndcg@32:0.73205
+[109]	validation_0-ndcg@32:0.73225
+[110]	validation_0-ndcg@32:0.73223
+[111]	validation_0-ndcg@32:0.73202
+[112]	validation_0-ndcg@32:0.73211
+[113]	validation_0-ndcg@32:0.73256
+[114]	validation_0-ndcg@32:0.73245
+[115]	validation_0-ndcg@32:0.73162
+[116]	validation_0-ndcg@32:0.73208
+[117]	validation_0-ndcg@32:0.73234
+[118]	validation_0-ndcg@32:0.73175
+[119]	validation_0-ndcg@32:0.73169
+[120]	validation_0-ndcg@32:0.73258
+[121]	validation_0-ndcg@32:0.73258
+[122]	validation_0-ndcg@32:0.73339
+[123]	validation_0-ndcg@32:0.73335
+[124]	validation_0-ndcg@32:0.73307
+[125]	validation_0-ndcg@32:0.73344
+[126]	validation_0-ndcg@32:0.73284
+[127]	validation_0-ndcg@32:0.73281
+[128]	validation_0-ndcg@32:0.73270
+[129]	validation_0-ndcg@32:0.73277
+[130]	validation_0-ndcg@32:0.73295
+[131]	validation_0-ndcg@32:0.73354
+[132]	validation_0-ndcg@32:0.73367
+[133]	validation_0-ndcg@32:0.73349
+[134]	validation_0-ndcg@32:0.73335
+[135]	validation_0-ndcg@32:0.73310
+[136]	validation_0-ndcg@32:0.73259
+[137]	validation_0-ndcg@32:0.73251
+[138]	validation_0-ndcg@32:0.73235
+[139]	validation_0-ndcg@32:0.73298
+[140]	validation_0-ndcg@32:0.73255
+[141]	validation_0-ndcg@32:0.73268
+[142]	validation_0-ndcg@32:0.73309
+[143]	validation_0-ndcg@32:0.73241
+[144]	validation_0-ndcg@32:0.73285
+[145]	validation_0-ndcg@32:0.73227
+[146]	validation_0-ndcg@32:0.73209
+[147]	validation_0-ndcg@32:0.73293
+[148]	validation_0-ndcg@32:0.73287
+[149]	validation_0-ndcg@32:0.73286
+[150]	validation_0-ndcg@32:0.73273
+[151]	validation_0-ndcg@32:0.73230
+[152]	validation_0-ndcg@32:0.73260
+[153]	validation_0-ndcg@32:0.73232
+[154]	validation_0-ndcg@32:0.73250
+[155]	validation_0-ndcg@32:0.73240
+[156]	validation_0-ndcg@32:0.73238
+[157]	validation_0-ndcg@32:0.73306
+[158]	validation_0-ndcg@32:0.73232
+[159]	validation_0-ndcg@32:0.73264
+[160]	validation_0-ndcg@32:0.73287
+[161]	validation_0-ndcg@32:0.73298
+[162]	validation_0-ndcg@32:0.73321
+[163]	validation_0-ndcg@32:0.73273
+[164]	validation_0-ndcg@32:0.73317
+[165]	validation_0-ndcg@32:0.73319
+[166]	validation_0-ndcg@32:0.73316
+[167]	validation_0-ndcg@32:0.73274
+[168]	validation_0-ndcg@32:0.73283
+[169]	validation_0-ndcg@32:0.73350
+[170]	validation_0-ndcg@32:0.73323
+[171]	validation_0-ndcg@32:0.73285
+[172]	validation_0-ndcg@32:0.73329
+[173]	validation_0-ndcg@32:0.73317
+[174]	validation_0-ndcg@32:0.73384
+[175]	validation_0-ndcg@32:0.73391
+[176]	validation_0-ndcg@32:0.73358
+[177]	validation_0-ndcg@32:0.73344
+[178]	validation_0-ndcg@32:0.73351
+[179]	validation_0-ndcg@32:0.73332
+[180]	validation_0-ndcg@32:0.73342
+[181]	validation_0-ndcg@32:0.73330
+[182]	validation_0-ndcg@32:0.73347
+[183]	validation_0-ndcg@32:0.73338
+[184]	validation_0-ndcg@32:0.73318
+[185]	validation_0-ndcg@32:0.73310
+[186]	validation_0-ndcg@32:0.73296
+[187]	validation_0-ndcg@32:0.73295
+[188]	validation_0-ndcg@32:0.73297
+[189]	validation_0-ndcg@32:0.73282
+[190]	validation_0-ndcg@32:0.73282
+[191]	validation_0-ndcg@32:0.73279
+[192]	validation_0-ndcg@32:0.73304
+[193]	validation_0-ndcg@32:0.73334
+[194]	validation_0-ndcg@32:0.73352
+[195]	validation_0-ndcg@32:0.73321
+[196]	validation_0-ndcg@32:0.73304
+[197]	validation_0-ndcg@32:0.73273
+[198]	validation_0-ndcg@32:0.73273
+[199]	validation_0-ndcg@32:0.73278
+[200]	validation_0-ndcg@32:0.73272
+[201]	validation_0-ndcg@32:0.73255
+[202]	validation_0-ndcg@32:0.73258
+[203]	validation_0-ndcg@32:0.73258
+[204]	validation_0-ndcg@32:0.73249
+[205]	validation_0-ndcg@32:0.73259
+[206]	validation_0-ndcg@32:0.73269
+[207]	validation_0-ndcg@32:0.73259
+[208]	validation_0-ndcg@32:0.73257
+[209]	validation_0-ndcg@32:0.73253
+[210]	validation_0-ndcg@32:0.73244
+[211]	validation_0-ndcg@32:0.73249
+[212]	validation_0-ndcg@32:0.73226
+[213]	validation_0-ndcg@32:0.73229
+[214]	validation_0-ndcg@32:0.73230
+[215]	validation_0-ndcg@32:0.73221
+[216]	validation_0-ndcg@32:0.73235
+[217]	validation_0-ndcg@32:0.73235
+[218]	validation_0-ndcg@32:0.73242
+[219]	validation_0-ndcg@32:0.73237
+[220]	validation_0-ndcg@32:0.73243
+[221]	validation_0-ndcg@32:0.73240
+[222]	validation_0-ndcg@32:0.73228
+[223]	validation_0-ndcg@32:0.73225
+[224]	validation_0-ndcg@32:0.73223
+[225]	validation_0-ndcg@32:0.73208
+[226]	validation_0-ndcg@32:0.73225
+[227]	validation_0-ndcg@32:0.73221
+[228]	validation_0-ndcg@32:0.73240
+[229]	validation_0-ndcg@32:0.73234
+[230]	validation_0-ndcg@32:0.73234
+[231]	validation_0-ndcg@32:0.73234
+[232]	validation_0-ndcg@32:0.73216
+[233]	validation_0-ndcg@32:0.73230
+[234]	validation_0-ndcg@32:0.73245
+[235]	validation_0-ndcg@32:0.73228
+[236]	validation_0-ndcg@32:0.73229
+[237]	validation_0-ndcg@32:0.73210
+[238]	validation_0-ndcg@32:0.73171
+[239]	validation_0-ndcg@32:0.73206
+[240]	validation_0-ndcg@32:0.73220
+[241]	validation_0-ndcg@32:0.73231
+[242]	validation_0-ndcg@32:0.73223
+[243]	validation_0-ndcg@32:0.73208
+[244]	validation_0-ndcg@32:0.73244
+[245]	validation_0-ndcg@32:0.73247
+[246]	validation_0-ndcg@32:0.73226
+[247]	validation_0-ndcg@32:0.73245
+[248]	validation_0-ndcg@32:0.73251
+[249]	validation_0-ndcg@32:0.73258
+[250]	validation_0-ndcg@32:0.73254
+[251]	validation_0-ndcg@32:0.73243
+[252]	validation_0-ndcg@32:0.73253
+[253]	validation_0-ndcg@32:0.73259
+[254]	validation_0-ndcg@32:0.73286
+[255]	validation_0-ndcg@32:0.73298
+[256]	validation_0-ndcg@32:0.73294
+[257]	validation_0-ndcg@32:0.73282
+[258]	validation_0-ndcg@32:0.73282
+[259]	validation_0-ndcg@32:0.73291
+[260]	validation_0-ndcg@32:0.73281
+[261]	validation_0-ndcg@32:0.73278
+[262]	validation_0-ndcg@32:0.73294
+[263]	validation_0-ndcg@32:0.73296
+[264]	validation_0-ndcg@32:0.73288
+[265]	validation_0-ndcg@32:0.73272
+[266]	validation_0-ndcg@32:0.73291
+[267]	validation_0-ndcg@32:0.73258
+[268]	validation_0-ndcg@32:0.73250
+[269]	validation_0-ndcg@32:0.73255
+[270]	validation_0-ndcg@32:0.73261
+[271]	validation_0-ndcg@32:0.73251
+[272]	validation_0-ndcg@32:0.73266
+[273]	validation_0-ndcg@32:0.73267
+[274]	validation_0-ndcg@32:0.73275
+[275]	validation_0-ndcg@32:0.73269
+[276]	validation_0-ndcg@32:0.73259
+[277]	validation_0-ndcg@32:0.73238
+[278]	validation_0-ndcg@32:0.73236
+[279]	validation_0-ndcg@32:0.73280
+[280]	validation_0-ndcg@32:0.73293
+[281]	validation_0-ndcg@32:0.73270
+[282]	validation_0-ndcg@32:0.73278
+[283]	validation_0-ndcg@32:0.73269
+[284]	validation_0-ndcg@32:0.73277
+[285]	validation_0-ndcg@32:0.73263
+[286]	validation_0-ndcg@32:0.73292
+[287]	validation_0-ndcg@32:0.73281
+[288]	validation_0-ndcg@32:0.73294
+[289]	validation_0-ndcg@32:0.73285
+[290]	validation_0-ndcg@32:0.73283
+[291]	validation_0-ndcg@32:0.73277
+[292]	validation_0-ndcg@32:0.73276
+[293]	validation_0-ndcg@32:0.73248
+[294]	validation_0-ndcg@32:0.73267
+[295]	validation_0-ndcg@32:0.73266
+[296]	validation_0-ndcg@32:0.73295
+[297]	validation_0-ndcg@32:0.73298
+[298]	validation_0-ndcg@32:0.73295
+[299]	validation_0-ndcg@32:0.73271
+
+[검증] train score 경계(threshold) 기준 분류 정확도(참고): 0.2516
+
+[Train] 실제 Severity와 비교
+
+=== Train (train_thresholds) ===
+Accuracy: 0.2977
+Macro precision: 0.2976
+Macro recall: 0.2976
+Macro F1: 0.2976
+Weighted precision: 0.2977
+Weighted recall: 0.2977
+Weighted F1: 0.2977
+              precision    recall  f1-score   support
+
+    Critical     0.3609    0.3609    0.3609     15089
+        High     0.2494    0.2494    0.2494     14954
+      Medium     0.2639    0.2639    0.2639     15010
+         Low     0.3163    0.3163    0.3163     14947
+
+    accuracy                         0.2977     60000
+   macro avg     0.2976    0.2976    0.2976     60000
+weighted avg     0.2977    0.2977    0.2977     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [-0.033704 -0.137735 -0.189768]
+(참고) train score min/max: -0.853049 / 1.906272
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=train_thresholds) ===
+Accuracy: 0.2486
+Macro precision: 0.2278
+Macro recall: 0.2473
+Macro F1: 0.1341
+Weighted precision: 0.2278
+Weighted recall: 0.2486
+Weighted F1: 0.1346
+              precision    recall  f1-score   support
+
+    Critical     0.2507    0.9046    0.3926      5029
+        High     0.2328    0.0570    0.0916      4984
+      Medium     0.1825    0.0100    0.0189      5004
+         Low     0.2452    0.0179    0.0333      4983
+
+    accuracy                         0.2486     20000
+   macro avg     0.2278    0.2473    0.1341     20000
+weighted avg     0.2278    0.2486    0.1346     20000
+
+
+저장: severity/logging_monitoring_anomalies_l2r_xgboost_train_thresholds.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.494 s
+전처리(인코딩·스케일) + 학습(train∪val L2R): 15.971 s
+추론·경계·Train·Val·Test 평가·저장(전수): 3.218 s
+  └ Test severity 정답 비교(report_metrics)만: 0.421 s
+전체: 19.682 s
+
+=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
+Validation MRR: 0.864053
+Test MRR:       0.867722
+
+========== l2r_ranknet ==========
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_074159/logs/l2r_ranknet_train_thresholds.log
+[[ 1.0000000e+00  6.2400000e+02 -7.9714662e-01  1.4461842e+00
+  -9.1263491e-01 -6.3371211e-01  1.1220639e+00  1.4362249e+00
+  -1.6413568e+00  2.8379825e-01  3.3405206e-01 -2.8533733e-01
+   1.2176069e+00 -1.6500374e+00  9.2686421e-01  3.5791239e-01
+   1.1277900e+00  1.1402289e+00  1.0612936e+00  1.7196946e-01
+   1.4067472e+00  4.4749588e-01  1.1444526e+00  7.1355832e-01
+  -4.4530973e-01  6.9973540e-01]
+ [ 2.0000000e+00  2.7200000e+02 -3.1354776e-01  2.8048629e-01
+   3.6175752e-01  9.9879801e-01  2.4641813e-01 -1.0538175e+00
+   9.8297578e-01 -1.4095831e+00  4.5690680e-01 -1.3659213e+00
+   1.2871525e+00 -7.8210521e-01 -1.3283786e+00 -2.0731904e-01
+  -9.5566750e-01  1.4779135e+00  9.9055254e-01  1.7196946e-01
+  -7.1289438e-01 -4.4904989e-01 -1.1460692e+00  1.4220157e+00
+   4.4885662e-01 -7.0799338e-03]
+ [ 2.0000000e+00  1.5100000e+02  1.6987244e+00 -4.3319213e-01
+   1.6361499e+00  1.1690339e+00  8.4991318e-01  1.0142897e+00
+   3.4633008e-01 -1.0522418e+00 -6.8742031e-01 -5.4372919e-01
+   1.5653350e+00 -8.7759510e-02  1.7125927e+00  5.0585508e-01
+  -9.5566750e-01  4.5263487e-01  4.9536473e-01 -1.7515139e-01
+  -6.3471491e-03 -4.4904989e-01 -1.2410433e+00  1.4220157e+00
+   1.3430229e+00  6.9973540e-01]
+ [ 2.0000000e+00  1.2870000e+03  6.3418090e-01 -5.5086946e-01
+   3.6175752e-01  1.5959862e+00 -1.7136273e+00 -1.2249472e+00
+  -9.4177347e-01 -1.7089865e+00  4.2866740e-01 -2.2298345e-02
+  -1.2860352e+00 -1.6500374e+00  3.2242069e-01 -1.6804639e+00
+   4.3330419e-01 -9.8565221e-01  1.7685280e-04  1.2133319e+00
+   7.0020008e-01  1.3440417e+00 -1.2607309e+00 -7.0335650e-01
+   1.3430229e+00 -1.4207106e+00]]
+Traning………………
+

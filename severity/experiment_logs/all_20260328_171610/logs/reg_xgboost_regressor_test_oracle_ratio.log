@@ -1,0 +1,63 @@
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260328_171610/logs/reg_xgboost_regressor_test_oracle_ratio.log
+
+[검증] train 비율로 배정한 분류 정확도(참고): 0.2497
+
+[Train] 실제 Severity와 비교 (train 비율 배정)
+
+=== Train (비율 배정) ===
+Accuracy: 0.7682
+Macro precision: 0.7681
+Macro recall: 0.7681
+Macro F1: 0.7681
+Weighted precision: 0.7682
+Weighted recall: 0.7682
+Weighted F1: 0.7682
+              precision    recall  f1-score   support
+
+    Critical     0.8136    0.8136    0.8136     15089
+        High     0.7256    0.7256    0.7256     14954
+      Medium     0.7239    0.7239    0.7239     15010
+         Low     0.8095    0.8095    0.8095     14947
+
+    accuracy                         0.7682     60000
+   macro avg     0.7681    0.7681    0.7681     60000
+weighted avg     0.7682    0.7682    0.7682     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [1.811093 1.503491 1.194786]
+(참고) train score min/max: 0.048531 / 3.010934
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=test_oracle_ratio) ===
+Accuracy: 0.2533
+Macro precision: 0.2533
+Macro recall: 0.2533
+Macro F1: 0.2533
+Weighted precision: 0.2533
+Weighted recall: 0.2533
+Weighted F1: 0.2533
+              precision    recall  f1-score   support
+
+    Critical     0.2575    0.2575    0.2575      5029
+        High     0.2514    0.2514    0.2514      4984
+      Medium     0.2514    0.2514    0.2514      5004
+         Low     0.2529    0.2529    0.2529      4983
+
+    accuracy                         0.2533     20000
+   macro avg     0.2533    0.2533    0.2533     20000
+weighted avg     0.2533    0.2533    0.2533     20000
+
+
+저장: severity/logging_monitoring_anomalies_reg_xgboost_regressor_test_oracle_ratio.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.548 s
+전처리(인코딩·스케일) + 학습(train∪val): 23.718 s
+추론·경계·평가·저장(전수): 4.893 s
+  └ Test severity 정답 비교(report_metrics)만: 0.412 s
+전체: 29.159 s
+
+=== 랭킹 지표 MRR (relevance=0..3) ===
+Validation MRR: 0.333333
+Test MRR:       1.000000

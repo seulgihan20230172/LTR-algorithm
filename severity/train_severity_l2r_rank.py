@@ -326,6 +326,7 @@ def run(
     cwd = os.getcwd()
     model = None
     train_mat = l2r_train_matrix(yr_train, qid_train, xt)
+    print(train_mat[0:4,:])
     try:
         os.chdir(L2R_DIR)
         if model_name == "bm25":

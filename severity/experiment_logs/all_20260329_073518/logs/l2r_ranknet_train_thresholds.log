@@ -1,0 +1,11 @@
+# train_severity_l2r_rank 2026-03-29T07:37:16.881815
+# model=ranknet test_mode=train_thresholds csv=severity/logging_monitoring_anomalies.csv
+# config=/home/work/lab_project/severity/experiment_config.yaml
+
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_073518/logs/l2r_ranknet_train_thresholds.log
+Traning………………
+
+/home/work/lab_project/L2R/RankNet.py:214: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  score = -loss.item()
+Epoch:0, loss : 0.7013549208641052, Metrics: {'NDCG@1': 0.3764675636301311, 'NDCG@5': 0.3889229906773358, 'NDCG@10': 0.4127817059164935, 'MAP': 0.7723574770524079, 'MRR': 0.8555588882223556}

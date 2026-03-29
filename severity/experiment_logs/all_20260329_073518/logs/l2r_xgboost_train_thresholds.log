@@ -1,0 +1,367 @@
+# train_severity_l2r_rank 2026-03-29T07:36:53.365381
+# model=xgboost test_mode=train_thresholds csv=severity/logging_monitoring_anomalies.csv
+# config=/home/work/lab_project/severity/experiment_config.yaml
+
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_073518/logs/l2r_xgboost_train_thresholds.log
+[0]	validation_0-ndcg@32:0.73673
+[1]	validation_0-ndcg@32:0.73554
+[2]	validation_0-ndcg@32:0.73373
+[3]	validation_0-ndcg@32:0.73298
+[4]	validation_0-ndcg@32:0.73454
+[5]	validation_0-ndcg@32:0.73727
+[6]	validation_0-ndcg@32:0.73455
+[7]	validation_0-ndcg@32:0.73455
+[8]	validation_0-ndcg@32:0.73397
+[9]	validation_0-ndcg@32:0.73558
+[10]	validation_0-ndcg@32:0.73500
+[11]	validation_0-ndcg@32:0.73426
+[12]	validation_0-ndcg@32:0.73575
+[13]	validation_0-ndcg@32:0.73540
+[14]	validation_0-ndcg@32:0.73479
+[15]	validation_0-ndcg@32:0.73460
+[16]	validation_0-ndcg@32:0.73451
+[17]	validation_0-ndcg@32:0.73482
+[18]	validation_0-ndcg@32:0.73484
+[19]	validation_0-ndcg@32:0.73437
+[20]	validation_0-ndcg@32:0.73421
+[21]	validation_0-ndcg@32:0.73381
+[22]	validation_0-ndcg@32:0.73409
+[23]	validation_0-ndcg@32:0.73452
+[24]	validation_0-ndcg@32:0.73438
+[25]	validation_0-ndcg@32:0.73451
+[26]	validation_0-ndcg@32:0.73401
+[27]	validation_0-ndcg@32:0.73443
+[28]	validation_0-ndcg@32:0.73466
+[29]	validation_0-ndcg@32:0.73469
+[30]	validation_0-ndcg@32:0.73465
+[31]	validation_0-ndcg@32:0.73581
+[32]	validation_0-ndcg@32:0.73677
+[33]	validation_0-ndcg@32:0.73706
+[34]	validation_0-ndcg@32:0.73661
+[35]	validation_0-ndcg@32:0.73661
+[36]	validation_0-ndcg@32:0.73486
+[37]	validation_0-ndcg@32:0.73558
+[38]	validation_0-ndcg@32:0.73543
+[39]	validation_0-ndcg@32:0.73556
+[40]	validation_0-ndcg@32:0.73498
+[41]	validation_0-ndcg@32:0.73468
+[42]	validation_0-ndcg@32:0.73447
+[43]	validation_0-ndcg@32:0.73452
+[44]	validation_0-ndcg@32:0.73407
+[45]	validation_0-ndcg@32:0.73420
+[46]	validation_0-ndcg@32:0.73495
+[47]	validation_0-ndcg@32:0.73506
+[48]	validation_0-ndcg@32:0.73435
+[49]	validation_0-ndcg@32:0.73361
+[50]	validation_0-ndcg@32:0.73373
+[51]	validation_0-ndcg@32:0.73417
+[52]	validation_0-ndcg@32:0.73409
+[53]	validation_0-ndcg@32:0.73366
+[54]	validation_0-ndcg@32:0.73350
+[55]	validation_0-ndcg@32:0.73269
+[56]	validation_0-ndcg@32:0.73293
+[57]	validation_0-ndcg@32:0.73276
+[58]	validation_0-ndcg@32:0.73262
+[59]	validation_0-ndcg@32:0.73299
+[60]	validation_0-ndcg@32:0.73252
+[61]	validation_0-ndcg@32:0.73311
+[62]	validation_0-ndcg@32:0.73360
+[63]	validation_0-ndcg@32:0.73331
+[64]	validation_0-ndcg@32:0.73293
+[65]	validation_0-ndcg@32:0.73273
+[66]	validation_0-ndcg@32:0.73264
+[67]	validation_0-ndcg@32:0.73296
+[68]	validation_0-ndcg@32:0.73334
+[69]	validation_0-ndcg@32:0.73327
+[70]	validation_0-ndcg@32:0.73340
+[71]	validation_0-ndcg@32:0.73304
+[72]	validation_0-ndcg@32:0.73302
+[73]	validation_0-ndcg@32:0.73294
+[74]	validation_0-ndcg@32:0.73304
+[75]	validation_0-ndcg@32:0.73277
+[76]	validation_0-ndcg@32:0.73240
+[77]	validation_0-ndcg@32:0.73263
+[78]	validation_0-ndcg@32:0.73249
+[79]	validation_0-ndcg@32:0.73247
+[80]	validation_0-ndcg@32:0.73258
+[81]	validation_0-ndcg@32:0.73239
+[82]	validation_0-ndcg@32:0.73209
+[83]	validation_0-ndcg@32:0.73209
+[84]	validation_0-ndcg@32:0.73187
+[85]	validation_0-ndcg@32:0.73170
+[86]	validation_0-ndcg@32:0.73179
+[87]	validation_0-ndcg@32:0.73175
+[88]	validation_0-ndcg@32:0.73156
+[89]	validation_0-ndcg@32:0.73172
+[90]	validation_0-ndcg@32:0.73176
+[91]	validation_0-ndcg@32:0.73166
+[92]	validation_0-ndcg@32:0.73161
+[93]	validation_0-ndcg@32:0.73228
+[94]	validation_0-ndcg@32:0.73194
+[95]	validation_0-ndcg@32:0.73187
+[96]	validation_0-ndcg@32:0.73210
+[97]	validation_0-ndcg@32:0.73232
+[98]	validation_0-ndcg@32:0.73217
+[99]	validation_0-ndcg@32:0.73175
+[100]	validation_0-ndcg@32:0.73175
+[101]	validation_0-ndcg@32:0.73175
+[102]	validation_0-ndcg@32:0.73170
+[103]	validation_0-ndcg@32:0.73192
+[104]	validation_0-ndcg@32:0.73216
+[105]	validation_0-ndcg@32:0.73195
+[106]	validation_0-ndcg@32:0.73168
+[107]	validation_0-ndcg@32:0.73165
+[108]	validation_0-ndcg@32:0.73205
+[109]	validation_0-ndcg@32:0.73225
+[110]	validation_0-ndcg@32:0.73223
+[111]	validation_0-ndcg@32:0.73202
+[112]	validation_0-ndcg@32:0.73211
+[113]	validation_0-ndcg@32:0.73256
+[114]	validation_0-ndcg@32:0.73245
+[115]	validation_0-ndcg@32:0.73162
+[116]	validation_0-ndcg@32:0.73208
+[117]	validation_0-ndcg@32:0.73234
+[118]	validation_0-ndcg@32:0.73175
+[119]	validation_0-ndcg@32:0.73169
+[120]	validation_0-ndcg@32:0.73258
+[121]	validation_0-ndcg@32:0.73258
+[122]	validation_0-ndcg@32:0.73339
+[123]	validation_0-ndcg@32:0.73335
+[124]	validation_0-ndcg@32:0.73307
+[125]	validation_0-ndcg@32:0.73344
+[126]	validation_0-ndcg@32:0.73284
+[127]	validation_0-ndcg@32:0.73281
+[128]	validation_0-ndcg@32:0.73270
+[129]	validation_0-ndcg@32:0.73277
+[130]	validation_0-ndcg@32:0.73295
+[131]	validation_0-ndcg@32:0.73354
+[132]	validation_0-ndcg@32:0.73367
+[133]	validation_0-ndcg@32:0.73349
+[134]	validation_0-ndcg@32:0.73335
+[135]	validation_0-ndcg@32:0.73310
+[136]	validation_0-ndcg@32:0.73259
+[137]	validation_0-ndcg@32:0.73251
+[138]	validation_0-ndcg@32:0.73235
+[139]	validation_0-ndcg@32:0.73298
+[140]	validation_0-ndcg@32:0.73255
+[141]	validation_0-ndcg@32:0.73268
+[142]	validation_0-ndcg@32:0.73309
+[143]	validation_0-ndcg@32:0.73241
+[144]	validation_0-ndcg@32:0.73285
+[145]	validation_0-ndcg@32:0.73227
+[146]	validation_0-ndcg@32:0.73209
+[147]	validation_0-ndcg@32:0.73293
+[148]	validation_0-ndcg@32:0.73287
+[149]	validation_0-ndcg@32:0.73286
+[150]	validation_0-ndcg@32:0.73273
+[151]	validation_0-ndcg@32:0.73230
+[152]	validation_0-ndcg@32:0.73260
+[153]	validation_0-ndcg@32:0.73232
+[154]	validation_0-ndcg@32:0.73250
+[155]	validation_0-ndcg@32:0.73240
+[156]	validation_0-ndcg@32:0.73238
+[157]	validation_0-ndcg@32:0.73306
+[158]	validation_0-ndcg@32:0.73232
+[159]	validation_0-ndcg@32:0.73264
+[160]	validation_0-ndcg@32:0.73287
+[161]	validation_0-ndcg@32:0.73298
+[162]	validation_0-ndcg@32:0.73321
+[163]	validation_0-ndcg@32:0.73273
+[164]	validation_0-ndcg@32:0.73317
+[165]	validation_0-ndcg@32:0.73319
+[166]	validation_0-ndcg@32:0.73316
+[167]	validation_0-ndcg@32:0.73274
+[168]	validation_0-ndcg@32:0.73283
+[169]	validation_0-ndcg@32:0.73350
+[170]	validation_0-ndcg@32:0.73323
+[171]	validation_0-ndcg@32:0.73285
+[172]	validation_0-ndcg@32:0.73329
+[173]	validation_0-ndcg@32:0.73317
+[174]	validation_0-ndcg@32:0.73384
+[175]	validation_0-ndcg@32:0.73391
+[176]	validation_0-ndcg@32:0.73358
+[177]	validation_0-ndcg@32:0.73344
+[178]	validation_0-ndcg@32:0.73351
+[179]	validation_0-ndcg@32:0.73332
+[180]	validation_0-ndcg@32:0.73342
+[181]	validation_0-ndcg@32:0.73330
+[182]	validation_0-ndcg@32:0.73347
+[183]	validation_0-ndcg@32:0.73338
+[184]	validation_0-ndcg@32:0.73318
+[185]	validation_0-ndcg@32:0.73310
+[186]	validation_0-ndcg@32:0.73296
+[187]	validation_0-ndcg@32:0.73295
+[188]	validation_0-ndcg@32:0.73297
+[189]	validation_0-ndcg@32:0.73282
+[190]	validation_0-ndcg@32:0.73282
+[191]	validation_0-ndcg@32:0.73279
+[192]	validation_0-ndcg@32:0.73304
+[193]	validation_0-ndcg@32:0.73334
+[194]	validation_0-ndcg@32:0.73352
+[195]	validation_0-ndcg@32:0.73321
+[196]	validation_0-ndcg@32:0.73304
+[197]	validation_0-ndcg@32:0.73273
+[198]	validation_0-ndcg@32:0.73273
+[199]	validation_0-ndcg@32:0.73278
+[200]	validation_0-ndcg@32:0.73272
+[201]	validation_0-ndcg@32:0.73255
+[202]	validation_0-ndcg@32:0.73258
+[203]	validation_0-ndcg@32:0.73258
+[204]	validation_0-ndcg@32:0.73249
+[205]	validation_0-ndcg@32:0.73259
+[206]	validation_0-ndcg@32:0.73269
+[207]	validation_0-ndcg@32:0.73259
+[208]	validation_0-ndcg@32:0.73257
+[209]	validation_0-ndcg@32:0.73253
+[210]	validation_0-ndcg@32:0.73244
+[211]	validation_0-ndcg@32:0.73249
+[212]	validation_0-ndcg@32:0.73226
+[213]	validation_0-ndcg@32:0.73229
+[214]	validation_0-ndcg@32:0.73230
+[215]	validation_0-ndcg@32:0.73221
+[216]	validation_0-ndcg@32:0.73235
+[217]	validation_0-ndcg@32:0.73235
+[218]	validation_0-ndcg@32:0.73242
+[219]	validation_0-ndcg@32:0.73237
+[220]	validation_0-ndcg@32:0.73243
+[221]	validation_0-ndcg@32:0.73240
+[222]	validation_0-ndcg@32:0.73228
+[223]	validation_0-ndcg@32:0.73225
+[224]	validation_0-ndcg@32:0.73223
+[225]	validation_0-ndcg@32:0.73208
+[226]	validation_0-ndcg@32:0.73225
+[227]	validation_0-ndcg@32:0.73221
+[228]	validation_0-ndcg@32:0.73240
+[229]	validation_0-ndcg@32:0.73234
+[230]	validation_0-ndcg@32:0.73234
+[231]	validation_0-ndcg@32:0.73234
+[232]	validation_0-ndcg@32:0.73216
+[233]	validation_0-ndcg@32:0.73230
+[234]	validation_0-ndcg@32:0.73245
+[235]	validation_0-ndcg@32:0.73228
+[236]	validation_0-ndcg@32:0.73229
+[237]	validation_0-ndcg@32:0.73210
+[238]	validation_0-ndcg@32:0.73171
+[239]	validation_0-ndcg@32:0.73206
+[240]	validation_0-ndcg@32:0.73220
+[241]	validation_0-ndcg@32:0.73231
+[242]	validation_0-ndcg@32:0.73223
+[243]	validation_0-ndcg@32:0.73208
+[244]	validation_0-ndcg@32:0.73244
+[245]	validation_0-ndcg@32:0.73247
+[246]	validation_0-ndcg@32:0.73226
+[247]	validation_0-ndcg@32:0.73245
+[248]	validation_0-ndcg@32:0.73251
+[249]	validation_0-ndcg@32:0.73258
+[250]	validation_0-ndcg@32:0.73254
+[251]	validation_0-ndcg@32:0.73243
+[252]	validation_0-ndcg@32:0.73253
+[253]	validation_0-ndcg@32:0.73259
+[254]	validation_0-ndcg@32:0.73286
+[255]	validation_0-ndcg@32:0.73298
+[256]	validation_0-ndcg@32:0.73294
+[257]	validation_0-ndcg@32:0.73282
+[258]	validation_0-ndcg@32:0.73282
+[259]	validation_0-ndcg@32:0.73291
+[260]	validation_0-ndcg@32:0.73281
+[261]	validation_0-ndcg@32:0.73278
+[262]	validation_0-ndcg@32:0.73294
+[263]	validation_0-ndcg@32:0.73296
+[264]	validation_0-ndcg@32:0.73288
+[265]	validation_0-ndcg@32:0.73272
+[266]	validation_0-ndcg@32:0.73291
+[267]	validation_0-ndcg@32:0.73258
+[268]	validation_0-ndcg@32:0.73250
+[269]	validation_0-ndcg@32:0.73255
+[270]	validation_0-ndcg@32:0.73261
+[271]	validation_0-ndcg@32:0.73251
+[272]	validation_0-ndcg@32:0.73266
+[273]	validation_0-ndcg@32:0.73267
+[274]	validation_0-ndcg@32:0.73275
+[275]	validation_0-ndcg@32:0.73269
+[276]	validation_0-ndcg@32:0.73259
+[277]	validation_0-ndcg@32:0.73238
+[278]	validation_0-ndcg@32:0.73236
+[279]	validation_0-ndcg@32:0.73280
+[280]	validation_0-ndcg@32:0.73293
+[281]	validation_0-ndcg@32:0.73270
+[282]	validation_0-ndcg@32:0.73278
+[283]	validation_0-ndcg@32:0.73269
+[284]	validation_0-ndcg@32:0.73277
+[285]	validation_0-ndcg@32:0.73263
+[286]	validation_0-ndcg@32:0.73292
+[287]	validation_0-ndcg@32:0.73281
+[288]	validation_0-ndcg@32:0.73294
+[289]	validation_0-ndcg@32:0.73285
+[290]	validation_0-ndcg@32:0.73283
+[291]	validation_0-ndcg@32:0.73277
+[292]	validation_0-ndcg@32:0.73276
+[293]	validation_0-ndcg@32:0.73248
+[294]	validation_0-ndcg@32:0.73267
+[295]	validation_0-ndcg@32:0.73266
+[296]	validation_0-ndcg@32:0.73295
+[297]	validation_0-ndcg@32:0.73298
+[298]	validation_0-ndcg@32:0.73295
+[299]	validation_0-ndcg@32:0.73271
+
+[검증] train score 경계(threshold) 기준 분류 정확도(참고): 0.2516
+
+[Train] 실제 Severity와 비교
+
+=== Train (train_thresholds) ===
+Accuracy: 0.2977
+Macro precision: 0.2976
+Macro recall: 0.2976
+Macro F1: 0.2976
+Weighted precision: 0.2977
+Weighted recall: 0.2977
+Weighted F1: 0.2977
+              precision    recall  f1-score   support
+
+    Critical     0.3609    0.3609    0.3609     15089
+        High     0.2494    0.2494    0.2494     14954
+      Medium     0.2639    0.2639    0.2639     15010
+         Low     0.3163    0.3163    0.3163     14947
+
+    accuracy                         0.2977     60000
+   macro avg     0.2976    0.2976    0.2976     60000
+weighted avg     0.2977    0.2977    0.2977     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [-0.033704 -0.137735 -0.189768]
+(참고) train score min/max: -0.853049 / 1.906272
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=train_thresholds) ===
+Accuracy: 0.2486
+Macro precision: 0.2278
+Macro recall: 0.2473
+Macro F1: 0.1341
+Weighted precision: 0.2278
+Weighted recall: 0.2486
+Weighted F1: 0.1346
+              precision    recall  f1-score   support
+
+    Critical     0.2507    0.9046    0.3926      5029
+        High     0.2328    0.0570    0.0916      4984
+      Medium     0.1825    0.0100    0.0189      5004
+         Low     0.2452    0.0179    0.0333      4983
+
+    accuracy                         0.2486     20000
+   macro avg     0.2278    0.2473    0.1341     20000
+weighted avg     0.2278    0.2486    0.1346     20000
+
+
+저장: severity/logging_monitoring_anomalies_l2r_xgboost_train_thresholds.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.499 s
+전처리(인코딩·스케일) + 학습(train∪val L2R): 15.730 s
+추론·경계·Train·Val·Test 평가·저장(전수): 3.602 s
+  └ Test severity 정답 비교(report_metrics)만: 0.474 s
+전체: 19.832 s
+
+=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
+Validation MRR: 0.864053
+Test MRR:       0.867722

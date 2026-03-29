@@ -1,0 +1,77 @@
+# train_severity_l2r_rank 2026-03-29T07:35:43.350837
+# model=listmle test_mode=train_thresholds csv=severity/logging_monitoring_anomalies.csv
+# config=/home/work/lab_project/severity/experiment_config.yaml
+
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_073518/logs/l2r_listmle_train_thresholds.log
+ListMLE Epoch 0 | Metrics: {'NDCG@1': 0.4028337189704917, 'NDCG@5': 0.4985611761938181, 'NDCG@10': 0.6573438705514146, 'MAP': 0.7979826331051761, 'MRR': 0.856383723255349}
+ListMLE Epoch 1 | Metrics: {'NDCG@1': 0.40980375353500725, 'NDCG@5': 0.49633711621374893, 'NDCG@10': 0.6590894465354902, 'MAP': 0.7996517857144546, 'MRR': 0.8622242218223022}
+ListMLE Epoch 2 | Metrics: {'NDCG@1': 0.4097466221041506, 'NDCG@5': 0.4972294657255566, 'NDCG@10': 0.6572776507569664, 'MAP': 0.7991658435692924, 'MRR': 0.8620942478171032}
+ListMLE Epoch 3 | Metrics: {'NDCG@1': 0.40406204473391033, 'NDCG@5': 0.49683377466402406, 'NDCG@10': 0.6562573528669293, 'MAP': 0.7993430381996475, 'MRR': 0.8584449776711325}
+ListMLE Epoch 4 | Metrics: {'NDCG@1': 0.40026280458194075, 'NDCG@5': 0.4927377844784888, 'NDCG@10': 0.6560654872641163, 'MAP': 0.7989953805711645, 'MRR': 0.8573951876291407}
+ListMLE Epoch 5 | Metrics: {'NDCG@1': 0.39472105578884226, 'NDCG@5': 0.4921657637011632, 'NDCG@10': 0.6557568363651978, 'MAP': 0.7992008995246228, 'MRR': 0.8554146313594423}
+ListMLE Epoch 6 | Metrics: {'NDCG@1': 0.38683691833061956, 'NDCG@5': 0.4925387064128339, 'NDCG@10': 0.6546492503307992, 'MAP': 0.7984458815804246, 'MRR': 0.8527751592538634}
+ListMLE Epoch 7 | Metrics: {'NDCG@1': 0.39046476419001913, 'NDCG@5': 0.49277275012280697, 'NDCG@10': 0.6542073325133708, 'MAP': 0.79809568392255, 'MRR': 0.8552746593538436}
+ListMLE Epoch 8 | Metrics: {'NDCG@1': 0.3938355186105636, 'NDCG@5': 0.4918055979957951, 'NDCG@10': 0.6542815567132163, 'MAP': 0.7980473330118312, 'MRR': 0.8569086182763446}
+ListMLE Epoch 9 | Metrics: {'NDCG@1': 0.397120575884823, 'NDCG@5': 0.49029449178819806, 'NDCG@10': 0.6553649280427605, 'MAP': 0.797623827717629, 'MRR': 0.8566686662667466}
+
+[검증] train score 경계(threshold) 기준 분류 정확도(참고): 0.2515
+
+[Train] 실제 Severity와 비교
+
+=== Train (train_thresholds) ===
+Accuracy: 0.2594
+Macro precision: 0.2594
+Macro recall: 0.2594
+Macro F1: 0.2594
+Weighted precision: 0.2594
+Weighted recall: 0.2594
+Weighted F1: 0.2594
+              precision    recall  f1-score   support
+
+    Critical     0.2655    0.2655    0.2655     15089
+        High     0.2515    0.2515    0.2515     14954
+      Medium     0.2518    0.2518    0.2518     15010
+         Low     0.2687    0.2687    0.2687     14947
+
+    accuracy                         0.2594     60000
+   macro avg     0.2594    0.2594    0.2594     60000
+weighted avg     0.2594    0.2594    0.2594     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [0.121764 0.086426 0.053078]
+(참고) train score min/max: -0.088129 / 0.314315
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=train_thresholds) ===
+Accuracy: 0.2480
+Macro precision: 0.2481
+Macro recall: 0.2481
+Macro F1: 0.2474
+Weighted precision: 0.2481
+Weighted recall: 0.2480
+Weighted F1: 0.2474
+              precision    recall  f1-score   support
+
+    Critical     0.2508    0.2303    0.2401      5029
+        High     0.2484    0.2763    0.2616      4984
+      Medium     0.2461    0.2690    0.2570      5004
+         Low     0.2471    0.2167    0.2309      4983
+
+    accuracy                         0.2480     20000
+   macro avg     0.2481    0.2481    0.2474     20000
+weighted avg     0.2481    0.2480    0.2474     20000
+
+
+저장: severity/logging_monitoring_anomalies_l2r_listmle_train_thresholds.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.495 s
+전처리(인코딩·스케일) + 학습(train∪val L2R): 63.223 s
+추론·경계·Train·Val·Test 평가·저장(전수): 2.436 s
+  └ Test severity 정답 비교(report_metrics)만: 0.412 s
+전체: 66.154 s
+
+=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
+Validation MRR: 0.862224
+Test MRR:       0.872555
