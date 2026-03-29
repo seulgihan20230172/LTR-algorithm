@@ -1,0 +1,43 @@
+# feature importance + SHAP (트리/부스팅 위주)
+# time: 2026-03-29T12:24:46.741248
+# model: listnet  test_mode: train_thresholds
+#
+# [1] feature_importances_: 모델 내장 분할 기여(상대 비교용).
+# [2] SHAP: TreeExplainer, 참조 표본에서 피처 j의 평균 |SHAP| (방향 무시, 크기만 순위용).
+#     다중 클래스면 클래스별 SHAP 절댓값 평균을 다시 평균.
+#
+# --- 전처리 후 피처 목록 (모델 입력 차원 순서) ---
+idx	feature
+0	num__Response_Time_ms
+1	num__Resolution_Time_min
+2	num__Affected_Services
+3	num__Process_ID
+4	num__Error_Code
+5	num__CPU_Usage_Percent
+6	num__Memory_Usage_MB
+7	num__Disk_Usage_Percent
+8	num__Network_In_KB
+9	num__Network_Out_KB
+10	num__Login_Attempts
+11	num__Failed_Transactions
+12	num__Anomaly_Duration_sec
+13	num__User_ID
+14	num__Patch_Level
+15	num__Transaction_ID
+16	num__Alert_Count
+17	num__Retry_Count
+18	num__Escalation_Level
+19	cat__Anomaly_Type
+20	cat__Status
+21	cat__Source
+22	cat__Alert_Method
+23	cat__User_Role
+24	cat__Host_IP
+25	cat__TimeZone
+26	cat__Location
+27	cat__Service_Type
+#
+# --- 내장 feature_importances_: 없음 또는 차원 불일치 ---
+이 모델은 sklearn 스타일 feature_importances_를 제공하지 않습니다 (AE·L2R·IsolationForest 등).
+#
+# SHAP: SHAP TreeExplainer 미지원 또는 오류: InvalidModelError("Model type not yet supported by TreeExplainer: <class 'ListNet.ListNet'>")

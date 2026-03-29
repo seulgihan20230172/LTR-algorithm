@@ -35,5 +35,5 @@ ranking:
   group_size: 64
 
 epochs:
-  l2r: 35
-  anomaly: 20
+  l2r: 150
+  anomaly: 150

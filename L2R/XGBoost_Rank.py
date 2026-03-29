@@ -20,7 +20,7 @@ def train_xgb(X, y, qid, X_val, y_val, qid_val):
         group=group,
         eval_set=[(X_val, y_val)],
         eval_group=[group_val],
-        verbose=True
+        verbose=False#NDCG@32결과 print
     )
     
     with open("./save_checkpoint/xgboost/xgb.pkl", "wb") as f:

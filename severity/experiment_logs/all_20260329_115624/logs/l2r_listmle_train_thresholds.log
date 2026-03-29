@@ -1,0 +1,87 @@
+# train_severity_l2r_rank 2026-03-29T11:56:42.906083
+# model=listmle test_mode=train_thresholds csv=severity/logging_monitoring_anomalies.csv
+# config=/home/work/lab_project/severity/experiment_config.yaml
+
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_115624/logs/l2r_listmle_train_thresholds.log
+[[ 0.      0.     -0.8351 -1.7189  1.4577  0.122   1.0859  0.5791 -1.2547  1.2696 -1.309   1.1615  1.3574  0.7751 -1.7115 -0.1346 -0.9621 -1.3686  1.0604  0.8664  0.7023  0.882   1.3367 -0.8785
+   0.4453  0.4473  0.635   0.7097 -1.3365 -0.7106]
+ [ 1.      0.      0.1243 -0.3186 -1.2696 -1.2888  0.3412  0.4589  1.4455 -0.1913  0.2913 -1.2219  1.3574  0.6019  1.7109 -1.085  -1.6556  1.5471 -0.5     0.8664 -1.4193 -0.881  -0.4545  1.4664
+  -0.45    0.4473 -0.2115  0.0033  1.3381 -1.4171]
+ [ 2.      0.      0.9625  0.3535 -1.2696  0.12    0.1687  1.4359 -1.1057 -0.4565  1.3232 -0.0269 -0.5194  0.6019 -0.9671 -0.9529  0.4249 -0.0661  0.493   0.518  -0.7121 -0.2933 -1.3501 -1.4647
+   1.3406 -1.3473  0.1516  0.7097 -0.445   1.409 ]
+ [ 1.      0.     -1.6167 -1.2117 -0.1787 -0.6923 -1.2574 -0.5276 -0.8082  0.3122  0.5782  1.5341 -0.6584  1.1216 -1.1053  0.515  -0.442  -0.3785  0.7767 -1.5721  0.7023 -1.4687  1.3367 -0.8785
+   0.4453 -1.3473  1.5224  0.7097 -1.3365  1.409 ]]
+ListMLE Epoch 0 | Metrics: {'NDCG@1': 0.4268605645851155, 'NDCG@5': 0.39980466478034576, 'NDCG@10': 0.39610185912787643, 'MAP': 0.7629464588372308, 'MRR': 0.875748502994012}
+ListMLE Epoch 1 | Metrics: {'NDCG@1': 0.4315654405474765, 'NDCG@5': 0.401989647337729, 'NDCG@10': 0.40412787332991856, 'MAP': 0.7630554271473498, 'MRR': 0.8631237524950099}
+ListMLE Epoch 2 | Metrics: {'NDCG@1': 0.4101796407185629, 'NDCG@5': 0.40180426641943306, 'NDCG@10': 0.40278511900947306, 'MAP': 0.7628233428406198, 'MRR': 0.8622754491017964}
+ListMLE Epoch 3 | Metrics: {'NDCG@1': 0.4187339606501283, 'NDCG@5': 0.4026630043055003, 'NDCG@10': 0.4034621685689789, 'MAP': 0.7632281278597972, 'MRR': 0.8737025948103793}
+ListMLE Epoch 4 | Metrics: {'NDCG@1': 0.39435414884516684, 'NDCG@5': 0.39660966887464166, 'NDCG@10': 0.40171851077406556, 'MAP': 0.7624511408523391, 'MRR': 0.8533433133732534}
+ListMLE Epoch 5 | Metrics: {'NDCG@1': 0.39307100085543195, 'NDCG@5': 0.3968739216336412, 'NDCG@10': 0.3999646467388474, 'MAP': 0.7618477239336382, 'MRR': 0.8542415169660679}
+ListMLE Epoch 6 | Metrics: {'NDCG@1': 0.397775876817793, 'NDCG@5': 0.40155684402039316, 'NDCG@10': 0.39862348680167475, 'MAP': 0.7616744451080817, 'MRR': 0.8540704305674365}
+ListMLE Epoch 7 | Metrics: {'NDCG@1': 0.4080410607356715, 'NDCG@5': 0.400947440253975, 'NDCG@10': 0.40025819010992875, 'MAP': 0.7613789422755106, 'MRR': 0.8541417165668662}
+ListMLE Epoch 8 | Metrics: {'NDCG@1': 0.41445680068434565, 'NDCG@5': 0.40070050927099954, 'NDCG@10': 0.3997223599592503, 'MAP': 0.7609328316928946, 'MRR': 0.8516467065868263}
+ListMLE Epoch 9 | Metrics: {'NDCG@1': 0.4174508126603935, 'NDCG@5': 0.4045207791272741, 'NDCG@10': 0.4020977483421559, 'MAP': 0.7608173666230735, 'MRR': 0.8527445109780439}
+
+[피처 중요도 로그] /home/work/lab_project/severity/feature_importance_train_severity_l2r_listmle_train_thresholds.log
+
+[검증] train score 경계(threshold) 기준 분류 정확도(참고): 0.2477
+
+[Train] 실제 Severity와 비교
+
+=== Train (train_thresholds) ===
+Accuracy: 0.2613
+Macro precision: 0.2613
+Macro recall: 0.2613
+Macro F1: 0.2613
+Weighted precision: 0.2613
+Weighted recall: 0.2613
+Weighted F1: 0.2613
+              precision    recall  f1-score   support
+
+    Critical     0.2696    0.2696    0.2696     15114
+        High     0.2525    0.2525    0.2525     15048
+      Medium     0.2490    0.2490    0.2490     14906
+         Low     0.2741    0.2741    0.2741     14932
+
+    accuracy                         0.2613     60000
+   macro avg     0.2613    0.2613    0.2613     60000
+weighted avg     0.2613    0.2613    0.2613     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [0.082351 0.046429 0.008798]
+(참고) train score min/max: -0.211585 / 0.263745
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=train_thresholds) ===
+Accuracy: 0.2509
+Macro precision: 0.2504
+Macro recall: 0.2504
+Macro F1: 0.2477
+Weighted precision: 0.2505
+Weighted recall: 0.2509
+Weighted F1: 0.2480
+              precision    recall  f1-score   support
+
+    Critical     0.2559    0.3307    0.2885      5108
+        High     0.2445    0.2620    0.2529      4920
+      Medium     0.2549    0.2256    0.2393      5027
+         Low     0.2463    0.1832    0.2101      4945
+
+    accuracy                         0.2509     20000
+   macro avg     0.2504    0.2504    0.2477     20000
+weighted avg     0.2505    0.2509    0.2480     20000
+
+
+저장: severity/logging_monitoring_anomalies_l2r_listmle_train_thresholds.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.353 s
+전처리(인코딩·스케일) + 학습(train∪val L2R): 55.313 s
+추론·경계·Train·Val·Test 평가·저장(전수): 2.000 s
+  └ Test severity 정답 비교(report_metrics)만: 0.362 s
+전체: 58.136 s
+
+=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
+Validation MRR: 0.863124
+Test MRR:       0.864799

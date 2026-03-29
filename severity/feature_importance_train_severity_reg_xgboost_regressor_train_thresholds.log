@@ -1,0 +1,94 @@
+# feature importance + SHAP (트리/부스팅 위주)
+# time: 2026-03-29T11:10:35.013606
+# model: xgboost_regressor  test_mode: train_thresholds
+#
+# [1] feature_importances_: 모델 내장 분할 기여(상대 비교용).
+# [2] SHAP: TreeExplainer, 참조 표본에서 피처 j의 평균 |SHAP| (방향 무시, 크기만 순위용).
+#     다중 클래스면 클래스별 SHAP 절댓값 평균을 다시 평균.
+#
+# --- 전처리 후 피처 목록 (모델 입력 차원 순서) ---
+idx	feature
+0	num__Response_Time_ms
+1	num__Resolution_Time_min
+2	num__Affected_Services
+3	num__Process_ID
+4	num__Error_Code
+5	num__CPU_Usage_Percent
+6	num__Memory_Usage_MB
+7	num__Disk_Usage_Percent
+8	num__Network_In_KB
+9	num__Network_Out_KB
+10	num__Login_Attempts
+11	num__Failed_Transactions
+12	num__Anomaly_Duration_sec
+13	num__User_ID
+14	num__Patch_Level
+15	num__Transaction_ID
+16	num__Alert_Count
+17	num__Retry_Count
+18	num__Escalation_Level
+19	cat__Anomaly_Type
+20	cat__Status
+21	cat__Source
+22	cat__Alert_Method
+23	cat__User_Role
+24	cat__Host_IP
+25	cat__TimeZone
+26	cat__Location
+27	cat__Service_Type
+#
+# --- 내장 importance 상위 25 (합=1 정규화) ---
+rank	importance_norm	importance_raw	feature
+1	0.039987	0.039987	cat__Host_IP
+2	0.039671	0.039671	num__Transaction_ID
+3	0.039452	0.039452	num__User_ID
+4	0.038945	0.038945	num__Anomaly_Duration_sec
+5	0.038273	0.038273	num__Alert_Count
+6	0.038151	0.038151	num__Network_Out_KB
+7	0.037805	0.037805	num__Network_In_KB
+8	0.036959	0.036959	num__Disk_Usage_Percent
+9	0.036932	0.036932	cat__Service_Type
+10	0.036895	0.036895	num__Login_Attempts
+11	0.036554	0.036554	num__Patch_Level
+12	0.036464	0.036464	num__Memory_Usage_MB
+13	0.036394	0.036394	num__CPU_Usage_Percent
+14	0.036099	0.036099	num__Failed_Transactions
+15	0.035888	0.035888	num__Retry_Count
+16	0.035809	0.035809	cat__Source
+17	0.035808	0.035808	cat__Status
+18	0.035680	0.035680	num__Escalation_Level
+19	0.035619	0.035619	cat__TimeZone
+20	0.035330	0.035330	cat__Location
+21	0.035277	0.035277	cat__Alert_Method
+22	0.035226	0.035226	num__Error_Code
+23	0.034685	0.034685	cat__Anomaly_Type
+24	0.034121	0.034121	cat__User_Role
+25	0.033717	0.033717	num__Process_ID
+#
+# --- SHAP mean|value| 상위 25 (표본 2000행, 합=1 정규화) ---
+rank	shap_norm	shap_mean_abs	feature
+1	0.058562	0.033292	num__Process_ID
+2	0.056476	0.032106	num__Response_Time_ms
+3	0.055597	0.031606	num__Error_Code
+4	0.053551	0.030443	num__Memory_Usage_MB
+5	0.052272	0.029716	cat__Host_IP
+6	0.052143	0.029643	num__Network_Out_KB
+7	0.050529	0.028725	num__Resolution_Time_min
+8	0.048491	0.027566	num__User_ID
+9	0.047759	0.027150	num__Disk_Usage_Percent
+10	0.047019	0.026729	num__Transaction_ID
+11	0.045775	0.026022	num__Network_In_KB
+12	0.045472	0.025850	num__Anomaly_Duration_sec
+13	0.043654	0.024817	num__CPU_Usage_Percent
+14	0.036846	0.020946	num__Login_Attempts
+15	0.035482	0.020171	num__Alert_Count
+16	0.030696	0.017450	num__Failed_Transactions
+17	0.028729	0.016332	num__Affected_Services
+18	0.028345	0.016114	num__Patch_Level
+19	0.024002	0.013645	cat__Service_Type
+20	0.023017	0.013085	num__Retry_Count
+21	0.020250	0.011512	cat__Status
+22	0.020202	0.011484	cat__Source
+23	0.019026	0.010816	cat__TimeZone
+24	0.018484	0.010508	cat__Anomaly_Type
+25	0.017536	0.009969	cat__Location

@@ -1,0 +1,65 @@
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_092153/logs/anomaly_vanilla_ae_train_thresholds.log
+
+[피처 중요도 로그] /home/work/lab_project/severity/feature_importance_train_severity_anomaly_vanilla_ae_train_thresholds.log
+
+[검증] train score 경계(threshold) 기준 분류 정확도(참고): 0.2519
+
+[Train] 실제 Severity와 비교
+
+=== Train (train_thresholds) ===
+Accuracy: 0.2505
+Macro precision: 0.2505
+Macro recall: 0.2505
+Macro F1: 0.2505
+Weighted precision: 0.2505
+Weighted recall: 0.2505
+Weighted F1: 0.2505
+              precision    recall  f1-score   support
+
+    Critical     0.2519    0.2519    0.2519     15114
+        High     0.2525    0.2525    0.2525     15048
+      Medium     0.2482    0.2482    0.2482     14906
+         Low     0.2493    0.2493    0.2493     14932
+
+    accuracy                         0.2505     60000
+   macro avg     0.2505    0.2505    0.2505     60000
+weighted avg     0.2505    0.2505    0.2505     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [0.001504 0.001198 0.000951]
+(참고) train score min/max: 0.000287 / 0.010423
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=train_thresholds) ===
+Accuracy: 0.2467
+Macro precision: 0.2454
+Macro recall: 0.2459
+Macro F1: 0.2401
+Weighted precision: 0.2454
+Weighted recall: 0.2467
+Weighted F1: 0.2405
+              precision    recall  f1-score   support
+
+    Critical     0.2497    0.3540    0.2928      5108
+        High     0.2455    0.2705    0.2574      4920
+      Medium     0.2503    0.2160    0.2319      5027
+         Low     0.2360    0.1432    0.1782      4945
+
+    accuracy                         0.2467     20000
+   macro avg     0.2454    0.2459    0.2401     20000
+weighted avg     0.2454    0.2467    0.2405     20000
+
+
+저장: severity/logging_monitoring_anomalies_anomaly_vanilla_ae_train_thresholds.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.360 s
+전처리(인코딩·스케일) + 학습(train∪val): 18.509 s
+추론·경계·평가·저장(전수): 2.448 s
+  └ Test severity 정답 비교(report_metrics)만: 0.360 s
+전체: 21.317 s
+
+=== 랭킹 지표 MRR (relevance=0..3) ===
+Validation MRR: 0.850898
+Test MRR:       0.863772

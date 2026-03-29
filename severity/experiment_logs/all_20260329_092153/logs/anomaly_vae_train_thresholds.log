@@ -1,0 +1,65 @@
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_092153/logs/anomaly_vae_train_thresholds.log
+
+[피처 중요도 로그] /home/work/lab_project/severity/feature_importance_train_severity_anomaly_vae_train_thresholds.log
+
+[검증] train score 경계(threshold) 기준 분류 정확도(참고): 0.2542
+
+[Train] 실제 Severity와 비교
+
+=== Train (train_thresholds) ===
+Accuracy: 0.2485
+Macro precision: 0.2485
+Macro recall: 0.2485
+Macro F1: 0.2485
+Weighted precision: 0.2485
+Weighted recall: 0.2485
+Weighted F1: 0.2485
+              precision    recall  f1-score   support
+
+    Critical     0.2531    0.2531    0.2531     15114
+        High     0.2483    0.2483    0.2483     15048
+      Medium     0.2406    0.2406    0.2406     14906
+         Low     0.2521    0.2521    0.2521     14932
+
+    accuracy                         0.2485     60000
+   macro avg     0.2485    0.2485    0.2485     60000
+weighted avg     0.2485    0.2485    0.2485     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [0.168183 0.116809 0.083454]
+(참고) train score min/max: 0.033283 / 0.703180
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=train_thresholds) ===
+Accuracy: 0.2555
+Macro precision: 0.2557
+Macro recall: 0.2553
+Macro F1: 0.2549
+Weighted precision: 0.2557
+Weighted recall: 0.2555
+Weighted F1: 0.2550
+              precision    recall  f1-score   support
+
+    Critical     0.2546    0.2874    0.2700      5108
+        High     0.2485    0.2610    0.2546      4920
+      Medium     0.2667    0.2540    0.2602      5027
+         Low     0.2528    0.2188    0.2346      4945
+
+    accuracy                         0.2555     20000
+   macro avg     0.2557    0.2553    0.2549     20000
+weighted avg     0.2557    0.2555    0.2550     20000
+
+
+저장: severity/logging_monitoring_anomalies_anomaly_vae_train_thresholds.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.364 s
+전처리(인코딩·스케일) + 학습(train∪val): 13.784 s
+추론·경계·평가·저장(전수): 2.209 s
+  └ Test severity 정답 비교(report_metrics)만: 0.367 s
+전체: 16.357 s
+
+=== 랭킹 지표 MRR (relevance=0..3) ===
+Validation MRR: 0.874251
+Test MRR:       0.866267

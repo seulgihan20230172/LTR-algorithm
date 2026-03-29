@@ -1,0 +1,65 @@
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_092153/logs/anomaly_denoising_ae_train_thresholds.log
+
+[피처 중요도 로그] /home/work/lab_project/severity/feature_importance_train_severity_anomaly_denoising_ae_train_thresholds.log
+
+[검증] train score 경계(threshold) 기준 분류 정확도(참고): 0.2478
+
+[Train] 실제 Severity와 비교
+
+=== Train (train_thresholds) ===
+Accuracy: 0.2498
+Macro precision: 0.2498
+Macro recall: 0.2498
+Macro F1: 0.2498
+Weighted precision: 0.2498
+Weighted recall: 0.2498
+Weighted F1: 0.2498
+              precision    recall  f1-score   support
+
+    Critical     0.2525    0.2525    0.2525     15114
+        High     0.2493    0.2493    0.2493     15048
+      Medium     0.2479    0.2479    0.2479     14906
+         Low     0.2497    0.2497    0.2497     14932
+
+    accuracy                         0.2498     60000
+   macro avg     0.2498    0.2498    0.2498     60000
+weighted avg     0.2498    0.2498    0.2498     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [0.001836 0.001532 0.001288]
+(참고) train score min/max: 0.000475 / 0.009781
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=train_thresholds) ===
+Accuracy: 0.2517
+Macro precision: 0.2508
+Macro recall: 0.2509
+Macro F1: 0.2454
+Weighted precision: 0.2509
+Weighted recall: 0.2517
+Weighted F1: 0.2458
+              precision    recall  f1-score   support
+
+    Critical     0.2590    0.3651    0.3030      5108
+        High     0.2435    0.2669    0.2546      4920
+      Medium     0.2517    0.2170    0.2331      5027
+         Low     0.2490    0.1547    0.1908      4945
+
+    accuracy                         0.2517     20000
+   macro avg     0.2508    0.2509    0.2454     20000
+weighted avg     0.2509    0.2517    0.2458     20000
+
+
+저장: severity/logging_monitoring_anomalies_anomaly_denoising_ae_train_thresholds.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.356 s
+전처리(인코딩·스케일) + 학습(train∪val): 18.240 s
+추론·경계·평가·저장(전수): 2.458 s
+  └ Test severity 정답 비교(report_metrics)만: 0.368 s
+전체: 21.053 s
+
+=== 랭킹 지표 MRR (relevance=0..3) ===
+Validation MRR: 0.888224
+Test MRR:       0.842543

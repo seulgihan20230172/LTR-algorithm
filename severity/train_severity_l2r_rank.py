@@ -240,7 +240,7 @@ def train_listnet_local(X, y_rel, qid, X_val, y_val_rel, qid_val, epochs: int, l
         qid_val,
         epochs=epochs,
         lr=lr,
-        patience=patience,
+        patience=epochs,
     )
 
 
@@ -252,9 +252,9 @@ def train_listmle_local(X, y_rel, qid, X_val, y_val_rel, qid_val, epochs: int, l
         X_val,
         y_val_rel,
         qid_val,
-        epochs=min(epochs, 50),
+        epochs=epochs,
         lr=lr,
-        patience=patience,
+        patience=epochs,
     )
 
 
@@ -343,11 +343,11 @@ def run(
             pass
         elif model_name == "listnet":
             model = train_listnet_local(
-                xt, yr_train, qid_train, xv, yr_val, qid_val, epochs=epochs, lr=0.001, patience=8
+                xt, yr_train, qid_train, xv, yr_val, qid_val, epochs=epochs, lr=0.001, patience=epochs
             )
         elif model_name == "listmle":
             model = train_listmle_local(
-                xt, yr_train, qid_train, xv, yr_val, qid_val, epochs=min(epochs, 50), lr=0.001, patience=8
+                xt, yr_train, qid_train, xv, yr_val, qid_val, epochs=epochs, lr=0.001, patience=epochs
             )
         elif model_name == "xgboost":
             if train_xgb is None:

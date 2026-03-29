@@ -1,0 +1,11 @@
+# feature importance + SHAP (트리/부스팅 위주)
+# time: 2026-03-29T09:42:22.031359
+# model: ranknet  test_mode: train_thresholds
+#
+# [1] feature_importances_: 모델 내장 분할 기여(상대 비교용).
+# [2] SHAP: TreeExplainer, 참조 표본에서 피처 j의 평균 |SHAP| (방향 무시, 크기만 순위용).
+#     다중 클래스면 클래스별 SHAP 절댓값 평균을 다시 평균.
+#
+이 모델은 sklearn 스타일 feature_importances_를 제공하지 않습니다 (AE·L2R·IsolationForest 등).
+#
+# SHAP: SHAP TreeExplainer 미지원 또는 오류: InvalidModelError("Model type not yet supported by TreeExplainer: <class 'RankNet.Model'>")

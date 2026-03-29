@@ -1,0 +1,20 @@
+# train_severity_l2r_rank 2026-03-29T12:30:21.783359
+# model=ranknet test_mode=train_thresholds csv=severity/logging_monitoring_anomalies.csv
+# config=/home/work/lab_project/severity/experiment_config.yaml
+
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_122253/logs/l2r_ranknet_train_thresholds.log
+[[ 0.      0.     -0.8351 -1.7189  1.4577  0.122   1.0859  0.5791 -1.2547  1.2696 -1.309   1.1615  1.3574  0.7751 -1.7115 -0.1346 -0.9621 -1.3686  1.0604  0.8664  0.7023  0.882   1.3367 -0.8785
+   0.4453  0.4473  0.635   0.7097 -1.3365 -0.7106]
+ [ 1.      0.      0.1243 -0.3186 -1.2696 -1.2888  0.3412  0.4589  1.4455 -0.1913  0.2913 -1.2219  1.3574  0.6019  1.7109 -1.085  -1.6556  1.5471 -0.5     0.8664 -1.4193 -0.881  -0.4545  1.4664
+  -0.45    0.4473 -0.2115  0.0033  1.3381 -1.4171]
+ [ 2.      0.      0.9625  0.3535 -1.2696  0.12    0.1687  1.4359 -1.1057 -0.4565  1.3232 -0.0269 -0.5194  0.6019 -0.9671 -0.9529  0.4249 -0.0661  0.493   0.518  -0.7121 -0.2933 -1.3501 -1.4647
+   1.3406 -1.3473  0.1516  0.7097 -0.445   1.409 ]
+ [ 1.      0.     -1.6167 -1.2117 -0.1787 -0.6923 -1.2574 -0.5276 -0.8082  0.3122  0.5782  1.5341 -0.6584  1.1216 -1.1053  0.515  -0.442  -0.3785  0.7767 -1.5721  0.7023 -1.4687  1.3367 -0.8785
+   0.4453 -1.3473  1.5224  0.7097 -1.3365  1.409 ]]
+Traning………………
+
+/home/work/lab_project/L2R/RankNet.py:214: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  score = -loss.item()
+Epoch:0, loss : 0.7008247971534729, Metrics: {'NDCG@1': 0.3822857142857143, 'NDCG@5': 0.4032958349437363, 'NDCG@10': 0.4009728897339237, 'MAP': 0.769321428883062, 'MRR': 0.8554666666666667}
+Epoch:10, loss : 0.6928747296333313, Metrics: {'NDCG@1': 0.3978571428571429, 'NDCG@5': 0.40916800742162546, 'NDCG@10': 0.4091030174416907, 'MAP': 0.7740271889297876, 'MRR': 0.8637690476190476}

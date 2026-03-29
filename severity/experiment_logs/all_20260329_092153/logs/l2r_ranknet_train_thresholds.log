@@ -1,0 +1,98 @@
+# train_severity_l2r_rank 2026-03-29T09:24:20.652740
+# model=ranknet test_mode=train_thresholds csv=severity/logging_monitoring_anomalies.csv
+# config=/home/work/lab_project/severity/experiment_config.yaml
+
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_092153/logs/l2r_ranknet_train_thresholds.log
+[[ 0.      0.     -0.8351 -1.7189  1.4577  0.122   1.0859  0.5791 -1.2547  1.2696 -1.309   1.1615  1.3574  0.7751 -1.7115 -0.1346 -0.9621 -1.3686  1.0604  0.8664  0.7023  0.882   1.3367 -0.8785
+   0.4453  0.4473  0.635   0.7097 -1.3365 -0.7106]
+ [ 1.      0.      0.1243 -0.3186 -1.2696 -1.2888  0.3412  0.4589  1.4455 -0.1913  0.2913 -1.2219  1.3574  0.6019  1.7109 -1.085  -1.6556  1.5471 -0.5     0.8664 -1.4193 -0.881  -0.4545  1.4664
+  -0.45    0.4473 -0.2115  0.0033  1.3381 -1.4171]
+ [ 2.      0.      0.9625  0.3535 -1.2696  0.12    0.1687  1.4359 -1.1057 -0.4565  1.3232 -0.0269 -0.5194  0.6019 -0.9671 -0.9529  0.4249 -0.0661  0.493   0.518  -0.7121 -0.2933 -1.3501 -1.4647
+   1.3406 -1.3473  0.1516  0.7097 -0.445   1.409 ]
+ [ 1.      0.     -1.6167 -1.2117 -0.1787 -0.6923 -1.2574 -0.5276 -0.8082  0.3122  0.5782  1.5341 -0.6584  1.1216 -1.1053  0.515  -0.442  -0.3785  0.7767 -1.5721  0.7023 -1.4687  1.3367 -0.8785
+   0.4453 -1.3473  1.5224  0.7097 -1.3365  1.409 ]]
+Traning………………
+
+/home/work/lab_project/L2R/RankNet.py:214: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  score = -loss.item()
+Epoch:0, loss : 0.6999998688697815, Metrics: {'NDCG@1': 0.3958571428571429, 'NDCG@5': 0.40250784117441424, 'NDCG@10': 0.4031744262418392, 'MAP': 0.771474820080322, 'MRR': 0.8677333333333334}
+Epoch:10, loss : 0.6924694776535034, Metrics: {'NDCG@1': 0.42514285714285716, 'NDCG@5': 0.4225440310827526, 'NDCG@10': 0.4193183920771069, 'MAP': 0.7765575006233555, 'MRR': 0.87715}
+Epoch:20, loss : 0.6900648474693298, Metrics: {'NDCG@1': 0.46957142857142864, 'NDCG@5': 0.4539898758677017, 'NDCG@10': 0.44374903962203077, 'MAP': 0.7873827799928366, 'MRR': 0.8954500000000001}
+Epoch:30, loss : 0.6870275139808655, Metrics: {'NDCG@1': 0.5372857142857144, 'NDCG@5': 0.49770953668671636, 'NDCG@10': 0.47738051126066944, 'MAP': 0.7935164428279684, 'MRR': 0.9186666666666667}
+
+[피처 중요도 로그] /home/work/lab_project/severity/feature_importance_train_severity_l2r_ranknet_train_thresholds.log
+
+[검증] train score 경계(threshold) 기준 분류 정확도(참고): 0.2472
+
+[Train] 실제 Severity와 비교
+
+=== Train (train_thresholds) ===
+Accuracy: 0.2863
+Macro precision: 0.2273
+Macro recall: 0.2855
+Macro F1: 0.2423
+Weighted precision: 0.2278
+Weighted recall: 0.2863
+Weighted F1: 0.2429
+/usr/local/lib/python3.12/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/usr/local/lib/python3.12/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/usr/local/lib/python3.12/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+              precision    recall  f1-score   support
+
+    Critical     0.3375    0.3375    0.3375     15114
+        High     0.2487    0.5397    0.3405     15048
+      Medium     0.0000    0.0000    0.0000     14906
+         Low     0.3232    0.2647    0.2910     14932
+
+    accuracy                         0.2863     60000
+   macro avg     0.2273    0.2855    0.2423     60000
+weighted avg     0.2278    0.2863    0.2429     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [ 0.019981 -0.037294 -0.037294]
+(참고) train score min/max: -0.720247 / 0.666625
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=train_thresholds) ===
+Accuracy: 0.2474
+Macro precision: 0.1854
+Macro recall: 0.2491
+Macro F1: 0.1981
+Weighted precision: 0.1852
+Weighted recall: 0.2474
+Weighted F1: 0.1974
+/usr/local/lib/python3.12/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/usr/local/lib/python3.12/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/usr/local/lib/python3.12/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+              precision    recall  f1-score   support
+
+    Critical     0.2586    0.2155    0.2351      5108
+        High     0.2471    0.5949    0.3492      4920
+      Medium     0.0000    0.0000    0.0000      5027
+         Low     0.2361    0.1860    0.2081      4945
+
+    accuracy                         0.2474     20000
+   macro avg     0.1854    0.2491    0.1981     20000
+weighted avg     0.1852    0.2474    0.1974     20000
+
+
+저장: severity/logging_monitoring_anomalies_l2r_ranknet_train_thresholds.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.353 s
+전처리(인코딩·스케일) + 학습(train∪val L2R): 3205.324 s
+추론·경계·Train·Val·Test 평가·저장(전수): 2.526 s
+  └ Test severity 정답 비교(report_metrics)만: 0.364 s
+전체: 3208.674 s
+
+=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
+Validation MRR: 0.848232
+Test MRR:       0.873353
