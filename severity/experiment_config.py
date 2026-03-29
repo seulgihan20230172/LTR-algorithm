@@ -7,6 +7,7 @@ DEFAULT_CONFIG_PATH = Path(__file__).resolve().parent / "experiment_config.yaml"
 
 ALLOWED_TEST_MODES = frozenset({"train_thresholds", "test_oracle_ratio"})
 ALLOWED_QID_MODES = frozenset({"global", "anomaly_id", "timestamp_hour_1h"})
+ALLOWED_SPLIT_MODES = frozenset({"stratified_shuffle", "time_ordered"})
 
 
 def resolve_test_mode(cfg: dict[str, Any], cli_override: str | None) -> str:
@@ -56,6 +57,9 @@ def _apply_config_defaults(cfg: dict[str, Any]) -> None:
     if isinstance(rk, dict):
         rk.setdefault("qid_mode", "global")
         rk.setdefault("global_qid", 0)
+    sp = cfg.get("split")
+    if isinstance(sp, dict):
+        sp.setdefault("mode", "stratified_shuffle")
 
 
 def _validate(cfg: dict[str, Any]) -> None:
@@ -65,6 +69,9 @@ def _validate(cfg: dict[str, Any]) -> None:
     for k in ("test_size", "val_size", "random_state"):
         if k not in cfg["split"]:
             raise KeyError(f"split.{k}")
+    sm = cfg["split"].get("mode", "stratified_shuffle")
+    if sm not in ALLOWED_SPLIT_MODES:
+        raise ValueError(f"split.mode는 {sorted(ALLOWED_SPLIT_MODES)} 중 하나여야 합니다: {sm!r}")
     if "group_size" not in cfg["ranking"]:
         raise KeyError("ranking.group_size")
     qm = cfg["ranking"].get("qid_mode", "global")

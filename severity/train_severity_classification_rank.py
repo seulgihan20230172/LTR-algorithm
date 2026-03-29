@@ -40,6 +40,7 @@ def run(
     ordinal_severity_metrics: bool,
     qid_mode: str,
     global_qid: int,
+    split_mode: str,
 ):
     t_total_start = time.perf_counter()
     (
@@ -63,6 +64,7 @@ def run(
         include_categorical_columns=include_categorical_columns,
         qid_mode=qid_mode,
         global_qid=global_qid,
+        split_mode=split_mode,
     )
 
     t_train_val_start = time.perf_counter()
@@ -193,6 +195,7 @@ def main():
             ordinal_severity_metrics=bool(cfg["evaluation"]["ordinal_severity_metrics"]),
             qid_mode=str(cfg["ranking"]["qid_mode"]),
             global_qid=int(cfg["ranking"]["global_qid"]),
+            split_mode=str(cfg["split"]["mode"]),
         )
     finally:
         sys.stdout = old_out

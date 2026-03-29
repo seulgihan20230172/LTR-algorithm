@@ -290,6 +290,7 @@ def run(
     ordinal_severity_metrics: bool,
     qid_mode: str,
     global_qid: int,
+    split_mode: str,
 ) -> None:
     t_total_start = time.perf_counter()
     (
@@ -548,6 +549,7 @@ if __name__ == "__main__":
             ordinal_severity_metrics=bool(cfg["evaluation"]["ordinal_severity_metrics"]),
             qid_mode=str(cfg["ranking"]["qid_mode"]),
             global_qid=int(cfg["ranking"]["global_qid"]),
+            split_mode=str(cfg["split"]["mode"]),
         )
     finally:
         sys.stdout = old_out

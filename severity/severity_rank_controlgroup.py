@@ -100,6 +100,21 @@ def build_preprocessor(x: pd.DataFrame) -> ColumnTransformer:
     return ColumnTransformer(transformers=transformers)
 
 
+def _time_ordered_split_sizes(n: int, test_size: float, val_size: float) -> tuple[int, int, int]:
+    """가장 이른 시각 → train, 그다음 → val, 가장 늦은 구간 → test. 반환 (n_train, n_val, n_test)."""
+    if n < 3:
+        raise ValueError("time_ordered 분할은 행이 최소 3개 이상이어야 합니다.")
+    n_test = max(1, int(round(n * test_size)))
+    n_test = min(n_test, n - 2)
+    n_rem = n - n_test
+    val_ratio = val_size / (1.0 - test_size)
+    n_val = max(1, int(round(n_rem * val_ratio)))
+    n_val = min(n_val, n_rem - 1)
+    n_train = n_rem - n_val
+    assert n_train >= 1 and n_val >= 1 and n_test >= 1 and n_train + n_val + n_test == n
+    return n_train, n_val, n_test
+
+
 def qids_from_timestamp_hour_1h(df: pd.DataFrame) -> np.ndarray:
     """Timestamp를 1시간 단위로 내린 뒤, 시간대를 시각 순으로 0,1,2,… qid를 부여한다."""
     if TIMESTAMP_COL not in df.columns:
@@ -142,9 +157,22 @@ def prepare_splits(
     include_categorical_columns: bool = True,
     qid_mode: str = "global",
     global_qid: int = 0,
+    split_mode: str = "stratified_shuffle",
 ):
-    """qid: global | anomaly_id | timestamp_hour_1h (1시간 버킷, 시각 순 연속 qid)."""
+    """split_mode: stratified_shuffle(Severity 층화+무작위) | time_ordered(Timestamp 오름차순, 과거→train·중간→val·최근→test)."""
     df = pd.read_csv(csv_path)
+    if split_mode == "time_ordered":
+        if TIMESTAMP_COL not in df.columns:
+            raise ValueError(f"split_mode=time_ordered 일 때 CSV에 '{TIMESTAMP_COL}' 열이 필요합니다.")
+        ts = pd.to_datetime(df[TIMESTAMP_COL], errors="coerce")
+        if ts.isna().any():
+            raise ValueError(f"split_mode=time_ordered: '{TIMESTAMP_COL}'에 파싱되지 않는 시각이 있습니다.")
+        df = df.iloc[np.argsort(ts.values, kind="mergesort")].reset_index(drop=True)
+    elif split_mode != "stratified_shuffle":
+        raise ValueError(
+            f"split_mode는 'stratified_shuffle' 또는 'time_ordered' 여야 합니다: {split_mode!r}"
+        )
+
     if qid_mode == "global":
         qid_all = np.full(len(df), int(global_qid), dtype=np.int64)
     elif qid_mode == "anomaly_id":
@@ -164,25 +192,40 @@ def prepare_splits(
         )
     x, y = split_features(df, include_categorical_columns=include_categorical_columns)
     y_rel = y.map(RELEVANCE).astype(np.float32).values
-    x_temp, x_test, y_temp, y_test, yr_temp, yr_test, q_temp, q_test = train_test_split(
-        x,
-        y,
-        y_rel,
-        qid_all,
-        test_size=test_size,
-        random_state=random_state,
-        stratify=y,
-    )
-    val_ratio = val_size / (1.0 - test_size)
-    x_train, x_val, y_train, y_val, yr_train, yr_val, qid_train, qid_val = train_test_split(
-        x_temp,
-        y_temp,
-        yr_temp,
-        q_temp,
-        test_size=val_ratio,
-        random_state=random_state,
-        stratify=y_temp,
-    )
+
+    if split_mode == "stratified_shuffle":
+        x_temp, x_test, y_temp, y_test, yr_temp, yr_test, q_temp, q_test = train_test_split(
+            x,
+            y,
+            y_rel,
+            qid_all,
+            test_size=test_size,
+            random_state=random_state,
+            stratify=y,
+        )
+        val_ratio = val_size / (1.0 - test_size)
+        x_train, x_val, y_train, y_val, yr_train, yr_val, qid_train, qid_val = train_test_split(
+            x_temp,
+            y_temp,
+            yr_temp,
+            q_temp,
+            test_size=val_ratio,
+            random_state=random_state,
+            stratify=y_temp,
+        )
+    else:
+        n = len(x)
+        n_train, n_val, n_test = _time_ordered_split_sizes(n, test_size, val_size)
+        i0, i1, i2 = 0, n_train, n_train + n_val
+        x_train, x_val, x_test = x.iloc[i0:i1], x.iloc[i1:i2], x.iloc[i2:]
+        y_train, y_val, y_test = y.iloc[i0:i1], y.iloc[i1:i2], y.iloc[i2:]
+        yr_train = y_rel[i0:i1]
+        yr_val = y_rel[i1:i2]
+        yr_test = y_rel[i2:]
+        qid_train = qid_all[i0:i1]
+        qid_val = qid_all[i1:i2]
+        q_test = qid_all[i2:]
+
     return (
         x_train,
         x_val,

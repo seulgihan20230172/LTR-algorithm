@@ -16,6 +16,9 @@ data:
   csv: severity/logging_monitoring_anomalies.csv
 
 split:
+  # stratified_shuffle: Severity 층화 후 무작위 (클래스 비율 유지, 시계열에는 부적합할 수 있음)
+  # time_ordered: Timestamp 오름차순 — 앞 구간 train, 가운데 val, 마지막 test (미래 예측·보안 시나리오에 가깝게)
+  mode: time_ordered
   test_size: 0.2
   val_size: 0.2
   random_state: 42
