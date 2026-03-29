@@ -11,6 +11,7 @@ import numpy as np
 
 from severity.regression.models import build_regression_model
 from severity.experiment_config import DEFAULT_CONFIG_PATH, load_experiment_config, resolve_test_mode
+from severity.feature_importance_log import write_feature_importance_log
 from severity.severity_rank_controlgroup import (
     TeeIO,
     allocate_counts,
@@ -68,10 +69,14 @@ def run(
     )
 
     t_train_val_start = time.perf_counter()
-    xt, xv, xs, _, _ = fit_transform_xy(x_train, x_val, x_test)
+    xt, xv, xs, pre, _ = fit_transform_xy(x_train, x_val, x_test)
 
     model = build_regression_model(model_name, random_state=random_state)
     model.fit(xt, yr_train, xv, yr_val)
+    fi_path = write_feature_importance_log(
+        pre, model, prefix="train_severity_reg", model_name=model_name, test_mode=test_mode
+    )
+    print(f"\n[피처 중요도 로그] {fi_path.resolve()}", flush=True)
     t_train_val_end = time.perf_counter()
 
     t_eval_start = time.perf_counter()

@@ -1,6 +1,7 @@
 """
-L2R 랭킹 점수로 anomaly score를 만든 뒤, train의 4클래스 비율로 심각도를 배정·평가한다.
-범주형 피처는 메모리 한계로 OrdinalEncoder 처리(train_severity_model_ML.py의 OneHot과 다름).
+L2R 랭킹 점수로 anomaly score를 만든 뒤, experiment_config의 test_mode로 심각도를 배정·평가한다.
+피처 분리·전처리는 prepare_splits / build_preprocessor(다른 train_severity_* 와 동일 LEAKAGE 규약).
+범주형은 OrdinalEncoder(train_severity_model_ML.py 의 OneHot 과 다름).
 """
 
 import argparse
@@ -31,6 +32,7 @@ from severity.severity_rank_controlgroup import (  # noqa: E402
     report_metrics,
     sort_ltr_rows_by_qid,
 )
+from severity.feature_importance_log import write_feature_importance_log  # noqa: E402
 from severity.severity_schema import LABEL_ORDER_DESC, TARGET_COL  # noqa: E402
 
 L2R_DIR = ROOT / "L2R"
@@ -314,10 +316,11 @@ def run(
         include_categorical_columns=include_categorical_columns,
         qid_mode=qid_mode,
         global_qid=global_qid,
+        split_mode=split_mode,
     )
 
     t_train_val_start = time.perf_counter()
-    xt, xv, xs, _ = fit_transform_xy(x_train, x_val, x_test)
+    xt, xv, xs, pre = fit_transform_xy(x_train, x_val, x_test)
     xt, xv, xs = scale_data(xt, xv, xs)
 
     fr_train = class_fractions(y_train)
@@ -327,7 +330,9 @@ def run(
     cwd = os.getcwd()
     model = None
     train_mat = l2r_train_matrix(yr_train, qid_train, xt)
-    print(train_mat[0:4,:])
+    # train 행 순서는 time_ordered/stratified 분할에 따라 CSV 시간 순과 다를 수 있음
+    with np.printoptions(suppress=True, precision=4, linewidth=200):
+        print(train_mat[0:4, :])
     try:
         os.chdir(L2R_DIR)
         if model_name == "bm25":
@@ -357,6 +362,12 @@ def run(
     finally:
         os.chdir(cwd)
     t_train_val_end = time.perf_counter()
+
+    if model_name != "bm25":
+        fi_path = write_feature_importance_log(
+            pre, model, prefix="train_severity_l2r", model_name=model_name, test_mode=test_mode
+        )
+        print(f"\n[피처 중요도 로그] {fi_path.resolve()}", flush=True)
 
     t_eval_start = time.perf_counter()
     if model_name == "bm25":

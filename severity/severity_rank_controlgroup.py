@@ -159,6 +159,7 @@ def prepare_splits(
     global_qid: int = 0,
     split_mode: str = "stratified_shuffle",
 ):
+    """qid: global | anomaly_id | timestamp_hour_1h (1시간 버킷, 시각 순 연속 qid)."""
     """split_mode: stratified_shuffle(Severity 층화+무작위) | time_ordered(Timestamp 오름차순, 과거→train·중간→val·최근→test)."""
     df = pd.read_csv(csv_path)
     if split_mode == "time_ordered":
