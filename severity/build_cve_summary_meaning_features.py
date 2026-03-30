@@ -1,5 +1,8 @@
 """
-CVE summary에서 n-gram 상위 K개를 이진 피처로 붙인다.
+CVE summary에서 n-gram 상위 K개를 피처 열로 붙인다.
+
+meaning 열 값: 기본은 해당 summary 안에서 n-gram 등장 횟수(정수, 0·1·2…).
+  --binary-meanings 를 주면 존재 여부만 0/1.
 
 기본: CVE_summary_separate/meaning_lexicon.json 의 상투구·기술어 목록으로 필터,
      순위는 (필터 통과 n-gram 중) 문서 빈도 df 내림차순.
@@ -96,6 +99,8 @@ def build_meaning_columns(
     max_df: float,
     filter_boilerplate: bool = True,
     lexicon: MeaningLexicon | None = None,
+    *,
+    binary_meanings: bool = False,
 ) -> tuple[np.ndarray, list[str], CountVectorizer, list[int], list[float]]:
     vectorizer = CountVectorizer(
         lowercase=True,
@@ -136,12 +141,18 @@ def build_meaning_columns(
     top_doc_freq = doc_freq[top_idx].tolist()
     top_scores = [float(doc_freq[i]) for i in top_idx]
     X_top = X[:, top_idx]
-    X_bin = (X_top > 0).astype(np.int8).toarray()
-    return X_bin, top_terms, vectorizer, top_doc_freq, top_scores
+    if binary_meanings:
+        X_meaning = (X_top > 0).astype(np.int8).toarray()
+    else:
+        # CountVectorizer: 문서별 n-gram 등장 횟수(겹치지 않는 슬라이딩 윈도우 카운트)
+        X_meaning = np.asarray(X_top.toarray(), dtype=np.int32)
+    return X_meaning, top_terms, vectorizer, top_doc_freq, top_scores
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="CVE summary 상위 의미(n-gram) multi-hot 피처 생성")
+    p = argparse.ArgumentParser(
+        description="CVE summary 상위 의미(n-gram) 피처 생성 (기본: 등장 횟수, 옵션: 0/1)"
+    )
     p.add_argument("--input", type=Path, default=DEFAULT_INPUT, help="입력 cve.csv")
     p.add_argument("--output", type=Path, default=DEFAULT_OUTPUT, help="출력 CSV")
     p.add_argument("--vocab-json", type=Path, default=DEFAULT_VOCAB_JSON, help="구절·열이름 매핑 JSON")
@@ -181,6 +192,11 @@ def main() -> None:
         default=DEFAULT_LEXICON_JSON,
         help="상투구·기술어 목록 JSON (기본: CVE_summary_separate/meaning_lexicon.json)",
     )
+    p.add_argument(
+        "--binary-meanings",
+        action="store_true",
+        help="meaning 열을 0/1만 저장 (등장 횟수 대신 존재 여부)",
+    )
     args = p.parse_args()
 
     df = pd.read_csv(args.input, encoding="utf-8", on_bad_lines="skip")
@@ -193,7 +209,7 @@ def main() -> None:
     texts = df["summary"].fillna("").astype(str).tolist()
     filter_bp = not args.no_filter_boilerplate
     lex = load_meaning_lexicon(args.lexicon_json) if filter_bp else None
-    X_bin, top_terms, vec, top_doc_freq, top_scores = build_meaning_columns(
+    X_meaning, top_terms, vec, top_doc_freq, top_scores = build_meaning_columns(
         texts,
         top_k=args.top_k,
         ngram_min=args.ngram_min,
@@ -202,14 +218,15 @@ def main() -> None:
         max_df=args.max_df,
         filter_boilerplate=filter_bp,
         lexicon=lex,
+        binary_meanings=args.binary_meanings,
     )
 
     col_names = [f"meaning_{i+1:02d}" for i in range(len(top_terms))]
     for i, name in enumerate(col_names):
-        df[name] = X_bin[:, i]
+        df[name] = X_meaning[:, i]
 
-    n_rows = X_bin.shape[0]
-    n_all_meaning_zero = int(np.sum(X_bin.sum(axis=1) == 0))
+    n_rows = X_meaning.shape[0]
+    n_all_meaning_zero = int(np.sum(X_meaning.sum(axis=1) == 0))
 
     if args.add_meta_columns:
         if "pub_date" not in df.columns:
@@ -231,6 +248,7 @@ def main() -> None:
         "rank_score_is_doc_frequency": True,
         "filter_boilerplate": filter_bp,
         "lexicon_json": str(args.lexicon_json.resolve()) if filter_bp else None,
+        "meaning_columns_encoding": "binary_0_1" if args.binary_meanings else "count_per_summary",
         "count_vectorizer": {
             "ngram_range": [args.ngram_min, args.ngram_max],
             "min_df": args.min_df,
@@ -250,9 +268,11 @@ def main() -> None:
     pct_zero = 100.0 * float(n_all_meaning_zero) / max(n_rows, 1)
     print(f"Wrote {args.output} ({len(df)} rows, +{len(col_names)} meaning columns)")
     print(f"Wrote {args.vocab_json}")
+    enc = "0/1 (존재 여부)" if args.binary_meanings else "등장 횟수 (0 이상 정수)"
     print(
-        f"\nmeaning 피처 전부 0인 행: {n_all_meaning_zero} / {n_rows} ({pct_zero:.2f}%) "
-        f"(선택된 {len(col_names)}개 구절이 해당 summary에 하나도 없음)"
+        f"\nmeaning 열 값: {enc}. "
+        f"전부 0인 행: {n_all_meaning_zero} / {n_rows} ({pct_zero:.2f}%) "
+        f"(선택 {len(col_names)}개 n-gram이 해당 summary에 한 번도 없음)"
     )
     print(f"\n상위 구절 (df = 등장 문서 수 / 전체 {n_docs}건, 순위=df 내림차순):")
     for rank, (name, phrase, df_n) in enumerate(
