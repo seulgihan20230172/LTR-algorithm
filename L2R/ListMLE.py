@@ -6,6 +6,8 @@ from ListNet import ListNet
 import torch.optim as optim
 import torch
 
+import numpy as np
+
 
 def listmle_loss(pred, y):
     idx = torch.argsort(y, descending=True)
