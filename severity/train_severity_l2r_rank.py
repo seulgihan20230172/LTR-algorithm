@@ -429,11 +429,18 @@ def run(
 
             yr_tr_fit = relevance_for_xgb_ranker(yr_tr, label_mode=label_mode)
             yr_vr_fit = relevance_for_xgb_ranker(yr_vr, label_mode=label_mode)
+            # rank:ndcg 는 정수 relevance 만 — 원시 float(예: CVSS)로 두 번째 fit 하면 XGBoostError 난다(과거 디버그 중복 호출).
             model = train_xgb(xt_r, yr_tr_fit, q_tr, xv_r, yr_vr_fit, q_vr)
-
+            '''
             print(yr_tr.min(), yr_tr.max(), yr_tr.dtype)
             print(yr_vr.min(), yr_vr.max(), yr_vr.dtype)
             model = train_xgb(xt_r, yr_tr, q_tr, xv_r, yr_vr, q_vr)
+            '''
+            print(
+                f"[xgboost] yr 원시 min/max/dtype={yr_tr.min()}/{yr_tr.max()}/{yr_tr.dtype} | "
+                f"fit 라벨(정수) min/max/dtype={yr_tr_fit.min()}/{yr_tr_fit.max()}/{yr_tr_fit.dtype}",
+                flush=True,
+            )
 
         elif model_name == "ranknet":
             model = train_ranknet_local(train_mat, epochs=epochs, lr=0.01, qids_per_chunk=qpc)

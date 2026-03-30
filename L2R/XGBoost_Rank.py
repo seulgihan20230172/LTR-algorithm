@@ -8,6 +8,16 @@ def train_xgb(X, y, qid, X_val, y_val, qid_val):
     _, group = np.unique(qid, return_counts=True)
     _, group_val = np.unique(qid_val, return_counts=True)
 
+    # rank:ndcg 는 쿼리 내 relevance 가 정수일 때 안정적. float(예: CVSS)는 반올림 후 정수화.
+    def _as_relevance_int(a):
+        a = np.asarray(a)
+        if np.issubdtype(a.dtype, np.floating):
+            a = np.rint(np.clip(a, -1e9, 1e9))
+        return a.astype(np.int32, copy=False).ravel()
+
+    y = _as_relevance_int(y)
+    y_val = _as_relevance_int(y_val)
+
     model = xgb.XGBRanker(
         objective='rank:ndcg',
         n_estimators=300,
