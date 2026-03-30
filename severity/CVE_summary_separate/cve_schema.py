@@ -26,6 +26,20 @@ LEAKAGE_COLS_CVE: list[str] = [
 ]
 
 
+def relevance_for_xgb_ranker(yr: np.ndarray, *, label_mode: str) -> np.ndarray:
+    """XGBoost ``rank:ndcg`` 학습 시 기대하는 **정수** relevance.
+
+    메트릭·ListNet 등에는 여전히 float CVSS(또는 0~3 relevance)를 쓰고,
+    XGBRanker ``fit`` 에 넣는 라벨만 여기서 반올림한다 (순서 관계 유지).
+    """
+    y = np.asarray(yr, dtype=np.float64).ravel()
+    if label_mode == "cvss":
+        y = np.clip(y, 0.0, 10.0)
+    else:
+        y = np.clip(y, 0.0, 3.0)
+    return np.rint(y).astype(np.int32)
+
+
 def stratify_codes_for_split_cvss(y_cvss: pd.Series) -> np.ndarray | None:
     """train_test_split(stratify=)용 분위 코드. 라벨은 여전히 숫자 CVSS이며, 이 값은 분할에만 사용"""
     n = len(y_cvss)

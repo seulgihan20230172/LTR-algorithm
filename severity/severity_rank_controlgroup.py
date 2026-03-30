@@ -202,7 +202,7 @@ def prepare_splits(
     """qid: global | anomaly_id | timestamp_hour_1h | cve_calendar_day (CVE 날짜 그룹)."""
     """split_mode: stratified_shuffle | time_ordered."""
     """label_mode: severity(기존) | cvss(CVE CSV, 라벨·층화 기준은 숫자 CVSS; 랭킹 relevance=원시 cvss)."""
-    df = pd.read_csv(csv_path, encoding="utf-8", on_bad_lines="skip")
+    df = pd.read_csv(csv_path, encoding="utf-8", on_bad_lines="skip", low_memory=True)
     if label_mode not in ("severity", "cvss"):
         raise ValueError(f"label_mode는 'severity' 또는 'cvss' 여야 합니다: {label_mode!r}")
 
