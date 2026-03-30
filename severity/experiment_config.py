@@ -91,6 +91,7 @@ def _apply_config_defaults(cfg: dict[str, Any]) -> None:
     if isinstance(rk, dict):
         rk.setdefault("qid_mode", "global")
         rk.setdefault("global_qid", 0)
+        rk.setdefault("qids_per_chunk", 0)
     sp = cfg.get("split")
     if isinstance(sp, dict):
         sp.setdefault("mode", "stratified_shuffle")
@@ -112,6 +113,11 @@ def _validate(cfg: dict[str, Any]) -> None:
     gq = cfg["ranking"].get("global_qid", 0)
     if not isinstance(gq, int):
         raise TypeError(f"ranking.global_qid는 정수여야 합니다: {type(gq).__name__}")
+    qpc = cfg["ranking"].get("qids_per_chunk", 0)
+    if not isinstance(qpc, int) or qpc < 0:
+        raise TypeError(
+            f"ranking.qids_per_chunk는 0 이상 정수여야 합니다: {qpc!r} ({type(qpc).__name__})"
+        )
     for k in ("l2r", "anomaly"):
         if k not in cfg["epochs"]:
             raise KeyError(f"epochs.{k}")

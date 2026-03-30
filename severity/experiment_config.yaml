@@ -45,6 +45,7 @@ profiles:
       # timestamp_hour_1h | global | anomaly_id | cve_calendar_day
       qid_mode: timestamp_hour_1h
       global_qid: 0
+      qids_per_chunk: 0
 
   # CVE 요약 + meaning 피처 — 라벨은 숫자 CVSS, qid는 달력일
   cve:
@@ -58,3 +59,5 @@ profiles:
     ranking:
       qid_mode: cve_calendar_day
       global_qid: 0
+      # listnet|listmle|ranknet|lambdarank: qid 단위 청크(메모리). 0 = 에폭당 전체 qid를 한 청크
+      qids_per_chunk: 1

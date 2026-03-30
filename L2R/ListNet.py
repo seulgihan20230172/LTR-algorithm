@@ -1,4 +1,6 @@
 #Top-1만 고려
+import numpy as np
+
 from data_utils import load_data, scale_data, group_by_qid
 from metrics import evaluate_all
 import torch
@@ -34,27 +36,38 @@ def train_listnet(
     lr: float = 0.001,
     patience: int = 5,
     verbose: bool = True,
+    qids_per_chunk: int | None = None,
 ):
+    """qid는 호출 시 ``sort_ltr_rows_by_qid`` 로 정렬된 것과 동일해야 XGBoost rank group 순서와 맞다.
+
+    ``qids_per_chunk``: 한 에폭에서 연속으로 처리하는 qid 개수(메모리). 0 또는 None이면 전체 qid를 한 청크로 본다.
+    """
     model = ListNet(X.shape[1])
     opt = optim.Adam(model.parameters(), lr=lr)
 
     groups = group_by_qid(qid)
+    uq = np.unique(np.asarray(qid))
+    chunk = len(uq) if not qids_per_chunk or int(qids_per_chunk) <= 0 else int(qids_per_chunk)
     best_score = -1.0
     wait = 0
     best_state = None
 
     for epoch in range(epochs):
         model.train()
-        for g in groups.values():
-            xg = torch.tensor(X[g], dtype=torch.float32)
-            yg = torch.tensor(y[g], dtype=torch.float32)
+        for c0 in range(0, len(uq), chunk):
+            c1 = min(c0 + chunk, len(uq))
+            for qi in range(c0, c1):
+                q = uq[qi]
+                g = groups[q]
+                xg = torch.tensor(X[g], dtype=torch.float32)
+                yg = torch.tensor(y[g], dtype=torch.float32)
 
-            pred = model(xg)
-            loss = listnet_loss(pred, yg)
+                pred = model(xg)
+                loss = listnet_loss(pred, yg)
 
-            opt.zero_grad()
-            loss.backward()
-            opt.step()
+                opt.zero_grad()
+                loss.backward()
+                opt.step()
 
         model.eval()
         with torch.no_grad():

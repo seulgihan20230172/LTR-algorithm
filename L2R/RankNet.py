@@ -145,18 +145,22 @@ class RankNet:
             for param_group in optimizer.param_groups:
                 param_group["lr"] = param_group["lr"] * decay_rate
 
-    def fit(self, training_data):
+    def fit(self, training_data, qids_per_chunk: int | None = None):
         """샘플링 0, pair 전부 유지. 메모리 절감:
 
         - qid별로 Xq만 올리고, pair는 스트리밍(batch)으로 생성
         - batch마다 backward만 누적하고(gradient accumulation),
           에폭당 optimizer.step() 1회(full-batch 평균 loss gradient에 가깝게)
+
+        training_data 행은 ``sort_ltr_rows_by_qid`` 와 동일 순서(qid 오름차순)일 것.
+        ``qids_per_chunk``: 0 또는 None이면 모든 qid를 한 청크로 처리한다.
         """
         net = self.model
         net.train()
 
         qid_doc_map = group_by(training_data, 1)
-        query_idx = list(qid_doc_map.keys())
+        query_idx = sorted(qid_doc_map.keys(), key=lambda k: (float(np.asarray(k).item()),))
+        chunk_n = len(query_idx) if not qids_per_chunk or int(qids_per_chunk) <= 0 else int(qids_per_chunk)
         _mem("after_group_by")
 
         optimizer = optim.Adam(net.parameters(), lr=self.learning_rate)
@@ -177,27 +181,29 @@ class RankNet:
             total_pairs = 0
             total_loss_sum = 0.0
 
-            for qid in query_idx:
-                idxs = qid_doc_map[qid]
-                if len(idxs) < 2:
-                    continue
+            for c0 in range(0, len(query_idx), chunk_n):
+                c1 = min(c0 + chunk_n, len(query_idx))
+                for qid in query_idx[c0:c1]:
+                    idxs = qid_doc_map[qid]
+                    if len(idxs) < 2:
+                        continue
 
-                yq = np.asarray(training_data[idxs, 0], dtype=np.float64)
-                Xq = training_data[idxs, 2:].astype(np.float32, copy=False)
-                Xq_t = torch.from_numpy(Xq)
+                    yq = np.asarray(training_data[idxs, 0], dtype=np.float64)
+                    Xq = training_data[idxs, 2:].astype(np.float32, copy=False)
+                    Xq_t = torch.from_numpy(Xq)
 
-                for a_list, b_list in _stream_pair_batches(yq, batch_size=self.batch_size):
-                    a = torch.tensor(a_list, dtype=torch.int64)
-                    b = torch.tensor(b_list, dtype=torch.int64)
-                    X1 = Xq_t.index_select(0, a)
-                    X2 = Xq_t.index_select(0, b)
-                    y = torch.ones((len(a_list), 1), dtype=torch.float32)
+                    for a_list, b_list in _stream_pair_batches(yq, batch_size=self.batch_size):
+                        a = torch.tensor(a_list, dtype=torch.int64)
+                        b = torch.tensor(b_list, dtype=torch.int64)
+                        X1 = Xq_t.index_select(0, a)
+                        X2 = Xq_t.index_select(0, b)
+                        y = torch.ones((len(a_list), 1), dtype=torch.float32)
 
-                    y_pred = net(X1, X2)
-                    loss_sum = loss_fun(y_pred, y)
-                    loss_sum.backward()
-                    total_pairs += int(len(a_list))
-                    total_loss_sum += float(loss_sum.item())
+                        y_pred = net(X1, X2)
+                        loss_sum = loss_fun(y_pred, y)
+                        loss_sum.backward()
+                        total_pairs += int(len(a_list))
+                        total_loss_sum += float(loss_sum.item())
 
             if total_pairs > 0:
                 inv = 1.0 / float(total_pairs)

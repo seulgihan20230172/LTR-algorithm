@@ -152,21 +152,33 @@ def l2r_infer_matrix(X: np.ndarray) -> np.ndarray:
     return out
 
 
-def train_ranknet_local(training_data: np.ndarray, epochs: int, lr: float = 0.01):
+def train_ranknet_local(
+    training_data: np.ndarray,
+    epochs: int,
+    lr: float = 0.01,
+    *,
+    qids_per_chunk: int | None = None,
+):
     if RankNet is None:
         raise RuntimeError("RankNet 모듈을 불러오지 못했습니다.")
     n_feature = int(training_data.shape[1] - 2)
     trainer = RankNet(n_feature, 512, 256, epochs, lr, plot=False)
-    trainer.fit(training_data)
+    trainer.fit(training_data, qids_per_chunk=qids_per_chunk)
     return trainer
 
 
-def train_lambdarank_local(training_data: np.ndarray, epochs: int, lr: float = 0.001):
+def train_lambdarank_local(
+    training_data: np.ndarray,
+    epochs: int,
+    lr: float = 0.001,
+    *,
+    qids_per_chunk: int | None = None,
+):
     if LambdaRank is None:
         raise RuntimeError("lambdaRank 모듈을 불러오지 못했습니다.")
     n_feature = int(training_data.shape[1] - 2)
     trainer = LambdaRank(training_data, n_feature, 512, 256, epochs, lr)
-    trainer.fit()
+    trainer.fit(qids_per_chunk=qids_per_chunk)
     return trainer
 
 
@@ -235,7 +247,19 @@ def assign_by_thresholds(scores: np.ndarray, thresholds_desc: np.ndarray) -> np.
     return out
 
 
-def train_listnet_local(X, y_rel, qid, X_val, y_val_rel, qid_val, epochs: int, lr: float, patience: int):
+def train_listnet_local(
+    X,
+    y_rel,
+    qid,
+    X_val,
+    y_val_rel,
+    qid_val,
+    epochs: int,
+    lr: float,
+    patience: int,
+    *,
+    qids_per_chunk: int | None = None,
+):
     return train_listnet(
         X,
         y_rel,
@@ -246,10 +270,23 @@ def train_listnet_local(X, y_rel, qid, X_val, y_val_rel, qid_val, epochs: int, l
         epochs=epochs,
         lr=lr,
         patience=epochs,
+        qids_per_chunk=qids_per_chunk,
     )
 
 
-def train_listmle_local(X, y_rel, qid, X_val, y_val_rel, qid_val, epochs: int, lr: float, patience: int):
+def train_listmle_local(
+    X,
+    y_rel,
+    qid,
+    X_val,
+    y_val_rel,
+    qid_val,
+    epochs: int,
+    lr: float,
+    patience: int,
+    *,
+    qids_per_chunk: int | None = None,
+):
     return train_listmle(
         X,
         y_rel,
@@ -260,6 +297,7 @@ def train_listmle_local(X, y_rel, qid, X_val, y_val_rel, qid_val, epochs: int, l
         epochs=epochs,
         lr=lr,
         patience=epochs,
+        qids_per_chunk=qids_per_chunk,
     )
 
 
@@ -298,6 +336,7 @@ def run(
     global_qid: int,
     split_mode: str,
     label_mode: str = "severity",
+    qids_per_chunk: int = 0,
 ) -> None:
     t_total_start = time.perf_counter()
     (
@@ -343,8 +382,13 @@ def run(
     ensure_l2r_save_checkpoint_dirs()
     cwd = os.getcwd()
     model = None
-    train_mat = l2r_train_matrix(yr_train, qid_train, xt)
-    # train 행 순서는 time_ordered/stratified 분할에 따라 CSV 시간 순과 다를 수 있음
+    qpc = None if int(qids_per_chunk) <= 0 else int(qids_per_chunk)
+
+    yr_tr_np = np.asarray(yr_train, dtype=np.float32)
+    qid_tr_np = np.asarray(qid_train)
+    xt_ltr, yr_ltr, qid_ltr = sort_ltr_rows_by_qid(xt, yr_tr_np, qid_tr_np)
+    train_mat = l2r_train_matrix(yr_ltr, qid_ltr, xt_ltr)
+    # train 행 순서: XGBoost rank·ListNet·RankNet 등 L2R 은 sort_ltr_rows_by_qid(qid 오름차순) 기준
     with np.printoptions(suppress=True, precision=4, linewidth=200):
         print(train_mat[0:4, :])
     try:
@@ -353,11 +397,29 @@ def run(
             pass
         elif model_name == "listnet":
             model = train_listnet_local(
-                xt, yr_train, qid_train, xv, yr_val, qid_val, epochs=epochs, lr=0.001, patience=epochs
+                xt_ltr,
+                yr_ltr,
+                qid_ltr,
+                xv,
+                yr_val,
+                qid_val,
+                epochs=epochs,
+                lr=0.001,
+                patience=epochs,
+                qids_per_chunk=qpc,
             )
         elif model_name == "listmle":
             model = train_listmle_local(
-                xt, yr_train, qid_train, xv, yr_val, qid_val, epochs=epochs, lr=0.001, patience=epochs
+                xt_ltr,
+                yr_ltr,
+                qid_ltr,
+                xv,
+                yr_val,
+                qid_val,
+                epochs=epochs,
+                lr=0.001,
+                patience=epochs,
+                qids_per_chunk=qpc,
             )
         elif model_name == "xgboost":
             if train_xgb is None:
@@ -374,9 +436,9 @@ def run(
             model = train_xgb(xt_r, yr_tr, q_tr, xv_r, yr_vr, q_vr)
 
         elif model_name == "ranknet":
-            model = train_ranknet_local(train_mat, epochs=epochs, lr=0.01)
+            model = train_ranknet_local(train_mat, epochs=epochs, lr=0.01, qids_per_chunk=qpc)
         elif model_name == "lambdarank":
-            model = train_lambdarank_local(train_mat, epochs=epochs, lr=0.001)
+            model = train_lambdarank_local(train_mat, epochs=epochs, lr=0.001, qids_per_chunk=qpc)
         elif model_name == "lambdamart":
             model = train_lambdamart_local(train_mat, n_trees=max(1, int(epochs)), lr=0.1)
         else:
@@ -645,6 +707,7 @@ if __name__ == "__main__":
             global_qid=int(cfg["ranking"]["global_qid"]),
             split_mode=str(cfg["split"]["mode"]),
             label_mode=str(cfg["data"].get("label_mode", "severity")),
+            qids_per_chunk=int(cfg["ranking"].get("qids_per_chunk", 0)),
         )
     finally:
         sys.stdout = old_out

@@ -186,31 +186,46 @@ class LambdaRank:
         # for para in self.model.parameters():
         #     print(para[0])
 
-    def fit(self):
+    def fit(self, qids_per_chunk: int | None = None):
         """
-        train the model to fit the train dataset
+        training_data 행은 ``sort_ltr_rows_by_qid`` 로 정렬된 것과 같아야 XGBoost rank 의 group(qid) 순서와 같다.
+
+        ``qids_per_chunk``: qid 그룹을 이 개수만큼 묶어 forward 를 나눈다(메모리). 0 또는 None 이면 전체 행을 한 번에 forward.
         """
-        qid_doc_map = group_by(self.training_data, 1)
-        query_idx = qid_doc_map.keys()
-        # true_scores is a matrix, different rows represent different queries
-        true_scores = [self.training_data[qid_doc_map[qid], 0] for qid in query_idx]
+        td = self.training_data
+        qid_col = np.asarray(td[:, 1])
+        uq, starts, counts = np.unique(qid_col, return_index=True, return_counts=True)
+        ends = starts + counts
+        qid_doc_map = group_by(td, 1)
+        query_idx = list(uq)
 
-        order_paris = []
-        for scores in true_scores:
-            order_paris.append(get_pairs(scores))
+        true_scores = [td[starts[k] : ends[k], 0] for k in range(len(uq))]
+        order_paris = [get_pairs(scores) for scores in true_scores]
 
-        sample_num = len(self.training_data)
+        sample_num = len(td)
+        X_np = td[:, 2:].astype(np.float32)
+        qpc = None if not qids_per_chunk or int(qids_per_chunk) <= 0 else int(qids_per_chunk)
+
+        def forward_all():
+            if not qpc:
+                return self.model(torch.from_numpy(X_np))
+            parts = []
+            for c0 in range(0, len(uq), qpc):
+                c1 = min(c0 + qpc, len(uq))
+                lo = int(starts[c0])
+                hi = int(ends[c1 - 1])
+                parts.append(self.model(torch.from_numpy(X_np[lo:hi])))
+            return torch.cat(parts, dim=0)
 
         best_score = -1
 
         print('Training .....\n')
         for i in range(self.epoch):
-            predicted_scores = self.model(torch.from_numpy(self.training_data[:, 2:].astype(np.float32)))
-            predicted_scores_numpy = predicted_scores.data.numpy().flatten()
+            predicted_scores = forward_all()
+            predicted_scores_numpy = predicted_scores.detach().numpy().flatten()
             lambdas = np.zeros(sample_num)
-            # w = np.zeros(sample_num)
 
-            pred_score = [predicted_scores_numpy[qid_doc_map[qid]] for qid in query_idx]
+            pred_score = [predicted_scores_numpy[starts[k] : ends[k]] for k in range(len(uq))]
 
             zip_parameters = zip(true_scores, pred_score, order_paris, query_idx)
             for ts, ps, op, qi in zip_parameters:
