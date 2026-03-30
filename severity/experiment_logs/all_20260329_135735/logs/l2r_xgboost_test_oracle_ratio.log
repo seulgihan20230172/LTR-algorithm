@@ -1,0 +1,125 @@
+# train_severity_l2r_rank 2026-03-29T14:13:43.564488
+# model=xgboost test_mode=test_oracle_ratio csv=severity/logging_monitoring_anomalies.csv
+# config=/home/work/lab_project/severity/experiment_config.yaml
+
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_135735/logs/l2r_xgboost_test_oracle_ratio.log
+[[ 0.      0.     -0.8351 -1.7189  1.4577  0.122   1.0859  0.5791 -1.2547  1.2696 -1.309   1.1615  1.3574  0.7751 -1.7115 -0.1346 -0.9621 -1.3686  1.0604  0.8664  0.7023  0.882   1.3367 -0.8785
+   0.4453  0.4473  0.635   0.7097 -1.3365 -0.7106]
+ [ 1.      0.      0.1243 -0.3186 -1.2696 -1.2888  0.3412  0.4589  1.4455 -0.1913  0.2913 -1.2219  1.3574  0.6019  1.7109 -1.085  -1.6556  1.5471 -0.5     0.8664 -1.4193 -0.881  -0.4545  1.4664
+  -0.45    0.4473 -0.2115  0.0033  1.3381 -1.4171]
+ [ 2.      0.      0.9625  0.3535 -1.2696  0.12    0.1687  1.4359 -1.1057 -0.4565  1.3232 -0.0269 -0.5194  0.6019 -0.9671 -0.9529  0.4249 -0.0661  0.493   0.518  -0.7121 -0.2933 -1.3501 -1.4647
+   1.3406 -1.3473  0.1516  0.7097 -0.445   1.409 ]
+ [ 1.      0.     -1.6167 -1.2117 -0.1787 -0.6923 -1.2574 -0.5276 -0.8082  0.3122  0.5782  1.5341 -0.6584  1.1216 -1.1053  0.515  -0.442  -0.3785  0.7767 -1.5721  0.7023 -1.4687  1.3367 -0.8785
+   0.4453 -1.3473  1.5224  0.7097 -1.3365  1.409 ]]
+
+[피처 중요도 로그] /home/work/lab_project/severity/feature_importance_train_severity_l2r_xgboost_test_oracle_ratio.log
+
+[검증] train 비율로 배정한 분류 정확도(early stopping용 참고): 0.2472
+[검증] 클래스별 리콜·오답·FP 요약
+  [실제 정답 클래스 기준]
+    Critical: 정답 4925건, 맞춤 1200건, 리콜 0.2437
+      오답 3725건 — 예측 High: 1219건, 예측 Medium: 1263건, 예측 Low: 1243건
+    High: 정답 4954건, 맞춤 1255건, 리콜 0.2533
+      오답 3699건 — 예측 Critical: 1250건, 예측 Medium: 1240건, 예측 Low: 1209건
+    Medium: 정답 5085건, 맞춤 1228건, 리콜 0.2415
+      오답 3857건 — 예측 Critical: 1320건, 예측 High: 1273건, 예측 Low: 1264건
+    Low: 정답 5036건, 맞춤 1261건, 리콜 0.2504
+      오답 3775건 — 예측 Critical: 1268건, 예측 High: 1269건, 예측 Medium: 1238건
+  [예측 클래스 기준 FP] (예측이 해당 클래스인데 정답이 다른 경우)
+    예측 Critical: FP 3838건 (실제 High: 1250건, 실제 Medium: 1320건, 실제 Low: 1268건)
+    예측 High: FP 3761건 (실제 Critical: 1219건, 실제 Medium: 1273건, 실제 Low: 1269건)
+    예측 Medium: FP 3741건 (실제 Critical: 1263건, 실제 High: 1240건, 실제 Low: 1238건)
+    예측 Low: FP 3716건 (실제 Critical: 1243건, 실제 High: 1209건, 실제 Medium: 1264건)
+  ※ Train/Test의 classification_report recall 열은 위 ‘맞춤’과 대응합니다. precision·F1은 같은 표에서 확인.
+
+[Train] 실제 Severity와 비교
+
+=== Train (비율 배정) ===
+Accuracy: 0.2923
+  클래스별 리콜·오답·FP 요약:
+  [실제 정답 클래스 기준]
+    Critical: 정답 15114건, 맞춤 5633건, 리콜 0.3727
+      오답 9481건 — 예측 High: 3269건, 예측 Medium: 3289건, 예측 Low: 2923건
+    High: 정답 15048건, 맞춤 3651건, 리콜 0.2426
+      오답 11397건 — 예측 Critical: 4171건, 예측 Medium: 3680건, 예측 Low: 3546건
+    Medium: 정답 14906건, 맞춤 3866건, 리콜 0.2594
+      오답 11040건 — 예측 Critical: 3006건, 예측 High: 3962건, 예측 Low: 4072건
+    Low: 정답 14932건, 맞춤 4391건, 리콜 0.2941
+      오답 10541건 — 예측 Critical: 2304건, 예측 High: 4166건, 예측 Medium: 4071건
+  [예측 클래스 기준 FP] (예측이 해당 클래스인데 정답이 다른 경우)
+    예측 Critical: FP 9481건 (실제 High: 4171건, 실제 Medium: 3006건, 실제 Low: 2304건)
+    예측 High: FP 11397건 (실제 Critical: 3269건, 실제 Medium: 3962건, 실제 Low: 4166건)
+    예측 Medium: FP 11040건 (실제 Critical: 3289건, 실제 High: 3680건, 실제 Low: 4071건)
+    예측 Low: FP 10541건 (실제 Critical: 2923건, 실제 High: 3546건, 실제 Medium: 4072건)
+  ※ 위 ‘맞춤 n건’ 기준 리콜은 아래 classification_report의 recall 열과 같습니다. precision·f1은 같은 표에서 확인하세요.
+Macro precision: 0.2922
+Macro recall: 0.2922
+Macro F1: 0.2922
+Weighted precision: 0.2923
+Weighted recall: 0.2923
+Weighted F1: 0.2923
+              precision    recall  f1-score   support
+
+    Critical     0.3727    0.3727    0.3727     15114
+        High     0.2426    0.2426    0.2426     15048
+      Medium     0.2594    0.2594    0.2594     14906
+         Low     0.2941    0.2941    0.2941     14932
+
+    accuracy                         0.2923     60000
+   macro avg     0.2922    0.2922    0.2922     60000
+weighted avg     0.2923    0.2923    0.2923     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [-0.052583 -0.178548 -0.247795]
+(참고) train score min/max: -0.851445 / 2.228653
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=test_oracle_ratio) ===
+Accuracy: 0.2495
+  클래스별 리콜·오답·FP 요약:
+  [실제 정답 클래스 기준]
+    Critical: 정답 5108건, 맞춤 1302건, 리콜 0.2549
+      오답 3806건 — 예측 High: 1285건, 예측 Medium: 1249건, 예측 Low: 1272건
+    High: 정답 4920건, 맞춤 1198건, 리콜 0.2435
+      오답 3722건 — 예측 Critical: 1270건, 예측 Medium: 1201건, 예측 Low: 1251건
+    Medium: 정답 5027건, 맞춤 1317건, 리콜 0.2620
+      오답 3710건 — 예측 Critical: 1257건, 예측 High: 1203건, 예측 Low: 1250건
+    Low: 정답 4945건, 맞춤 1172건, 리콜 0.2370
+      오답 3773건 — 예측 Critical: 1279건, 예측 High: 1234건, 예측 Medium: 1260건
+  [예측 클래스 기준 FP] (예측이 해당 클래스인데 정답이 다른 경우)
+    예측 Critical: FP 3806건 (실제 High: 1270건, 실제 Medium: 1257건, 실제 Low: 1279건)
+    예측 High: FP 3722건 (실제 Critical: 1285건, 실제 Medium: 1203건, 실제 Low: 1234건)
+    예측 Medium: FP 3710건 (실제 Critical: 1249건, 실제 High: 1201건, 실제 Low: 1260건)
+    예측 Low: FP 3773건 (실제 Critical: 1272건, 실제 High: 1251건, 실제 Medium: 1250건)
+  ※ 위 ‘맞춤 n건’ 기준 리콜은 아래 classification_report의 recall 열과 같습니다. precision·f1은 같은 표에서 확인하세요.
+Macro precision: 0.2493
+Macro recall: 0.2493
+Macro F1: 0.2493
+Weighted precision: 0.2495
+Weighted recall: 0.2495
+Weighted F1: 0.2495
+              precision    recall  f1-score   support
+
+    Critical     0.2549    0.2549    0.2549      5108
+        High     0.2435    0.2435    0.2435      4920
+      Medium     0.2620    0.2620    0.2620      5027
+         Low     0.2370    0.2370    0.2370      4945
+
+    accuracy                         0.2495     20000
+   macro avg     0.2493    0.2493    0.2493     20000
+weighted avg     0.2495    0.2495    0.2495     20000
+
+
+저장: severity/logging_monitoring_anomalies_l2r_xgboost_test_oracle_ratio.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.358 s
+전처리(인코딩·스케일) + 학습(train∪val L2R): 16.761 s
+추론·경계·Train·Val·Test 평가·저장(전수): 2.723 s
+  └ Test severity 정답 비교(report_metrics)만: 0.374 s
+전체: 26.156 s
+
+=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
+Validation MRR: 0.854042
+Test MRR:       0.860030

@@ -1,0 +1,145 @@
+# train_severity_l2r_rank 2026-03-29T14:14:13.601697
+# model=ranknet test_mode=test_oracle_ratio csv=severity/logging_monitoring_anomalies.csv
+# config=/home/work/lab_project/severity/experiment_config.yaml
+
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_135735/logs/l2r_ranknet_test_oracle_ratio.log
+[[ 0.      0.     -0.8351 -1.7189  1.4577  0.122   1.0859  0.5791 -1.2547  1.2696 -1.309   1.1615  1.3574  0.7751 -1.7115 -0.1346 -0.9621 -1.3686  1.0604  0.8664  0.7023  0.882   1.3367 -0.8785
+   0.4453  0.4473  0.635   0.7097 -1.3365 -0.7106]
+ [ 1.      0.      0.1243 -0.3186 -1.2696 -1.2888  0.3412  0.4589  1.4455 -0.1913  0.2913 -1.2219  1.3574  0.6019  1.7109 -1.085  -1.6556  1.5471 -0.5     0.8664 -1.4193 -0.881  -0.4545  1.4664
+  -0.45    0.4473 -0.2115  0.0033  1.3381 -1.4171]
+ [ 2.      0.      0.9625  0.3535 -1.2696  0.12    0.1687  1.4359 -1.1057 -0.4565  1.3232 -0.0269 -0.5194  0.6019 -0.9671 -0.9529  0.4249 -0.0661  0.493   0.518  -0.7121 -0.2933 -1.3501 -1.4647
+   1.3406 -1.3473  0.1516  0.7097 -0.445   1.409 ]
+ [ 1.      0.     -1.6167 -1.2117 -0.1787 -0.6923 -1.2574 -0.5276 -0.8082  0.3122  0.5782  1.5341 -0.6584  1.1216 -1.1053  0.515  -0.442  -0.3785  0.7767 -1.5721  0.7023 -1.4687  1.3367 -0.8785
+   0.4453 -1.3473  1.5224  0.7097 -1.3365  1.409 ]]
+Traning………………
+
+/home/work/lab_project/L2R/RankNet.py:214: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  score = -loss.item()
+Epoch:0, loss : 0.7012940645217896, Metrics: {'NDCG@1': 0.41385714285714287, 'NDCG@5': 0.4028837963016371, 'NDCG@10': 0.4016662650758266, 'MAP': 0.7704725695174335, 'MRR': 0.8722011904761905}
+Epoch:10, loss : 0.6927481293678284, Metrics: {'NDCG@1': 0.4114285714285714, 'NDCG@5': 0.4151203621444729, 'NDCG@10': 0.41301765169816734, 'MAP': 0.7739181013769326, 'MRR': 0.8730833333333332}
+Epoch:20, loss : 0.6909981966018677, Metrics: {'NDCG@1': 0.4397142857142858, 'NDCG@5': 0.4370249396256872, 'NDCG@10': 0.43672194479777254, 'MAP': 0.7855997553485082, 'MRR': 0.89325}
+Epoch:30, loss : 0.6885343194007874, Metrics: {'NDCG@1': 0.49657142857142866, 'NDCG@5': 0.4758005978814738, 'NDCG@10': 0.4604407608972149, 'MAP': 0.7923674663672409, 'MRR': 0.9115833333333334}
+Epoch:40, loss : 0.6859874725341797, Metrics: {'NDCG@1': 0.5314285714285715, 'NDCG@5': 0.4979100760313511, 'NDCG@10': 0.4784785935410071, 'MAP': 0.7982855191783804, 'MRR': 0.9334166666666668}
+Epoch:50, loss : 0.6839063167572021, Metrics: {'NDCG@1': 0.5577142857142858, 'NDCG@5': 0.5155830306486409, 'NDCG@10': 0.4926456194177468, 'MAP': 0.8015865333372978, 'MRR': 0.9383333333333332}
+Epoch:60, loss : 0.6814090609550476, Metrics: {'NDCG@1': 0.5455714285714286, 'NDCG@5': 0.5202375454977817, 'NDCG@10': 0.4970625913978383, 'MAP': 0.8008181387965635, 'MRR': 0.9321666666666667}
+Epoch:70, loss : 0.6786282062530518, Metrics: {'NDCG@1': 0.5978571428571429, 'NDCG@5': 0.5438628667103111, 'NDCG@10': 0.5130397111376375, 'MAP': 0.805056057055487, 'MRR': 0.9445}
+Epoch:80, loss : 0.675944983959198, Metrics: {'NDCG@1': 0.6500000000000001, 'NDCG@5': 0.5681823149952113, 'NDCG@10': 0.5278500165884025, 'MAP': 0.8098103825904032, 'MRR': 0.9598666666666666}
+Epoch:90, loss : 0.6735478639602661, Metrics: {'NDCG@1': 0.6504285714285715, 'NDCG@5': 0.5798095206132782, 'NDCG@10': 0.5325656718591729, 'MAP': 0.8116392672782088, 'MRR': 0.96}
+Epoch:100, loss : 0.6713599562644958, Metrics: {'NDCG@1': 0.6745714285714287, 'NDCG@5': 0.5857532748037727, 'NDCG@10': 0.5407163620638121, 'MAP': 0.8122537061156897, 'MRR': 0.964}
+Epoch:110, loss : 0.6692764759063721, Metrics: {'NDCG@1': 0.6727142857142857, 'NDCG@5': 0.5906796708047759, 'NDCG@10': 0.5448214551438388, 'MAP': 0.8119991394833207, 'MRR': 0.9580333333333333}
+Epoch:120, loss : 0.6672391295433044, Metrics: {'NDCG@1': 0.7025714285714286, 'NDCG@5': 0.6041252074506874, 'NDCG@10': 0.5537044296513559, 'MAP': 0.815666594100024, 'MRR': 0.9693333333333333}
+Epoch:130, loss : 0.6652251482009888, Metrics: {'NDCG@1': 0.7054285714285715, 'NDCG@5': 0.620389836975671, 'NDCG@10': 0.5649670641849717, 'MAP': 0.818727365780697, 'MRR': 0.9665}
+Epoch:140, loss : 0.6629069447517395, Metrics: {'NDCG@1': 0.7414285714285715, 'NDCG@5': 0.6301657829165838, 'NDCG@10': 0.5728877666572583, 'MAP': 0.8208933711701384, 'MRR': 0.9732000000000001}
+
+[피처 중요도 로그] /home/work/lab_project/severity/feature_importance_train_severity_l2r_ranknet_test_oracle_ratio.log
+
+[검증] train 비율로 배정한 분류 정확도(early stopping용 참고): 0.2500
+[검증] 클래스별 리콜·오답·FP 요약
+  [실제 정답 클래스 기준]
+    Critical: 정답 4925건, 맞춤 1228건, 리콜 0.2493
+      오답 3697건 — 예측 High: 1260건, 예측 Medium: 1224건, 예측 Low: 1213건
+    High: 정답 4954건, 맞춤 1240건, 리콜 0.2503
+      오답 3714건 — 예측 Critical: 1226건, 예측 Medium: 1247건, 예측 Low: 1241건
+    Medium: 정답 5085건, 맞춤 1292건, 리콜 0.2541
+      오답 3793건 — 예측 Critical: 1266건, 예측 High: 1243건, 예측 Low: 1284건
+    Low: 정답 5036건, 맞춤 1239건, 리콜 0.2460
+      오답 3797건 — 예측 Critical: 1318건, 예측 High: 1273건, 예측 Medium: 1206건
+  [예측 클래스 기준 FP] (예측이 해당 클래스인데 정답이 다른 경우)
+    예측 Critical: FP 3810건 (실제 High: 1226건, 실제 Medium: 1266건, 실제 Low: 1318건)
+    예측 High: FP 3776건 (실제 Critical: 1260건, 실제 Medium: 1243건, 실제 Low: 1273건)
+    예측 Medium: FP 3677건 (실제 Critical: 1224건, 실제 High: 1247건, 실제 Low: 1206건)
+    예측 Low: FP 3738건 (실제 Critical: 1213건, 실제 High: 1241건, 실제 Medium: 1284건)
+  ※ Train/Test의 classification_report recall 열은 위 ‘맞춤’과 대응합니다. precision·F1은 같은 표에서 확인.
+
+[Train] 실제 Severity와 비교
+
+=== Train (비율 배정) ===
+Accuracy: 0.3275
+  클래스별 리콜·오답·FP 요약:
+  [실제 정답 클래스 기준]
+    Critical: 정답 15114건, 맞춤 6354건, 리콜 0.4204
+      오답 8760건 — 예측 High: 3427건, 예측 Medium: 3438건, 예측 Low: 1895건
+    High: 정답 15048건, 맞춤 3793건, 리콜 0.2521
+      오답 11255건 — 예측 Critical: 4416건, 예측 Medium: 3772건, 예측 Low: 3067건
+    Medium: 정답 14906건, 맞춤 3865건, 리콜 0.2593
+      오답 11041건 — 예측 Critical: 2696건, 예측 High: 4015건, 예측 Low: 4330건
+    Low: 정답 14932건, 맞춤 5640건, 리콜 0.3777
+      오답 9292건 — 예측 Critical: 1648건, 예측 High: 3813건, 예측 Medium: 3831건
+  [예측 클래스 기준 FP] (예측이 해당 클래스인데 정답이 다른 경우)
+    예측 Critical: FP 8760건 (실제 High: 4416건, 실제 Medium: 2696건, 실제 Low: 1648건)
+    예측 High: FP 11255건 (실제 Critical: 3427건, 실제 Medium: 4015건, 실제 Low: 3813건)
+    예측 Medium: FP 11041건 (실제 Critical: 3438건, 실제 High: 3772건, 실제 Low: 3831건)
+    예측 Low: FP 9292건 (실제 Critical: 1895건, 실제 High: 3067건, 실제 Medium: 4330건)
+  ※ 위 ‘맞춤 n건’ 기준 리콜은 아래 classification_report의 recall 열과 같습니다. precision·f1은 같은 표에서 확인하세요.
+Macro precision: 0.3274
+Macro recall: 0.3274
+Macro F1: 0.3274
+Weighted precision: 0.3275
+Weighted recall: 0.3275
+Weighted F1: 0.3275
+              precision    recall  f1-score   support
+
+    Critical     0.4204    0.4204    0.4204     15114
+        High     0.2521    0.2521    0.2521     15048
+      Medium     0.2593    0.2593    0.2593     14906
+         Low     0.3777    0.3777    0.3777     14932
+
+    accuracy                         0.3275     60000
+   macro avg     0.3274    0.3274    0.3274     60000
+weighted avg     0.3275    0.3275    0.3275     60000
+
+
+Train에서 추정한 score 경계(내림차순 상위부터 Critical→…): [-0.040941 -0.057305 -0.057305]
+(참고) train score min/max: -1.726501 / 3.214474
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=test_oracle_ratio) ===
+Accuracy: 0.2490
+  클래스별 리콜·오답·FP 요약:
+  [실제 정답 클래스 기준]
+    Critical: 정답 5108건, 맞춤 1300건, 리콜 0.2545
+      오답 3808건 — 예측 High: 1230건, 예측 Medium: 1310건, 예측 Low: 1268건
+    High: 정답 4920건, 맞춤 1265건, 리콜 0.2571
+      오답 3655건 — 예측 Critical: 1230건, 예측 Medium: 1194건, 예측 Low: 1231건
+    Medium: 정답 5027건, 맞춤 1227건, 리콜 0.2441
+      오답 3800건 — 예측 Critical: 1311건, 예측 High: 1231건, 예측 Low: 1258건
+    Low: 정답 4945건, 맞춤 1188건, 리콜 0.2402
+      오답 3757건 — 예측 Critical: 1267건, 예측 High: 1194건, 예측 Medium: 1296건
+  [예측 클래스 기준 FP] (예측이 해당 클래스인데 정답이 다른 경우)
+    예측 Critical: FP 3808건 (실제 High: 1230건, 실제 Medium: 1311건, 실제 Low: 1267건)
+    예측 High: FP 3655건 (실제 Critical: 1230건, 실제 Medium: 1231건, 실제 Low: 1194건)
+    예측 Medium: FP 3800건 (실제 Critical: 1310건, 실제 High: 1194건, 실제 Low: 1296건)
+    예측 Low: FP 3757건 (실제 Critical: 1268건, 실제 High: 1231건, 실제 Medium: 1258건)
+  ※ 위 ‘맞춤 n건’ 기준 리콜은 아래 classification_report의 recall 열과 같습니다. precision·f1은 같은 표에서 확인하세요.
+Macro precision: 0.2490
+Macro recall: 0.2490
+Macro F1: 0.2490
+Weighted precision: 0.2490
+Weighted recall: 0.2490
+Weighted F1: 0.2490
+              precision    recall  f1-score   support
+
+    Critical     0.2545    0.2545    0.2545      5108
+        High     0.2571    0.2571    0.2571      4920
+      Medium     0.2441    0.2441    0.2441      5027
+         Low     0.2402    0.2402    0.2402      4945
+
+    accuracy                         0.2490     20000
+   macro avg     0.2490    0.2490    0.2490     20000
+weighted avg     0.2490    0.2490    0.2490     20000
+
+
+저장: severity/logging_monitoring_anomalies_l2r_ranknet_test_oracle_ratio.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.439 s
+전처리(인코딩·스케일) + 학습(train∪val L2R): 13884.460 s
+추론·경계·Train·Val·Test 평가·저장(전수): 2.618 s
+  └ Test severity 정답 비교(report_metrics)만: 0.374 s
+전체: 13888.274 s
+
+=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
+Validation MRR: 0.862275
+Test MRR:       0.881737

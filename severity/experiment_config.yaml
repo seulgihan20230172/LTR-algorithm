@@ -1,10 +1,18 @@
-# severity 실험 설정 (단일 파일 — L2R·control group 공통)
+# severity 실험 설정 (단일 파일 — L3R·control group 공통)
 # 프로젝트 루트 기준 경로.
 #
 # CVE 실험 vs 로깅(레거시) 실험 전환: 아래 active_profile 만 바꾸면 됨 (logging | cve).
 # 공통 값(split·epochs·features 일부)은 YAML 앵커(x-common)로 한 번만 정의됨.
 
 active_profile: logging
+=======
+evaluation:
+  # train_thresholds: train score 분포·클래스 개수로 경계(th) 추정 후 val/test에 동일 적용
+  # test_oracle_ratio: test 집합의 실제 4클래스 개수로 상위 점수부터 배정(벤치용)
+  # train_score_relevance_0_3: train 점수 min~max를 [0,3] relevance로 선형 매핑 후 반올림 → Severity (점수 기반 파이프라인 공통)
+  test_mode: test_oracle_ratio
+  # true: report_metrics에 Ordinal MAE·RMSE·Within-1 출력 (0~3 등간격 relevance 가정의 보조 지표)
+  ordinal_severity_metrics: false
 
 # 프로필에 공통으로 합쳐지는 블록 (split / epochs / features)
 x-common: &common

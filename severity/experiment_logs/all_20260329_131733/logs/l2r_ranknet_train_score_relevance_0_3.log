@@ -1,0 +1,102 @@
+# train_severity_l2r_rank 2026-03-29T13:33:49.641122
+# model=ranknet test_mode=train_score_relevance_0_3 csv=severity/logging_monitoring_anomalies.csv
+# config=/home/work/lab_project/severity/experiment_config.yaml
+
+[로그 파일] /home/work/lab_project/severity/experiment_logs/all_20260329_131733/logs/l2r_ranknet_train_score_relevance_0_3.log
+[[ 0.      0.     -0.8351 -1.7189  1.4577  0.122   1.0859  0.5791 -1.2547  1.2696 -1.309   1.1615  1.3574  0.7751 -1.7115 -0.1346 -0.9621 -1.3686  1.0604  0.8664  0.7023  0.882   1.3367 -0.8785
+   0.4453  0.4473  0.635   0.7097 -1.3365 -0.7106]
+ [ 1.      0.      0.1243 -0.3186 -1.2696 -1.2888  0.3412  0.4589  1.4455 -0.1913  0.2913 -1.2219  1.3574  0.6019  1.7109 -1.085  -1.6556  1.5471 -0.5     0.8664 -1.4193 -0.881  -0.4545  1.4664
+  -0.45    0.4473 -0.2115  0.0033  1.3381 -1.4171]
+ [ 2.      0.      0.9625  0.3535 -1.2696  0.12    0.1687  1.4359 -1.1057 -0.4565  1.3232 -0.0269 -0.5194  0.6019 -0.9671 -0.9529  0.4249 -0.0661  0.493   0.518  -0.7121 -0.2933 -1.3501 -1.4647
+   1.3406 -1.3473  0.1516  0.7097 -0.445   1.409 ]
+ [ 1.      0.     -1.6167 -1.2117 -0.1787 -0.6923 -1.2574 -0.5276 -0.8082  0.3122  0.5782  1.5341 -0.6584  1.1216 -1.1053  0.515  -0.442  -0.3785  0.7767 -1.5721  0.7023 -1.4687  1.3367 -0.8785
+   0.4453 -1.3473  1.5224  0.7097 -1.3365  1.409 ]]
+Traning………………
+
+/home/work/lab_project/L2R/RankNet.py:214: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  score = -loss.item()
+Epoch:0, loss : 0.7008969783782959, Metrics: {'NDCG@1': 0.402, 'NDCG@5': 0.3993239226476623, 'NDCG@10': 0.4025662883108106, 'MAP': 0.7696461199195201, 'MRR': 0.87}
+Epoch:10, loss : 0.6928020119667053, Metrics: {'NDCG@1': 0.41328571428571426, 'NDCG@5': 0.4085801143964465, 'NDCG@10': 0.4100046578436959, 'MAP': 0.774002367898566, 'MRR': 0.8791357142857142}
+Epoch:20, loss : 0.6916313171386719, Metrics: {'NDCG@1': 0.47471428571428576, 'NDCG@5': 0.45608282676918177, 'NDCG@10': 0.441450814445081, 'MAP': 0.7845005690041764, 'MRR': 0.90395}
+Epoch:30, loss : 0.6900689005851746, Metrics: {'NDCG@1': 0.5015714285714286, 'NDCG@5': 0.4675990751682896, 'NDCG@10': 0.45135200996103214, 'MAP': 0.7844410479631726, 'MRR': 0.9074166666666666}
+Epoch:40, loss : 0.6882497668266296, Metrics: {'NDCG@1': 0.5465714285714287, 'NDCG@5': 0.4953912760051611, 'NDCG@10': 0.47031564937652615, 'MAP': 0.7915625029422159, 'MRR': 0.9239166666666667}
+Epoch:50, loss : 0.6864002346992493, Metrics: {'NDCG@1': 0.5877142857142857, 'NDCG@5': 0.5111047225968093, 'NDCG@10': 0.478623110195301, 'MAP': 0.7929134273324514, 'MRR': 0.9374166666666667}
+Epoch:60, loss : 0.6842752695083618, Metrics: {'NDCG@1': 0.5898571428571429, 'NDCG@5': 0.5220185830448859, 'NDCG@10': 0.49385370234299303, 'MAP': 0.7966232355539632, 'MRR': 0.9443666666666667}
+Epoch:70, loss : 0.6818566918373108, Metrics: {'NDCG@1': 0.6087142857142858, 'NDCG@5': 0.5406805986600494, 'NDCG@10': 0.5041869389175003, 'MAP': 0.8002283281351922, 'MRR': 0.9488333333333334}
+Epoch:80, loss : 0.6793819069862366, Metrics: {'NDCG@1': 0.6271428571428572, 'NDCG@5': 0.5576182274831085, 'NDCG@10': 0.5134237850888547, 'MAP': 0.802138527203403, 'MRR': 0.9498333333333333}
+Epoch:90, loss : 0.6769967675209045, Metrics: {'NDCG@1': 0.6668571428571429, 'NDCG@5': 0.5744700899731904, 'NDCG@10': 0.5286984279736893, 'MAP': 0.8042632330350697, 'MRR': 0.9647833333333333}
+Epoch:100, loss : 0.674725353717804, Metrics: {'NDCG@1': 0.6802857142857143, 'NDCG@5': 0.5807919987157721, 'NDCG@10': 0.5338016170720875, 'MAP': 0.8068586869805884, 'MRR': 0.9704166666666666}
+Epoch:110, loss : 0.6726217865943909, Metrics: {'NDCG@1': 0.7001428571428571, 'NDCG@5': 0.60545864547925, 'NDCG@10': 0.5513373131321341, 'MAP': 0.812344072562492, 'MRR': 0.9785833333333332}
+Epoch:120, loss : 0.6705960631370544, Metrics: {'NDCG@1': 0.7215714285714286, 'NDCG@5': 0.6163070332592238, 'NDCG@10': 0.5593737291706646, 'MAP': 0.8111468845256068, 'MRR': 0.9681666666666667}
+Epoch:130, loss : 0.668537437915802, Metrics: {'NDCG@1': 0.7324285714285715, 'NDCG@5': 0.6240127587560305, 'NDCG@10': 0.5656679287427205, 'MAP': 0.8142390305449518, 'MRR': 0.9771666666666667}
+Epoch:140, loss : 0.666628360748291, Metrics: {'NDCG@1': 0.7374285714285714, 'NDCG@5': 0.6358187074139628, 'NDCG@10': 0.5747839518319361, 'MAP': 0.8182929451344381, 'MRR': 0.974}
+
+[피처 중요도 로그] /home/work/lab_project/severity/feature_importance_train_severity_l2r_ranknet_train_score_relevance_0_3.log
+
+[검증] train min~max→[0,3] relevance 반올림 기준 분류 정확도(참고): 0.2540
+
+[Train] 실제 Severity와 비교
+
+=== Train (train_score_relevance_0_3) ===
+Accuracy: 0.2532
+Macro precision: 0.5498
+Macro recall: 0.2548
+Macro F1: 0.1118
+Weighted precision: 0.5505
+Weighted recall: 0.2532
+Weighted F1: 0.1112
+              precision    recall  f1-score   support
+
+    Critical     1.0000    0.0006    0.0012     15114
+        High     0.1331    0.0085    0.0160     15048
+      Medium     0.2527    0.9964    0.4032     14906
+         Low     0.8135    0.0137    0.0270     14932
+
+    accuracy                         0.2532     60000
+   macro avg     0.5498    0.2548    0.1118     60000
+weighted avg     0.5505    0.2532    0.1112     60000
+
+
+[train_score_relevance_0_3] train 점수 min~max를 [0,3] relevance로 선형 매핑 후 반올림 (train min=-1.217958, train max=2.681459)
+
+[Test] 실제 Severity와 비교
+
+=== Test (mode=train_score_relevance_0_3) ===
+Accuracy: 0.2511
+Macro precision: 0.1771
+Macro recall: 0.2498
+Macro F1: 0.1049
+Weighted precision: 0.1759
+Weighted recall: 0.2511
+Weighted F1: 0.1054
+/usr/local/lib/python3.12/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/usr/local/lib/python3.12/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/usr/local/lib/python3.12/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+              precision    recall  f1-score   support
+
+    Critical     0.0000    0.0000    0.0000      5108
+        High     0.2185    0.0053    0.0103      4920
+      Medium     0.2514    0.9897    0.4009      5027
+         Low     0.2386    0.0042    0.0083      4945
+
+    accuracy                         0.2511     20000
+   macro avg     0.1771    0.2498    0.1049     20000
+weighted avg     0.1759    0.2511    0.1054     20000
+
+
+저장: severity/logging_monitoring_anomalies_l2r_ranknet_train_score_relevance_0_3.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.370 s
+전처리(인코딩·스케일) + 학습(train∪val L2R): 13878.600 s
+추론·경계·Train·Val·Test 평가·저장(전수): 2.557 s
+  └ Test severity 정답 비교(report_metrics)만: 0.367 s
+전체: 13882.304 s
+
+=== 랭킹 지표 MRR (L2R/metrics, relevance=0..3) ===
+Validation MRR: 0.861228
+Test MRR:       0.847355

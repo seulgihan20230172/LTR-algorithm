@@ -1,0 +1,69 @@
+# feature importance + SHAP (트리/부스팅 위주)
+# time: 2026-03-29T20:29:09.324580
+# model: isolation_forest  test_mode: test_oracle_ratio
+#
+# [1] feature_importances_: 모델 내장 분할 기여(상대 비교용).
+# [2] SHAP: TreeExplainer, 참조 표본에서 피처 j의 평균 |SHAP| (방향 무시, 크기만 순위용).
+#     다중 클래스면 클래스별 SHAP 절댓값 평균을 다시 평균.
+#
+# --- 전처리 후 피처 목록 (모델 입력 차원 순서) ---
+idx	feature
+0	num__Response_Time_ms
+1	num__Resolution_Time_min
+2	num__Affected_Services
+3	num__Process_ID
+4	num__Error_Code
+5	num__CPU_Usage_Percent
+6	num__Memory_Usage_MB
+7	num__Disk_Usage_Percent
+8	num__Network_In_KB
+9	num__Network_Out_KB
+10	num__Login_Attempts
+11	num__Failed_Transactions
+12	num__Anomaly_Duration_sec
+13	num__User_ID
+14	num__Patch_Level
+15	num__Transaction_ID
+16	num__Alert_Count
+17	num__Retry_Count
+18	num__Escalation_Level
+19	cat__Anomaly_Type
+20	cat__Status
+21	cat__Source
+22	cat__Alert_Method
+23	cat__User_Role
+24	cat__Host_IP
+25	cat__TimeZone
+26	cat__Location
+27	cat__Service_Type
+#
+# --- 내장 feature_importances_: 없음 또는 차원 불일치 ---
+이 모델은 sklearn 스타일 feature_importances_를 제공하지 않습니다 (AE·L2R·IsolationForest 등).
+#
+# --- SHAP mean|value| 상위 25 (표본 2000행, 합=1 정규화) ---
+rank	shap_norm	shap_mean_abs	feature
+1	0.041702	0.082628	cat__User_Role
+2	0.041045	0.081326	cat__Service_Type
+3	0.041013	0.081263	cat__Alert_Method
+4	0.040130	0.079514	num__Patch_Level
+5	0.040038	0.079332	cat__Location
+6	0.038789	0.076856	num__Affected_Services
+7	0.038231	0.075751	cat__Host_IP
+8	0.037210	0.073728	num__Resolution_Time_min
+9	0.036971	0.073254	num__Anomaly_Duration_sec
+10	0.036858	0.073031	num__Failed_Transactions
+11	0.035876	0.071086	cat__TimeZone
+12	0.035286	0.069915	num__CPU_Usage_Percent
+13	0.035053	0.069453	num__Retry_Count
+14	0.035027	0.069403	num__Escalation_Level
+15	0.034952	0.069254	num__Login_Attempts
+16	0.034845	0.069043	num__User_ID
+17	0.034670	0.068695	cat__Anomaly_Type
+18	0.034231	0.067826	num__Error_Code
+19	0.033787	0.066945	num__Transaction_ID
+20	0.033546	0.066467	num__Response_Time_ms
+21	0.033435	0.066249	num__Disk_Usage_Percent
+22	0.033321	0.066022	cat__Status
+23	0.033012	0.065411	num__Network_Out_KB
+24	0.032913	0.065213	cat__Source
+25	0.032490	0.064375	num__Process_ID
