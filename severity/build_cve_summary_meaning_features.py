@@ -99,7 +99,6 @@ def build_meaning_columns(
     max_df: float,
     filter_boilerplate: bool = True,
     lexicon: MeaningLexicon | None = None,
-    *,
     binary_meanings: bool = False,
 ) -> tuple[np.ndarray, list[str], CountVectorizer, list[int], list[float]]:
     vectorizer = CountVectorizer(

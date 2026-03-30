@@ -17,4 +17,5 @@ severity/CVE_summary_separate/cve-datasets/cve_summary_meaning_top50.json
 severity/CVE_summary_separate/cve-datasets/cve_with_meaning30.csv
 severity/CVE_summary_separate/cve-datasets/cve_with_meaning50.csv
 severity/CVE_summary_separate/cve-datasets/cve.csv
+severity/CVE_summary_separate/__pycache__
 

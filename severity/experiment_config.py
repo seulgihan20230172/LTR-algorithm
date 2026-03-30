@@ -6,8 +6,9 @@ from typing import Any
 DEFAULT_CONFIG_PATH = Path(__file__).resolve().parent / "experiment_config.yaml"
 
 ALLOWED_TEST_MODES = frozenset({"train_thresholds", "test_oracle_ratio", "train_score_relevance_0_3"})
-ALLOWED_QID_MODES = frozenset({"global", "anomaly_id", "timestamp_hour_1h"})
+ALLOWED_QID_MODES = frozenset({"global", "anomaly_id", "timestamp_hour_1h", "cve_calendar_day"})
 ALLOWED_SPLIT_MODES = frozenset({"stratified_shuffle", "time_ordered"})
+ALLOWED_LABEL_MODES = frozenset({"severity", "cvss"})
 
 
 def resolve_test_mode(cfg: dict[str, Any], cli_override: str | None) -> str:
@@ -24,7 +25,15 @@ def resolve_test_mode(cfg: dict[str, Any], cli_override: str | None) -> str:
     return tm
 
 
-def load_experiment_config(path: str | Path | None = None) -> dict[str, Any]:
+def load_experiment_config(
+    path: str | Path | None = None,
+    *,
+    profile: str | None = None,
+) -> dict[str, Any]:
+    """YAML을 읽고, ``profiles`` 가 있으면 ``active_profile``(또는 ``profile`` 인자)에 해당하는 블록만 사용한다.
+
+    레거시 형식(profiles 없음)은 그대로 통과한다.
+    """
     try:
         import yaml
     except ImportError as e:
@@ -36,20 +45,45 @@ def load_experiment_config(path: str | Path | None = None) -> dict[str, Any]:
         raise FileNotFoundError(f"설정 파일이 없습니다: {p}")
 
     with p.open(encoding="utf-8") as f:
-        cfg = yaml.safe_load(f)
+        raw = yaml.safe_load(f)
 
-    if not isinstance(cfg, dict):
+    if not isinstance(raw, dict):
         raise ValueError("experiment_config.yaml 최상위는 mapping 이어야 합니다.")
 
+    cfg = _resolve_profile(raw, profile)
     _apply_config_defaults(cfg)
     _validate(cfg)
     return cfg
+
+
+def _resolve_profile(raw: dict[str, Any], cli_profile: str | None) -> dict[str, Any]:
+    if "profiles" not in raw:
+        return raw
+    profs = raw["profiles"]
+    if not isinstance(profs, dict):
+        raise TypeError("profiles 는 mapping 이어야 합니다.")
+    name = (cli_profile or raw.get("active_profile") or "logging")
+    if not isinstance(name, str) or not name.strip():
+        name = "logging"
+    name = name.strip()
+    if name not in profs:
+        raise ValueError(
+            f"프로필 {name!r} 이 experiment_config.yaml 의 profiles 에 없습니다. "
+            f"가능한 값: {sorted(profs.keys())}"
+        )
+    merged = profs[name]
+    if not isinstance(merged, dict):
+        raise TypeError(f"profiles[{name!r}] 는 mapping 이어야 합니다.")
+    return merged
 
 
 def _apply_config_defaults(cfg: dict[str, Any]) -> None:
     if not isinstance(cfg.get("features"), dict):
         cfg["features"] = {}
     cfg["features"].setdefault("include_categorical_columns", True)
+    if not isinstance(cfg.get("data"), dict):
+        cfg["data"] = {}
+    cfg["data"].setdefault("label_mode", "severity")
     ev = cfg.get("evaluation")
     if isinstance(ev, dict):
         ev.setdefault("ordinal_severity_metrics", False)
@@ -85,6 +119,9 @@ def _validate(cfg: dict[str, Any]) -> None:
             raise KeyError(f"epochs.{k}")
     if "csv" not in cfg["data"]:
         raise KeyError("data.csv")
+    lm = cfg["data"].get("label_mode", "severity")
+    if lm not in ALLOWED_LABEL_MODES:
+        raise ValueError(f"data.label_mode는 {sorted(ALLOWED_LABEL_MODES)} 중 하나여야 합니다: {lm!r}")
     if "test_mode" not in cfg["evaluation"]:
         raise KeyError("evaluation.test_mode")
     if not isinstance(cfg["features"], dict):

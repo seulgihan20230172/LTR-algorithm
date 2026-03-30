@@ -26,8 +26,10 @@ from severity.severity_rank_controlgroup import (
     prepare_splits,
     print_per_class_recall_by_true_label,
     report_metrics,
+    report_metrics_cvss_numeric,
     severity_from_train_minmax_relevance,
 )
+from severity.CVE_summary_separate.cve_schema import TARGET_COL_CVSS
 from severity.severity_schema import LABEL_ORDER_DESC, TARGET_COL
 
 
@@ -45,6 +47,7 @@ def run(
     qid_mode: str,
     global_qid: int,
     split_mode: str,
+    label_mode: str = "severity",
 ):
     t_total_start = time.perf_counter()
     (
@@ -69,18 +72,27 @@ def run(
         qid_mode=qid_mode,
         global_qid=global_qid,
         split_mode=split_mode,
+        label_mode=label_mode,
     )
 
     t_train_val_start = time.perf_counter()
     xt, xv, xs, pre, _ = fit_transform_xy(x_train, x_val, x_test)
 
-    model = build_classification_model(model_name, random_state=random_state)
-    model.fit(xt, y_train.values, xv, y_val.values)
+    if label_mode == "cvss":
+        from severity.regression.models import build_regression_model
+
+        model = build_regression_model("xgboost_regressor", random_state=random_state)
+        model.fit(xt, yr_train, xv, yr_val)
+        fi_model_name = "xgboost_regressor"
+    else:
+        model = build_classification_model(model_name, random_state=random_state)
+        model.fit(xt, y_train.values, xv, y_val.values)
+        fi_model_name = model_name
     fi_path = write_feature_importance_log(
         pre,
         model,
         prefix="train_severity_cls",
-        model_name=model_name,
+        model_name=fi_model_name,
         test_mode=test_mode,
         X_reference=xt,
         random_state=random_state,
@@ -95,75 +107,103 @@ def run(
 
     n_va = len(y_val)
 
-    fr_train = class_fractions(y_train)
-    counts_train = np.array([y_train.value_counts().get(lbl, 0) for lbl in LABEL_ORDER_DESC], dtype=int)
-    train_desc = np.sort(s_train)[::-1]
-    th, train_sorted_asc = boundaries_from_train_sorted(train_desc, counts_train)
-
-    if test_mode == "train_thresholds":
-        pred_val = assign_by_thresholds(s_val, th)
-        print(f"\n[검증] train score 경계(threshold) 기준 분류 정확도(참고): {(pred_val == y_val.values).mean():.4f}")
-        pred_train = assign_by_thresholds(s_train, th)
-        train_metrics_name = "Train (train_thresholds)"
-    elif test_mode == "train_score_relevance_0_3":
-        pred_val = severity_from_train_minmax_relevance(s_val, s_train)
+    if label_mode == "cvss":
+        th = np.zeros(3, dtype=np.float64)
+        train_sorted_asc = np.array([0.0, 1.0], dtype=np.float64)
+        pred_val = s_val
+        pred_train = s_train
         print(
-            f"\n[검증] train min~max→[0,3] relevance 반올림 기준 분류 정확도(참고): "
-            f"{(pred_val == y_val.values).mean():.4f}"
+            f"\n[검증] CVSS 회귀 예측 vs 정답 MAE(참고): "
+            f"{np.mean(np.abs(pred_val - y_val.values.astype(np.float64))):.4f}"
         )
-        pred_train = severity_from_train_minmax_relevance(s_train, s_train)
-        train_metrics_name = "Train (train_score_relevance_0_3)"
-    else:
-        counts_val = allocate_counts(n_va, fr_train)
-        pred_val = assign_top_scores(s_val, counts_val)
-        print(f"\n[검증] train 비율로 배정한 분류 정확도(참고): {(pred_val == y_val.values).mean():.4f}")
-        pred_train = assign_top_scores(s_train, counts_train)
-        train_metrics_name = "Train (비율 배정)"
-
-    print_per_class_recall_by_true_label(
-        y_val.values,
-        pred_val,
-        title="[검증] 클래스별 리콜·오답·FP 요약",
-    )
-    print("  ※ Train/Test의 classification_report recall 열은 위 ‘맞춤’과 대응합니다. precision·F1은 같은 표에서 확인.")
-
-    print("\n[Train] 실제 Severity와 비교")
-    report_metrics(
-        y_train.values,
-        pred_train,
-        train_metrics_name,
-        ordinal_severity_metrics=ordinal_severity_metrics,
-    )
-
-    pred_test = apply_test_mode(test_mode, s_test, y_test, th, s_train=s_train)
-
-    if test_mode == "train_score_relevance_0_3":
-        lo, hi = float(np.min(s_train)), float(np.max(s_train))
+        train_metrics_name = "Train (XGBoost CVSS regression)"
+        print("\n[검증] Validation (CVSS)")
+        report_metrics_cvss_numeric(y_val.values, pred_val, "Validation")
+        print("\n[Train] CVSS 예측 vs 정답")
+        report_metrics_cvss_numeric(y_train.values, pred_train, train_metrics_name)
+        pred_test = s_test
         print(
-            f"\n[train_score_relevance_0_3] train 점수 min~max를 [0,3] relevance로 선형 매핑 후 반올림 "
-            f"(train min={lo:.6f}, train max={hi:.6f})"
+            f"\n[CVSS] train 점수 min/max: {float(np.min(s_train)):.6f} / {float(np.max(s_train)):.6f} "
+            f"(회귀 출력은 CVSS 스케일)"
         )
+        print("\n[Test] CVSS 예측 vs 정답")
+        t_test_sev_start = time.perf_counter()
+        report_metrics_cvss_numeric(y_test.values, pred_test, f"Test (mode={test_mode})")
+        t_test_sev_end = time.perf_counter()
     else:
-        print(f"\nTrain에서 추정한 score 경계(내림차순 상위부터 Critical→…): {np.array2string(th, precision=6)}")
-        print(f"(참고) train score min/max: {train_sorted_asc.min():.6f} / {train_sorted_asc.max():.6f}")
+        fr_train = class_fractions(y_train)
+        counts_train = np.array([y_train.value_counts().get(lbl, 0) for lbl in LABEL_ORDER_DESC], dtype=int)
+        train_desc = np.sort(s_train)[::-1]
+        th, train_sorted_asc = boundaries_from_train_sorted(train_desc, counts_train)
 
-    print("\n[Test] 실제 Severity와 비교")
-    t_test_sev_start = time.perf_counter()
-    report_metrics(
-        y_test.values,
-        pred_test,
-        f"Test (mode={test_mode})",
-        ordinal_severity_metrics=ordinal_severity_metrics,
-    )
-    t_test_sev_end = time.perf_counter()
+        if test_mode == "train_thresholds":
+            pred_val = assign_by_thresholds(s_val, th)
+            print(f"\n[검증] train score 경계(threshold) 기준 분류 정확도(참고): {(pred_val == y_val.values).mean():.4f}")
+            pred_train = assign_by_thresholds(s_train, th)
+            train_metrics_name = "Train (train_thresholds)"
+        elif test_mode == "train_score_relevance_0_3":
+            pred_val = severity_from_train_minmax_relevance(s_val, s_train)
+            print(
+                f"\n[검증] train min~max→[0,3] relevance 반올림 기준 분류 정확도(참고): "
+                f"{(pred_val == y_val.values).mean():.4f}"
+            )
+            pred_train = severity_from_train_minmax_relevance(s_train, s_train)
+            train_metrics_name = "Train (train_score_relevance_0_3)"
+        else:
+            counts_val = allocate_counts(n_va, fr_train)
+            pred_val = assign_top_scores(s_val, counts_val)
+            print(f"\n[검증] train 비율로 배정한 분류 정확도(참고): {(pred_val == y_val.values).mean():.4f}")
+            pred_train = assign_top_scores(s_train, counts_train)
+            train_metrics_name = "Train (비율 배정)"
+
+        print_per_class_recall_by_true_label(
+            y_val.values,
+            pred_val,
+            title="[검증] 클래스별 리콜·오답·FP 요약",
+        )
+        print("  ※ Train/Test의 classification_report recall 열은 위 ‘맞춤’과 대응합니다. precision·F1은 같은 표에서 확인.")
+
+        print("\n[Train] 실제 Severity와 비교")
+        report_metrics(
+            y_train.values,
+            pred_train,
+            train_metrics_name,
+            ordinal_severity_metrics=ordinal_severity_metrics,
+        )
+
+        pred_test = apply_test_mode(test_mode, s_test, y_test, th, s_train=s_train)
+
+        if test_mode == "train_score_relevance_0_3":
+            lo, hi = float(np.min(s_train)), float(np.max(s_train))
+            print(
+                f"\n[train_score_relevance_0_3] train 점수 min~max를 [0,3] relevance로 선형 매핑 후 반올림 "
+                f"(train min={lo:.6f}, train max={hi:.6f})"
+            )
+        else:
+            print(f"\nTrain에서 추정한 score 경계(내림차순 상위부터 Critical→…): {np.array2string(th, precision=6)}")
+            print(f"(참고) train score min/max: {train_sorted_asc.min():.6f} / {train_sorted_asc.max():.6f}")
+
+        print("\n[Test] 실제 Severity와 비교")
+        t_test_sev_start = time.perf_counter()
+        report_metrics(
+            y_test.values,
+            pred_test,
+            f"Test (mode={test_mode})",
+            ordinal_severity_metrics=ordinal_severity_metrics,
+        )
+        t_test_sev_end = time.perf_counter()
 
     m_val = evaluate_ranking_all(yr_val, s_val, qid_val)
     m_test = evaluate_ranking_all(yr_test, s_test, qid_test)
 
     out = x_test.copy()
-    out[TARGET_COL] = y_test.values
+    if label_mode == "cvss":
+        out[TARGET_COL_CVSS] = yr_test
+        out["pred_cvss"] = pred_test
+    else:
+        out[TARGET_COL] = y_test.values
+        out["pred_severity"] = pred_test
     out["anomaly_score"] = s_test
-    out["pred_severity"] = pred_test
     outp = Path(csv_path).with_name(Path(csv_path).stem + f"_cls_{model_name}_{test_mode}.csv")
     out.to_csv(outp, index=False)
 
@@ -177,7 +217,8 @@ def run(
     print(f"추론·경계·평가·저장(전수): {t_eval_end - t_eval_start:.3f} s")
     print(f"  └ Test severity 정답 비교(report_metrics)만: {t_test_sev_end - t_test_sev_start:.3f} s")
     print(f"전체: {t_total_end - t_total_start:.3f} s")
-    print("\n=== 랭킹 지표 MRR (relevance=0..3) ===")
+    rel_note = "relevance=CVSS 수치" if label_mode == "cvss" else "relevance=0..3"
+    print(f"\n=== 랭킹 지표 MRR ({rel_note}) ===")
     print(f"Validation MRR: {m_val['MRR']:.6f}")
     print(f"Test MRR:       {m_test['MRR']:.6f}")
 
@@ -189,6 +230,13 @@ def main():
         type=str,
         default=None,
         help=f"실험 YAML 경로 (기본: {DEFAULT_CONFIG_PATH})",
+    )
+    p.add_argument(
+        "--profile",
+        type=str,
+        default=None,
+        metavar="NAME",
+        help="experiment_config.yaml 의 profiles 키 (예: logging, cve). 미지정 시 YAML active_profile.",
     )
     p.add_argument("--model", choices=["random_forest", "lightgbm"], default="random_forest")
     #p.add_argument("--test-mode", choices=["train_thresholds", "test_oracle_ratio"], default="train_thresholds")
@@ -208,7 +256,7 @@ def main():
     p.add_argument("--no-log", action="store_true")
     args = p.parse_args()
 
-    cfg = load_experiment_config(args.config)
+    cfg = load_experiment_config(args.config, profile=args.profile)
     test_mode = resolve_test_mode(cfg, args.test_mode)
     csv_path = cfg["data"]["csv"]
     test_size = float(cfg["split"]["test_size"])
@@ -239,6 +287,7 @@ def main():
             qid_mode=str(cfg["ranking"]["qid_mode"]),
             global_qid=int(cfg["ranking"]["global_qid"]),
             split_mode=str(cfg["split"]["mode"]),
+            label_mode=str(cfg["data"].get("label_mode", "severity")),
         )
     finally:
         sys.stdout = old_out

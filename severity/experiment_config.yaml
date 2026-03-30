@@ -1,38 +1,54 @@
-# severity 실험 공통 설정 (L2R·control group 배치 스크립트와 동일하게 사용)
-# 프로젝트 루트에서 실행하는 것을 기준으로 경로를 둔다.
+# severity 실험 설정 (단일 파일 — L2R·control group 공통)
+# 프로젝트 루트 기준 경로.
+#
+# CVE 실험 vs 로깅(레거시) 실험 전환: 아래 active_profile 만 바꾸면 됨 (logging | cve).
+# 공통 값(split·epochs·features 일부)은 YAML 앵커(x-common)로 한 번만 정의됨.
 
-evaluation:
-  # train_thresholds: train score 분포·클래스 개수로 경계(th) 추정 후 val/test에 동일 적용
-  # test_oracle_ratio: test 집합의 실제 4클래스 개수로 상위 점수부터 배정(벤치용)
-  # train_score_relevance_0_3: train 점수 min~max를 [0,3] relevance로 선형 매핑 후 반올림 → Severity (점수 기반 파이프라인 공통)
-  test_mode: train_score_relevance_0_3
-  # true: report_metrics에 Ordinal MAE·RMSE·Within-1 출력 (0~3 등간격 relevance 가정의 보조 지표)
-  ordinal_severity_metrics: false
+active_profile: logging
 
-features:
-  # false: object / pandas category 열을 피처에서 제외 (숫자형만 사용)
-  include_categorical_columns: true
+# 프로필에 공통으로 합쳐지는 블록 (split / epochs / features)
+x-common: &common
+  split:
+    # stratified_shuffle: Severity 또는 CVSS 분위 층화 후 무작위
+    # time_ordered: 시각 순 — 앞 train / 가운데 val / 끝 test (CVE는 mod/pub max, 로깅은 Timestamp)
+    mode: time_ordered
+    test_size: 0.2
+    val_size: 0.2
+    random_state: 42
+  epochs:
+    l2r: 150
+    anomaly: 150
+  features:
+    # false: object / category 열 제외 (숫자형만)
+    include_categorical_columns: true
 
-data:
-  csv: severity/logging_monitoring_anomalies.csv
+profiles:
+  # 로깅 모니터링 이상 탐지 CSV — 범주형 Severity 라벨
+  logging:
+    <<: *common
+    evaluation:
+      # train_thresholds | test_oracle_ratio | train_score_relevance_0_3
+      test_mode: train_thresholds
+      ordinal_severity_metrics: false
+    data:
+      csv: severity/logging_monitoring_anomalies.csv
+      # label_mode 생략 시 severity (experiment_config.py 기본값)
+    ranking:
+      # timestamp_hour_1h | global | anomaly_id | cve_calendar_day
+      qid_mode: timestamp_hour_1h
+      global_qid: 0
+      group_size: 64
 
-split:
-  # stratified_shuffle: Severity 층화 후 무작위 (클래스 비율 유지, 시계열에는 부적합할 수 있음)
-  # time_ordered: Timestamp 오름차순 — 앞 구간 train, 가운데 val, 마지막 test (미래 예측·보안 시나리오에 가깝게)
-  mode: time_ordered
-  test_size: 0.2
-  val_size: 0.2
-  random_state: 42
-
-ranking:
-  # timestamp_hour_1h: Timestamp 1시간 단위 버킷, 시각 순으로 qid=0,1,2,… (같은 시간대 행이 한 query)
-  # global: query 하나(global_qid), 전체 행을 한 목록에서 정렬
-  # anomaly_id: (레거시) Anomaly_ID를 qid로 사용
-  qid_mode: timestamp_hour_1h
-  global_qid: 0
-  # 인위적 group_size 분할은 사용하지 않음; 호환용으로만 남김
-  group_size: 64
-
-epochs:
-  l2r: 150
-  anomaly: 150
+  # CVE 요약 + meaning 피처 — 라벨은 숫자 CVSS, qid는 달력일
+  cve:
+    <<: *common
+    evaluation:
+      test_mode: train_score_relevance_0_3
+      ordinal_severity_metrics: false
+    data:
+      csv: severity/CVE_summary_separate/cve-datasets/cve_with_meaning70.csv
+      label_mode: cvss
+    ranking:
+      qid_mode: cve_calendar_day
+      global_qid: 0
+      group_size: 64

@@ -16,6 +16,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OrdinalEncoder, StandardScaler
 
+from severity.CVE_summary_separate.cve_schema import (
+    LEAKAGE_COLS_CVE,
+    MOD_DATE_COL,
+    PUB_DATE_COL,
+    TARGET_COL_CVSS,
+    stratify_codes_for_split_cvss,
+)
 from severity.severity_schema import (
     ANOMALY_ID_COL,
     LABEL_ORDER_DESC,
@@ -60,10 +67,15 @@ def _categorical_feature_columns(x: pd.DataFrame) -> list[str]:
 
 
 def split_features(
-    df: pd.DataFrame, *, include_categorical_columns: bool = True
+    df: pd.DataFrame,
+    *,
+    include_categorical_columns: bool = True,
+    target_col: str = TARGET_COL,
+    leakage_cols: list[str] | None = None,
 ) -> tuple[pd.DataFrame, pd.Series]:
-    y = df[TARGET_COL].copy()
-    x = df.drop(columns=[c for c in LEAKAGE_COLS if c in df.columns])
+    leak = list(leakage_cols) if leakage_cols is not None else [c for c in LEAKAGE_COLS if c in df.columns]
+    y = df[target_col].copy()
+    x = df.drop(columns=[c for c in leak if c in df.columns])
     if not include_categorical_columns:
         drop_cols = _categorical_feature_columns(x)
         x = x.drop(columns=drop_cols)
@@ -115,6 +127,33 @@ def _time_ordered_split_sizes(n: int, test_size: float, val_size: float) -> tupl
     return n_train, n_val, n_test
 
 
+def qids_from_cve_calendar_day(df: pd.DataFrame) -> np.ndarray:
+    """
+    mod_date·pub_date의 날짜만 사용, 행마다 더 늦은 날짜를 취한 뒤 같은 달력일을 동일 qid(0,1,2,… 시각 순).
+    """
+    if MOD_DATE_COL not in df.columns or PUB_DATE_COL not in df.columns:
+        raise ValueError(
+            f"qid_mode=cve_calendar_day 일 때 CSV에 '{MOD_DATE_COL}', '{PUB_DATE_COL}' 열이 필요합니다."
+        )
+    md = pd.to_datetime(df[MOD_DATE_COL], errors="coerce").dt.normalize()
+    pd_ = pd.to_datetime(df[PUB_DATE_COL], errors="coerce").dt.normalize()
+    d = pd.concat([md, pd_], axis=1).max(axis=1)
+    if d.isna().any():
+        raise ValueError(
+            "cve_calendar_day qid: mod_date·pub_date가 모두 파싱되지 않는 행이 있습니다."
+        )
+    unique_days = sorted(d.unique())
+    day_to_qid = {day: i for i, day in enumerate(unique_days)}
+    return d.map(day_to_qid).astype(np.int64).to_numpy()
+
+
+def _cve_sort_time(df: pd.DataFrame) -> pd.Series:
+    """time_ordered 분할용: 행별 max(mod_date, pub_date)."""
+    md = pd.to_datetime(df[MOD_DATE_COL], errors="coerce")
+    pd_ = pd.to_datetime(df[PUB_DATE_COL], errors="coerce")
+    return pd.concat([md, pd_], axis=1).max(axis=1)
+
+
 def qids_from_timestamp_hour_1h(df: pd.DataFrame) -> np.ndarray:
     """Timestamp를 1시간 단위로 내린 뒤, 시간대를 시각 순으로 0,1,2,… qid를 부여한다."""
     if TIMESTAMP_COL not in df.columns:
@@ -158,17 +197,32 @@ def prepare_splits(
     qid_mode: str = "global",
     global_qid: int = 0,
     split_mode: str = "stratified_shuffle",
+    label_mode: str = "severity",
 ):
-    """qid: global | anomaly_id | timestamp_hour_1h (1시간 버킷, 시각 순 연속 qid)."""
-    """split_mode: stratified_shuffle(Severity 층화+무작위) | time_ordered(Timestamp 오름차순, 과거→train·중간→val·최근→test)."""
-    df = pd.read_csv(csv_path)
+    """qid: global | anomaly_id | timestamp_hour_1h | cve_calendar_day (CVE 날짜 그룹)."""
+    """split_mode: stratified_shuffle | time_ordered."""
+    """label_mode: severity(기존) | cvss(CVE CSV, 라벨·층화 기준은 숫자 CVSS; 랭킹 relevance=원시 cvss)."""
+    df = pd.read_csv(csv_path, encoding="utf-8", on_bad_lines="skip")
+    if label_mode not in ("severity", "cvss"):
+        raise ValueError(f"label_mode는 'severity' 또는 'cvss' 여야 합니다: {label_mode!r}")
+
     if split_mode == "time_ordered":
-        if TIMESTAMP_COL not in df.columns:
-            raise ValueError(f"split_mode=time_ordered 일 때 CSV에 '{TIMESTAMP_COL}' 열이 필요합니다.")
-        ts = pd.to_datetime(df[TIMESTAMP_COL], errors="coerce")
-        if ts.isna().any():
-            raise ValueError(f"split_mode=time_ordered: '{TIMESTAMP_COL}'에 파싱되지 않는 시각이 있습니다.")
-        df = df.iloc[np.argsort(ts.values, kind="mergesort")].reset_index(drop=True)
+        if label_mode == "cvss":
+            if MOD_DATE_COL not in df.columns or PUB_DATE_COL not in df.columns:
+                raise ValueError(
+                    f"label_mode=cvss 이고 time_ordered 일 때 '{MOD_DATE_COL}', '{PUB_DATE_COL}' 열이 필요합니다."
+                )
+            ts = _cve_sort_time(df)
+            if ts.isna().any():
+                raise ValueError("time_ordered: mod_date/pub_date 중 하나는 파싱 가능해야 합니다.")
+            df = df.iloc[np.argsort(ts.values, kind="mergesort")].reset_index(drop=True)
+        else:
+            if TIMESTAMP_COL not in df.columns:
+                raise ValueError(f"split_mode=time_ordered 일 때 CSV에 '{TIMESTAMP_COL}' 열이 필요합니다.")
+            ts = pd.to_datetime(df[TIMESTAMP_COL], errors="coerce")
+            if ts.isna().any():
+                raise ValueError(f"split_mode=time_ordered: '{TIMESTAMP_COL}'에 파싱되지 않는 시각이 있습니다.")
+            df = df.iloc[np.argsort(ts.values, kind="mergesort")].reset_index(drop=True)
     elif split_mode != "stratified_shuffle":
         raise ValueError(
             f"split_mode는 'stratified_shuffle' 또는 'time_ordered' 여야 합니다: {split_mode!r}"
@@ -187,14 +241,36 @@ def prepare_splits(
         qid_all = qid_series.astype(np.int64).to_numpy()
     elif qid_mode == "timestamp_hour_1h":
         qid_all = qids_from_timestamp_hour_1h(df)
+    elif qid_mode == "cve_calendar_day":
+        qid_all = qids_from_cve_calendar_day(df)
     else:
         raise ValueError(
-            f"qid_mode는 'global', 'anomaly_id', 'timestamp_hour_1h' 중 하나여야 합니다: {qid_mode!r}"
+            f"qid_mode는 'global', 'anomaly_id', 'timestamp_hour_1h', 'cve_calendar_day' 중 하나여야 합니다: {qid_mode!r}"
         )
-    x, y = split_features(df, include_categorical_columns=include_categorical_columns)
-    y_rel = y.map(RELEVANCE).astype(np.float32).values
+
+    if label_mode == "severity":
+        x, y = split_features(df, include_categorical_columns=include_categorical_columns)
+        y_rel = y.map(RELEVANCE).astype(np.float32).values
+        strat = y
+    else:
+        if TARGET_COL_CVSS not in df.columns:
+            raise ValueError(f"label_mode=cvss 일 때 CSV에 '{TARGET_COL_CVSS}' 열이 필요합니다.")
+        y_num = pd.to_numeric(df[TARGET_COL_CVSS], errors="coerce").fillna(0.0)
+        x, _ = split_features(
+            df,
+            include_categorical_columns=include_categorical_columns,
+            target_col=TARGET_COL_CVSS,
+            leakage_cols=LEAKAGE_COLS_CVE,
+        )
+        y = pd.Series(y_num.astype(np.float64).values, index=x.index)
+        y_rel = y.astype(np.float32).values
 
     if split_mode == "stratified_shuffle":
+        if label_mode == "severity":
+            strat_kw1: dict = {"stratify": y}
+        else:
+            c1 = stratify_codes_for_split_cvss(pd.Series(y_rel))
+            strat_kw1 = {"stratify": c1} if c1 is not None else {}
         x_temp, x_test, y_temp, y_test, yr_temp, yr_test, q_temp, q_test = train_test_split(
             x,
             y,
@@ -202,9 +278,14 @@ def prepare_splits(
             qid_all,
             test_size=test_size,
             random_state=random_state,
-            stratify=y,
+            **strat_kw1,
         )
         val_ratio = val_size / (1.0 - test_size)
+        if label_mode == "severity":
+            strat_kw2 = {"stratify": y_temp}
+        else:
+            c2 = stratify_codes_for_split_cvss(y_temp)
+            strat_kw2 = {"stratify": c2} if c2 is not None else {}
         x_train, x_val, y_train, y_val, yr_train, yr_val, qid_train, qid_val = train_test_split(
             x_temp,
             y_temp,
@@ -212,7 +293,7 @@ def prepare_splits(
             q_temp,
             test_size=val_ratio,
             random_state=random_state,
-            stratify=y_temp,
+            **strat_kw2,
         )
     else:
         n = len(x)
@@ -451,6 +532,40 @@ def print_per_class_recall_by_true_label(
         print(f"    예측 {j}: FP {fp}건" + (f" ({extra})" if extra else ""))
 
 
+def cvss_from_train_minmax_score(
+    scores: np.ndarray,
+    s_train: np.ndarray,
+    y_train: np.ndarray,
+) -> np.ndarray:
+    """Train 점수 min~max를 train CVSS min~max로 선형 매핑 (랭킹·이상 점수 → CVSS 추정)."""
+    smin, smax = float(np.min(s_train)), float(np.max(s_train))
+    ymin, ymax = float(np.min(y_train)), float(np.max(y_train))
+    s = np.asarray(scores, dtype=np.float64)
+    if smax <= smin:
+        return np.full(len(s), ymin, dtype=np.float64)
+    t = (s - smin) / (smax - smin)
+    return t * (ymax - ymin) + ymin
+
+
+def report_metrics_cvss_numeric(
+    y_true: np.ndarray,
+    y_pred: np.ndarray,
+    name: str,
+) -> None:
+    y_true = np.asarray(y_true, dtype=np.float64)
+    y_pred = np.asarray(y_pred, dtype=np.float64)
+    mae = float(np.mean(np.abs(y_true - y_pred)))
+    rmse = float(np.sqrt(np.mean((y_true - y_pred) ** 2)))
+    if np.std(y_true) > 1e-15 and np.std(y_pred) > 1e-15:
+        r = float(np.corrcoef(y_true, y_pred)[0, 1])
+    else:
+        r = float("nan")
+    print(f"\n=== {name} (CVSS 수치) ===")
+    print(f"MAE: {mae:.4f}")
+    print(f"RMSE: {rmse:.4f}")
+    print(f"Pearson r (y_true, y_pred): {r:.4f}")
+
+
 def report_metrics(
     y_true: np.ndarray,
     y_pred: np.ndarray,
@@ -487,7 +602,22 @@ def apply_test_mode(
     th: np.ndarray,
     *,
     s_train: np.ndarray | None = None,
+    label_mode: str = "severity",
+    y_train: pd.Series | None = None,
 ) -> np.ndarray:
+    if label_mode == "cvss":
+        if s_train is None or y_train is None:
+            raise ValueError("label_mode=cvss일 때 apply_test_mode에는 s_train, y_train이 필요합니다.")
+        s_test = np.asarray(s_test, dtype=np.float64)
+        s_train = np.asarray(s_train, dtype=np.float64)
+        yt = np.asarray(y_train.values, dtype=np.float64)
+        if test_mode == "test_oracle_ratio":
+            order = np.argsort(-s_test)
+            yte = np.asarray(y_test.values, dtype=np.float64)
+            out = np.empty(len(s_test), dtype=np.float64)
+            out[order] = np.sort(yte)[::-1]
+            return out
+        return cvss_from_train_minmax_score(s_test, s_train, yt)
     if test_mode == "train_thresholds":
         return assign_by_thresholds(s_test, th)
     if test_mode == "test_oracle_ratio":
