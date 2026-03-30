@@ -3,9 +3,15 @@
 TARGET_COL·라벨 순서 등 규약은 severity_schema 를 단일 소스로 한다.
 """
 
+from __future__ import annotations
+
 from datetime import datetime
 from pathlib import Path
 
+import os
+import sys
+import ctypes
+from ctypes import wintypes
 import numpy as np
 import pandas as pd
 from pandas.api.types import is_categorical_dtype, is_object_dtype
@@ -17,9 +23,11 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OrdinalEncoder, StandardScaler
 
 from severity.CVE_summary_separate.cve_schema import (
+    CVE_ID_COL,
     LEAKAGE_COLS_CVE,
     MOD_DATE_COL,
     PUB_DATE_COL,
+    SUMMARY_COL,
     TARGET_COL_CVSS,
     stratify_codes_for_split_cvss,
 )
@@ -59,6 +67,56 @@ class TeeIO:
 def default_log_path(prefix: str, model: str, test_mode: str) -> Path:
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     return SEVERITY_DIR / f"{prefix}_{model}_{test_mode}_{ts}.log"
+
+
+def _rss_bytes() -> int:
+    """프로세스 RSS(Resident Set Size) 바이트. Windows는 ctypes로 조회(의존성 없음)."""
+    if os.name == "nt":
+        class PROCESS_MEMORY_COUNTERS(ctypes.Structure):
+            _fields_ = [
+                ("cb", ctypes.c_uint32),
+                ("PageFaultCount", ctypes.c_uint32),
+                ("PeakWorkingSetSize", ctypes.c_size_t),
+                ("WorkingSetSize", ctypes.c_size_t),
+                ("QuotaPeakPagedPoolUsage", ctypes.c_size_t),
+                ("QuotaPagedPoolUsage", ctypes.c_size_t),
+                ("QuotaPeakNonPagedPoolUsage", ctypes.c_size_t),
+                ("QuotaNonPagedPoolUsage", ctypes.c_size_t),
+                ("PagefileUsage", ctypes.c_size_t),
+                ("PeakPagefileUsage", ctypes.c_size_t),
+            ]
+
+        counters = PROCESS_MEMORY_COUNTERS()
+        counters.cb = ctypes.sizeof(PROCESS_MEMORY_COUNTERS)
+
+        GetProcessMemoryInfo = ctypes.windll.psapi.GetProcessMemoryInfo  # type: ignore[attr-defined]
+        GetProcessMemoryInfo.restype = wintypes.BOOL
+        GetProcessMemoryInfo.argtypes = [wintypes.HANDLE, wintypes.LPVOID, wintypes.DWORD]
+
+        GetCurrentProcess = ctypes.windll.kernel32.GetCurrentProcess  # type: ignore[attr-defined]
+        GetCurrentProcess.restype = wintypes.HANDLE
+        GetCurrentProcess.argtypes = []
+
+        ok = bool(GetProcessMemoryInfo(GetCurrentProcess(), ctypes.byref(counters), counters.cb))
+        return int(counters.WorkingSetSize) if ok else 0
+    # posix 계열
+    try:
+        import resource  # noqa: PLC0415
+
+        r = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        # macOS는 바이트, 리눅스는 KB
+        return int(r if sys.platform == "darwin" else r * 1024)
+    except Exception:
+        return 0
+
+
+def _memlog(tag: str) -> None:
+    """짧은 1줄 메모리 로그. env SEV_MEMLOG=1 일 때만 출력."""
+    if os.environ.get("SEV_MEMLOG", "0") not in ("1", "true", "TRUE", "yes", "YES"):
+        return
+    rss = _rss_bytes()
+    mb = rss / (1024 * 1024) if rss else 0.0
+    print(f"[MEM] {tag} rss={mb:.1f}MB", flush=True)
 
 
 def _categorical_feature_columns(x: pd.DataFrame) -> list[str]:
@@ -202,9 +260,23 @@ def prepare_splits(
     """qid: global | anomaly_id | timestamp_hour_1h | cve_calendar_day (CVE 날짜 그룹)."""
     """split_mode: stratified_shuffle | time_ordered."""
     """label_mode: severity(기존) | cvss(CVE CSV, 라벨·층화 기준은 숫자 CVSS; 랭킹 relevance=원시 cvss)."""
-    df = pd.read_csv(csv_path, encoding="utf-8", on_bad_lines="skip", low_memory=True)
     if label_mode not in ("severity", "cvss"):
         raise ValueError(f"label_mode는 'severity' 또는 'cvss' 여야 합니다: {label_mode!r}")
+
+    # 메모리 절감: CVE 실험에서는 summary/cve_id를 피처로 쓰지 않으므로
+    # read_csv 단계에서 로드하지 X(파싱/문자열 저장 비용 자체 제거).
+    if label_mode == "cvss":
+        usecols = lambda c: c not in (SUMMARY_COL, CVE_ID_COL)  # noqa: E731
+    else:
+        usecols = None
+    df = pd.read_csv(
+        csv_path,
+        encoding="utf-8",
+        on_bad_lines="skip",
+        low_memory=True,
+        usecols=usecols,
+    )
+    _memlog("after_read_csv")
 
     if split_mode == "time_ordered":
         if label_mode == "cvss":
@@ -216,6 +288,7 @@ def prepare_splits(
             if ts.isna().any():
                 raise ValueError("time_ordered: mod_date/pub_date 중 하나는 파싱 가능해야 합니다.")
             df = df.iloc[np.argsort(ts.values, kind="mergesort")].reset_index(drop=True)
+            _memlog("after_time_sort_cve")
         else:
             if TIMESTAMP_COL not in df.columns:
                 raise ValueError(f"split_mode=time_ordered 일 때 CSV에 '{TIMESTAMP_COL}' 열이 필요합니다.")
@@ -223,6 +296,7 @@ def prepare_splits(
             if ts.isna().any():
                 raise ValueError(f"split_mode=time_ordered: '{TIMESTAMP_COL}'에 파싱되지 않는 시각이 있습니다.")
             df = df.iloc[np.argsort(ts.values, kind="mergesort")].reset_index(drop=True)
+            _memlog("after_time_sort")
     elif split_mode != "stratified_shuffle":
         raise ValueError(
             f"split_mode는 'stratified_shuffle' 또는 'time_ordered' 여야 합니다: {split_mode!r}"
@@ -264,6 +338,7 @@ def prepare_splits(
         )
         y = pd.Series(y_num.astype(np.float64).values, index=x.index)
         y_rel = y.astype(np.float32).values
+    _memlog("after_split_features")
 
     if split_mode == "stratified_shuffle":
         if label_mode == "severity":

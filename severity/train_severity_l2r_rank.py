@@ -328,6 +328,10 @@ def run(
     t_train_val_start = time.perf_counter()
     xt, xv, xs, pre = fit_transform_xy(x_train, x_val, x_test)
     xt, xv, xs = scale_data(xt, xv, xs)
+    # 메모리 절약: 스케일링 결과(기본 float64)를 float32로 고정
+    xt = np.asarray(xt, dtype=np.float32)
+    xv = np.asarray(xv, dtype=np.float32)
+    xs = np.asarray(xs, dtype=np.float32)
 
     if label_mode != "cvss":
         fr_train = class_fractions(y_train)
