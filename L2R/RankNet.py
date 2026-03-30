@@ -10,6 +10,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 import torch.optim as optim
+from typing import Optional
+
 from metrics import evaluate_all
 
 
@@ -145,7 +147,8 @@ class RankNet:
             for param_group in optimizer.param_groups:
                 param_group["lr"] = param_group["lr"] * decay_rate
 
-    def fit(self, training_data, qids_per_chunk: int | None = None):
+    #def fit(self, training_data, qids_per_chunk: int | None = None):
+    def fit(self, training_data, qids_per_chunk: Optional[int] = None):
         """샘플링 0, pair 전부 유지. 메모리 절감:
 
         - qid별로 Xq만 올리고, pair는 스트리밍(batch)으로 생성

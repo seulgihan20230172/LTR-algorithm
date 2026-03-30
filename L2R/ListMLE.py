@@ -1,3 +1,5 @@
+from typing import Optional
+
 from data_utils import load_data, scale_data, group_by_qid
 from metrics import evaluate_all
 from ListNet import ListNet
@@ -26,7 +28,8 @@ def train_listmle(
     lr: float = 0.001,
     patience: int = 10**9,
     verbose: bool = True,
-    qids_per_chunk: int | None = None,
+    #qids_per_chunk: Optional[int] = None,
+    qids_per_chunk: Optional[int] = None,
 ):
     """qid는 ``sort_ltr_rows_by_qid`` 로 정렬된 것과 동일해야 XGBoost rank와 동일한 쿼리 순서다.
 

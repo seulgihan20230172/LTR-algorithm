@@ -10,6 +10,7 @@ import sys
 import time
 from datetime import datetime
 from pathlib import Path
+from typing import Optional
 
 import numpy as np
 import pandas as pd
@@ -157,7 +158,8 @@ def train_ranknet_local(
     epochs: int,
     lr: float = 0.01,
     *,
-    qids_per_chunk: int | None = None,
+    #qids_per_chunk: int | None = None,
+    qids_per_chunk: Optional[int] = None,
 ):
     if RankNet is None:
         raise RuntimeError("RankNet 모듈을 불러오지 못했습니다.")
@@ -172,7 +174,8 @@ def train_lambdarank_local(
     epochs: int,
     lr: float = 0.001,
     *,
-    qids_per_chunk: int | None = None,
+    #qids_per_chunk: int | None = None,
+    qids_per_chunk: Optional[int] = None,
 ):
     if LambdaRank is None:
         raise RuntimeError("lambdaRank 모듈을 불러오지 못했습니다.")
@@ -258,7 +261,8 @@ def train_listnet_local(
     lr: float,
     patience: int,
     *,
-    qids_per_chunk: int | None = None,
+    #qids_per_chunk: int | None = None,
+    qids_per_chunk: Optional[int] = None,
 ):
     return train_listnet(
         X,
@@ -285,7 +289,8 @@ def train_listmle_local(
     lr: float,
     patience: int,
     *,
-    qids_per_chunk: int | None = None,
+    #qids_per_chunk: int | None = None,
+    qids_per_chunk: Optional[int] = None,
 ):
     return train_listmle(
         X,

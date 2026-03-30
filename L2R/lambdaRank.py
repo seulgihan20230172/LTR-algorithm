@@ -1,3 +1,5 @@
+from typing import Optional
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -186,7 +188,8 @@ class LambdaRank:
         # for para in self.model.parameters():
         #     print(para[0])
 
-    def fit(self, qids_per_chunk: int | None = None):
+    #def fit(self, qids_per_chunk: int | None = None):
+    def fit(self, qids_per_chunk: Optional[int] = None):
         """
         training_data 행은 ``sort_ltr_rows_by_qid`` 로 정렬된 것과 같아야 XGBoost rank 의 group(qid) 순서와 같다.
 

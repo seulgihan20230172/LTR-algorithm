@@ -1,4 +1,6 @@
 #Top-1만 고려
+from typing import Optional
+
 import numpy as np
 
 from data_utils import load_data, scale_data, group_by_qid
@@ -36,7 +38,7 @@ def train_listnet(
     lr: float = 0.001,
     patience: int = 5,
     verbose: bool = True,
-    qids_per_chunk: int | None = None,
+    qids_per_chunk: Optional[int] = None,
 ):
     """qid는 호출 시 ``sort_ltr_rows_by_qid`` 로 정렬된 것과 동일해야 XGBoost rank group 순서와 맞다.
 
