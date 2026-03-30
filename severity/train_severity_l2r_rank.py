@@ -364,9 +364,15 @@ def run(
                 raise RuntimeError("XGBoost_Rank import 실패. xgboost 설치 여부를 확인하세요.")
             xt_r, yr_tr, q_tr = sort_ltr_rows_by_qid(xt, yr_train, qid_train)
             xv_r, yr_vr, q_vr = sort_ltr_rows_by_qid(xv, yr_val, qid_val)
+
             yr_tr_fit = relevance_for_xgb_ranker(yr_tr, label_mode=label_mode)
             yr_vr_fit = relevance_for_xgb_ranker(yr_vr, label_mode=label_mode)
             model = train_xgb(xt_r, yr_tr_fit, q_tr, xv_r, yr_vr_fit, q_vr)
+
+            print(yr_tr.min(), yr_tr.max(), yr_tr.dtype)
+            print(yr_vr.min(), yr_vr.max(), yr_vr.dtype)
+            model = train_xgb(xt_r, yr_tr, q_tr, xv_r, yr_vr, q_vr)
+
         elif model_name == "ranknet":
             model = train_ranknet_local(train_mat, epochs=epochs, lr=0.01)
         elif model_name == "lambdarank":
