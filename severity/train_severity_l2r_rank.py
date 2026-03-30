@@ -290,7 +290,6 @@ def run(
     test_size: float,
     val_size: float,
     random_state: int,
-    group_size: int,
     epochs: int,
     *,
     include_categorical_columns: bool,
@@ -603,7 +602,6 @@ if __name__ == "__main__":
     test_size = float(cfg["split"]["test_size"])
     val_size = float(cfg["split"]["val_size"])
     random_state = int(cfg["split"]["random_state"])
-    group_size = int(cfg["ranking"]["group_size"])
     epochs = int(cfg["epochs"]["l2r"])
 
     log_f = None
@@ -628,7 +626,6 @@ if __name__ == "__main__":
             test_size,
             val_size,
             random_state,
-            group_size,
             epochs,
             include_categorical_columns=bool(cfg["features"]["include_categorical_columns"]),
             ordinal_severity_metrics=bool(cfg["evaluation"]["ordinal_severity_metrics"]),

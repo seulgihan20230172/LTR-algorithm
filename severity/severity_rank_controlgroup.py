@@ -331,11 +331,6 @@ def sort_ltr_rows_by_qid(X: np.ndarray, y: np.ndarray, qid: np.ndarray) -> tuple
     return X[order], y[order], qid[order]
 
 
-def make_qid(n: int, group_size: int) -> np.ndarray:
-    """(레거시) 인위적 쿼리 그룹. 현재는 prepare_splits 의 qid_mode를 쓴다."""
-    return (np.arange(n, dtype=np.int64) // group_size).astype(np.int64)
-
-
 def group_by_qid(qid: np.ndarray) -> dict:
     groups = {}
     for i, q in enumerate(qid):

@@ -106,8 +106,6 @@ def _validate(cfg: dict[str, Any]) -> None:
     sm = cfg["split"].get("mode", "stratified_shuffle")
     if sm not in ALLOWED_SPLIT_MODES:
         raise ValueError(f"split.mode는 {sorted(ALLOWED_SPLIT_MODES)} 중 하나여야 합니다: {sm!r}")
-    if "group_size" not in cfg["ranking"]:
-        raise KeyError("ranking.group_size")
     qm = cfg["ranking"].get("qid_mode", "global")
     if qm not in ALLOWED_QID_MODES:
         raise ValueError(f"ranking.qid_mode는 {sorted(ALLOWED_QID_MODES)} 중 하나여야 합니다: {qm!r}")

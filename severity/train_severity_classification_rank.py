@@ -40,7 +40,6 @@ def run(
     test_size,
     val_size,
     random_state,
-    group_size,
     *,
     include_categorical_columns: bool,
     ordinal_severity_metrics: bool,
@@ -262,7 +261,6 @@ def main():
     test_size = float(cfg["split"]["test_size"])
     val_size = float(cfg["split"]["val_size"])
     random_state = int(cfg["split"]["random_state"])
-    group_size = int(cfg["ranking"]["group_size"])
     log_f = None
     old_out, old_err = sys.stdout, sys.stderr
     if not args.no_log:
@@ -281,7 +279,6 @@ def main():
             test_size,
             val_size,
             random_state,
-            group_size,
             include_categorical_columns=bool(cfg["features"]["include_categorical_columns"]),
             ordinal_severity_metrics=bool(cfg["evaluation"]["ordinal_severity_metrics"]),
             qid_mode=str(cfg["ranking"]["qid_mode"]),
