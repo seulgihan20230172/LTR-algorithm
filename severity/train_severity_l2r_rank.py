@@ -4,6 +4,8 @@ L2R 랭킹 점수로 anomaly score를 만든 뒤, experiment_config의 test_mode
 범주형은 OrdinalEncoder(train_severity_model_ML.py 의 OneHot 과 다름).
 """
 
+from __future__ import annotations
+
 import argparse
 import os
 import sys
