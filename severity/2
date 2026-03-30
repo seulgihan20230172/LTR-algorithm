@@ -1,0 +1,837 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/home/work/lab_project/severity/experiment_config.py", line 48, in load_experiment_config
+    raw = yaml.safe_load(f)
+          ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 115, in check_token
+    while self.need_more_tokens():
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 152, in need_more_tokens
+    self.stale_possible_simple_keys()
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 291, in stale_possible_simple_keys
+    raise ScannerError("while scanning a simple key", key.mark,
+yaml.scanner.ScannerError: while scanning a simple key
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 8, column 1
+could not find expected ':'
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 9, column 1
+[실험 배치] all_20260330_035218
+[설정 파일] severity/experiment_config.yaml
+[test_mode]  (YAML의 evaluation.test_mode; TEST_MODE 환경변수로 덮어쓰기 가능)
+[로그 디렉터리] /home/work/lab_project/severity/experiment_logs/all_20260330_035218/logs
+
+========== l2r_listnet ==========
+Traceback (most recent call last):
+  File "/home/work/lab_project/severity/train_severity_l2r_rank.py", line 600, in <module>
+    cfg = load_experiment_config(args.config, profile=args.profile)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/work/lab_project/severity/experiment_config.py", line 48, in load_experiment_config
+    raw = yaml.safe_load(f)
+          ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 115, in check_token
+    while self.need_more_tokens():
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 152, in need_more_tokens
+    self.stale_possible_simple_keys()
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 291, in stale_possible_simple_keys
+    raise ScannerError("while scanning a simple key", key.mark,
+yaml.scanner.ScannerError: while scanning a simple key
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 8, column 1
+could not find expected ':'
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 9, column 1
+[FAIL] l2r_listnet
+
+========== l2r_listmle ==========
+Traceback (most recent call last):
+  File "/home/work/lab_project/severity/train_severity_l2r_rank.py", line 600, in <module>
+    cfg = load_experiment_config(args.config, profile=args.profile)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/work/lab_project/severity/experiment_config.py", line 48, in load_experiment_config
+    raw = yaml.safe_load(f)
+          ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 115, in check_token
+    while self.need_more_tokens():
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 152, in need_more_tokens
+    self.stale_possible_simple_keys()
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 291, in stale_possible_simple_keys
+    raise ScannerError("while scanning a simple key", key.mark,
+yaml.scanner.ScannerError: while scanning a simple key
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 8, column 1
+could not find expected ':'
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 9, column 1
+[FAIL] l2r_listmle
+
+========== l2r_xgboost ==========
+Traceback (most recent call last):
+  File "/home/work/lab_project/severity/train_severity_l2r_rank.py", line 600, in <module>
+    cfg = load_experiment_config(args.config, profile=args.profile)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/work/lab_project/severity/experiment_config.py", line 48, in load_experiment_config
+    raw = yaml.safe_load(f)
+          ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 115, in check_token
+    while self.need_more_tokens():
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 152, in need_more_tokens
+    self.stale_possible_simple_keys()
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 291, in stale_possible_simple_keys
+    raise ScannerError("while scanning a simple key", key.mark,
+yaml.scanner.ScannerError: while scanning a simple key
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 8, column 1
+could not find expected ':'
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 9, column 1
+[FAIL] l2r_xgboost
+
+========== l2r_ranknet ==========
+Traceback (most recent call last):
+  File "/home/work/lab_project/severity/train_severity_l2r_rank.py", line 600, in <module>
+    cfg = load_experiment_config(args.config, profile=args.profile)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/work/lab_project/severity/experiment_config.py", line 48, in load_experiment_config
+    raw = yaml.safe_load(f)
+          ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 115, in check_token
+    while self.need_more_tokens():
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 152, in need_more_tokens
+    self.stale_possible_simple_keys()
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 291, in stale_possible_simple_keys
+    raise ScannerError("while scanning a simple key", key.mark,
+yaml.scanner.ScannerError: while scanning a simple key
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 8, column 1
+could not find expected ':'
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 9, column 1
+[FAIL] l2r_ranknet
+
+========== l2r_lambdarank ==========
+Traceback (most recent call last):
+  File "/home/work/lab_project/severity/train_severity_l2r_rank.py", line 600, in <module>
+    cfg = load_experiment_config(args.config, profile=args.profile)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/work/lab_project/severity/experiment_config.py", line 48, in load_experiment_config
+    raw = yaml.safe_load(f)
+          ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 115, in check_token
+    while self.need_more_tokens():
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 152, in need_more_tokens
+    self.stale_possible_simple_keys()
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 291, in stale_possible_simple_keys
+    raise ScannerError("while scanning a simple key", key.mark,
+yaml.scanner.ScannerError: while scanning a simple key
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 8, column 1
+could not find expected ':'
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 9, column 1
+[FAIL] l2r_lambdarank
+
+========== l2r_lambdamart ==========
+Traceback (most recent call last):
+  File "/home/work/lab_project/severity/train_severity_l2r_rank.py", line 600, in <module>
+    cfg = load_experiment_config(args.config, profile=args.profile)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/work/lab_project/severity/experiment_config.py", line 48, in load_experiment_config
+    raw = yaml.safe_load(f)
+          ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 115, in check_token
+    while self.need_more_tokens():
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 152, in need_more_tokens
+    self.stale_possible_simple_keys()
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 291, in stale_possible_simple_keys
+    raise ScannerError("while scanning a simple key", key.mark,
+yaml.scanner.ScannerError: while scanning a simple key
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 8, column 1
+could not find expected ':'
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 9, column 1
+[FAIL] l2r_lambdamart
+
+========== l2r_bm25 ==========
+Traceback (most recent call last):
+  File "/home/work/lab_project/severity/train_severity_l2r_rank.py", line 600, in <module>
+    cfg = load_experiment_config(args.config, profile=args.profile)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/work/lab_project/severity/experiment_config.py", line 48, in load_experiment_config
+    raw = yaml.safe_load(f)
+          ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 115, in check_token
+    while self.need_more_tokens():
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 152, in need_more_tokens
+    self.stale_possible_simple_keys()
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 291, in stale_possible_simple_keys
+    raise ScannerError("while scanning a simple key", key.mark,
+yaml.scanner.ScannerError: while scanning a simple key
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 8, column 1
+could not find expected ':'
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 9, column 1
+[FAIL] l2r_bm25
+
+========== cls_random_forest ==========
+Traceback (most recent call last):
+  File "/home/work/lab_project/severity/train_severity_classification_rank.py", line 300, in <module>
+    main()
+  File "/home/work/lab_project/severity/train_severity_classification_rank.py", line 259, in main
+    cfg = load_experiment_config(args.config, profile=args.profile)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/work/lab_project/severity/experiment_config.py", line 48, in load_experiment_config
+    raw = yaml.safe_load(f)
+          ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 115, in check_token
+    while self.need_more_tokens():
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 152, in need_more_tokens
+    self.stale_possible_simple_keys()
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 291, in stale_possible_simple_keys
+    raise ScannerError("while scanning a simple key", key.mark,
+yaml.scanner.ScannerError: while scanning a simple key
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 8, column 1
+could not find expected ':'
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 9, column 1
+[FAIL] cls_random_forest
+
+========== cls_lightgbm ==========
+Traceback (most recent call last):
+  File "/home/work/lab_project/severity/train_severity_classification_rank.py", line 300, in <module>
+    main()
+  File "/home/work/lab_project/severity/train_severity_classification_rank.py", line 259, in main
+    cfg = load_experiment_config(args.config, profile=args.profile)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/work/lab_project/severity/experiment_config.py", line 48, in load_experiment_config
+    raw = yaml.safe_load(f)
+          ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 115, in check_token
+    while self.need_more_tokens():
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 152, in need_more_tokens
+    self.stale_possible_simple_keys()
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 291, in stale_possible_simple_keys
+    raise ScannerError("while scanning a simple key", key.mark,
+yaml.scanner.ScannerError: while scanning a simple key
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 8, column 1
+could not find expected ':'
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 9, column 1
+[FAIL] cls_lightgbm
+
+========== anomaly_vanilla_ae ==========
+Traceback (most recent call last):
+  File "/home/work/lab_project/severity/train_severity_anomaly_rank.py", line 307, in <module>
+    main()
+  File "/home/work/lab_project/severity/train_severity_anomaly_rank.py", line 263, in main
+    cfg = load_experiment_config(args.config, profile=args.profile)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/work/lab_project/severity/experiment_config.py", line 48, in load_experiment_config
+    raw = yaml.safe_load(f)
+          ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 115, in check_token
+    while self.need_more_tokens():
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 152, in need_more_tokens
+    self.stale_possible_simple_keys()
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 291, in stale_possible_simple_keys
+    raise ScannerError("while scanning a simple key", key.mark,
+yaml.scanner.ScannerError: while scanning a simple key
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 8, column 1
+could not find expected ':'
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 9, column 1
+[FAIL] anomaly_vanilla_ae
+
+========== anomaly_denoising_ae ==========
+Traceback (most recent call last):
+  File "/home/work/lab_project/severity/train_severity_anomaly_rank.py", line 307, in <module>
+    main()
+  File "/home/work/lab_project/severity/train_severity_anomaly_rank.py", line 263, in main
+    cfg = load_experiment_config(args.config, profile=args.profile)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/work/lab_project/severity/experiment_config.py", line 48, in load_experiment_config
+    raw = yaml.safe_load(f)
+          ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 115, in check_token
+    while self.need_more_tokens():
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 152, in need_more_tokens
+    self.stale_possible_simple_keys()
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 291, in stale_possible_simple_keys
+    raise ScannerError("while scanning a simple key", key.mark,
+yaml.scanner.ScannerError: while scanning a simple key
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 8, column 1
+could not find expected ':'
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 9, column 1
+[FAIL] anomaly_denoising_ae
+
+========== anomaly_vae ==========
+Traceback (most recent call last):
+  File "/home/work/lab_project/severity/train_severity_anomaly_rank.py", line 307, in <module>
+    main()
+  File "/home/work/lab_project/severity/train_severity_anomaly_rank.py", line 263, in main
+    cfg = load_experiment_config(args.config, profile=args.profile)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/work/lab_project/severity/experiment_config.py", line 48, in load_experiment_config
+    raw = yaml.safe_load(f)
+          ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 115, in check_token
+    while self.need_more_tokens():
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 152, in need_more_tokens
+    self.stale_possible_simple_keys()
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 291, in stale_possible_simple_keys
+    raise ScannerError("while scanning a simple key", key.mark,
+yaml.scanner.ScannerError: while scanning a simple key
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 8, column 1
+could not find expected ':'
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 9, column 1
+[FAIL] anomaly_vae
+
+========== anomaly_sequence_ae ==========
+Traceback (most recent call last):
+  File "/home/work/lab_project/severity/train_severity_anomaly_rank.py", line 307, in <module>
+    main()
+  File "/home/work/lab_project/severity/train_severity_anomaly_rank.py", line 263, in main
+    cfg = load_experiment_config(args.config, profile=args.profile)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/work/lab_project/severity/experiment_config.py", line 48, in load_experiment_config
+    raw = yaml.safe_load(f)
+          ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 115, in check_token
+    while self.need_more_tokens():
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 152, in need_more_tokens
+    self.stale_possible_simple_keys()
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 291, in stale_possible_simple_keys
+    raise ScannerError("while scanning a simple key", key.mark,
+yaml.scanner.ScannerError: while scanning a simple key
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 8, column 1
+could not find expected ':'
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 9, column 1
+[FAIL] anomaly_sequence_ae
+
+========== anomaly_deep_stacked_ae ==========
+Traceback (most recent call last):
+  File "/home/work/lab_project/severity/train_severity_anomaly_rank.py", line 307, in <module>
+    main()
+  File "/home/work/lab_project/severity/train_severity_anomaly_rank.py", line 263, in main
+    cfg = load_experiment_config(args.config, profile=args.profile)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/work/lab_project/severity/experiment_config.py", line 48, in load_experiment_config
+    raw = yaml.safe_load(f)
+          ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 115, in check_token
+    while self.need_more_tokens():
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 152, in need_more_tokens
+    self.stale_possible_simple_keys()
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 291, in stale_possible_simple_keys
+    raise ScannerError("while scanning a simple key", key.mark,
+yaml.scanner.ScannerError: while scanning a simple key
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 8, column 1
+could not find expected ':'
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 9, column 1
+[FAIL] anomaly_deep_stacked_ae
+
+========== anomaly_isolation_forest ==========
+Traceback (most recent call last):
+  File "/home/work/lab_project/severity/train_severity_anomaly_rank.py", line 307, in <module>
+    main()
+  File "/home/work/lab_project/severity/train_severity_anomaly_rank.py", line 263, in main
+    cfg = load_experiment_config(args.config, profile=args.profile)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/work/lab_project/severity/experiment_config.py", line 48, in load_experiment_config
+    raw = yaml.safe_load(f)
+          ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 115, in check_token
+    while self.need_more_tokens():
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 152, in need_more_tokens
+    self.stale_possible_simple_keys()
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 291, in stale_possible_simple_keys
+    raise ScannerError("while scanning a simple key", key.mark,
+yaml.scanner.ScannerError: while scanning a simple key
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 8, column 1
+could not find expected ':'
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 9, column 1
+[FAIL] anomaly_isolation_forest
+
+========== reg_xgboost_regressor ==========
+Traceback (most recent call last):
+  File "/home/work/lab_project/severity/train_severity_regression_rank.py", line 293, in <module>
+    main()
+  File "/home/work/lab_project/severity/train_severity_regression_rank.py", line 251, in main
+    cfg = load_experiment_config(args.config, profile=args.profile)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/work/lab_project/severity/experiment_config.py", line 48, in load_experiment_config
+    raw = yaml.safe_load(f)
+          ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 115, in check_token
+    while self.need_more_tokens():
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 152, in need_more_tokens
+    self.stale_possible_simple_keys()
+  File "/usr/local/lib/python3.12/dist-packages/yaml/scanner.py", line 291, in stale_possible_simple_keys
+    raise ScannerError("while scanning a simple key", key.mark,
+yaml.scanner.ScannerError: while scanning a simple key
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 8, column 1
+could not find expected ':'
+  in "/home/work/lab_project/severity/experiment_config.yaml", line 9, column 1
+[FAIL] reg_xgboost_regressor
+
+[요약 MD 생성]
+[요약 저장] /home/work/lab_project/severity/experiment_logs/all_20260330_035218/SUMMARY.md
+[완료] /home/work/lab_project/severity/experiment_logs/all_20260330_035218/SUMMARY.md

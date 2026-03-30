@@ -1,5 +1,5 @@
 # feature importance + SHAP (트리/부스팅 위주)
-# time: 2026-03-29T13:51:51.131549
+# time: 2026-03-30T04:01:44.871527
 # model: listnet  test_mode: train_thresholds
 #
 # [1] feature_importances_: 모델 내장 분할 기여(상대 비교용).

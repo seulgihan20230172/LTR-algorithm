@@ -4,8 +4,8 @@
 # CVE 실험 vs 로깅(레거시) 실험 전환: 아래 active_profile 만 바꾸면 됨 (logging | cve).
 # 공통 값(split·epochs·features 일부)은 YAML 앵커(x-common)로 한 번만 정의됨.
 
-active_profile: logging
-=======
+active_profile: cve
+
 evaluation:
   # train_thresholds: train score 분포·클래스 개수로 경계(th) 추정 후 val/test에 동일 적용
   # test_oracle_ratio: test 집합의 실제 4클래스 개수로 상위 점수부터 배정(벤치용)

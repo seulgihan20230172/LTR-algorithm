@@ -1,0 +1,16 @@
+[FAIL] l2r_listnet
+[FAIL] l2r_listmle
+[FAIL] l2r_xgboost
+[FAIL] l2r_ranknet
+[FAIL] l2r_lambdarank
+[FAIL] l2r_lambdamart
+[FAIL] l2r_bm25
+[FAIL] cls_random_forest
+[FAIL] cls_lightgbm
+[FAIL] anomaly_vanilla_ae
+[FAIL] anomaly_denoising_ae
+[FAIL] anomaly_vae
+[FAIL] anomaly_sequence_ae
+[FAIL] anomaly_deep_stacked_ae
+[FAIL] anomaly_isolation_forest
+[FAIL] reg_xgboost_regressor
