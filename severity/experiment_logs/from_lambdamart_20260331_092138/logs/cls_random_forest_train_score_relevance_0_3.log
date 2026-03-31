@@ -1,0 +1,41 @@
+[로그 파일] /home/sghan/LTR-algorithm/severity/experiment_logs/from_lambdamart_20260331_092138/logs/cls_random_forest_train_score_relevance_0_3.log
+
+[피처 중요도 로그] /home/sghan/LTR-algorithm/severity/feature_importance_train_severity_cls_xgboost_regressor_train_score_relevance_0_3.log
+
+[검증] CVSS 회귀 예측 vs 정답 MAE(참고): 0.0148
+
+[검증] Validation (CVSS)
+
+=== Validation (CVSS 수치) ===
+MAE: 0.0148
+RMSE: 0.0385
+Pearson r (y_true, y_pred): 0.9998
+
+[Train] CVSS 예측 vs 정답
+
+=== Train (XGBoost CVSS regression) (CVSS 수치) ===
+MAE: 0.0062
+RMSE: 0.0430
+Pearson r (y_true, y_pred): 0.9998
+
+[CVSS] train 점수 min/max: 0.305882 / 10.052296 (회귀 출력은 CVSS 스케일)
+
+[Test] CVSS 예측 vs 정답
+
+=== Test (mode=train_score_relevance_0_3) (CVSS 수치) ===
+MAE: 0.1285
+RMSE: 0.6155
+Pearson r (y_true, y_pred): 0.9477
+
+저장: severity/CVE_summary_separate/cve-datasets/cve_with_meaning70_cls_random_forest_train_score_relevance_0_3.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.574 s
+전처리(인코딩·스케일) + 학습(train∪val): 3.420 s
+추론·경계·평가·저장(전수): 0.465 s
+  └ Test severity 정답 비교(report_metrics)만: 0.000 s
+전체: 4.458 s
+
+=== 랭킹 지표 MRR (relevance=CVSS 수치) ===
+Validation MRR: 1.000000
+Test MRR:       1.000000

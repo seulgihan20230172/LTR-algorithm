@@ -1,0 +1,41 @@
+[로그 파일] /home/sghan/LTR-algorithm/severity/experiment_logs/from_lambdamart_20260331_092138/logs/anomaly_denoising_ae_train_score_relevance_0_3.log
+
+[피처 중요도 로그] /home/sghan/LTR-algorithm/severity/feature_importance_train_severity_anomaly_denoising_ae_train_score_relevance_0_3.log
+
+[검증] 이상 점수→CVSS 매핑 MAE(참고): 6.2324
+
+[검증] Validation (CVSS)
+
+=== Validation (CVSS 수치) ===
+MAE: 6.2324
+RMSE: 6.5745
+Pearson r (y_true, y_pred): 0.0316
+
+[Train] CVSS 예측 vs 정답
+
+=== Train (score→CVSS map) (CVSS 수치) ===
+MAE: 6.0404
+RMSE: 6.3578
+Pearson r (y_true, y_pred): -0.0007
+
+[CVSS] train 이상 점수 min/max: 0.000091 / 4.171861 (train CVSS min/max로 선형 매핑)
+
+[Test] CVSS 예측 vs 정답
+
+=== Test (mode=train_score_relevance_0_3) (CVSS 수치) ===
+MAE: 5.6534
+RMSE: 5.9603
+Pearson r (y_true, y_pred): 0.0583
+
+저장: severity/CVE_summary_separate/cve-datasets/cve_with_meaning70_anomaly_denoising_ae_train_score_relevance_0_3.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.582 s
+전처리(인코딩·스케일) + 학습(train∪val): 73.930 s
+추론·경계·평가·저장(전수): 0.370 s
+  └ Test severity 정답 비교(report_metrics)만: 0.000 s
+전체: 74.882 s
+
+=== 랭킹 지표 MRR (relevance=CVSS 수치) ===
+Validation MRR: 1.000000
+Test MRR:       1.000000

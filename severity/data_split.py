@@ -72,7 +72,7 @@ for col in df.columns:
     print(f"\n===== Column: {col} =====")
 
     series = df[col]
-
+    print(col)
     # 🔥 숫자형인데 값이 너무 많으면 binning
     if pd.api.types.is_numeric_dtype(series) and series.nunique() > 20:
         print("(numeric → binning 적용)")

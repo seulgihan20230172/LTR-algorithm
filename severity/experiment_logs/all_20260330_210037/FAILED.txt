@@ -1,0 +1,9 @@
+[FAIL] l2r_listnet
+[FAIL] l2r_listmle
+[FAIL] l2r_xgboost
+[FAIL] l2r_ranknet
+[FAIL] l2r_lambdarank
+[FAIL] l2r_lambdamart
+[FAIL] l2r_bm25
+[FAIL] cls_random_forest
+[FAIL] cls_lightgbm

@@ -1,0 +1,93 @@
+# feature importance + SHAP (트리/부스팅 위주)
+# time: 2026-03-31T15:51:10.678441
+# model: isolation_forest  test_mode: train_score_relevance_0_3
+#
+# [1] feature_importances_: 모델 내장 분할 기여(상대 비교용).
+# [2] SHAP: TreeExplainer, 참조 표본에서 피처 j의 평균 |SHAP| (방향 무시, 크기만 순위용).
+#     다중 클래스면 클래스별 SHAP 절댓값 평균을 다시 평균.
+#
+# --- 전처리 후 피처 목록 (모델 입력 차원 순서) ---
+idx	feature
+0	num__cwe_code
+1	num__meaning_01
+2	num__meaning_02
+3	num__meaning_03
+4	num__meaning_04
+5	num__meaning_05
+6	num__meaning_06
+7	num__meaning_07
+8	num__meaning_08
+9	num__meaning_09
+10	num__meaning_10
+11	num__meaning_11
+12	num__meaning_12
+13	num__meaning_13
+14	num__meaning_14
+15	num__meaning_15
+16	num__meaning_16
+17	num__meaning_17
+18	num__meaning_18
+19	num__meaning_19
+20	num__meaning_20
+21	num__meaning_21
+22	num__meaning_22
+23	num__meaning_23
+24	num__meaning_24
+25	num__meaning_25
+26	num__meaning_26
+27	num__meaning_27
+28	num__meaning_28
+29	num__meaning_29
+30	num__meaning_30
+31	num__meaning_31
+32	num__meaning_32
+33	num__meaning_33
+34	num__meaning_34
+35	num__meaning_35
+36	num__meaning_36
+37	num__meaning_37
+38	num__meaning_38
+39	num__meaning_39
+40	num__meaning_40
+41	num__meaning_41
+42	num__meaning_42
+43	num__meaning_43
+44	num__meaning_44
+45	num__meaning_45
+46	num__meaning_46
+47	num__meaning_47
+48	num__meaning_48
+49	num__meaning_49
+50	num__meaning_50
+51	num__meaning_51
+52	num__meaning_52
+53	num__meaning_53
+54	num__meaning_54
+55	num__meaning_55
+56	num__meaning_56
+57	num__meaning_57
+58	num__meaning_58
+59	num__meaning_59
+60	num__meaning_60
+61	num__meaning_61
+62	num__meaning_62
+63	num__meaning_63
+64	num__meaning_64
+65	num__meaning_65
+66	num__meaning_66
+67	num__meaning_67
+68	num__meaning_68
+69	num__meaning_69
+70	num__meaning_70
+71	cat__cwe_name
+72	cat__access_authentication
+73	cat__access_complexity
+74	cat__access_vector
+75	cat__impact_availability
+76	cat__impact_confidentiality
+77	cat__impact_integrity
+#
+# --- 내장 feature_importances_: 없음 또는 차원 불일치 ---
+이 모델은 sklearn 스타일 feature_importances_를 제공하지 않습니다 (AE·L2R·IsolationForest 등).
+#
+# SHAP: shap 미설치: pip install shap

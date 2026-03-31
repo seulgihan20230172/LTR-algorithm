@@ -1,0 +1,526 @@
+nohup: ignoring input
+[실험 배치] from_lambdamart_20260331_092138
+[설정 파일] severity/experiment_config.yaml
+[로그 디렉터리] /home/sghan/LTR-algorithm/severity/experiment_logs/from_lambdamart_20260331_092138/logs
+
+========== l2r_lambdamart ==========
+[로그 파일] /home/sghan/LTR-algorithm/severity/experiment_logs/from_lambdamart_20260331_092138/logs/l2r_lambdamart_train_score_relevance_0_3.log
+[[ 5.      0.     -1.1232 -0.2859 -0.4048 -0.4294 -0.4028 -0.3939 -0.3819 -0.3086 -0.3087 -0.3104 -0.3066 -0.2778 -0.3069 -0.3074 -0.3048 -0.141  -0.2267 -0.2223 -0.292  -0.2186 -0.2439 -0.2375
+  -0.1655 -0.2792 -0.1645 -0.2836 -0.2775 -0.1003 -0.1586 -0.2229 -0.2076 -0.191  -0.2113 -0.2164 -0.2154 -0.2131 -0.1907 -0.2554 -0.1859 -0.1639 -0.1722 -0.2022 -0.2015 -0.2024 -0.2159 -0.1078
+  -0.1348 -0.1959 -0.1045 -0.1683 -0.131  -0.1583 -0.1597 -0.1793 -0.1657 -0.1447 -0.18   -0.1944 -0.13   -0.1296 -0.1861 -0.1174 -0.1816 -0.1538 -0.1441 -0.1347 -0.1287 -0.1412 -0.2019 -0.1842
+  -0.1578 -0.5867 -0.3699 -0.7797  0.3774  1.0478  0.9286  0.8101]
+ [ 5.      0.     -1.1232 -0.2859 -0.4048 -0.4294 -0.4028 -0.3939 -0.3819 -0.3086 -0.3087 -0.3104 -0.3066 -0.2778 -0.3069 -0.3074 -0.3048 -0.141  -0.2267 -0.2223 -0.292  -0.2186 -0.2439 -0.2375
+  -0.1655 -0.2792 -0.1645 -0.2836 -0.2775 -0.1003 -0.1586 -0.2229 -0.2076 -0.191  -0.2113 -0.2164 -0.2154 -0.2131 -0.1907 -0.2554 -0.1859 -0.1639 -0.1722 -0.2022 -0.2015 -0.2024 -0.2159 -0.1078
+  -0.1348 -0.1959 -0.1045 -0.1683 -0.131  -0.1583 -0.1597 -0.1793 -0.1657 -0.1447 -0.18   -0.1944 -0.13   -0.1296 -0.1861 -0.1174 -0.1816 -0.1538 -0.1441 -0.1347 -0.1287 -0.1412 -0.2019 -0.1842
+  -0.1578 -0.5867 -0.3699 -0.7797  0.3774  1.0478  0.9286  0.8101]
+ [ 5.      0.     -0.4009 -0.2859 -0.4048 -0.4294 -0.4028 -0.3939 -0.3819 -0.3086 -0.3087 -0.3104 -0.3066 -0.2778 -0.3069 -0.3074 -0.3048 -0.141  -0.2267 -0.2223 -0.292  -0.2186 -0.2439 -0.2375
+  -0.1655 -0.2792 -0.1645 -0.2836 -0.2775 -0.1003 -0.1586 -0.2229 -0.2076  3.7522 -0.2113 -0.2164 -0.2154 -0.2131 -0.1907 -0.2554 -0.1859 -0.1639 -0.1722 -0.2022 -0.2015 -0.2024 -0.2159 -0.1078
+  -0.1348 -0.1959 -0.1045 -0.1683 -0.131  -0.1583 -0.1597 -0.1793 -0.1657 -0.1447 -0.18   -0.1944 -0.13   -0.1296 -0.1861 -0.1174 -0.1816 -0.1538 -0.1441 -0.1347 -0.1287 -0.1412 -0.2019 -0.1842
+  -0.1578 -0.0048 -0.3699 -0.7797  0.3774  1.0478  0.9286  0.8101]
+ [ 5.      0.      1.6421 -0.2859 -0.4048 -0.4294 -0.4028 -0.3939 -0.3819 -0.3086 -0.3087 -0.3104 -0.3066 -0.2778 -0.3069 -0.3074 -0.3048 -0.141  -0.2267 -0.2223 -0.292  -0.2186 -0.2439 -0.2375
+  -0.1655 -0.2792 -0.1645 -0.2836 -0.2775 -0.1003 -0.1586 -0.2229 -0.2076 -0.191  -0.2113 -0.2164 -0.2154 -0.2131 -0.1907 -0.2554 -0.1859 -0.1639 -0.1722 -0.2022 -0.2015 -0.2024 -0.2159 -0.1078
+  -0.1348 -0.1959 -0.1045 -0.1683 -0.131  -0.1583 -0.1597 -0.1793 -0.1657 -0.1447 -0.18   -0.1944 -0.13   -0.1296 -0.1861 -0.1174 -0.1816 -0.1538 -0.1441 -0.1347 -0.1287 -0.1412 -0.2019 -0.1842
+  -0.1578  1.6512 -0.3699 -0.7797  0.3774  1.0478  0.9286  0.8101]]
+Epoch 0 | Train Metrics: {'NDCG@1': 0.9815380918105298, 'NDCG@5': 0.9906577395248766, 'NDCG@10': 0.9925073425450859, 'MAP': 0.9999999889873026, 'MRR': 1.0}
+Epoch 10 | Train Metrics: {'NDCG@1': 0.9804843415639789, 'NDCG@5': 0.990533635475417, 'NDCG@10': 0.9924539410629237, 'MAP': 0.9999999851294873, 'MRR': 1.0}
+Epoch 20 | Train Metrics: {'NDCG@1': 0.9828566899769934, 'NDCG@5': 0.9921091179987743, 'NDCG@10': 0.9936468186113844, 'MAP': 0.9999999845883011, 'MRR': 1.0}
+Epoch 30 | Train Metrics: {'NDCG@1': 0.9846907301435032, 'NDCG@5': 0.9928161046671078, 'NDCG@10': 0.9942744922987728, 'MAP': 0.9999999845431006, 'MRR': 1.0}
+Epoch 40 | Train Metrics: {'NDCG@1': 0.9856210487439812, 'NDCG@5': 0.9933600408742415, 'NDCG@10': 0.9946772054804157, 'MAP': 0.9999999855339076, 'MRR': 1.0}
+Epoch 50 | Train Metrics: {'NDCG@1': 0.9857816049352839, 'NDCG@5': 0.993460756599977, 'NDCG@10': 0.9947644865295592, 'MAP': 0.9999999857580445, 'MRR': 1.0}
+Epoch 60 | Train Metrics: {'NDCG@1': 0.9857168855414538, 'NDCG@5': 0.993642497740935, 'NDCG@10': 0.9947703214831606, 'MAP': 0.9999999854441448, 'MRR': 1.0}
+Epoch 70 | Train Metrics: {'NDCG@1': 0.9861298722144687, 'NDCG@5': 0.993758143859479, 'NDCG@10': 0.9948724702992366, 'MAP': 0.9999999856684361, 'MRR': 1.0}
+Epoch 80 | Train Metrics: {'NDCG@1': 0.9880686663311358, 'NDCG@5': 0.9945856666616139, 'NDCG@10': 0.995634649771934, 'MAP': 0.9999999542452829, 'MRR': 1.0}
+Epoch 90 | Train Metrics: {'NDCG@1': 0.988418846992544, 'NDCG@5': 0.994721853040223, 'NDCG@10': 0.9957476161825501, 'MAP': 0.9999999524072014, 'MRR': 1.0}
+Epoch 100 | Train Metrics: {'NDCG@1': 0.9884038270000782, 'NDCG@5': 0.9949266665684936, 'NDCG@10': 0.9959076948582417, 'MAP': 0.9999999529267868, 'MRR': 1.0}
+Epoch 110 | Train Metrics: {'NDCG@1': 0.9883361949210261, 'NDCG@5': 0.9950487821694358, 'NDCG@10': 0.9959997790569672, 'MAP': 0.9999999525806267, 'MRR': 1.0}
+Epoch 120 | Train Metrics: {'NDCG@1': 0.9888528054212278, 'NDCG@5': 0.995199797993778, 'NDCG@10': 0.9961373713807302, 'MAP': 0.9999999456400018, 'MRR': 1.0}
+Epoch 130 | Train Metrics: {'NDCG@1': 0.9889505190938218, 'NDCG@5': 0.9951793541518011, 'NDCG@10': 0.9961444157615624, 'MAP': 0.9999999447841899, 'MRR': 1.0}
+Epoch 140 | Train Metrics: {'NDCG@1': 0.9896595067286341, 'NDCG@5': 0.9953953714875209, 'NDCG@10': 0.9963306475379364, 'MAP': 0.9999999434278868, 'MRR': 1.0}
+
+[피처 중요도 로그] /home/sghan/LTR-algorithm/severity/feature_importance_train_severity_l2r_lambdamart_train_score_relevance_0_3.log
+
+[검증] L2R 점수→CVSS 매핑 MAE(참고): 2.0040
+
+[검증] Validation (CVSS)
+
+=== Validation (CVSS 수치) ===
+MAE: 2.0040
+RMSE: 2.1528
+Pearson r (y_true, y_pred): 0.9463
+
+[Train] CVSS 예측 vs 정답
+
+=== Train (L2R score→CVSS) (CVSS 수치) ===
+MAE: 1.9490
+RMSE: 2.1077
+Pearson r (y_true, y_pred): 0.9385
+
+[CVSS] train L2R 점수 min/max: -2.990215 / 4.192843 (train CVSS 범위로 선형 매핑)
+
+[Test] CVSS 예측 vs 정답
+
+=== Test (mode=train_score_relevance_0_3) (CVSS 수치) ===
+MAE: 1.8040
+RMSE: 1.9691
+Pearson r (y_true, y_pred): 0.8800
+
+저장: severity/CVE_summary_separate/cve-datasets/cve_with_meaning70_l2r_lambdamart_train_score_relevance_0_3.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.581 s
+전처리(인코딩·스케일) + 학습(train∪val L2R): 22498.867 s
+추론·경계·Train·Val·Test 평가·저장(전수): 1.409 s
+  └ Test severity 정답 비교(report_metrics)만: 0.000 s
+전체: 22500.864 s
+
+=== 랭킹 지표 MRR (L2R/metrics, relevance=CVSS 수치) ===
+Validation MRR: 1.000000
+Test MRR:       1.000000
+
+========== l2r_bm25 ==========
+[로그 파일] /home/sghan/LTR-algorithm/severity/experiment_logs/from_lambdamart_20260331_092138/logs/l2r_bm25_train_score_relevance_0_3.log
+[[ 5.      0.     -1.1232 -0.2859 -0.4048 -0.4294 -0.4028 -0.3939 -0.3819 -0.3086 -0.3087 -0.3104 -0.3066 -0.2778 -0.3069 -0.3074 -0.3048 -0.141  -0.2267 -0.2223 -0.292  -0.2186 -0.2439 -0.2375
+  -0.1655 -0.2792 -0.1645 -0.2836 -0.2775 -0.1003 -0.1586 -0.2229 -0.2076 -0.191  -0.2113 -0.2164 -0.2154 -0.2131 -0.1907 -0.2554 -0.1859 -0.1639 -0.1722 -0.2022 -0.2015 -0.2024 -0.2159 -0.1078
+  -0.1348 -0.1959 -0.1045 -0.1683 -0.131  -0.1583 -0.1597 -0.1793 -0.1657 -0.1447 -0.18   -0.1944 -0.13   -0.1296 -0.1861 -0.1174 -0.1816 -0.1538 -0.1441 -0.1347 -0.1287 -0.1412 -0.2019 -0.1842
+  -0.1578 -0.5867 -0.3699 -0.7797  0.3774  1.0478  0.9286  0.8101]
+ [ 5.      0.     -1.1232 -0.2859 -0.4048 -0.4294 -0.4028 -0.3939 -0.3819 -0.3086 -0.3087 -0.3104 -0.3066 -0.2778 -0.3069 -0.3074 -0.3048 -0.141  -0.2267 -0.2223 -0.292  -0.2186 -0.2439 -0.2375
+  -0.1655 -0.2792 -0.1645 -0.2836 -0.2775 -0.1003 -0.1586 -0.2229 -0.2076 -0.191  -0.2113 -0.2164 -0.2154 -0.2131 -0.1907 -0.2554 -0.1859 -0.1639 -0.1722 -0.2022 -0.2015 -0.2024 -0.2159 -0.1078
+  -0.1348 -0.1959 -0.1045 -0.1683 -0.131  -0.1583 -0.1597 -0.1793 -0.1657 -0.1447 -0.18   -0.1944 -0.13   -0.1296 -0.1861 -0.1174 -0.1816 -0.1538 -0.1441 -0.1347 -0.1287 -0.1412 -0.2019 -0.1842
+  -0.1578 -0.5867 -0.3699 -0.7797  0.3774  1.0478  0.9286  0.8101]
+ [ 5.      0.     -0.4009 -0.2859 -0.4048 -0.4294 -0.4028 -0.3939 -0.3819 -0.3086 -0.3087 -0.3104 -0.3066 -0.2778 -0.3069 -0.3074 -0.3048 -0.141  -0.2267 -0.2223 -0.292  -0.2186 -0.2439 -0.2375
+  -0.1655 -0.2792 -0.1645 -0.2836 -0.2775 -0.1003 -0.1586 -0.2229 -0.2076  3.7522 -0.2113 -0.2164 -0.2154 -0.2131 -0.1907 -0.2554 -0.1859 -0.1639 -0.1722 -0.2022 -0.2015 -0.2024 -0.2159 -0.1078
+  -0.1348 -0.1959 -0.1045 -0.1683 -0.131  -0.1583 -0.1597 -0.1793 -0.1657 -0.1447 -0.18   -0.1944 -0.13   -0.1296 -0.1861 -0.1174 -0.1816 -0.1538 -0.1441 -0.1347 -0.1287 -0.1412 -0.2019 -0.1842
+  -0.1578 -0.0048 -0.3699 -0.7797  0.3774  1.0478  0.9286  0.8101]
+ [ 5.      0.      1.6421 -0.2859 -0.4048 -0.4294 -0.4028 -0.3939 -0.3819 -0.3086 -0.3087 -0.3104 -0.3066 -0.2778 -0.3069 -0.3074 -0.3048 -0.141  -0.2267 -0.2223 -0.292  -0.2186 -0.2439 -0.2375
+  -0.1655 -0.2792 -0.1645 -0.2836 -0.2775 -0.1003 -0.1586 -0.2229 -0.2076 -0.191  -0.2113 -0.2164 -0.2154 -0.2131 -0.1907 -0.2554 -0.1859 -0.1639 -0.1722 -0.2022 -0.2015 -0.2024 -0.2159 -0.1078
+  -0.1348 -0.1959 -0.1045 -0.1683 -0.131  -0.1583 -0.1597 -0.1793 -0.1657 -0.1447 -0.18   -0.1944 -0.13   -0.1296 -0.1861 -0.1174 -0.1816 -0.1538 -0.1441 -0.1347 -0.1287 -0.1412 -0.2019 -0.1842
+  -0.1578  1.6512 -0.3699 -0.7797  0.3774  1.0478  0.9286  0.8101]]
+
+[검증] L2R 점수→CVSS 매핑 MAE(참고): 4.4142
+
+[검증] Validation (CVSS)
+
+=== Validation (CVSS 수치) ===
+MAE: 4.4142
+RMSE: 5.0357
+Pearson r (y_true, y_pred): 0.0138
+
+[Train] CVSS 예측 vs 정답
+
+=== Train (L2R score→CVSS) (CVSS 수치) ===
+MAE: 4.2983
+RMSE: 4.8599
+Pearson r (y_true, y_pred): 0.0287
+
+[CVSS] train L2R 점수 min/max: -1.261837 / 5.611275 (train CVSS 범위로 선형 매핑)
+
+[Test] CVSS 예측 vs 정답
+
+=== Test (mode=train_score_relevance_0_3) (CVSS 수치) ===
+MAE: 3.5730
+RMSE: 4.1671
+Pearson r (y_true, y_pred): 0.0412
+
+저장: severity/CVE_summary_separate/cve-datasets/cve_with_meaning70_l2r_bm25_train_score_relevance_0_3.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.578 s
+전처리(인코딩·스케일) + 학습(train∪val L2R): 0.486 s
+추론·경계·Train·Val·Test 평가·저장(전수): 0.303 s
+  └ Test severity 정답 비교(report_metrics)만: 0.000 s
+전체: 1.367 s
+
+=== 랭킹 지표 MRR (L2R/metrics, relevance=CVSS 수치) ===
+Validation MRR: 1.000000
+Test MRR:       1.000000
+
+========== cls_random_forest ==========
+[로그 파일] /home/sghan/LTR-algorithm/severity/experiment_logs/from_lambdamart_20260331_092138/logs/cls_random_forest_train_score_relevance_0_3.log
+
+[피처 중요도 로그] /home/sghan/LTR-algorithm/severity/feature_importance_train_severity_cls_xgboost_regressor_train_score_relevance_0_3.log
+
+[검증] CVSS 회귀 예측 vs 정답 MAE(참고): 0.0148
+
+[검증] Validation (CVSS)
+
+=== Validation (CVSS 수치) ===
+MAE: 0.0148
+RMSE: 0.0385
+Pearson r (y_true, y_pred): 0.9998
+
+[Train] CVSS 예측 vs 정답
+
+=== Train (XGBoost CVSS regression) (CVSS 수치) ===
+MAE: 0.0062
+RMSE: 0.0430
+Pearson r (y_true, y_pred): 0.9998
+
+[CVSS] train 점수 min/max: 0.305882 / 10.052296 (회귀 출력은 CVSS 스케일)
+
+[Test] CVSS 예측 vs 정답
+
+=== Test (mode=train_score_relevance_0_3) (CVSS 수치) ===
+MAE: 0.1285
+RMSE: 0.6155
+Pearson r (y_true, y_pred): 0.9477
+
+저장: severity/CVE_summary_separate/cve-datasets/cve_with_meaning70_cls_random_forest_train_score_relevance_0_3.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.574 s
+전처리(인코딩·스케일) + 학습(train∪val): 3.420 s
+추론·경계·평가·저장(전수): 0.465 s
+  └ Test severity 정답 비교(report_metrics)만: 0.000 s
+전체: 4.458 s
+
+=== 랭킹 지표 MRR (relevance=CVSS 수치) ===
+Validation MRR: 1.000000
+Test MRR:       1.000000
+
+========== cls_lightgbm ==========
+[로그 파일] /home/sghan/LTR-algorithm/severity/experiment_logs/from_lambdamart_20260331_092138/logs/cls_lightgbm_train_score_relevance_0_3.log
+
+[피처 중요도 로그] /home/sghan/LTR-algorithm/severity/feature_importance_train_severity_cls_xgboost_regressor_train_score_relevance_0_3.log
+
+[검증] CVSS 회귀 예측 vs 정답 MAE(참고): 0.0148
+
+[검증] Validation (CVSS)
+
+=== Validation (CVSS 수치) ===
+MAE: 0.0148
+RMSE: 0.0385
+Pearson r (y_true, y_pred): 0.9998
+
+[Train] CVSS 예측 vs 정답
+
+=== Train (XGBoost CVSS regression) (CVSS 수치) ===
+MAE: 0.0062
+RMSE: 0.0430
+Pearson r (y_true, y_pred): 0.9998
+
+[CVSS] train 점수 min/max: 0.305882 / 10.052296 (회귀 출력은 CVSS 스케일)
+
+[Test] CVSS 예측 vs 정답
+
+=== Test (mode=train_score_relevance_0_3) (CVSS 수치) ===
+MAE: 0.1285
+RMSE: 0.6155
+Pearson r (y_true, y_pred): 0.9477
+
+저장: severity/CVE_summary_separate/cve-datasets/cve_with_meaning70_cls_lightgbm_train_score_relevance_0_3.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.575 s
+전처리(인코딩·스케일) + 학습(train∪val): 3.499 s
+추론·경계·평가·저장(전수): 0.466 s
+  └ Test severity 정답 비교(report_metrics)만: 0.000 s
+전체: 4.541 s
+
+=== 랭킹 지표 MRR (relevance=CVSS 수치) ===
+Validation MRR: 1.000000
+Test MRR:       1.000000
+
+========== anomaly_vanilla_ae ==========
+[로그 파일] /home/sghan/LTR-algorithm/severity/experiment_logs/from_lambdamart_20260331_092138/logs/anomaly_vanilla_ae_train_score_relevance_0_3.log
+
+[피처 중요도 로그] /home/sghan/LTR-algorithm/severity/feature_importance_train_severity_anomaly_vanilla_ae_train_score_relevance_0_3.log
+
+[검증] 이상 점수→CVSS 매핑 MAE(참고): 6.2605
+
+[검증] Validation (CVSS)
+
+=== Validation (CVSS 수치) ===
+MAE: 6.2605
+RMSE: 6.5995
+Pearson r (y_true, y_pred): 0.0336
+
+[Train] CVSS 예측 vs 정답
+
+=== Train (score→CVSS map) (CVSS 수치) ===
+MAE: 6.0462
+RMSE: 6.3632
+Pearson r (y_true, y_pred): 0.0033
+
+[CVSS] train 이상 점수 min/max: 0.000080 / 38.802723 (train CVSS min/max로 선형 매핑)
+
+[Test] CVSS 예측 vs 정답
+
+=== Test (mode=train_score_relevance_0_3) (CVSS 수치) ===
+MAE: 5.6972
+RMSE: 6.0020
+Pearson r (y_true, y_pred): 0.0655
+
+저장: severity/CVE_summary_separate/cve-datasets/cve_with_meaning70_anomaly_vanilla_ae_train_score_relevance_0_3.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.574 s
+전처리(인코딩·스케일) + 학습(train∪val): 68.436 s
+추론·경계·평가·저장(전수): 0.380 s
+  └ Test severity 정답 비교(report_metrics)만: 0.001 s
+전체: 69.390 s
+
+=== 랭킹 지표 MRR (relevance=CVSS 수치) ===
+Validation MRR: 1.000000
+Test MRR:       1.000000
+
+========== anomaly_denoising_ae ==========
+[로그 파일] /home/sghan/LTR-algorithm/severity/experiment_logs/from_lambdamart_20260331_092138/logs/anomaly_denoising_ae_train_score_relevance_0_3.log
+
+[피처 중요도 로그] /home/sghan/LTR-algorithm/severity/feature_importance_train_severity_anomaly_denoising_ae_train_score_relevance_0_3.log
+
+[검증] 이상 점수→CVSS 매핑 MAE(참고): 6.2324
+
+[검증] Validation (CVSS)
+
+=== Validation (CVSS 수치) ===
+MAE: 6.2324
+RMSE: 6.5745
+Pearson r (y_true, y_pred): 0.0316
+
+[Train] CVSS 예측 vs 정답
+
+=== Train (score→CVSS map) (CVSS 수치) ===
+MAE: 6.0404
+RMSE: 6.3578
+Pearson r (y_true, y_pred): -0.0007
+
+[CVSS] train 이상 점수 min/max: 0.000091 / 4.171861 (train CVSS min/max로 선형 매핑)
+
+[Test] CVSS 예측 vs 정답
+
+=== Test (mode=train_score_relevance_0_3) (CVSS 수치) ===
+MAE: 5.6534
+RMSE: 5.9603
+Pearson r (y_true, y_pred): 0.0583
+
+저장: severity/CVE_summary_separate/cve-datasets/cve_with_meaning70_anomaly_denoising_ae_train_score_relevance_0_3.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.582 s
+전처리(인코딩·스케일) + 학습(train∪val): 73.930 s
+추론·경계·평가·저장(전수): 0.370 s
+  └ Test severity 정답 비교(report_metrics)만: 0.000 s
+전체: 74.882 s
+
+=== 랭킹 지표 MRR (relevance=CVSS 수치) ===
+Validation MRR: 1.000000
+Test MRR:       1.000000
+
+========== anomaly_vae ==========
+[로그 파일] /home/sghan/LTR-algorithm/severity/experiment_logs/from_lambdamart_20260331_092138/logs/anomaly_vae_train_score_relevance_0_3.log
+
+[피처 중요도 로그] /home/sghan/LTR-algorithm/severity/feature_importance_train_severity_anomaly_vae_train_score_relevance_0_3.log
+
+[검증] 이상 점수→CVSS 매핑 MAE(참고): 6.1994
+
+[검증] Validation (CVSS)
+
+=== Validation (CVSS 수치) ===
+MAE: 6.1994
+RMSE: 6.5432
+Pearson r (y_true, y_pred): 0.0393
+
+[Train] CVSS 예측 vs 정답
+
+=== Train (score→CVSS map) (CVSS 수치) ===
+MAE: 6.0196
+RMSE: 6.3380
+Pearson r (y_true, y_pred): 0.0055
+
+[CVSS] train 이상 점수 min/max: 0.013857 / 8.593413 (train CVSS min/max로 선형 매핑)
+
+[Test] CVSS 예측 vs 정답
+
+=== Test (mode=train_score_relevance_0_3) (CVSS 수치) ===
+MAE: 5.6129
+RMSE: 5.9221
+Pearson r (y_true, y_pred): 0.0602
+
+저장: severity/CVE_summary_separate/cve-datasets/cve_with_meaning70_anomaly_vae_train_score_relevance_0_3.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.579 s
+전처리(인코딩·스케일) + 학습(train∪val): 67.345 s
+추론·경계·평가·저장(전수): 0.352 s
+  └ Test severity 정답 비교(report_metrics)만: 0.000 s
+전체: 68.276 s
+
+=== 랭킹 지표 MRR (relevance=CVSS 수치) ===
+Validation MRR: 1.000000
+Test MRR:       1.000000
+
+========== anomaly_sequence_ae ==========
+[로그 파일] /home/sghan/LTR-algorithm/severity/experiment_logs/from_lambdamart_20260331_092138/logs/anomaly_sequence_ae_train_score_relevance_0_3.log
+
+[피처 중요도 로그] /home/sghan/LTR-algorithm/severity/feature_importance_train_severity_anomaly_sequence_ae_train_score_relevance_0_3.log
+
+[검증] 이상 점수→CVSS 매핑 MAE(참고): 6.1851
+
+[검증] Validation (CVSS)
+
+=== Validation (CVSS 수치) ===
+MAE: 6.1851
+RMSE: 6.5264
+Pearson r (y_true, y_pred): 0.0694
+
+[Train] CVSS 예측 vs 정답
+
+=== Train (score→CVSS map) (CVSS 수치) ===
+MAE: 5.9965
+RMSE: 6.3157
+Pearson r (y_true, y_pred): 0.0210
+
+[CVSS] train 이상 점수 min/max: 0.033186 / 184.462021 (train CVSS min/max로 선형 매핑)
+
+[Test] CVSS 예측 vs 정답
+
+=== Test (mode=train_score_relevance_0_3) (CVSS 수치) ===
+MAE: 5.6129
+RMSE: 5.9208
+Pearson r (y_true, y_pred): 0.0631
+
+저장: severity/CVE_summary_separate/cve-datasets/cve_with_meaning70_anomaly_sequence_ae_train_score_relevance_0_3.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.575 s
+전처리(인코딩·스케일) + 학습(train∪val): 482.676 s
+추론·경계·평가·저장(전수): 1.074 s
+  └ Test severity 정답 비교(report_metrics)만: 0.000 s
+전체: 484.326 s
+
+=== 랭킹 지표 MRR (relevance=CVSS 수치) ===
+Validation MRR: 1.000000
+Test MRR:       1.000000
+
+========== anomaly_deep_stacked_ae ==========
+[로그 파일] /home/sghan/LTR-algorithm/severity/experiment_logs/from_lambdamart_20260331_092138/logs/anomaly_deep_stacked_ae_train_score_relevance_0_3.log
+
+[피처 중요도 로그] /home/sghan/LTR-algorithm/severity/feature_importance_train_severity_anomaly_deep_stacked_ae_train_score_relevance_0_3.log
+
+[검증] 이상 점수→CVSS 매핑 MAE(참고): 6.2530
+
+[검증] Validation (CVSS)
+
+=== Validation (CVSS 수치) ===
+MAE: 6.2530
+RMSE: 6.5922
+Pearson r (y_true, y_pred): 0.0373
+
+[Train] CVSS 예측 vs 정답
+
+=== Train (score→CVSS map) (CVSS 수치) ===
+MAE: 6.0455
+RMSE: 6.3625
+Pearson r (y_true, y_pred): 0.0013
+
+[CVSS] train 이상 점수 min/max: 0.000126 / 134.921112 (train CVSS min/max로 선형 매핑)
+
+[Test] CVSS 예측 vs 정답
+
+=== Test (mode=train_score_relevance_0_3) (CVSS 수치) ===
+MAE: 5.6859
+RMSE: 5.9910
+Pearson r (y_true, y_pred): 0.0642
+
+저장: severity/CVE_summary_separate/cve-datasets/cve_with_meaning70_anomaly_deep_stacked_ae_train_score_relevance_0_3.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.575 s
+전처리(인코딩·스케일) + 학습(train∪val): 141.626 s
+추론·경계·평가·저장(전수): 0.518 s
+  └ Test severity 정답 비교(report_metrics)만: 0.000 s
+전체: 142.719 s
+
+=== 랭킹 지표 MRR (relevance=CVSS 수치) ===
+Validation MRR: 1.000000
+Test MRR:       1.000000
+
+========== anomaly_isolation_forest ==========
+[로그 파일] /home/sghan/LTR-algorithm/severity/experiment_logs/from_lambdamart_20260331_092138/logs/anomaly_isolation_forest_train_score_relevance_0_3.log
+
+[피처 중요도 로그] /home/sghan/LTR-algorithm/severity/feature_importance_train_severity_anomaly_isolation_forest_train_score_relevance_0_3.log
+
+[검증] 이상 점수→CVSS 매핑 MAE(참고): 4.0776
+
+[검증] Validation (CVSS)
+
+=== Validation (CVSS 수치) ===
+MAE: 4.0776
+RMSE: 4.6060
+Pearson r (y_true, y_pred): 0.1944
+
+[Train] CVSS 예측 vs 정답
+
+=== Train (score→CVSS map) (CVSS 수치) ===
+MAE: 4.1254
+RMSE: 4.6442
+Pearson r (y_true, y_pred): 0.0333
+
+[CVSS] train 이상 점수 min/max: 0.315973 / 0.580743 (train CVSS min/max로 선형 매핑)
+
+[Test] CVSS 예측 vs 정답
+
+=== Test (mode=train_score_relevance_0_3) (CVSS 수치) ===
+MAE: 3.6687
+RMSE: 4.2139
+Pearson r (y_true, y_pred): 0.0709
+
+저장: severity/CVE_summary_separate/cve-datasets/cve_with_meaning70_anomaly_isolation_forest_train_score_relevance_0_3.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.577 s
+전처리(인코딩·스케일) + 학습(train∪val): 2.740 s
+추론·경계·평가·저장(전수): 1.294 s
+  └ Test severity 정답 비교(report_metrics)만: 0.000 s
+전체: 4.611 s
+
+=== 랭킹 지표 MRR (relevance=CVSS 수치) ===
+Validation MRR: 1.000000
+Test MRR:       1.000000
+
+========== reg_xgboost_regressor ==========
+[로그 파일] /home/sghan/LTR-algorithm/severity/experiment_logs/from_lambdamart_20260331_092138/logs/reg_xgboost_regressor_train_score_relevance_0_3.log
+
+[피처 중요도 로그] /home/sghan/LTR-algorithm/severity/feature_importance_train_severity_reg_xgboost_regressor_train_score_relevance_0_3.log
+
+[검증] CVSS 회귀 예측 vs 정답 MAE(참고): 0.0148
+
+[검증] Validation (CVSS)
+
+=== Validation (CVSS 수치) ===
+MAE: 0.0148
+RMSE: 0.0385
+Pearson r (y_true, y_pred): 0.9998
+
+[Train] CVSS 예측 vs 정답
+
+=== Train (XGBoost CVSS regression) (CVSS 수치) ===
+MAE: 0.0062
+RMSE: 0.0430
+Pearson r (y_true, y_pred): 0.9998
+
+[CVSS] train 예측 min/max: 0.305882 / 10.052296 (회귀 출력은 CVSS 스케일)
+
+[Test] CVSS 예측 vs 정답
+
+=== Test (mode=train_score_relevance_0_3) (CVSS 수치) ===
+MAE: 0.1285
+RMSE: 0.6155
+Pearson r (y_true, y_pred): 0.9477
+
+저장: severity/CVE_summary_separate/cve-datasets/cve_with_meaning70_reg_xgboost_regressor_train_score_relevance_0_3.csv
+
+=== 소요 시간 ===
+CSV 로드·train/val/test 분할: 0.582 s
+전처리(인코딩·스케일) + 학습(train∪val): 3.457 s
+추론·경계·평가·저장(전수): 0.453 s
+  └ Test severity 정답 비교(report_metrics)만: 0.001 s
+전체: 4.493 s
+
+=== 랭킹 지표 MRR (relevance=CVSS 수치) ===
+Validation MRR: 1.000000
+Test MRR:       1.000000
+
+[요약 MD 생성]
+[요약 저장] /home/sghan/LTR-algorithm/severity/experiment_logs/from_lambdamart_20260331_092138/SUMMARY.md
+[완료] /home/sghan/LTR-algorithm/severity/experiment_logs/from_lambdamart_20260331_092138/SUMMARY.md

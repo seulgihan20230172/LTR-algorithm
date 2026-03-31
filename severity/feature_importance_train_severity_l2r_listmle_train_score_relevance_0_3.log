@@ -1,5 +1,5 @@
 # feature importance + SHAP (트리/부스팅 위주)
-# time: 2026-03-30T04:30:49.088191
+# time: 2026-03-30T22:16:05.424824
 # model: listmle  test_mode: train_score_relevance_0_3
 #
 # [1] feature_importances_: 모델 내장 분할 기여(상대 비교용).
@@ -90,4 +90,4 @@ idx	feature
 # --- 내장 feature_importances_: 없음 또는 차원 불일치 ---
 이 모델은 sklearn 스타일 feature_importances_를 제공하지 않습니다 (AE·L2R·IsolationForest 등).
 #
-# SHAP: SHAP TreeExplainer 미지원 또는 오류: InvalidModelError("Model type not yet supported by TreeExplainer: <class 'ListNet.ListNet'>")
+# SHAP: shap 미설치: pip install shap
