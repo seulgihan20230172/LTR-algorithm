@@ -70,9 +70,11 @@ for m in vanilla_ae denoising_ae vae sequence_ae deep_stacked_ae isolation_fores
 done
 
 # --- Regression ---
-run_one "reg_xgboost_regressor" severity/train_severity_regression_rank.py \
-  --config "$CONFIG" --model xgboost_regressor "${TM_ARGS[@]}" \
-  --log "${LOGDIR}/reg_xgboost_regressor_${LOG_SUFFIX}.log"
+for m in linear_regression knn_regressor decision_tree_regressor; do
+  run_one "reg_${m}" severity/train_severity_regression_rank.py \
+    --config "$CONFIG" --model "$m" "${TM_ARGS[@]}" \
+    --log "${LOGDIR}/reg_${m}_${LOG_SUFFIX}.log"
+done
 
 echo ""
 echo "[요약 MD 생성]"
