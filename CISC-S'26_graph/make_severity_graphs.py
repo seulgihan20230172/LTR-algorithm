@@ -39,6 +39,18 @@ _RE_RMSE = re.compile(r"^\s*RMSE:\s*([0-9.]+)\s*$", re.IGNORECASE | re.MULTILINE
 _RE_PEARSON = re.compile(r"^\s*Pearson\s+r\s*\(y_true,\s*y_pred\):\s*([-0-9.]+)\s*$", re.IGNORECASE | re.MULTILINE)
 _RE_ELAPSED_TOTAL = re.compile(r"^\s*전체:\s*([0-9.]+)\s*s\s*$", re.IGNORECASE | re.MULTILINE)
 
+# XGBoost ranker 로그에 NDCG/MAP이 누락되는 경우가 있어, paper figure 재현을 위해 Test Metrics를 하드코딩 보정한다.
+# (사용자가 제공한 값 / test metrics 사용)
+_HARDCODED_TEST_METRICS_BY_MODEL: Dict[str, Dict[str, float]] = {
+    "xgboost": {
+        "NDCG@1": 0.9010919252705567,
+        "NDCG@5": 0.9174429494529721,
+        "NDCG@10": 0.9254785374232092,
+        "MAP": 1.0,
+        "MRR": 1.0,
+    }
+}
+
 
 def _iter_log_files(log_root: Path) -> Iterable[Path]:
     yield from log_root.rglob("*.log")
@@ -100,6 +112,12 @@ def parse_ranking_metrics_from_log(log_path: Path) -> Optional[ParsedRankingMetr
     model = _normalize_model_name_from_filename(log_path.name)
 
     metrics = _extract_last_metrics_dict(content) or {}
+
+    # Fallback hardcoded metrics (when logs don't print full dict).
+    fallback = _HARDCODED_TEST_METRICS_BY_MODEL.get(model, {})
+    if fallback:
+        for k, v in fallback.items():
+            metrics.setdefault(k, v)
 
     # NDCG@1/5/10
     ndcg1 = metrics.get("NDCG@1")
@@ -273,16 +291,10 @@ def _plot_l2r_ranking_compact(
     from matplotlib.patches import Rectangle
     import numpy as np
 
-    # Korean font (Windows)
-    try:
-        available = {f.name for f in font_manager.fontManager.ttflist}
-        for candidate in ("Malgun Gothic", "AppleGothic", "NanumGothic"):
-            if candidate in available:
-                plt.rcParams["font.family"] = candidate
-                break
-        plt.rcParams["axes.unicode_minus"] = False
-    except Exception:
-        pass
+    # 스타일/비율은 create_threshold_graph.py에 맞춤
+    plt.rcParams["font.family"] = "Times New Roman"
+    plt.rcParams["font.size"] = 40
+    plt.rcParams["axes.unicode_minus"] = False
 
     models = [r.model for r in ranking]
     nd1 = np.array([np.nan if r.ndcg1 is None else float(r.ndcg1) for r in ranking], dtype=float)
@@ -291,29 +303,39 @@ def _plot_l2r_ranking_compact(
     mrr = np.array([np.nan if r.mrr is None else float(r.mrr) for r in ranking], dtype=float)
     map_ = np.array([np.nan if r.map is None else float(r.map) for r in ranking], dtype=float)
 
-    # Layout: per-model block width ~= 1.0
-    block_gap = 0.35
-    base = np.arange(len(models)) * (1.0 + block_gap)
+    # Layout: per-model block = [NDCG(outer box width=rect_w), MRR, MAP] placed adjacent.
+    # Bars within each model are "붙어서" 보이도록 간격을 최소화한다.
+    rect_w = 1.5  # overall bar width for NDCG outer box and MRR/MAP bars (막대폭 크게 증가)
+    gap = 0.0  # 같은 모델 내 막대는 붙임
+    model_span = rect_w * 3 + gap * 2
+    # 폰트가 큰 편이라 모델 간 간격을 넉넉히 확보
+    block_gap = 2.10
+    base = np.arange(len(models)) * (model_span + block_gap)
 
-    # Inside each model block:
-    # NDCG block = 3 붙은 막대 (no gaps), plus a small gap, then MRR and MAP bars.
-    w = 0.12
-    nd_x0 = base - 0.28
-    nd_pos = [nd_x0 + 0 * w, nd_x0 + 1 * w, nd_x0 + 2 * w]  # 붙어서
-    mrr_pos = base + 0.14
-    map_pos = base + 0.30
+    ndcg_left = base - model_span / 2.0
+    mrr_left = ndcg_left + rect_w + gap
+    map_left = mrr_left + rect_w + gap
 
-    fig_w = max(12.0, 0.95 * len(models) + 6.0)
-    fig, ax = plt.subplots(figsize=(fig_w, 6.2), dpi=160)
+    nd_w = rect_w / 3.0  # NDCG@1/@5/@10 bars fill the outer box exactly
+    nd_pos = [
+        ndcg_left + nd_w * 0.5,
+        ndcg_left + nd_w * 1.5,
+        ndcg_left + nd_w * 2.5,
+    ]
+    mrr_pos = mrr_left + rect_w * 0.5
+    map_pos = map_left + rect_w * 0.5
 
-    # NDCG@1/5/10 (붙은 막대)
-    ax.bar(nd_pos[0], nd1, w, label="NDCG@1", color="#4C78A8")
-    ax.bar(nd_pos[1], nd5, w, label="NDCG@5", color="#72B7B2")
-    ax.bar(nd_pos[2], nd10, w, label="NDCG@10", color="#A0CBE8")
+    # 가로축-글씨 비율 유지: width=16, font=40 고정, 세로만 축소
+    fig, ax = plt.subplots(figsize=(16, 8), dpi=300)
+
+    # NDCG@1/5/10 (붙은 막대, outer box 안에 딱 맞춤)
+    ax.bar(nd_pos[0], nd1, nd_w, label="NDCG@1", color="#4C78A8")
+    ax.bar(nd_pos[1], nd5, nd_w, label="NDCG@5", color="#72B7B2")
+    ax.bar(nd_pos[2], nd10, nd_w, label="NDCG@10", color="#A0CBE8")
 
     # MRR / MAP
-    ax.bar(mrr_pos, mrr, w * 1.3, label="MRR", color="#F58518")
-    ax.bar(map_pos, map_, w * 1.3, label="MAP", color="#54A24B")
+    ax.bar(mrr_pos, mrr, rect_w, label="MRR", color="#F58518")
+    ax.bar(map_pos, map_, rect_w, label="MAP", color="#54A24B")
 
     # Red dashed outline bar for max(NDCG@1,@5,@10) per model
     # Avoid RuntimeWarning for models that have all-NaN NDCG values.
@@ -322,14 +344,12 @@ def _plot_l2r_ranking_compact(
         [np.nan if np.all(np.isnan(stacked[:, i])) else float(np.nanmax(stacked[:, i])) for i in range(stacked.shape[1])],
         dtype=float,
     )
-    outline_left = nd_pos[0] - w / 2.0
-    outline_width = (nd_pos[2] + w / 2.0) - outline_left
     for i in range(len(models)):
         if math.isnan(float(nd_max[i])):
             continue
         rect = Rectangle(
-            (float(outline_left[i]), 0.0),
-            float(outline_width[i]),
+            (float(ndcg_left[i]), 0.0),
+            float(rect_w),
             float(nd_max[i]),
             fill=False,
             edgecolor="red",
@@ -339,20 +359,60 @@ def _plot_l2r_ranking_compact(
         )
         ax.add_patch(rect)
 
-    # X ticks centered per model block
-    ax.set_xticks(base + 0.06)
-    ax.set_xticklabels(models, rotation=25, ha="right")
+    # X ticks centered per model block (가로로 표기)
+    ax.set_xticks(base)
+    ax.set_xticklabels(models, rotation=0, ha="center")
 
-    ax.set_title(title)
-    ax.set_ylabel("Score")
+    # 제목 제거(요청사항)
+    ax.set_ylabel("Score", fontsize=40)
     ax.grid(axis="y", linestyle="--", alpha=0.35)
     ax.set_ylim(bottom=0.0)
 
-    ax.legend(ncol=5, loc="upper center", bbox_to_anchor=(0.5, 1.13))
+    ax.tick_params(axis="both", labelsize=40)
 
-    fig.tight_layout()
+    # 범례를 아래로, 2줄로(윗줄 NDCG 3개 / 아랫줄 MRR, MAP)
+    handles, labels = ax.get_legend_handles_labels()
+    label_to_handle = dict(zip(labels, handles))
+
+    # Matplotlib legend는 column-major로 채우므로, 2행×3열에서 아래 모양이 되도록 재배치:
+    #   NDCG@1             NDCG@5          NDCG@10
+    #                     MRR              MAP
+    # 즉 row2 col1은 빈칸.
+    from matplotlib.patches import Rectangle as _Rect
+
+    dummy = _Rect((0, 0), 1, 1, fill=False, edgecolor="none", label=" ")
+    # column-major fill, 2 rows x 3 cols:
+    # col1: row1=item1, row2=item2
+    # col2: row1=item3, row2=item4
+    # col3: row1=item5, row2=item6
+    # 2행×3열( column-major )에서 아래처럼 보이도록:
+    #   NDCG@1             NDCG@5          NDCG@10
+    #   MRR                MAP
+    # (마지막 칸은 빈칸)
+    legend_handles = [
+        label_to_handle.get("NDCG@1"),
+        label_to_handle.get("MRR"),
+        label_to_handle.get("NDCG@5"),
+        label_to_handle.get("MAP"),
+        label_to_handle.get("NDCG@10"),
+        dummy,
+    ]
+    legend_handles = [h for h in legend_handles if h is not None]
+    ax.legend(
+        handles=legend_handles,
+        loc="upper center",
+        bbox_to_anchor=(0.5, -0.06),
+        ncol=3,
+        frameon=True,
+        fontsize=40,
+        handlelength=1.8,
+        columnspacing=1.6,
+    )
+
+    # 왼쪽 여백을 조금 더 확보(오른쪽 축/라벨 구간만큼)
+    plt.subplots_adjust(top=0.95, bottom=0.12, left=0.14, right=0.98)
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out_path)
+    fig.savefig(out_path, bbox_inches="tight")
     plt.close(fig)
 
 def _choose_latest_by_model(items: Iterable, model_attr: str = "model", source_attr: str = "source_log"):
@@ -491,9 +551,9 @@ def _plot_best_rmse_pearson_time(
     h2, l2 = ax2.get_legend_handles_labels()
     ax.legend(h1 + h2, l1 + l2, loc="upper right", ncol=3)
 
-    fig.tight_layout()
+    plt.subplots_adjust(top=0.92, bottom=0.22, left=0.10, right=0.92)
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out_path)
+    fig.savefig(out_path, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -552,7 +612,7 @@ def main():
     regression = _choose_latest_by_model(regression_candidates)
 
     # ---- Figure 1: L2R 모델끼리 Ranking 지표 비교 (NDCG@1/5/10 + MRR + MAP) ----
-    allowed_l2r_models = {"listnet", "listmle", "ranknet", "lambdarank", "lambdamart", "xgboost"}
+    allowed_l2r_models = {"listnet", "listmle", "ranknet", "lambdamart", "xgboost"}
     ranking_l2r = [r for r in ranking if r.model in allowed_l2r_models]
     ranking_l2r.sort(key=lambda x: x.model)
 
