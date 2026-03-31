@@ -53,12 +53,14 @@ for m in listnet listmle xgboost ranknet lambdarank lambdamart bm25; do
     --log "${LOGDIR}/l2r_${m}_${LOG_SUFFIX}.log"
 done
 
+'''
 # --- Classification ---
 for m in random_forest lightgbm; do
   run_one "cls_${m}" severity/train_severity_classification_rank.py \
     --config "$CONFIG" --model "$m" "${TM_ARGS[@]}" \
     --log "${LOGDIR}/cls_${m}_${LOG_SUFFIX}.log"
 done
+'''
 
 # --- Anomaly ---
 for m in vanilla_ae denoising_ae vae sequence_ae deep_stacked_ae isolation_forest; do
