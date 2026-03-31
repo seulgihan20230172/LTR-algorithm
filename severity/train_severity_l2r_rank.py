@@ -619,9 +619,15 @@ def run(
     print(f"  └ Test severity 정답 비교(report_metrics)만: {dt_test_severity:.3f} s")
     print(f"전체: {dt_total:.3f} s")
     rel_note = "relevance=CVSS 수치" if label_mode == "cvss" else "relevance=0..3"
-    print(f"\n=== 랭킹 지표 MRR (L2R/metrics, {rel_note}) ===")
-    print(f"Validation MRR: {m_val['MRR']:.6f}")
-    print(f"Test MRR:       {m_test['MRR']:.6f}")
+    print(f"\n=== 랭킹 지표 (L2R/metrics, {rel_note}) ===")
+    # L2R/metrics.evaluate_all 은 NDCG@1/5/10, MAP, MRR 을 반환한다.
+    # 다른 L2R 모델들은 학습 로그에서 epoch별 Metrics를 출력하지만, XGBoost는 그렇지 않아 최종 dict를 반드시 남긴다.
+    print(f"Validation Metrics: {m_val}")
+    print(f"Test Metrics:       {m_test}")
+    if "MRR" in m_val:
+        print(f"Validation MRR: {m_val['MRR']:.6f}")
+    if "MRR" in m_test:
+        print(f"Test MRR:       {m_test['MRR']:.6f}")
 
 
 def _default_log_path(model: str, test_mode: str) -> Path:

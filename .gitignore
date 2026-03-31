@@ -19,3 +19,8 @@ severity/CVE_summary_separate/cve-datasets/cve_with_meaning50.csv
 severity/CVE_summary_separate/cve-datasets/cve.csv
 severity/CVE_summary_separate/__pycache__
 
+# Graphs
+CISC-S'26_graph/out/*
+CISC-S'26_graph/create_threshold_graph.py
+
+
