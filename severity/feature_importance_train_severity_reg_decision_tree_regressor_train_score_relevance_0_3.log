@@ -1,5 +1,5 @@
 # feature importance + SHAP (트리/부스팅 위주)
-# time: 2026-03-31T18:35:21.608660
+# time: 2026-03-31T23:17:47.031082
 # model: decision_tree_regressor  test_mode: train_score_relevance_0_3
 #
 # [1] feature_importances_: 모델 내장 분할 기여(상대 비교용).
