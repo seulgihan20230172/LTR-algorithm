@@ -5,12 +5,68 @@ from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
+from matplotlib.patches import Polygon
 
 from graph_common import (
     iter_log_files,
     parse_ranking_metrics_from_log,
     select_by_model_with_priority,
 )
+
+def _map_series(values: np.ndarray, *, y_min: float, low_max: float, high_min: float, low_end: float, high_start: float) -> np.ndarray:
+    """
+    Piecewise-linear mapping into a compressed display y coordinate.
+    - values <= low_max: map into [y_min, low_end]
+    - values >= high_min: map into [high_start, 1.0]
+    - between: clamp to low_end (gap region)
+    """
+    v = np.array(values, dtype=float)
+    out = np.full_like(v, np.nan, dtype=float)
+    finite = v[np.isfinite(v)]
+    if finite.size == 0:
+        return out
+
+    high_max = float(np.nanmax(finite))
+    low_denom = max(1e-12, low_max - y_min)
+    high_denom = max(1e-12, high_max - high_min)
+    high_span = max(1e-12, 1.0 - high_start)
+
+    for i, val in enumerate(v):
+        if not np.isfinite(val):
+            continue
+        if val <= low_max:
+            out[i] = y_min + (val - y_min) / low_denom * (low_end - y_min)
+        elif val >= high_min:
+            out[i] = high_start + (val - high_min) / high_denom * high_span
+        else:
+            out[i] = low_end
+    return out
+
+
+def _add_break_symbol(ax, break_y: float, x_min: float, x_max: float):
+    """Double wavy break (two lines) with white fill between, across [x_min, x_max]."""
+    x_data = np.linspace(x_min, x_max, 500)
+    y_range = ax.get_ylim()[1] - ax.get_ylim()[0]
+    if y_range <= 0:
+        return
+
+    wave_pattern = 0.012 * y_range * np.sin(15 * np.pi * (x_data - x_min) / (x_max - x_min))
+    y_data1 = break_y + 0.024 * y_range + wave_pattern
+    y_data2 = break_y + 0.008 * y_range + wave_pattern
+
+    polygon_points = np.vstack(
+        [
+            np.column_stack([x_data, y_data1]),
+            np.column_stack([x_data[::-1], y_data2[::-1]]),
+        ]
+    )
+    poly = Polygon(polygon_points, facecolor="white", edgecolor="none", zorder=13, transform=ax.transData)
+    ax.add_patch(poly)
+
+    ax.plot(x_data, y_data1, "k-", linewidth=2.4, clip_on=False, zorder=15)
+    ax.plot(x_data, y_data2, "k-", linewidth=2.4, clip_on=False, zorder=15)
+    ax.plot([x_data[0], x_data[0]], [y_data1[0], y_data2[0]], "k-", linewidth=3.4, clip_on=False, zorder=15)
+    ax.plot([x_data[-1], x_data[-1]], [y_data1[-1], y_data2[-1]], "k-", linewidth=3.4, clip_on=False, zorder=15)
 
 
 def _ranking_priority(p: Path) -> int:
@@ -55,27 +111,54 @@ def plot_l2r_ranking_compact(out_path: Path, ranking):
 
     fig, ax = plt.subplots(figsize=(16, 8), dpi=300)
 
+    # y-axis: 0.90~1.00(표시) 구간만 보여주되, 막대는 0.90 기준선에서 시작하게 해서
+    # "1.00을 넘는 것처럼" 보이는 착시를 방지한다.
+    y_min = 0.90
+    xgb_idx = next((i for i, m in enumerate(models) if m == "xgboost"), None)
+    low_max = None
+    high_min = None
+    break_pos = None
+    if xgb_idx is not None and np.isfinite(nd1[xgb_idx]) and np.isfinite(nd5[xgb_idx]) and np.isfinite(nd10[xgb_idx]):
+        low_max = float(np.nanmax([nd1[xgb_idx], nd5[xgb_idx], nd10[xgb_idx]]))
+        other_nd = np.concatenate([np.delete(nd1, xgb_idx), np.delete(nd5, xgb_idx), np.delete(nd10, xgb_idx)])
+        other_nd = other_nd[np.isfinite(other_nd)]
+        high_min = float(np.nanmin(other_nd)) if other_nd.size else low_max
+
+        low_end = 0.94
+        high_start = 0.965
+        break_pos = (low_end + high_start) / 2.0 - 0.004
+
+        nd1p = _map_series(nd1, y_min=y_min, low_max=low_max, high_min=high_min, low_end=low_end, high_start=high_start)
+        nd5p = _map_series(nd5, y_min=y_min, low_max=low_max, high_min=high_min, low_end=low_end, high_start=high_start)
+        nd10p = _map_series(nd10, y_min=y_min, low_max=low_max, high_min=high_min, low_end=low_end, high_start=high_start)
+        mrrp = _map_series(mrr, y_min=y_min, low_max=low_max, high_min=high_min, low_end=low_end, high_start=high_start)
+        mapp = _map_series(map_, y_min=y_min, low_max=low_max, high_min=high_min, low_end=low_end, high_start=high_start)
+    else:
+        nd1p, nd5p, nd10p, mrrp, mapp = nd1, nd5, nd10, mrr, map_
+
     # Bars
-    ax.bar(nd_pos[0], nd1, nd_w, label="NDCG@1", color="#4C78A8")
-    ax.bar(nd_pos[1], nd5, nd_w, label="NDCG@5", color="#72B7B2")
-    ax.bar(nd_pos[2], nd10, nd_w, label="NDCG@10", color="#A0CBE8")
-    ax.bar(mrr_pos, mrr, rect_w, label="MRR", color="#F58518")
-    ax.bar(map_pos, map_, rect_w, label="MAP", color="#54A24B")
+    ax.bar(nd_pos[0], nd1p - y_min, nd_w, bottom=y_min, label="NDCG@1", color="#4C78A8")
+    ax.bar(nd_pos[1], nd5p - y_min, nd_w, bottom=y_min, label="NDCG@5", color="#72B7B2")
+    ax.bar(nd_pos[2], nd10p - y_min, nd_w, bottom=y_min, label="NDCG@10", color="#A0CBE8")
+    ax.bar(mrr_pos, mrrp - y_min, rect_w, bottom=y_min, label="MRR", color="#F58518")
+    ax.bar(map_pos, mapp - y_min, rect_w, bottom=y_min, label="MAP", color="#54A24B")
 
     # Red dashed outline for max NDCG per model
-    stacked = np.vstack([nd1, nd5, nd10])
-    nd_max = np.array(
-        [np.nan if np.all(np.isnan(stacked[:, i])) else float(np.nanmax(stacked[:, i])) for i in range(stacked.shape[1])],
+    # (막대와 1:1로 맞추기 위해 "이미 그려진 display 값"의 최대를 직접 사용)
+    nd_stack_disp = np.vstack([nd1p, nd5p, nd10p])
+    nd_max_disp = np.array(
+        [np.nan if np.all(np.isnan(nd_stack_disp[:, i])) else float(np.nanmax(nd_stack_disp[:, i])) for i in range(nd_stack_disp.shape[1])],
         dtype=float,
     )
+
     for i in range(len(models)):
-        if math.isnan(float(nd_max[i])):
+        if not np.isfinite(nd_max_disp[i]):
             continue
         ax.add_patch(
             Rectangle(
-                (float(ndcg_left[i]), 0.0),
+                (float(ndcg_left[i]), float(y_min)),
                 float(rect_w),
-                float(nd_max[i]),
+                float(nd_max_disp[i] - y_min),
                 fill=False,
                 edgecolor="red",
                 linewidth=2.0,
@@ -89,7 +172,33 @@ def plot_l2r_ranking_compact(out_path: Path, ranking):
     ax.set_ylabel("Score", fontsize=40)
     ax.tick_params(axis="both", labelsize=40)
     ax.grid(axis="y", linestyle="--", alpha=0.35)
-    ax.set_ylim(bottom=0.0)
+
+    # 상단 경계에 붙지 않도록 약간의 헤드룸을 둔다(라벨은 1.00 유지)
+    ax.set_ylim(0.90, 1.01)
+    # xlim을 명시해서 물결이 "그래프 박스 폭" 전체를 덮도록 함
+    ax.set_xlim(float(ndcg_left[0]) - 0.6, float(map_left[-1] + rect_w) + 0.6)
+    if break_pos is not None:
+        x_min, x_max = ax.get_xlim()
+        _add_break_symbol(ax, break_pos, x_min=float(x_min), x_max=float(x_max))
+
+        # 1.00 라벨이 상단 경계에 닿지 않도록 tick 위치만 살짝 아래로
+        top_pos = 1.005
+        tick_pos = [0.90, 0.94, 0.965, top_pos]
+        tick_lab = [0.90, low_max, high_min, 1.00]
+        dedup_pos = []
+        dedup_lab = []
+        for p, l in zip(tick_pos, tick_lab):
+            if l is None:
+                continue
+            if dedup_lab and abs(float(l) - float(dedup_lab[-1])) < 1e-10:
+                continue
+            dedup_pos.append(p)
+            dedup_lab.append(l)
+        ax.set_yticks(dedup_pos)
+        ax.set_yticklabels([f"{float(v):.2f}" for v in dedup_lab])
+    else:
+        ax.set_yticks([0.90, 0.95, 0.995])
+        ax.set_yticklabels(["0.90", "0.95", "1.00"])
 
     # Two-line legend, centered box; keep current layout that you iterated on
     handles, labels = ax.get_legend_handles_labels()
@@ -123,20 +232,30 @@ def plot_l2r_ranking_compact(out_path: Path, ranking):
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--log_root", type=str, default=str(Path("severity") / "experiment_logs"))
+    p.add_argument(
+        "--log_root",
+        type=str,
+        nargs="*",
+        default=[
+            str(Path("severity") / "experiment_logs" / "all_20260330_214454"),
+            str(Path("severity") / "experiment_logs" / "from_lambdamart_20260331_092138"),
+        ],
+        help="One or more log roots to search.",
+    )
     p.add_argument("--out", type=str, default=str(Path("CISC-S'26_graph") / "out" / "cvss_l2r_models_rmse_pearson_bar.png"))
     args = p.parse_args()
 
     repo_root = Path(__file__).resolve().parents[1]
-    log_root = (repo_root / args.log_root).resolve()
     out_path = (repo_root / args.out).resolve()
 
     ranking_candidates = []
-    for lf in iter_log_files(log_root):
-        if "l2r_" in lf.name and ("test_oracle_ratio" in lf.name or "train_thresholds" in lf.name or "train_score" in lf.name):
-            m = parse_ranking_metrics_from_log(lf)
-            if m is not None:
-                ranking_candidates.append(m)
+    for lr in args.log_root:
+        log_root = (repo_root / lr).resolve()
+        for lf in iter_log_files(log_root):
+            if "l2r_" in lf.name and ("test_oracle_ratio" in lf.name or "train_thresholds" in lf.name or "train_score" in lf.name):
+                m = parse_ranking_metrics_from_log(lf)
+                if m is not None:
+                    ranking_candidates.append(m)
 
     ranking = select_by_model_with_priority(ranking_candidates, _ranking_priority)
     allowed = {"listnet", "listmle", "ranknet", "lambdamart", "xgboost"}

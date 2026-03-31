@@ -3,8 +3,24 @@ from pathlib import Path
 
 import numpy as np
 import matplotlib.pyplot as plt
+import re
 
 from graph_common import iter_log_files, parse_regression_metrics_from_log, choose_latest_by_model
+
+_ALLOWED_L2R = {"listnet", "listmle", "xgboost", "ranknet", "lambdamart"}
+_ALLOWED_AUTOENCODER = {"vanilla_ae", "denoising_ae", "sequence_ae"}
+_ALLOWED_REGRESSOR = {"linear_regression", "knn_regressor", "decision_tree_regressor"}
+
+
+def _parse_regressor_name_from_my_log(content: str) -> str | None:
+    # e.g. feature_importance_train_severity_reg_linear_regression_train_score_relevance_0_3.log
+    m = re.search(r"feature_importance_train_severity_reg_([a-z0-9_]+)_train_score_relevance_0_3", content, re.IGNORECASE)
+    if m:
+        return m.group(1).lower()
+    m = re.search(r"cve_with_meaning70_reg_([a-z0-9_]+)_train_score_relevance_0_3", content, re.IGNORECASE)
+    if m:
+        return m.group(1).lower()
+    return None
 
 
 def _map_series(values: np.ndarray, *, low_max: float, high_min: float, low_end: float, high_start: float, high_span: float) -> np.ndarray:
@@ -99,7 +115,8 @@ def plot_best_rmse_pearson_time(out_path: Path, rows):
     low_end = 18.0
     high_start = 28.0
     high_span = 10.0
-    break_pos = (low_end + high_start) / 2.0
+    # 물결을 조금 더 아래로 (요청)
+    break_pos = (low_end + high_start) / 2.0 - 1.0
 
     y_rmse = _map_series(rmse, low_max=low_max_left, high_min=high_min_left, low_end=low_end, high_start=high_start, high_span=high_span)
     y_pearson = _map_series(pearson, low_max=low_max_left, high_min=high_min_left, low_end=low_end, high_start=high_start, high_span=high_span)
@@ -116,6 +133,45 @@ def plot_best_rmse_pearson_time(out_path: Path, rows):
     ax.bar(x, y_pearson, width, label="Pearson r (↑)", color="#D1495B")
     ax.bar(x + width, y_time, width, label="Time (s) (↓)", color="#2A9D8F", alpha=0.90)
 
+    # Value labels above bars (font size 동일)
+    ylim_top = float(ax.get_ylim()[1])
+    # 상단 테두리에 라벨이 붙지 않도록 여유 확보
+    label_top_cap = ylim_top - 2.3
+    for i in range(len(labels)):
+        if np.isfinite(y_rmse[i]) and np.isfinite(rmse[i]):
+            y_text = min(float(y_rmse[i]) + 0.6, label_top_cap)
+            ax.text(
+                x[i] - width,
+                y_text,
+                f"{rmse[i]:.2f}",
+                ha="center",
+                va="bottom",
+                fontsize=40,
+                clip_on=False,
+            )
+        if np.isfinite(y_pearson[i]) and np.isfinite(pearson[i]):
+            y_text = min(float(y_pearson[i]) + 0.6, label_top_cap)
+            ax.text(
+                x[i],
+                y_text,
+                f"{pearson[i]:.2f}",
+                ha="center",
+                va="bottom",
+                fontsize=40,
+                clip_on=False,
+            )
+        if np.isfinite(y_time[i]) and np.isfinite(tsec[i]):
+            y_text = min(float(y_time[i]) + 0.6, label_top_cap)
+            ax.text(
+                x[i] + width,
+                y_text,
+                f"{tsec[i]:.0f}",
+                ha="center",
+                va="bottom",
+                fontsize=40,
+                clip_on=False,
+            )
+
     ax.set_xticks(x)
     ax.set_xticklabels(labels, rotation=0, ha="center")
     ax.set_ylabel("RMSE / Pearson")
@@ -128,7 +184,11 @@ def plot_best_rmse_pearson_time(out_path: Path, rows):
     left_max = float(np.nanmax(np.concatenate([rmse[np.isfinite(rmse)], pearson[np.isfinite(pearson)]]))) if (
         np.any(np.isfinite(rmse)) or np.any(np.isfinite(pearson))
     ) else high_min_left
-    left_tick_pos = [0.0, low_end, high_start, high_start + high_span]
+    # 가장 큰 y축 라벨(예: 5.92)이 너무 위에 붙지 않도록 마지막 tick을 살짝 아래로 내림
+    top_pos = float(ax.get_ylim()[1])
+    # 최상단 라벨이 테두리에 붙지 않도록 더 아래로 내림 (요청)
+    last_pos = min(high_start + high_span, top_pos - 8.0)
+    left_tick_pos = [0.0, low_end, high_start, last_pos]
     left_tick_lab = [0.0, low_max_left, high_min_left, left_max]
     # Deduplicate labels if equal (prevents weird repeats)
     dedup_pos = []
@@ -139,7 +199,7 @@ def plot_best_rmse_pearson_time(out_path: Path, rows):
         dedup_pos.append(p)
         dedup_lab.append(l)
     ax.set_yticks(dedup_pos)
-    ax.set_yticklabels([f"{v:.2f}".rstrip("0").rstrip(".") for v in dedup_lab])
+    ax.set_yticklabels([f"{float(v):.2f}" for v in dedup_lab])
 
     # Right y-axis for Time: use display positions but label with original values.
     ax_time = ax.twinx()
@@ -147,14 +207,16 @@ def plot_best_rmse_pearson_time(out_path: Path, rows):
     ax_time.set_ylabel("Time (s)")
     time_max = float(np.nanmax(tsec[np.isfinite(tsec)])) if np.any(np.isfinite(tsec)) else high_min_right
 
-    # Avoid duplicate labels (e.g., if high_min_right == time_max)
-    tick_pos = [0.0, low_end, high_start, high_start + high_span]
+    # Avoid duplicate labels (e.g., 484 showing twice)
+    tick_pos = [0.0, low_end, high_start, last_pos]
     tick_lab = [int(0), int(low_max_right), int(high_min_right), int(time_max)]
     dedup_pos = []
     dedup_lab = []
+    seen = set()
     for p, l in zip(tick_pos, tick_lab):
-        if dedup_lab and l == dedup_lab[-1]:
+        if l in seen:
             continue
+        seen.add(l)
         dedup_pos.append(p)
         dedup_lab.append(l)
     ax_time.set_yticks(dedup_pos)
@@ -181,7 +243,22 @@ def plot_best_rmse_pearson_time(out_path: Path, rows):
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--log_root", type=str, default=str(Path("severity") / "experiment_logs"))
+    p.add_argument(
+        "--log_root",
+        type=str,
+        default=str(Path("severity") / "experiment_logs"),
+        help="Base log root (used for my_reg*.log).",
+    )
+    p.add_argument(
+        "--ref_dirs",
+        type=str,
+        nargs="*",
+        default=[
+            str(Path("severity") / "experiment_logs" / "all_20260330_214454"),
+            str(Path("severity") / "experiment_logs" / "from_lambdamart_20260331_092138"),
+        ],
+        help="Directories to reference for L2R/AutoEncoder candidates.",
+    )
     p.add_argument(
         "--out",
         type=str,
@@ -193,12 +270,40 @@ def main():
     log_root = (repo_root / args.log_root).resolve()
     out_path = (repo_root / args.out).resolve()
 
+    # 1) Reference dirs for L2R + AutoEncoder
     candidates = []
-    for lf in iter_log_files(log_root):
-        if "train_score_relevance_0_3" in lf.name:
+    for d in args.ref_dirs:
+        ref_root = (repo_root / d).resolve()
+        for lf in iter_log_files(ref_root):
+            if "train_score_relevance_0_3" not in lf.name:
+                continue
             m = parse_regression_metrics_from_log(lf)
             if m is not None:
                 candidates.append(m)
+
+    # 2) my_reg1~3 for regressors (these files don't encode model name in filename)
+    for pth in (log_root / "my_reg1.log", log_root / "my_reg2.log", log_root / "my_reg3.log"):
+        if not pth.exists():
+            continue
+        content = pth.read_text(encoding="utf-8", errors="replace")
+        model = _parse_regressor_name_from_my_log(content)
+        if model is None:
+            continue
+        # reuse existing parser to get rmse/pearson/time; then override model/group
+        m0 = parse_regression_metrics_from_log(pth)
+        if m0 is None:
+            continue
+        candidates.append(
+            type(m0)(
+                model=model,
+                source_log=m0.source_log,
+                rmse=m0.rmse,
+                pearson=m0.pearson,
+                elapsed_s=m0.elapsed_s,
+                group="regressor",
+            )
+        )
+
     metrics = choose_latest_by_model(candidates)
 
     def score_key(x):
@@ -210,11 +315,24 @@ def main():
         cand = [x for x in metrics if x.group == group]
         if not cand:
             return None
+        if group == "l2r":
+            cand = [x for x in cand if x.model in _ALLOWED_L2R]
+        elif group == "anomaly":
+            cand = [x for x in cand if x.model in _ALLOWED_AUTOENCODER]
+        elif group == "regressor":
+            cand = [x for x in cand if x.model in _ALLOWED_REGRESSOR]
+        if not cand:
+            return None
         return sorted(cand, key=score_key)[0]
 
     best_l2r = best_of("l2r")
     best_anom = best_of("anomaly")
     best_reg = best_of("regressor")
+
+    def display_model_name(m: str) -> str:
+        if m == "decision_tree_regressor":
+            return "decision_tree_reg"
+        return m
 
     rows = []
     for label, item in [
@@ -224,7 +342,7 @@ def main():
     ]:
         if item is None:
             continue
-        rows.append((f"{label}\n({item.model})", item.rmse, item.pearson, item.elapsed_s))
+        rows.append((f"{label}\n({display_model_name(item.model)})", item.rmse, item.pearson, item.elapsed_s))
 
     plot_best_rmse_pearson_time(out_path, rows)
 
