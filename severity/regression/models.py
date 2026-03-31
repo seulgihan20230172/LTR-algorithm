@@ -2,6 +2,9 @@ import sys
 from pathlib import Path
 
 import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.tree import DecisionTreeRegressor
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -54,8 +57,49 @@ class XGBoostRegressorScoreModel:
         return self.model.predict(x).astype(np.float64)
 
 
+class LinearRegressionScoreModel:
+    def __init__(self):
+        self.model = LinearRegression()
+
+    def fit(self, x_train: np.ndarray, y_train_rel: np.ndarray, x_val: np.ndarray, y_val_rel: np.ndarray) -> None:
+        # val은 인터페이스 통일용(LinearRegression은 early stopping 없음)
+        _ = (x_val, y_val_rel)
+        self.model.fit(x_train, y_train_rel)
+
+    def score(self, x: np.ndarray) -> np.ndarray:
+        return self.model.predict(x).astype(np.float64)
+
+
+class KNNRegressorScoreModel:
+    def __init__(self, *, n_neighbors: int = 5):
+        self.model = KNeighborsRegressor(n_neighbors=int(n_neighbors))
+
+    def fit(self, x_train: np.ndarray, y_train_rel: np.ndarray, x_val: np.ndarray, y_val_rel: np.ndarray) -> None:
+        _ = (x_val, y_val_rel)
+        self.model.fit(x_train, y_train_rel)
+
+    def score(self, x: np.ndarray) -> np.ndarray:
+        return self.model.predict(x).astype(np.float64)
+
+
+class DecisionTreeRegressorScoreModel:
+    def __init__(self, *, random_state: int = 42):
+        self.model = DecisionTreeRegressor(random_state=int(random_state))
+
+    def fit(self, x_train: np.ndarray, y_train_rel: np.ndarray, x_val: np.ndarray, y_val_rel: np.ndarray) -> None:
+        _ = (x_val, y_val_rel)
+        self.model.fit(x_train, y_train_rel)
+
+    def score(self, x: np.ndarray) -> np.ndarray:
+        return self.model.predict(x).astype(np.float64)
+
+
 def build_regression_model(model_name: str, random_state: int = 42):
-    if model_name == "xgboost_regressor":
-        return XGBoostRegressorScoreModel(random_state=random_state)
+    if model_name == "linear_regression":
+        return LinearRegressionScoreModel()
+    if model_name == "knn_regressor":
+        return KNNRegressorScoreModel()
+    if model_name == "decision_tree_regressor":
+        return DecisionTreeRegressorScoreModel(random_state=random_state)
     raise ValueError(f"지원하지 않는 regression 모델: {model_name}")
 

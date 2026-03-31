@@ -229,7 +229,16 @@ def main():
         metavar="NAME",
         help="experiment_config.yaml 의 profiles 키 (예: logging, cve). 미지정 시 YAML active_profile.",
     )
-    p.add_argument("--model", choices=["xgboost_regressor"], default="xgboost_regressor")
+    p.add_argument(
+        "--model",
+        choices=[
+            "linear_regression",
+            "knn_regressor",
+            "decision_tree_regressor",
+            "xgboost_regressor",
+        ],
+        default="xgboost_regressor",
+    )
     #p.add_argument("--test-mode", choices=["train_thresholds", "test_oracle_ratio"], default="train_thresholds")
     '''
     p.add_argument("--test-size", type=float, default=0.2)
